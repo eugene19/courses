@@ -16,9 +16,14 @@
 <%@include file="component/header.jsp" %>
 <%@include file="component/menu.jsp" %>
 
+<fmt:message bundle="${bundle}" key="errorPage.message" var="message"/>
+<fmt:message bundle="${bundle}" key="errorPage.button" var="button"/>
+
 <div class="center-form">
-    Sorry, something goes wrong...<br/>
-    <a href="../../index.jsp"><button>Go to the start page</button></a>
+    <p>${message}</p><br/>
+    <a href="../../index.jsp">
+        <button>${button}</button>
+    </a>
 </div>
 
 <%@include file="component/footer.jsp" %>
