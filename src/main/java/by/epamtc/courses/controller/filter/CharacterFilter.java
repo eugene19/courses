@@ -1,4 +1,4 @@
-package by.epamtc.courses.filter;
+package by.epamtc.courses.controller.filter;
 
 import javax.servlet.*;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package by.epamtc.courses.validation;
+package by.epamtc.courses.service.validation;
 
 import by.epamtc.courses.entity.UserRole;
-import by.epamtc.courses.i18n.ResourceManager;
+import by.epamtc.courses.service.i18n.ResourceManager;
 
 import java.time.LocalDate;
 import java.util.HashMap;

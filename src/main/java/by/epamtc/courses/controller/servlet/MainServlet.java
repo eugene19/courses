@@ -1,7 +1,7 @@
-package by.epamtc.courses.servlet;
+package by.epamtc.courses.controller.servlet;
 
-import by.epamtc.courses.servlet.command.Command;
-import by.epamtc.courses.servlet.command.CommandProvider;
+import by.epamtc.courses.service.command.Command;
+import by.epamtc.courses.service.command.CommandProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

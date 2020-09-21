@@ -1,4 +1,4 @@
-package by.epamtc.courses.servlet.command;
+package by.epamtc.courses.service.command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

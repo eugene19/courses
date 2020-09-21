@@ -1,8 +1,8 @@
 package by.epamtc.courses.dao.impl;
 
-import by.epamtc.courses.dao.ConnectionPool;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.UserDao;
+import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserRole;
 

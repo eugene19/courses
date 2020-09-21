@@ -1,11 +1,11 @@
-package by.epamtc.courses.i18n;
+package by.epamtc.courses.service.i18n;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ResourceManager {
     private static final String RES_FILE_NAME = "strings";
-//    private static final String RES_FILE_NAME = "by.epamtc.courses.i18n.strings";
+//    private static final String RES_FILE_NAME = "by.epamtc.courses.service.i18n.strings";
 
     private ResourceBundle resourceBundle;
 

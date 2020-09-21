@@ -1,4 +1,4 @@
-package by.epamtc.courses.dao;
+package by.epamtc.courses.dao.impl.connection;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

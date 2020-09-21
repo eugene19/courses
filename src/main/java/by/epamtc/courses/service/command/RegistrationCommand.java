@@ -1,11 +1,11 @@
-package by.epamtc.courses.servlet.command;
+package by.epamtc.courses.service.command;
 
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.dao.impl.UserDaoImpl;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.builder.UserBuilder;
-import by.epamtc.courses.validation.UserValidator;
+import by.epamtc.courses.service.validation.UserValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
