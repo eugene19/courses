@@ -1,9 +1,12 @@
 package by.epamtc.courses.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Serializable {
+    private static final long serialVersionUID = 1383914108389031021L;
+
     private int id;
     private String summary;
     private String description;
