@@ -4,6 +4,7 @@ import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.dao.impl.UserDaoImpl;
 import by.epamtc.courses.entity.User;
+import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.i18n.ResourceManager;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ public class LoginCommand implements Command {
 
     @Override
     public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+        req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
     }
 
     @Override
@@ -52,6 +53,6 @@ public class LoginCommand implements Command {
 
         req.setAttribute("init", parameterMap);
         req.setAttribute("error", resourceManager.getValue("login.error.wrongLoginOrPass"));
-        req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
+        req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
     }
 }

@@ -5,6 +5,7 @@ import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.dao.impl.UserDaoImpl;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.builder.UserBuilder;
+import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.validation.UserValidator;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ public class RegistrationCommand implements Command {
 
     @Override
     public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req, resp);
+        req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class RegistrationCommand implements Command {
             Map<String, String> errors = userValidator.getErrors();
             req.setAttribute("init", parameterMap);
             req.setAttribute("errors", errors);
-            req.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(req, resp);
+            req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
         }
     }
 }
