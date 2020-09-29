@@ -1,4 +1,6 @@
-package by.epamtc.courses.service.command;
+package by.epamtc.courses.controller.command;
+
+import by.epamtc.courses.service.PageName;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,7 @@ public class NewsCommand implements Command {
         news.add("Three news");
 
         req.setAttribute("news", news);
-        req.getRequestDispatcher("WEB-INF/jsp/news.jsp").forward(req, resp);
+        req.getRequestDispatcher(PageName.NEWS_PAGE).forward(req, resp);
     }
 
     @Override

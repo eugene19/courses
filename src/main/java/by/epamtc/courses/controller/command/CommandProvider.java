@@ -1,4 +1,4 @@
-package by.epamtc.courses.service.command;
+package by.epamtc.courses.controller.command;
 
 import java.util.HashMap;
 import java.util.Map;
