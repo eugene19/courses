@@ -17,14 +17,17 @@ public class MainServlet extends HttpServlet {
     private CommandProvider provider = new CommandProvider();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Command command = provider.getCommand(req.getParameter(COMMAND_PARAM));
-        command.executeGet(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        process(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        process(req, resp);
+    }
+
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Command command = provider.getCommand(req.getParameter(COMMAND_PARAM));
-        command.executePost(req, resp);
+        command.execute(req, resp);
     }
 }

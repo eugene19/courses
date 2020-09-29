@@ -24,12 +24,7 @@ public class LoginCommand implements Command {
     private static final String ERROR_ATTRIBUTE = "error";
 
     @Override
-    public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
-    }
-
-    @Override
-    public void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String login = req.getParameter(LOGIN_PARAM);
         String password = req.getParameter(PASSWORD_PARAM);
         UserDao userDao = new UserDaoImpl();

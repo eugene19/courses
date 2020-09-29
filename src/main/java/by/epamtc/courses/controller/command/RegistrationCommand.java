@@ -21,12 +21,7 @@ public class RegistrationCommand implements Command {
     private static final String ERROR_ATTRIBUTE = "errors";
 
     @Override
-    public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
-    }
-
-    @Override
-    public void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Map<String, String[]> parameterMap = req.getParameterMap();
         String lang = (String) req.getSession().getAttribute(LOCALE_ATTRIBUTE);
         UserValidator userValidator = new UserValidator(parameterMap, lang);

@@ -6,7 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface Command {
-    void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
+    void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
 
-    void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
+//    void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
+//
+//    void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException;
 }

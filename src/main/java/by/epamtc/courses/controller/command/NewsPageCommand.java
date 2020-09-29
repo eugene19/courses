@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsCommand implements Command {
+public class NewsPageCommand implements Command {
 
     @Override
-    public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         List<String> news = new ArrayList<>();
         news.add("One news");
         news.add("Two news");
@@ -20,10 +20,5 @@ public class NewsCommand implements Command {
 
         req.setAttribute("news", news);
         req.getRequestDispatcher(PageName.NEWS_PAGE).forward(req, resp);
-    }
-
-    @Override
-    public void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
     }
 }

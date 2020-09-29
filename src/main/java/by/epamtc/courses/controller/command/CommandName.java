@@ -1,9 +1,11 @@
 package by.epamtc.courses.controller.command;
 
 public enum CommandName {
-    NEWS,
+    GET_NEWS_PAGE,
     LOGIN,
+    GET_LOGIN_PAGE,
     LOGOUT,
     LOCALE,
-    REGISTRATION
+    REGISTRATION,
+    GET_REGISTRATION_PAGE
 }

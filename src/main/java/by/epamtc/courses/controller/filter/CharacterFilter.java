@@ -8,7 +8,7 @@ public class CharacterFilter implements Filter {
     private String charset;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         charset = filterConfig.getInitParameter("charset");
     }
 

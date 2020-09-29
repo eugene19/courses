@@ -22,7 +22,7 @@
                 <form action="${pageContext.request.contextPath}/main?command=locale"
                       method="post">
 <%--                    <input type="hidden" name="basePage" value="${pageContext.request.contextPath}">--%>
-                    <select onchange="this.form.submit()" name="locale">
+                    <select onchange="submit()" name="locale">
                         <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
                             ${en_button}</option>
                         <option value="ru" ${sessionScope.locale == 'ru' ? 'selected' : ''}>
@@ -45,8 +45,8 @@
 
             <c:if test="${empty user}">
                 <div class="right-block">
-                    <a href="${pageContext.request.contextPath}/main?command=login">${login_button}</a><br/>
-                    <a href="${pageContext.request.contextPath}/main?command=registration">${register_button}</a>
+                    <a href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
+                    <a href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_button}</a>
                 </div>
             </c:if>
         </div>
