@@ -12,17 +12,19 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     private static final long serialVersionUID = 8717762438987053788L;
 
+    private static final String COMMAND_PARAM = "command";
+
     private CommandProvider provider = new CommandProvider();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Command command = provider.getCommand(req.getParameter("command"));
+        Command command = provider.getCommand(req.getParameter(COMMAND_PARAM));
         command.executeGet(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Command command = provider.getCommand(req.getParameter("command"));
+        Command command = provider.getCommand(req.getParameter(COMMAND_PARAM));
         command.executePost(req, resp);
     }
 }

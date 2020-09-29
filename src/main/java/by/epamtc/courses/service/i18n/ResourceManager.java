@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 public class ResourceManager {
     private static final String RES_FILE_NAME = "strings";
-//    private static final String RES_FILE_NAME = "by.epamtc.courses.service.i18n.strings";
 
     private ResourceBundle resourceBundle;
 

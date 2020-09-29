@@ -16,6 +16,13 @@ import java.util.Map;
 
 public class LoginCommand implements Command {
 
+    private static final String LOGIN_PARAM = "login";
+    private static final String PASSWORD_PARAM = "password";
+    private static final String USER_ATTRIBUTE = "user";
+    private static final String LOCALE_ATTRIBUTE = "locale";
+    private static final String INIT_ATTRIBUTE = "init";
+    private static final String ERROR_ATTRIBUTE = "error";
+
     @Override
     public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
@@ -23,15 +30,15 @@ public class LoginCommand implements Command {
 
     @Override
     public void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String login = req.getParameter(LOGIN_PARAM);
+        String password = req.getParameter(PASSWORD_PARAM);
         UserDao userDao = new UserDaoImpl();
 
         if (login != null && password != null) {
             try {
                 User user = userDao.getByLogin(login);
                 if (user != null && user.getPassword().equals(password)) {
-                    req.getSession().setAttribute("user", user);
+                    req.getSession().setAttribute(USER_ATTRIBUTE, user);
                     resp.sendRedirect("/");
                 } else {
                     sendWrongLoginOrPassword(req, resp);
@@ -47,12 +54,12 @@ public class LoginCommand implements Command {
 
     private void sendWrongLoginOrPassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String lang = (String) req.getSession().getAttribute("locale");
+        String lang = (String) req.getSession().getAttribute(LOCALE_ATTRIBUTE);
         Locale locale = (lang == null) ? Locale.getDefault() : new Locale(lang);
         ResourceManager resourceManager = new ResourceManager(locale);
 
-        req.setAttribute("init", parameterMap);
-        req.setAttribute("error", resourceManager.getValue("login.error.wrongLoginOrPass"));
+        req.setAttribute(INIT_ATTRIBUTE, parameterMap);
+        req.setAttribute(ERROR_ATTRIBUTE, resourceManager.getValue("login.error.wrongLoginOrPass"));
         req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
     }
 }

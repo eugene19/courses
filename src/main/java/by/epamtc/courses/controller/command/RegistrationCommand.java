@@ -16,6 +16,10 @@ import java.util.Map;
 
 public class RegistrationCommand implements Command {
 
+    private static final String LOCALE_ATTRIBUTE = "locale";
+    private static final String INIT_ATTRIBUTE = "init";
+    private static final String ERROR_ATTRIBUTE = "errors";
+
     @Override
     public void executeGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
@@ -24,7 +28,7 @@ public class RegistrationCommand implements Command {
     @Override
     public void executePost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String lang = (String) req.getSession().getAttribute("locale");
+        String lang = (String) req.getSession().getAttribute(LOCALE_ATTRIBUTE);
         UserValidator userValidator = new UserValidator(parameterMap, lang);
 
         if (userValidator.validateAll().isValid()) {
@@ -40,8 +44,8 @@ public class RegistrationCommand implements Command {
             resp.sendRedirect("/");
         } else {
             Map<String, String> errors = userValidator.getErrors();
-            req.setAttribute("init", parameterMap);
-            req.setAttribute("errors", errors);
+            req.setAttribute(INIT_ATTRIBUTE, parameterMap);
+            req.setAttribute(ERROR_ATTRIBUTE, errors);
             req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
         }
     }
