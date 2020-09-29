@@ -2,7 +2,8 @@ package by.epamtc.courses.dao.impl;
 
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.UserDao;
-import by.epamtc.courses.dao.impl.connection.ConnectionPool;
+import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
+import by.epamtc.courses.dao.impl.connection.ConnectionPoolFactory;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserRole;
 
@@ -39,7 +40,7 @@ public class UserDaoImpl implements UserDao {
     public User getByLogin(String login) throws DaoException {
         User user = null;
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_LOGIN);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -68,11 +69,19 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    private Connection takeConnection() throws DaoException {
+        try {
+            return ConnectionPoolFactory.getInstance().getConnectionPool().takeConnection();
+        } catch (ConnectionPoolException e) {
+            throw new DaoException("Error while getting connection to DB.", e);
+        }
+    }
+
     @Override
     public List<User> getAll() throws DaoException {
         List<User> users = new ArrayList<>();
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GET_ALL);
 
@@ -91,7 +100,7 @@ public class UserDaoImpl implements UserDao {
     public User getById(int id) throws DaoException {
         User user = null;
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -108,7 +117,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User ob) throws DaoException {
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER);
             preparedStatement.setString(1, ob.getLogin());
             preparedStatement.setString(2, ob.getPassword());
@@ -127,7 +136,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public int insert(User ob) throws DaoException {
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER);
             preparedStatement.setString(1, ob.getLogin());
             preparedStatement.setString(2, ob.getPassword());
@@ -149,7 +158,7 @@ public class UserDaoImpl implements UserDao {
         Connection connection = null;
 
         try {
-            connection = ConnectionPool.getConnection();
+            connection = takeConnection();
             connection.setAutoCommit(false);
 
             PreparedStatement statUpdate = connection.prepareStatement(DELETE_LECTURER_FROM_COURSES);

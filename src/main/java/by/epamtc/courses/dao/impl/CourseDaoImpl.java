@@ -2,7 +2,8 @@ package by.epamtc.courses.dao.impl;
 
 import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.DaoException;
-import by.epamtc.courses.dao.impl.connection.ConnectionPool;
+import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
+import by.epamtc.courses.dao.impl.connection.ConnectionPoolFactory;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.CourseStatus;
 
@@ -65,7 +66,7 @@ public class CourseDaoImpl implements CourseDao {
         Connection connection = null;
 
         try {
-            connection = ConnectionPool.getConnection();
+            connection = ConnectionPoolFactory.getInstance().getConnectionPool().takeConnection();
             connection.setAutoCommit(false);
 
             PreparedStatement courseStatement = connection.prepareStatement(INSERT_COURSE, Statement.RETURN_GENERATED_KEYS);
@@ -91,7 +92,7 @@ public class CourseDaoImpl implements CourseDao {
 
             connection.commit();
             connection.setAutoCommit(true);
-        } catch (SQLException e) {
+        } catch (SQLException | ConnectionPoolException e) {
             //log
             e.printStackTrace();
             rollback(connection);
@@ -110,6 +111,14 @@ public class CourseDaoImpl implements CourseDao {
         return 0;
     }
 
+    private Connection takeConnection() throws DaoException {
+        try {
+            return ConnectionPoolFactory.getInstance().getConnectionPool().takeConnection();
+        } catch (ConnectionPoolException e) {
+            throw new DaoException("Error while getting connection to DB.", e);
+        }
+    }
+
     private void rollback(Connection connection) throws DaoException {
         if (connection != null) {
             try {
@@ -125,7 +134,7 @@ public class CourseDaoImpl implements CourseDao {
         Connection connection = null;
 
         try {
-            connection = ConnectionPool.getConnection();
+            connection = takeConnection();
             connection.setAutoCommit(false);
 
             PreparedStatement courseStatement = connection.prepareStatement(UPDATE_COURSE);
@@ -165,7 +174,7 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public void delete(int id) throws DaoException {
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_COURSE);
             preparedStatement.setInt(1, id);
 
@@ -180,7 +189,7 @@ public class CourseDaoImpl implements CourseDao {
     public Course getById(int id) throws DaoException {
         Course course = new Course();
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_BY_ID);
             statement.setInt(1, id);
 
@@ -201,7 +210,7 @@ public class CourseDaoImpl implements CourseDao {
     public List<Course> getAll() throws DaoException {
         List<Course> courses = new ArrayList<>();
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GET_ALL);
 
@@ -235,7 +244,7 @@ public class CourseDaoImpl implements CourseDao {
     public List<Course> getAllForLecturer(int userId) throws DaoException {
         List<Course> courses = new ArrayList<>();
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FOR_LECTURER);
             statement.setInt(1, userId);
 
@@ -256,7 +265,7 @@ public class CourseDaoImpl implements CourseDao {
     public List<Course> getAllForStudent(int id) throws DaoException {
         List<Course> courses = new ArrayList<>();
 
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_FOR_STUDENT);
             statement.setInt(1, id);
 
@@ -275,7 +284,7 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     public void subscribeUserOnCourse(int userId, int courseId) throws DaoException {
-        try (Connection connection = ConnectionPool.getConnection()) {
+        try (Connection connection = takeConnection()) {
             PreparedStatement statement = connection.prepareStatement(SUBSCRIBE_USER);
             statement.setInt(1, userId);
             statement.setInt(2, courseId);
