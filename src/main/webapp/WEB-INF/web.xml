@@ -34,8 +34,19 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <error-page>
-        <error-code>500</error-code>
-        <location>/WEB-INF/jsp/error.jsp</location>
-    </error-page>
+    <filter>
+        <filter-name>requestHistoryFilter</filter-name>
+        <filter-class>by.epamtc.courses.controller.filter.RequestHistoryFilter
+        </filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>requestHistoryFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--    <error-page>-->
+    <!--        <error-code>500</error-code>-->
+    <!--        <location>/WEB-INF/jsp/error.jsp</location>-->
+    <!--    </error-page>-->
 </web-app>

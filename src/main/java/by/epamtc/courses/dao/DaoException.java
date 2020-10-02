@@ -1,7 +1,7 @@
 package by.epamtc.courses.dao;
 
 public class DaoException extends Exception {
-    private static final long serialVersionUID = 5496142202398254284L;
+    private static final long serialVersionUID = -7628486779139736741L;
 
     public DaoException() {
     }

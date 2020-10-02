@@ -20,9 +20,13 @@
 <fmt:message bundle="${bundle}" key="login.submit" var="try_login_button"/>
 
 <div class="center-form">
-    <form action="${pageContext.request.contextPath}/main?command=login" method="post">
-<%--        <input type="hidden" name="command" value="login"/>--%>
+    <form action="${pageContext.request.contextPath}/main?command=login"
+          method="post">
+        <%--        <input type="hidden" name="command" value="login"/>--%>
         <h3>${login_summary}</h3>
+        <div class="total-message">
+            ${message}
+        </div>
         <div class="total-error">
             ${error}
         </div>

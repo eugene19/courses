@@ -1,12 +1,13 @@
 package by.epamtc.courses.controller.command;
 
-import by.epamtc.courses.dao.DaoException;
-import by.epamtc.courses.dao.UserDao;
-import by.epamtc.courses.dao.impl.UserDaoImpl;
-import by.epamtc.courses.entity.User;
+import by.epamtc.courses.entity.UserData;
 import by.epamtc.courses.entity.builder.UserBuilder;
 import by.epamtc.courses.service.PageName;
+import by.epamtc.courses.service.ServiceException;
+import by.epamtc.courses.service.ServiceProvider;
+import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,33 +16,50 @@ import java.io.IOException;
 import java.util.Map;
 
 public class RegistrationCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(RegistrationCommand.class);
 
     private static final String LOCALE_ATTRIBUTE = "locale";
     private static final String INIT_ATTRIBUTE = "init";
-    private static final String ERROR_ATTRIBUTE = "errors";
+    private static final String ERRORS_ATTRIBUTE = "errors";
+    private static final String ERROR_ATTRIBUTE = "error";
+    private static final String MESSAGE_ATTRIBUTE = "message";
+
+    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private UserBuilder userBuilder = new UserBuilder();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Map<String, String[]> parameterMap = req.getParameterMap();
+        String page;
+
+        Map<String, String[]> parameters = req.getParameterMap();
         String lang = (String) req.getSession().getAttribute(LOCALE_ATTRIBUTE);
-        UserValidator userValidator = new UserValidator(parameterMap, lang);
+        UserValidator userValidator = new UserValidator(parameters, lang);
 
         if (userValidator.validateAll().isValid()) {
-            UserBuilder builder = new UserBuilder();
-            User user = builder.createFromParams(parameterMap);
-            UserDao userDao = new UserDaoImpl();
+            UserData user = userBuilder.createUserDataFromParams(parameters);
+
             try {
-                userDao.insert(user);
-            } catch (DaoException e) {
-                //log
-                resp.sendError(500);
+                LOGGER.debug("Registration successful " + user.getLogin());
+
+                userService.register(user);
+                req.setAttribute(MESSAGE_ATTRIBUTE, "Registration successful.");
+                page = PageName.LOGIN_PAGE;
+            } catch (ServiceException e) {
+                LOGGER.error("Something goes wrong while register user", e);
+
+                req.setAttribute(INIT_ATTRIBUTE, parameters);
+                req.setAttribute(ERROR_ATTRIBUTE, "Registration error, try later.");
+                page = PageName.REGISTRATION_PAGE;
             }
-            resp.sendRedirect("/");
         } else {
+            LOGGER.warn("Registration canceled because user's data is invalid.");
+
             Map<String, String> errors = userValidator.getErrors();
-            req.setAttribute(INIT_ATTRIBUTE, parameterMap);
-            req.setAttribute(ERROR_ATTRIBUTE, errors);
-            req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
+            req.setAttribute(INIT_ATTRIBUTE, parameters);
+            req.setAttribute(ERRORS_ATTRIBUTE, errors);
+            page = PageName.REGISTRATION_PAGE;
         }
+
+        req.getRequestDispatcher(page).forward(req, resp);
     }
 }

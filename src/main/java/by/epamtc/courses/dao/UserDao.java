@@ -1,7 +1,11 @@
 package by.epamtc.courses.dao;
 
 import by.epamtc.courses.entity.User;
+import by.epamtc.courses.entity.UserData;
 
-public interface UserDao extends InterfaceDao<User> {
-    User getByLogin(String login) throws DaoException;
+public interface UserDao {
+
+    User authenticate(String login, String password) throws DaoException;
+
+    boolean register(UserData user) throws DaoException;
 }

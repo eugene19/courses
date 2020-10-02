@@ -8,8 +8,6 @@ public class User implements Serializable {
     private static final long serialVersionUID = -6091193797468043184L;
 
     private int id;
-    private String login;
-    private String password;
     private String surname;
     private String name;
     private String email;
@@ -25,22 +23,6 @@ public class User implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getSurname() {
@@ -89,8 +71,6 @@ public class User implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password) &&
                 Objects.equals(surname, user.surname) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
@@ -100,15 +80,13 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, surname, name, email, birthday, role);
+        return Objects.hash(id, surname, name, email, birthday, role);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

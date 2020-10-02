@@ -13,7 +13,8 @@
 <%@include file="component/header.jsp" %>
 <%@include file="component/menu.jsp" %>
 
-<fmt:message bundle="${bundle}" key="registration.summary" var="registration_summary"/>
+<fmt:message bundle="${bundle}" key="registration.summary"
+             var="registration_summary"/>
 <fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="registration.password"
              var="password_lable"/>
@@ -31,14 +32,19 @@
              var="lecturer_select"/>
 
 <div class="center-form">
-    <form action="${pageContext.request.contextPath}/main?command=registration" method="post">
-<%--        <input type="hidden" name="command" value="registration"/>--%>
+    <form action="${pageContext.request.contextPath}/main?command=registration"
+          method="post">
+        <%--        <input type="hidden" name="command" value="registration"/>--%>
         <h3>${registration_summary}</h3>
+        <div class="total-error">
+            ${error}
+        </div>
         <table>
             <tr>
                 <td class="col-name">${login_lable}</td>
                 <td>
-                    <input id="login" type="text" name="login" value="${init.login[0]}"/>
+                    <input id="login" type="text" name="login"
+                           value="${init.login[0]}"/>
                 </td>
             </tr>
             <tr>
@@ -58,7 +64,8 @@
             <tr>
                 <td class="col-name">${surname_lable}</td>
                 <td>
-                    <input type="text" name="surname" value="${init.surname[0]}"/>
+                    <input type="text" name="surname"
+                           value="${init.surname[0]}"/>
                 </td>
             </tr>
             <tr>
@@ -88,7 +95,8 @@
             <tr>
                 <td class="col-name">${birthday_lable}</td>
                 <td>
-                    <input type="date" name="birthday" value="${init.birthday[0]}"/>
+                    <input type="date" name="birthday"
+                           value="${init.birthday[0]}"/>
                 </td>
             </tr>
             <tr>
