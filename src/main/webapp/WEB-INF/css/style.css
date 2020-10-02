@@ -81,6 +81,12 @@ body {
     color: #5d4040;
 }
 
+.total-message {
+    background-color: rgba(149, 254, 90, 0.27);
+    text-align: center;
+    color: #024222;
+}
+
 .field-error {
     color: red;
     font-size: small;
