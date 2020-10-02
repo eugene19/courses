@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`courses`
 CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`users`
 (
     `id`       INT          NOT NULL AUTO_INCREMENT,
-    `login`    VARCHAR(255) NOT NULL,
+    `login`    VARCHAR(255) NOT NULL UNIQUE,
     `password` VARCHAR(255) NOT NULL,
     `surname`  VARCHAR(45)  NOT NULL,
     `name`     VARCHAR(45)  NOT NULL,

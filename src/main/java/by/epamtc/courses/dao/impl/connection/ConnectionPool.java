@@ -12,6 +12,8 @@ import java.util.concurrent.Executor;
 public final class ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
+    private static final ConnectionPool instance = new ConnectionPool();
+
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
     private String driverName;
@@ -20,7 +22,7 @@ public final class ConnectionPool {
     private String password;
     private int poolSize;
 
-    ConnectionPool() {
+    private ConnectionPool() {
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
         this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
         this.url = dbResourceManager.getValue(DBParameter.DB_URL);
@@ -34,9 +36,15 @@ public final class ConnectionPool {
             LOGGER.error("Error while reading pool size value from file. " +
                     "Set poll size = " + poolSize, e);
         }
+
+        initPoolData();
     }
 
-    public void initPoolData() throws ConnectionPoolException {
+    public static ConnectionPool getInstance() {
+        return instance;
+    }
+
+    private void initPoolData() {
         try {
             Class.forName(driverName);
             givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
@@ -56,19 +64,6 @@ public final class ConnectionPool {
         }
     }
 
-    public void dispose() {
-        clearConnectionQueue();
-    }
-
-    private void clearConnectionQueue() {
-        try {
-            closeConnectionsQueue(givenAwayConQueue);
-            closeConnectionsQueue(connectionQueue);
-        } catch (SQLException e) {
-            LOGGER.error("Error closing the connection.", e);
-        }
-    }
-
     public Connection takeConnection() throws ConnectionPoolException {
         Connection connection;
         try {
@@ -80,13 +75,7 @@ public final class ConnectionPool {
         return connection;
     }
 
-
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
-        try {
-            con.close();
-        } catch (SQLException e) {
-            LOGGER.error("Connection isn't return to the pool.");
-        }
         try {
             rs.close();
         } catch (SQLException e) {
@@ -97,18 +86,23 @@ public final class ConnectionPool {
         } catch (SQLException e) {
             LOGGER.error("Statement isn't closed.");
         }
-    }
-
-    public void closeConnection(Connection con, Statement st) {
         try {
             con.close();
         } catch (SQLException e) {
             LOGGER.error("Connection isn't return to the pool.");
         }
+    }
+
+    public void closeConnection(Connection con, Statement st) {
         try {
             st.close();
         } catch (SQLException e) {
             LOGGER.error("Statement isn't closed.");
+        }
+        try {
+            con.close();
+        } catch (SQLException e) {
+            LOGGER.error("Connection isn't return to the pool.");
         }
     }
 
@@ -119,6 +113,19 @@ public final class ConnectionPool {
                 connection.commit();
             }
             ((PooledConnection) connection).reallyClose();
+        }
+    }
+
+    public void dispose() {
+        clearConnectionQueue();
+    }
+
+    private void clearConnectionQueue() {
+        try {
+            closeConnectionsQueue(connectionQueue);
+            closeConnectionsQueue(givenAwayConQueue);
+        } catch (SQLException e) {
+            LOGGER.error("Error closing the connection.", e);
         }
     }
 

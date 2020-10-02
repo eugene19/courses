@@ -1,6 +1,6 @@
 package by.epamtc.courses.dao.impl.connection;
 
-public class ConnectionPoolException extends Exception {
+public class ConnectionPoolException extends RuntimeException {
     private static final long serialVersionUID = -601993984305437031L;
 
     public ConnectionPoolException() {

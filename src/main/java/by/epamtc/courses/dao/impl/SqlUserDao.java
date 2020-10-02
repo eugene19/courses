@@ -4,7 +4,6 @@ import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
-import by.epamtc.courses.dao.impl.connection.ConnectionPoolFactory;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserRole;
@@ -12,7 +11,7 @@ import by.epamtc.courses.entity.UserRole;
 import java.sql.*;
 
 public class SqlUserDao implements UserDao {
-    private static final ConnectionPool connectionPool = ConnectionPoolFactory.getInstance().getConnectionPool();
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT users.id, surname, name, email, birthday, role " +
             "FROM users " +
@@ -44,9 +43,7 @@ public class SqlUserDao implements UserDao {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while authenticate user " + login, e);
         } finally {
-            if (connection != null) {
                 connectionPool.closeConnection(connection, preparedStatement, resultSet);
-            }
         }
 
         return user;
@@ -73,9 +70,7 @@ public class SqlUserDao implements UserDao {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while insert user " + user.getLogin(), e);
         } finally {
-            if (connection != null) {
-                connectionPool.closeConnection(connection, preparedStatement);
-            }
+            connectionPool.closeConnection(connection, preparedStatement);
         }
     }
 
