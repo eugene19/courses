@@ -29,7 +29,7 @@ public class RegistrationCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try register user.");
+        LOGGER.debug("Try register user");
         String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
@@ -43,17 +43,17 @@ public class RegistrationCommand implements Command {
                 userService.register(user);
 
                 LOGGER.debug("Registration successful " + user.getLogin());
-                req.setAttribute(MESSAGE_ATTRIBUTE, "Registration successful.");
+                req.setAttribute(MESSAGE_ATTRIBUTE, "Registration successful");
                 page = PageName.LOGIN_PAGE;
             } catch (ServiceException e) {
                 LOGGER.error("Registration error" + e.getMessage(), e);
 
                 req.setAttribute(INIT_ATTRIBUTE, parameters);
-                req.setAttribute(ERROR_ATTRIBUTE, "Registration error, try later.");
+                req.setAttribute(ERROR_ATTRIBUTE, "Registration error, try later");
                 page = PageName.REGISTRATION_PAGE;
             }
         } else {
-            LOGGER.warn("Registration canceled because user's data is invalid.");
+            LOGGER.warn("Registration canceled because user's data is invalid");
 
             Map<String, String> errors = userValidator.getErrors();
             req.setAttribute(INIT_ATTRIBUTE, parameters);

@@ -14,7 +14,7 @@ public class LogoutCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        LOGGER.debug("Logout user.");
+        LOGGER.debug("User logout");
         req.getSession().setAttribute(USER_ATTRIBUTE, null);
         resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
     }

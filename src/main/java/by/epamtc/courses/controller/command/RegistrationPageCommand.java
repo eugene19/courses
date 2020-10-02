@@ -13,7 +13,7 @@ public class RegistrationPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening registration page.");
+        LOGGER.debug("Opening registration page");
         req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
     }
 }

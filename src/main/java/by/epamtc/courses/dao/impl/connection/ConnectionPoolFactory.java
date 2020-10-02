@@ -20,11 +20,11 @@ public final class ConnectionPoolFactory {
     public ConnectionPool getConnectionPool() {
         if (!isPoolInitialized) {
             try {
-                LOGGER.debug("Start initializing connection pool.");
+                LOGGER.debug("Start initializing connection pool");
                 connectionPool.initPoolData();
                 isPoolInitialized = true;
             } catch (ConnectionPoolException e) {
-                LOGGER.error("Error while initializing connection pool.", e);
+                LOGGER.error("Error while initializing connection pool", e);
             }
         }
 
