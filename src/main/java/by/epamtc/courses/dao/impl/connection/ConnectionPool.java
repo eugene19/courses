@@ -37,7 +37,6 @@ public final class ConnectionPool {
     }
 
     public void initPoolData() throws ConnectionPoolException {
-//        Locale.setDefault(Locale.ENGLISH);
         try {
             Class.forName(driverName);
             givenAwayConQueue = new ArrayBlockingQueue<>(poolSize);
@@ -66,7 +65,7 @@ public final class ConnectionPool {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
-            // logger.log(Level.ERROR, "Error closing the connection.", e);
+            LOGGER.error("Error closing the connection.", e);
         }
     }
 

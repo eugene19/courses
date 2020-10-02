@@ -4,7 +4,7 @@ import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.entity.User;
-import by.epamtc.courses.entity.UserData;
+import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.UserService;
 
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(UserData user) throws ServiceException {
+    public void register(UserAuthData user) throws ServiceException {
         try {
             userDao.register(user);
         } catch (DaoException e) {

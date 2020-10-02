@@ -22,6 +22,5 @@ public class CharacterFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

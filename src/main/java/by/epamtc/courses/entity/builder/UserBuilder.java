@@ -1,7 +1,7 @@
 package by.epamtc.courses.entity.builder;
 
 import by.epamtc.courses.entity.User;
-import by.epamtc.courses.entity.UserData;
+import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserRole;
 
 import java.time.LocalDate;
@@ -21,8 +21,8 @@ public class UserBuilder {
         return user;
     }
 
-    public UserData createUserDataFromParams(final Map<String, String[]> parameters) {
-        UserData user = new UserData();
+    public UserAuthData createUserDataFromParams(final Map<String, String[]> parameters) {
+        UserAuthData user = new UserAuthData();
 
         user.setLogin(parameters.get("login")[0]);
         user.setPassword(parameters.get("password")[0]);

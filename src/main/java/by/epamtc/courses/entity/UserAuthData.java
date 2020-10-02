@@ -2,7 +2,7 @@ package by.epamtc.courses.entity;
 
 import java.util.Objects;
 
-public class UserData extends User {
+public class UserAuthData extends User {
     private static final long serialVersionUID = 8240457089283345327L;
 
     private String login;
@@ -29,9 +29,9 @@ public class UserData extends User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        UserData userData = (UserData) o;
-        return Objects.equals(login, userData.login) &&
-                Objects.equals(password, userData.password);
+        UserAuthData userAuthData = (UserAuthData) o;
+        return Objects.equals(login, userAuthData.login) &&
+                Objects.equals(password, userAuthData.password);
     }
 
     @Override

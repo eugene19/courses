@@ -1,6 +1,6 @@
 package by.epamtc.courses.controller.command;
 
-import by.epamtc.courses.entity.UserData;
+import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.builder.UserBuilder;
 import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
@@ -29,6 +29,7 @@ public class RegistrationCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.debug("Try register user.");
         String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
@@ -36,16 +37,16 @@ public class RegistrationCommand implements Command {
         UserValidator userValidator = new UserValidator(parameters, lang);
 
         if (userValidator.validateAll().isValid()) {
-            UserData user = userBuilder.createUserDataFromParams(parameters);
+            UserAuthData user = userBuilder.createUserDataFromParams(parameters);
 
             try {
-                LOGGER.debug("Registration successful " + user.getLogin());
-
                 userService.register(user);
+
+                LOGGER.debug("Registration successful " + user.getLogin());
                 req.setAttribute(MESSAGE_ATTRIBUTE, "Registration successful.");
                 page = PageName.LOGIN_PAGE;
             } catch (ServiceException e) {
-                LOGGER.error("Something goes wrong while register user", e);
+                LOGGER.error("Registration error" + e.getMessage(), e);
 
                 req.setAttribute(INIT_ATTRIBUTE, parameters);
                 req.setAttribute(ERROR_ATTRIBUTE, "Registration error, try later.");

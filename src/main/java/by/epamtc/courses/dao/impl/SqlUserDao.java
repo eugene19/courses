@@ -6,7 +6,7 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolFactory;
 import by.epamtc.courses.entity.User;
-import by.epamtc.courses.entity.UserData;
+import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserRole;
 
 import java.sql.*;
@@ -53,7 +53,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public boolean register(UserData user) throws DaoException {
+    public boolean register(UserAuthData user) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 

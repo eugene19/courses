@@ -33,6 +33,7 @@ public class LoginCommand implements Command {
         String password = req.getParameter(PASSWORD_PARAM);
 
         if (login == null || password == null) {
+            LOGGER.debug("Authentication is canceled because login or password is empty.");
             // todo send error field is empty
             sendErrorLoginOrPassword(req, resp);
             return;
@@ -43,8 +44,8 @@ public class LoginCommand implements Command {
         try {
             user = userService.authenticate(login, password);
         } catch (ServiceException e) {
+            LOGGER.error("Error while authenticate user, try later.", e);
             // todo send error 'something goes wrong'
-            LOGGER.error("Error while authenticate user.", e);
             return;
         }
 
@@ -52,6 +53,7 @@ public class LoginCommand implements Command {
             req.getSession().setAttribute(USER_ATTRIBUTE, user);
             resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
         } else {
+            LOGGER.debug("Authentication is canceled because wrong login or password.");
             // todo send error 'wrong login or password'
             sendErrorLoginOrPassword(req, resp);
         }

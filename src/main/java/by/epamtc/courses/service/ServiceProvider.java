@@ -3,7 +3,6 @@ package by.epamtc.courses.service;
 import by.epamtc.courses.service.impl.UserServiceImpl;
 
 public final class ServiceProvider {
-
     private static final ServiceProvider instance = new ServiceProvider();
 
     private final UserService userService = new UserServiceImpl();

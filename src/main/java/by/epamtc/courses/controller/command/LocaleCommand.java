@@ -31,7 +31,7 @@ public class LocaleCommand implements Command {
 
         CommandProvider provider = new CommandProvider();
         provider.getCommand(previousCommand).execute(req, resp);
-        //        String referer = req.getHeader("Referer");
+//        String referer = req.getHeader("Referer");
 //        resp.sendRedirect(referer + "?command=" + previousCommand);
     }
 }
