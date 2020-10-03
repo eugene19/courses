@@ -3,9 +3,7 @@
 <html>
 <head>
     <title>News</title>
-    <style>
-        <%@include file="../css/style.css"%>
-    </style>
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="component/header.jsp" %>

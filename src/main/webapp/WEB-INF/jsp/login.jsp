@@ -4,9 +4,7 @@
 <html>
 <head>
     <title>Login</title>
-    <style>
-        <%@include file="../css/style.css"%>
-    </style>
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 <jsp:useBean id="login" class="java.lang.String"/>

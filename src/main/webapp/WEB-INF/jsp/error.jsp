@@ -3,9 +3,7 @@
 <html>
 <head>
     <title>Error</title>
-    <style>
-        <%@include file="../css/style.css"%>
-    </style>
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
 <%-- Костыль --%>
