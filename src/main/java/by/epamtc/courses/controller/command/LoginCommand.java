@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command;
 
+import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
@@ -18,19 +19,12 @@ import java.util.Map;
 public class LoginCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
 
-    private static final String LOGIN_PARAM = "login";
-    private static final String PASSWORD_PARAM = "password";
-    private static final String USER_ATTRIBUTE = "user";
-    private static final String LOCALE_ATTRIBUTE = "locale";
-    private static final String INIT_ATTRIBUTE = "init";
-    private static final String ERROR_ATTRIBUTE = "error";
-
     private UserService userService = ServiceProvider.getInstance().getUserService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String login = req.getParameter(LOGIN_PARAM);
-        String password = req.getParameter(PASSWORD_PARAM);
+        String login = req.getParameter(ParameterName.LOGIN);
+        String password = req.getParameter(ParameterName.PASSWORD);
 
         if (login == null || password == null) {
             LOGGER.debug("Authentication is canceled because login or password is empty.");
@@ -50,7 +44,7 @@ public class LoginCommand implements Command {
         }
 
         if (user != null) {
-            req.getSession().setAttribute(USER_ATTRIBUTE, user);
+            req.getSession().setAttribute(ParameterName.USER, user);
             resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
         } else {
             LOGGER.debug("Authentication is canceled because wrong login or password.");
@@ -61,12 +55,12 @@ public class LoginCommand implements Command {
 
     private void sendErrorLoginOrPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Map<String, String[]> parameterMap = req.getParameterMap();
-        String lang = (String) req.getSession().getAttribute(LOCALE_ATTRIBUTE);
+        String lang = (String) req.getSession().getAttribute(ParameterName.LOCALE);
         Locale locale = (lang == null) ? Locale.getDefault() : new Locale(lang);
         ResourceManager resourceManager = new ResourceManager(locale);
 
-        req.setAttribute(INIT_ATTRIBUTE, parameterMap);
-        req.setAttribute(ERROR_ATTRIBUTE, resourceManager.getValue("login.error.wrongLoginOrPass"));
+        req.setAttribute(ParameterName.INIT, parameterMap);
+        req.setAttribute(ParameterName.ERROR, resourceManager.getValue("login.error.wrongLoginOrPass"));
         req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
     }
 }

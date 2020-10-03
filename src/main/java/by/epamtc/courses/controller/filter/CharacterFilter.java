@@ -1,5 +1,7 @@
 package by.epamtc.courses.controller.filter;
 
+import by.epamtc.courses.entity.ParameterName;
+
 import javax.servlet.*;
 import java.io.IOException;
 
@@ -9,7 +11,7 @@ public class CharacterFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        charset = filterConfig.getInitParameter("charset");
+        charset = filterConfig.getInitParameter(ParameterName.CHARSET);
     }
 
     @Override

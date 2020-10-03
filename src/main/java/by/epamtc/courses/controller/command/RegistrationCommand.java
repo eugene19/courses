@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command;
 
+import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.builder.UserBuilder;
 import by.epamtc.courses.service.PageName;
@@ -18,12 +19,6 @@ import java.util.Map;
 public class RegistrationCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(RegistrationCommand.class);
 
-    private static final String LOCALE_ATTRIBUTE = "locale";
-    private static final String INIT_ATTRIBUTE = "init";
-    private static final String ERRORS_ATTRIBUTE = "errors";
-    private static final String ERROR_ATTRIBUTE = "error";
-    private static final String MESSAGE_ATTRIBUTE = "message";
-
     private UserService userService = ServiceProvider.getInstance().getUserService();
     private UserBuilder userBuilder = new UserBuilder();
 
@@ -33,7 +28,7 @@ public class RegistrationCommand implements Command {
         String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
-        String lang = (String) req.getSession().getAttribute(LOCALE_ATTRIBUTE);
+        String lang = (String) req.getSession().getAttribute(ParameterName.LOCALE);
         UserValidator userValidator = new UserValidator(parameters, lang);
 
         if (userValidator.validateAll().isValid()) {
@@ -43,21 +38,21 @@ public class RegistrationCommand implements Command {
                 userService.register(user);
 
                 LOGGER.debug("Registration successful " + user.getLogin());
-                req.setAttribute(MESSAGE_ATTRIBUTE, "Registration successful");
+                req.setAttribute(ParameterName.MESSAGE, "Registration successful");
                 page = PageName.LOGIN_PAGE;
             } catch (ServiceException e) {
                 LOGGER.error("Registration error" + e.getMessage(), e);
 
-                req.setAttribute(INIT_ATTRIBUTE, parameters);
-                req.setAttribute(ERROR_ATTRIBUTE, "Registration error, try later");
+                req.setAttribute(ParameterName.INIT, parameters);
+                req.setAttribute(ParameterName.ERROR, "Registration error, try later");
                 page = PageName.REGISTRATION_PAGE;
             }
         } else {
             LOGGER.warn("Registration canceled because user's data is invalid");
 
             Map<String, String> errors = userValidator.getErrors();
-            req.setAttribute(INIT_ATTRIBUTE, parameters);
-            req.setAttribute(ERRORS_ATTRIBUTE, errors);
+            req.setAttribute(ParameterName.INIT, parameters);
+            req.setAttribute(ParameterName.ERRORS, errors);
             page = PageName.REGISTRATION_PAGE;
         }
 

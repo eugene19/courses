@@ -1,5 +1,6 @@
 package by.epamtc.courses.service.validation;
 
+import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.UserRole;
 import by.epamtc.courses.service.i18n.ResourceManager;
 
@@ -28,60 +29,60 @@ public class UserValidator {
     }
 
     public UserValidator validateLogin() {
-        String login = parameterMap.get("login")[0];
+        String login = parameterMap.get(ParameterName.LOGIN)[0];
 
         if (checkEmpty(login)) {
-            errors.put("login", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.LOGIN, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else if (!login.matches(LOGIN_PATTERN)) {
-            errors.put("login", resourceManager.getValue("user.error.incorrectLogin"));
+            errors.put(ParameterName.LOGIN, resourceManager.getValue("user.error.incorrectLogin"));
         }
 
         return this;
     }
 
     public UserValidator validatePassword() {
-        String password = parameterMap.get("password")[0];
+        String password = parameterMap.get(ParameterName.PASSWORD)[0];
 
         if (checkEmpty(password)) {
-            errors.put("password", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.PASSWORD, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else if (!password.matches(PASSWORD_PATTERN)) {
-            errors.put("password", resourceManager.getValue("user.error.incorrectPassword"));
+            errors.put(ParameterName.PASSWORD, resourceManager.getValue("user.error.incorrectPassword"));
         }
 
         return this;
     }
 
     public UserValidator validateSurname() {
-        String surname = parameterMap.get("surname")[0];
+        String surname = parameterMap.get(ParameterName.SURNAME)[0];
 
         if (checkEmpty(surname)) {
-            errors.put("surname", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.SURNAME, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else if (!surname.matches(SURNAME_PATTERN)) {
-            errors.put("surname", resourceManager.getValue("user.error.incorrectSurname"));
+            errors.put(ParameterName.SURNAME, resourceManager.getValue("user.error.incorrectSurname"));
         }
 
         return this;
     }
 
     public UserValidator validateName() {
-        String name = parameterMap.get("name")[0];
+        String name = parameterMap.get(ParameterName.NAME)[0];
 
         if (checkEmpty(name)) {
-            errors.put("name", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.NAME, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else if (!name.matches(NAME_PATTERN)) {
-            errors.put("name", resourceManager.getValue("user.error.incorrectName"));
+            errors.put(ParameterName.NAME, resourceManager.getValue("user.error.incorrectName"));
         }
 
         return this;
     }
 
     public UserValidator validateEmail() {
-        String email = parameterMap.get("email")[0];
+        String email = parameterMap.get(ParameterName.EMAIL)[0];
 
         if (checkEmpty(email)) {
-            errors.put("email", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.EMAIL, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else if (!email.matches(EMAIL_PATTERN)) {
-            errors.put("email", resourceManager.getValue("user.error.incorrectEmail"));
+            errors.put(ParameterName.EMAIL, resourceManager.getValue("user.error.incorrectEmail"));
         }
 
         return this;
@@ -91,17 +92,17 @@ public class UserValidator {
         LocalDate minDate = LocalDate.parse("1900-01-01");
         LocalDate maxDate = LocalDate.now();
 
-        String birthdayString = parameterMap.get("birthday")[0];
+        String birthdayString = parameterMap.get(ParameterName.BIRTHDAY)[0];
 
         if (checkEmpty(birthdayString)) {
-            errors.put("birthday", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.BIRTHDAY, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else {
             LocalDate birthday = LocalDate.parse(birthdayString);
 
             if (birthday.isBefore(minDate)) {
-                errors.put("birthday", resourceManager.getValue("user.error.dateBeforeMin"));
+                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue("user.error.dateBeforeMin"));
             } else if (birthday.isAfter(maxDate)) {
-                errors.put("birthday", resourceManager.getValue("user.error.dateAfterMax"));
+                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue("user.error.dateAfterMax"));
             }
         }
 
@@ -109,15 +110,15 @@ public class UserValidator {
     }
 
     public UserValidator validateRole() {
-        String role = parameterMap.get("role")[0];
+        String role = parameterMap.get(ParameterName.ROLE)[0];
 
         if (checkEmpty(role)) {
-            errors.put("role", resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.ROLE, resourceManager.getValue("user.error.fieldIsEmpty"));
         } else {
             try {
                 UserRole.valueOf(role);
             } catch (IllegalArgumentException e) {
-                errors.put("role", resourceManager.getValue("user.error.incorrectRole"));
+                errors.put(ParameterName.ROLE, resourceManager.getValue("user.error.incorrectRole"));
             }
         }
 

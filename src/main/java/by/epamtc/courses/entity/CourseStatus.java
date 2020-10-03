@@ -1,16 +1,14 @@
 package by.epamtc.courses.entity;
 
 public enum CourseStatus {
-    NOT_STARTED(1, "Не начат"),
-    IN_PROGRESS(2, "В процессе"),
-    FINISHED(3, "Закончен");
+    NOT_STARTED(1),
+    IN_PROGRESS(2),
+    FINISHED(3);
 
     private int id;
-    private String status;
 
-    CourseStatus(int id, String status) {
+    CourseStatus(int id) {
         this.id = id;
-        this.status = status;
     }
 
     public int getId() {
@@ -19,13 +17,5 @@ public enum CourseStatus {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }
