@@ -37,7 +37,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td>${errors.login}</td>
+                <td><p class="field-error">${errors.login}</p></td>
             </tr>
             <tr>
                 <td class="col-name">${password_lable}</td>
@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td>${errors.password}</td>
+                <td><p class="field-error">${errors.password}</p></td>
             </tr>
         </table>
 

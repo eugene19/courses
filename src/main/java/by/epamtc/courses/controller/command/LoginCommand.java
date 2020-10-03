@@ -26,41 +26,35 @@ public class LoginCommand implements Command {
         String login = req.getParameter(ParameterName.LOGIN);
         String password = req.getParameter(ParameterName.PASSWORD);
 
-        if (login == null || password == null) {
-            LOGGER.debug("Authentication is canceled because login or password is empty.");
-            // todo send error field is empty
-            sendErrorLoginOrPassword(req, resp);
-            return;
-        }
-
-        User user;
-
-        try {
-            user = userService.authenticate(login, password);
-        } catch (ServiceException e) {
-            LOGGER.error("Error while authenticate user, try later.", e);
-            // todo send error 'something goes wrong'
-            return;
-        }
-
-        if (user != null) {
-            req.getSession().setAttribute(ParameterName.USER, user);
-            resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
-        } else {
-            LOGGER.debug("Authentication is canceled because wrong login or password.");
-            // todo send error 'wrong login or password'
-            sendErrorLoginOrPassword(req, resp);
-        }
-    }
-
-    private void sendErrorLoginOrPassword(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Map<String, String[]> parameterMap = req.getParameterMap();
         String lang = (String) req.getSession().getAttribute(ParameterName.LOCALE);
         Locale locale = (lang == null) ? Locale.getDefault() : new Locale(lang);
+        //todo Add resource manager factory
         ResourceManager resourceManager = new ResourceManager(locale);
 
-        req.setAttribute(ParameterName.INIT, parameterMap);
-        req.setAttribute(ParameterName.ERROR, resourceManager.getValue("login.error.wrongLoginOrPass"));
-        req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
+        Map<String, String> validationErrors = userService.validateUserAuthData(login, password, lang);
+        User user;
+
+        if (validationErrors.isEmpty()) {
+            try {
+                user = userService.authenticate(login, password);
+
+                if (user != null) {
+                    req.getSession().setAttribute(ParameterName.USER, user);
+                    resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
+                } else {
+                    LOGGER.debug("Authentication is canceled because wrong login or password");
+                    req.setAttribute(ParameterName.INIT, req.getParameterMap());
+                    req.setAttribute(ParameterName.ERROR, resourceManager.getValue("login.error.wrongLoginOrPass"));
+                    req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
+                }
+            } catch (ServiceException e) {
+                LOGGER.error("Error while authenticate user, try later", e);
+            }
+        } else {
+            LOGGER.debug("Authentication is canceled because login or password are invalid");
+            req.setAttribute(ParameterName.INIT, req.getParameterMap());
+            req.setAttribute(ParameterName.ERRORS, validationErrors);
+            req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
+        }
     }
 }
