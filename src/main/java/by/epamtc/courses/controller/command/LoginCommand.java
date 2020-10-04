@@ -23,20 +23,20 @@ public class LoginCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String login = req.getParameter(ParameterName.LOGIN);
-        String password = req.getParameter(ParameterName.PASSWORD);
-
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
         ResourceManager resourceManager = new ResourceManager(locale);
 
-        Map<String, String> validationErrors = userService.validateUserAuthData(login, password, locale);
-        User user;
+        Map<String, String> validationErrors = userService.validateUserAuthData(req.getParameterMap(), locale);
 
         if (validationErrors.isEmpty()) {
             try {
-                user = userService.authenticate(login, password);
+                String login = req.getParameter(ParameterName.LOGIN);
+                String password = req.getParameter(ParameterName.PASSWORD);
+
+                User user = userService.authenticate(login, password);
 
                 if (user != null) {
+                    LOGGER.debug("Authentication is successful");
                     req.getSession().setAttribute(ParameterName.USER, user);
                     resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
                 } else {

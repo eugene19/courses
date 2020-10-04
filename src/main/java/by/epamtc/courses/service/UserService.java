@@ -12,7 +12,7 @@ public interface UserService {
 
     void register(UserAuthData user) throws ServiceException;
 
-    Map<String, String> validateUserAuthData(String login, String password, Locale lang);
+    Map<String, String> validateUserAuthData(Map<String, String[]> parameters, Locale lang);
 
     Map<String, String> validateUserRegistrationData(Map<String, String[]> parameters, Locale lang);
 }
