@@ -1,35 +1,58 @@
 package by.epamtc.courses.controller.command;
 
 import by.epamtc.courses.entity.ParameterName;
+import by.epamtc.courses.service.PageName;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Map;
 
 public class LocaleCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(LocaleCommand.class);
 
+    private static final String START_PARAMETERS_SYMBOL = "?";
+    private static final String KEY_VALUE_SEPARATOR = "=";
+    private static final String PARAMETERS_SEPARATOR = "&";
+
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String lang = req.getParameter(ParameterName.LOCALE);
         HttpSession session = req.getSession();
         session.setAttribute(ParameterName.LOCALE, new Locale(lang));
 
         LOGGER.debug("Locale is changed to " + lang);
 
-        doPreviousCommand(req, resp, session);
+        doPreviousCommand(resp, session);
     }
 
-    private void doPreviousCommand(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws ServletException, IOException {
-        String previousCommand = (String) session.getAttribute(ParameterName.PREVIOUS_COMMAND);
+    private void doPreviousCommand(HttpServletResponse resp, HttpSession session) throws IOException {
+        LOGGER.debug("Start do previous command");
 
-        LOGGER.debug("Start do previous command: " + previousCommand);
+        //noinspection unchecked
+        Map<String, String[]> previousParams =
+                (Map<String, String[]>) session.getAttribute(ParameterName.PREVIOUS_COMMAND);
 
-        CommandProvider provider = new CommandProvider();
-        provider.getCommand(previousCommand).execute(req, resp);
+        StringBuilder previousRequest = new StringBuilder(PageName.MAIN_SERVLET_URL);
+        int paramCounter = 0;
+
+        for (Map.Entry<String, String[]> parameterPair : previousParams.entrySet()) {
+            if (paramCounter == 0) {
+                previousRequest.append(START_PARAMETERS_SYMBOL);
+            }
+            if (paramCounter++ != 0) {
+                previousRequest.append(PARAMETERS_SEPARATOR);
+            }
+
+            previousRequest
+                    .append(parameterPair.getKey())
+                    .append(KEY_VALUE_SEPARATOR)
+                    .append(parameterPair.getValue()[0]);
+        }
+
+        resp.sendRedirect(previousRequest.toString());
     }
 }

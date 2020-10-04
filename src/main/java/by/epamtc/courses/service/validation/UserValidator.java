@@ -34,11 +34,11 @@ public class UserValidator {
     }
 
     public UserValidator validateLogin() {
-        String login = parameterMap.get(ParameterName.LOGIN)[0];
+        String[] loginValues = parameterMap.get(ParameterName.LOGIN);
 
-        if (checkEmpty(login)) {
+        if (checkEmpty(loginValues) || checkEmpty(loginValues[0])) {
             errors.put(ParameterName.LOGIN, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
-        } else if (!login.matches(LOGIN_PATTERN)) {
+        } else if (!loginValues[0].matches(LOGIN_PATTERN)) {
             errors.put(ParameterName.LOGIN, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_LOGIN));
         }
 
@@ -46,11 +46,11 @@ public class UserValidator {
     }
 
     public UserValidator validatePassword() {
-        String password = parameterMap.get(ParameterName.PASSWORD)[0];
+        String[] passwordValues = parameterMap.get(ParameterName.PASSWORD);
 
-        if (checkEmpty(password)) {
+        if (checkEmpty(passwordValues) || checkEmpty(passwordValues[0])) {
             errors.put(ParameterName.PASSWORD, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
-        } else if (!password.matches(PASSWORD_PATTERN)) {
+        } else if (!passwordValues[0].matches(PASSWORD_PATTERN)) {
             errors.put(ParameterName.PASSWORD, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_PASSWORD));
         }
 
@@ -58,11 +58,11 @@ public class UserValidator {
     }
 
     public UserValidator validateSurname() {
-        String surname = parameterMap.get(ParameterName.SURNAME)[0];
+        String[] surnameValues = parameterMap.get(ParameterName.SURNAME);
 
-        if (checkEmpty(surname)) {
+        if (checkEmpty(surnameValues) || checkEmpty(surnameValues[0])) {
             errors.put(ParameterName.SURNAME, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
-        } else if (!surname.matches(SURNAME_PATTERN)) {
+        } else if (!surnameValues[0].matches(SURNAME_PATTERN)) {
             errors.put(ParameterName.SURNAME, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_SURNAME));
         }
 
@@ -70,11 +70,11 @@ public class UserValidator {
     }
 
     public UserValidator validateName() {
-        String name = parameterMap.get(ParameterName.NAME)[0];
+        String[] nameValues = parameterMap.get(ParameterName.NAME);
 
-        if (checkEmpty(name)) {
+        if (checkEmpty(nameValues) || checkEmpty(nameValues[0])) {
             errors.put(ParameterName.NAME, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
-        } else if (!name.matches(NAME_PATTERN)) {
+        } else if (!nameValues[0].matches(NAME_PATTERN)) {
             errors.put(ParameterName.NAME, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_NAME));
         }
 
@@ -82,11 +82,11 @@ public class UserValidator {
     }
 
     public UserValidator validateEmail() {
-        String email = parameterMap.get(ParameterName.EMAIL)[0];
+        String[] emailValues = parameterMap.get(ParameterName.EMAIL);
 
-        if (checkEmpty(email)) {
+        if (checkEmpty(emailValues) || checkEmpty(emailValues[0])) {
             errors.put(ParameterName.EMAIL, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
-        } else if (!email.matches(EMAIL_PATTERN)) {
+        } else if (!emailValues[0].matches(EMAIL_PATTERN)) {
             errors.put(ParameterName.EMAIL, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_EMAIL));
         }
 
@@ -97,14 +97,14 @@ public class UserValidator {
         LocalDate minDate = LocalDate.parse(MINIMAL_DATE);
         LocalDate maxDate = LocalDate.now();
 
-        String birthdayString = parameterMap.get(ParameterName.BIRTHDAY)[0];
+        String[] birthdayString = parameterMap.get(ParameterName.BIRTHDAY);
         LocalDate birthday;
 
-        if (checkEmpty(birthdayString)) {
+        if (checkEmpty(birthdayString) || checkEmpty(birthdayString[0])) {
             errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else {
             try {
-                birthday = LocalDate.parse(birthdayString);
+                birthday = LocalDate.parse(birthdayString[0]);
 
                 if (birthday.isBefore(minDate)) {
                     errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_BEFORE_MIN));
@@ -112,7 +112,7 @@ public class UserValidator {
                     errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_AFTER_MAX));
                 }
             } catch (DateTimeParseException e) {
-                LOGGER.error("Error while parsing date " + birthdayString);
+                LOGGER.error("Error while parsing date " + birthdayString[0]);
                 errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_DATE));
             }
         }
@@ -121,14 +121,15 @@ public class UserValidator {
     }
 
     public UserValidator validateRole() {
-        String role = parameterMap.get(ParameterName.ROLE)[0];
+        String[] roleValues = parameterMap.get(ParameterName.ROLE);
 
-        if (checkEmpty(role)) {
+        if (checkEmpty(roleValues) || checkEmpty(roleValues[0])) {
             errors.put(ParameterName.ROLE, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else {
             try {
-                UserRole.valueOf(role);
+                UserRole.valueOf(roleValues[0]);
             } catch (IllegalArgumentException e) {
+                LOGGER.error("Error while parsing user role: " + roleValues[0]);
                 errors.put(ParameterName.ROLE, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_ROLE));
             }
         }
@@ -138,6 +139,10 @@ public class UserValidator {
 
     public boolean checkEmpty(String line) {
         return line == null || line.isEmpty();
+    }
+
+    public boolean checkEmpty(String[] parameterValues) {
+        return parameterValues == null;
     }
 
     public Map<String, String> getErrors() {

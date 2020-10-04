@@ -6,6 +6,8 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RequestHistoryFilter implements Filter {
 
@@ -20,7 +22,9 @@ public class RequestHistoryFilter implements Filter {
 
         if (command != null && !command.equals(ParameterName.LOCALE)) {
             HttpSession session = req.getSession(true);
-            session.setAttribute(ParameterName.PREVIOUS_COMMAND, command);
+            Map<String, String[]> parameterMap = req.getParameterMap();
+
+            session.setAttribute(ParameterName.PREVIOUS_COMMAND, copyRequestParameters(parameterMap));
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
@@ -28,5 +32,18 @@ public class RequestHistoryFilter implements Filter {
 
     @Override
     public void destroy() {
+    }
+
+    private Map<String, String[]> copyRequestParameters(Map<String, String[]> src) {
+        HashMap<String, String[]> dest = new HashMap<>();
+
+        for (Map.Entry<String, String[]> srcParameterPair : src.entrySet()) {
+            if (srcParameterPair.getKey().equalsIgnoreCase(ParameterName.PASSWORD)) {
+                continue;
+            }
+            dest.put(srcParameterPair.getKey(), srcParameterPair.getValue());
+        }
+
+        return dest;
     }
 }
