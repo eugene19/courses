@@ -4,13 +4,17 @@ import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.UserRole;
 import by.epamtc.courses.service.i18n.LocaleMessage;
 import by.epamtc.courses.service.i18n.ResourceManager;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 public class UserValidator {
+    private static final Logger LOGGER = Logger.getLogger(UserValidator.class);
+
     private static final String MINIMAL_DATE = "1900-01-01";
 
     private static final String LOGIN_PATTERN = "\\w{3,15}";
@@ -94,16 +98,22 @@ public class UserValidator {
         LocalDate maxDate = LocalDate.now();
 
         String birthdayString = parameterMap.get(ParameterName.BIRTHDAY)[0];
+        LocalDate birthday;
 
         if (checkEmpty(birthdayString)) {
             errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else {
-            LocalDate birthday = LocalDate.parse(birthdayString);
+            try {
+                birthday = LocalDate.parse(birthdayString);
 
-            if (birthday.isBefore(minDate)) {
-                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_BEFORE_MIN));
-            } else if (birthday.isAfter(maxDate)) {
-                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_AFTER_MAX));
+                if (birthday.isBefore(minDate)) {
+                    errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_BEFORE_MIN));
+                } else if (birthday.isAfter(maxDate)) {
+                    errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_AFTER_MAX));
+                }
+            } catch (DateTimeParseException e) {
+                LOGGER.error("Error while parsing date " + birthdayString);
+                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_DATE));
             }
         }
 
