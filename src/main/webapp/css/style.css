@@ -30,6 +30,10 @@
 }
 
 .menu {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    /*box-shadow: 0 9px 9px 0 #024222;*/
 }
 
 a {
