@@ -19,22 +19,6 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao = DaoProvider.getInstance().getUserDao();
 
     @Override
-    public Map<String, String> validateUserAuthData(String login, String password) {
-        return validateUserAuthData(login, password, null);
-    }
-
-    @Override
-    public Map<String, String> validateUserAuthData(String login, String password, Locale lang) {
-        Map<String, String[]> parameterMap = new HashMap<>();
-        parameterMap.put(ParameterName.LOGIN, new String[]{login});
-        parameterMap.put(ParameterName.PASSWORD, new String[]{password});
-
-        UserValidator validator = new UserValidator(parameterMap, lang);
-
-        return validator.validateLogin().validatePassword().getErrors();
-    }
-
-    @Override
     public User authenticate(String login, String password) throws ServiceException {
         try {
             return userDao.authenticate(login, password);
@@ -50,5 +34,16 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public Map<String, String> validateUserAuthData(String login, String password, Locale lang) {
+        Map<String, String[]> parameterMap = new HashMap<>();
+        parameterMap.put(ParameterName.LOGIN, new String[]{login});
+        parameterMap.put(ParameterName.PASSWORD, new String[]{password});
+
+        UserValidator validator = new UserValidator(parameterMap, lang);
+
+        return validator.validateLogin().validatePassword().getErrors();
     }
 }
