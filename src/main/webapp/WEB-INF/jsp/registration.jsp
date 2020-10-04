@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Registration</title>
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="component/header.jsp" %>
@@ -30,9 +30,8 @@
              var="lecturer_select"/>
 
 <div class="center-form">
-    <form action="${pageContext.request.contextPath}/main?command=registration"
-          method="post">
-        <%--        <input type="hidden" name="command" value="registration"/>--%>
+    <form action="${pageContext.request.contextPath}/main" method="post">
+        <input type="hidden" name="command" value="registration"/>
         <h3>${registration_summary}</h3>
         <div class="total-error">
             ${error}

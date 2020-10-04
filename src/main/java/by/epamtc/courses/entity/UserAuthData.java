@@ -41,7 +41,7 @@ public class UserAuthData extends User {
 
     @Override
     public String toString() {
-        return "UserData{" +
+        return "UserAuthData{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -13,7 +13,7 @@ public class LoginPageCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening login page.");
+        LOGGER.debug("Opening login page");
         req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
     }
 }

@@ -8,7 +8,7 @@
 <body>
 <%-- Костыль --%>
 <c:if test="${empty user}">
-    <c:set var="user" value="${null}"></c:set>
+    <c:set var="user" value="${null}"/>
 </c:if>
 
 <%@include file="component/header.jsp" %>
