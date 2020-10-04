@@ -20,11 +20,9 @@ public class UserValidator {
     private Map<String, String> errors;
     private ResourceManager resourceManager;
 
-    public UserValidator(Map<String, String[]> parameterMap, Locale lang) {
+    public UserValidator(Map<String, String[]> parameterMap, Locale locale) {
         this.parameterMap = parameterMap;
         this.errors = new HashMap<>();
-        Locale locale = lang == null ? Locale.getDefault() : lang;
-
         this.resourceManager = new ResourceManager(locale);
     }
 
@@ -121,18 +119,6 @@ public class UserValidator {
                 errors.put(ParameterName.ROLE, resourceManager.getValue("user.error.incorrectRole"));
             }
         }
-
-        return this;
-    }
-
-    public UserValidator validateAll() {
-        validateLogin();
-        validatePassword();
-        validateSurname();
-        validateName();
-        validateEmail();
-        validateBirthday();
-        validateRole();
 
         return this;
     }

@@ -16,15 +16,18 @@
 <fmt:message bundle="${bundle}" key="login.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="login.password" var="password_lable"/>
 <fmt:message bundle="${bundle}" key="login.submit" var="try_login_button"/>
+<fmt:message bundle="${bundle}" key="registration.message.success"
+             var="registration_message"/>
 
 <div class="center-form">
-    <form action="${pageContext.request.contextPath}/main?command=login"
-          method="post">
-        <%--        <input type="hidden" name="command" value="login"/>--%>
+    <form action="${pageContext.request.contextPath}/main" method="post">
+        <input type="hidden" name="command" value="login"/>
         <h3>${login_summary}</h3>
-        <div class="total-message">
-            ${message}
-        </div>
+        <c:if test="${param.get('isRegistrationOk')}">
+            <div class="total-message">
+                    ${registration_message}
+            </div>
+        </c:if>
         <div class="total-error">
             ${error}
         </div>

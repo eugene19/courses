@@ -9,6 +9,7 @@ public class ResourceManager {
     private ResourceBundle resourceBundle;
 
     public ResourceManager(Locale locale) {
+        locale = (locale == null) ? Locale.getDefault() : locale;
         this.resourceBundle = ResourceBundle.getBundle(RES_FILE_NAME, locale);
     }
 

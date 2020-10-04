@@ -26,11 +26,10 @@ public class LoginCommand implements Command {
         String login = req.getParameter(ParameterName.LOGIN);
         String password = req.getParameter(ParameterName.PASSWORD);
 
-        Locale lang = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
-        Locale locale = (lang == null) ? Locale.getDefault() : lang;
+        Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
         ResourceManager resourceManager = new ResourceManager(locale);
 
-        Map<String, String> validationErrors = userService.validateUserAuthData(login, password, lang);
+        Map<String, String> validationErrors = userService.validateUserAuthData(login, password, locale);
         User user;
 
         if (validationErrors.isEmpty()) {

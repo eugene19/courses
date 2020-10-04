@@ -46,4 +46,28 @@ public class UserServiceImpl implements UserService {
 
         return validator.validateLogin().validatePassword().getErrors();
     }
+
+    public Map<String, String> validateUserAuthDataNew(Map<String, String[]> parameters, Locale lang) {
+        UserValidator validator = new UserValidator(parameters, lang);
+
+        return validator
+                .validateLogin()
+                .validatePassword()
+                .getErrors();
+    }
+
+    @Override
+    public Map<String, String> validateUserRegistrationData(Map<String, String[]> parameters, Locale lang) {
+        UserValidator validator = new UserValidator(parameters, lang);
+
+        return validator
+                .validateLogin()
+                .validatePassword()
+                .validateSurname()
+                .validateName()
+                .validateEmail()
+                .validateBirthday()
+                .validateRole()
+                .getErrors();
+    }
 }
