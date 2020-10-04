@@ -7,6 +7,7 @@ import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.ServiceProvider;
 import by.epamtc.courses.service.UserService;
+import by.epamtc.courses.service.i18n.ResourceManager;
 import by.epamtc.courses.service.validation.UserValidator;
 import org.apache.log4j.Logger;
 
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 
 public class RegistrationCommand implements Command {
@@ -30,6 +32,7 @@ public class RegistrationCommand implements Command {
         Map<String, String[]> parameters = req.getParameterMap();
         String lang = (String) req.getSession().getAttribute(ParameterName.LOCALE);
         UserValidator userValidator = new UserValidator(parameters, lang);
+        ResourceManager resourceManager = new ResourceManager(new Locale(lang));
 
         if (userValidator.validateAll().isValid()) {
             UserAuthData user = userBuilder.createUserDataFromParams(parameters);
@@ -38,7 +41,7 @@ public class RegistrationCommand implements Command {
                 userService.register(user);
 
                 LOGGER.debug("Registration successful " + user.getLogin());
-                req.setAttribute(ParameterName.MESSAGE, "Registration successful");
+                req.setAttribute(ParameterName.MESSAGE, resourceManager.getValue("registration.message.success"));
                 page = PageName.LOGIN_PAGE;
             } catch (ServiceException e) {
                 LOGGER.error("Registration error" + e.getMessage(), e);
