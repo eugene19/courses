@@ -30,9 +30,9 @@ public class RegistrationCommand implements Command {
         String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
-        String lang = (String) req.getSession().getAttribute(ParameterName.LOCALE);
-        UserValidator userValidator = new UserValidator(parameters, lang);
-        ResourceManager resourceManager = new ResourceManager(new Locale(lang));
+        Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
+        UserValidator userValidator = new UserValidator(parameters, locale);
+        ResourceManager resourceManager = new ResourceManager(locale);
 
         if (userValidator.validateAll().isValid()) {
             UserAuthData user = userBuilder.createUserDataFromParams(parameters);

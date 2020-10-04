@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Locale;
 
 public class LocaleCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(LocaleCommand.class);
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        String locale = req.getParameter(ParameterName.LOCALE);
+        String lang = req.getParameter(ParameterName.LOCALE);
         HttpSession session = req.getSession();
-        session.setAttribute(ParameterName.LOCALE, locale);
+        session.setAttribute(ParameterName.LOCALE, new Locale(lang));
 
-        LOGGER.debug("Locale is changed to " + locale);
+        LOGGER.debug("Locale is changed to " + lang);
 
         doPreviousCommand(req, resp, session);
     }

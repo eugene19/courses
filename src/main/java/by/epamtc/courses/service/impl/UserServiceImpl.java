@@ -11,6 +11,7 @@ import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, String> validateUserAuthData(String login, String password, String lang) {
+    public Map<String, String> validateUserAuthData(String login, String password, Locale lang) {
         Map<String, String[]> parameterMap = new HashMap<>();
         parameterMap.put(ParameterName.LOGIN, new String[]{login});
         parameterMap.put(ParameterName.PASSWORD, new String[]{password});

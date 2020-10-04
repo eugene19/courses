@@ -26,9 +26,8 @@ public class LoginCommand implements Command {
         String login = req.getParameter(ParameterName.LOGIN);
         String password = req.getParameter(ParameterName.PASSWORD);
 
-        String lang = (String) req.getSession().getAttribute(ParameterName.LOCALE);
-        Locale locale = (lang == null) ? Locale.getDefault() : new Locale(lang);
-        //todo Add resource manager factory
+        Locale lang = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
+        Locale locale = (lang == null) ? Locale.getDefault() : lang;
         ResourceManager resourceManager = new ResourceManager(locale);
 
         Map<String, String> validationErrors = userService.validateUserAuthData(login, password, lang);

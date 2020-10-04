@@ -20,10 +20,10 @@ public class UserValidator {
     private Map<String, String> errors;
     private ResourceManager resourceManager;
 
-    public UserValidator(Map<String, String[]> parameterMap, String lang) {
+    public UserValidator(Map<String, String[]> parameterMap, Locale lang) {
         this.parameterMap = parameterMap;
         this.errors = new HashMap<>();
-        Locale locale = lang == null ? Locale.getDefault() : new Locale(lang);
+        Locale locale = lang == null ? Locale.getDefault() : lang;
 
         this.resourceManager = new ResourceManager(locale);
     }
