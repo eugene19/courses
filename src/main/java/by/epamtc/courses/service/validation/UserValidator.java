@@ -2,6 +2,7 @@ package by.epamtc.courses.service.validation;
 
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.UserRole;
+import by.epamtc.courses.service.i18n.LocaleMessage;
 import by.epamtc.courses.service.i18n.ResourceManager;
 
 import java.time.LocalDate;
@@ -10,6 +11,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class UserValidator {
+    private static final String MINIMAL_DATE = "1900-01-01";
+
     private static final String LOGIN_PATTERN = "\\w{3,15}";
     private static final String PASSWORD_PATTERN = "\\w{3,15}";
     private static final String SURNAME_PATTERN = "[A-Za-zА-Яа-яЁё]{3,15}";
@@ -30,9 +33,9 @@ public class UserValidator {
         String login = parameterMap.get(ParameterName.LOGIN)[0];
 
         if (checkEmpty(login)) {
-            errors.put(ParameterName.LOGIN, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.LOGIN, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else if (!login.matches(LOGIN_PATTERN)) {
-            errors.put(ParameterName.LOGIN, resourceManager.getValue("user.error.incorrectLogin"));
+            errors.put(ParameterName.LOGIN, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_LOGIN));
         }
 
         return this;
@@ -42,9 +45,9 @@ public class UserValidator {
         String password = parameterMap.get(ParameterName.PASSWORD)[0];
 
         if (checkEmpty(password)) {
-            errors.put(ParameterName.PASSWORD, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.PASSWORD, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else if (!password.matches(PASSWORD_PATTERN)) {
-            errors.put(ParameterName.PASSWORD, resourceManager.getValue("user.error.incorrectPassword"));
+            errors.put(ParameterName.PASSWORD, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_PASSWORD));
         }
 
         return this;
@@ -54,9 +57,9 @@ public class UserValidator {
         String surname = parameterMap.get(ParameterName.SURNAME)[0];
 
         if (checkEmpty(surname)) {
-            errors.put(ParameterName.SURNAME, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.SURNAME, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else if (!surname.matches(SURNAME_PATTERN)) {
-            errors.put(ParameterName.SURNAME, resourceManager.getValue("user.error.incorrectSurname"));
+            errors.put(ParameterName.SURNAME, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_SURNAME));
         }
 
         return this;
@@ -66,9 +69,9 @@ public class UserValidator {
         String name = parameterMap.get(ParameterName.NAME)[0];
 
         if (checkEmpty(name)) {
-            errors.put(ParameterName.NAME, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.NAME, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else if (!name.matches(NAME_PATTERN)) {
-            errors.put(ParameterName.NAME, resourceManager.getValue("user.error.incorrectName"));
+            errors.put(ParameterName.NAME, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_NAME));
         }
 
         return this;
@@ -78,29 +81,29 @@ public class UserValidator {
         String email = parameterMap.get(ParameterName.EMAIL)[0];
 
         if (checkEmpty(email)) {
-            errors.put(ParameterName.EMAIL, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.EMAIL, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else if (!email.matches(EMAIL_PATTERN)) {
-            errors.put(ParameterName.EMAIL, resourceManager.getValue("user.error.incorrectEmail"));
+            errors.put(ParameterName.EMAIL, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_EMAIL));
         }
 
         return this;
     }
 
     public UserValidator validateBirthday() {
-        LocalDate minDate = LocalDate.parse("1900-01-01");
+        LocalDate minDate = LocalDate.parse(MINIMAL_DATE);
         LocalDate maxDate = LocalDate.now();
 
         String birthdayString = parameterMap.get(ParameterName.BIRTHDAY)[0];
 
         if (checkEmpty(birthdayString)) {
-            errors.put(ParameterName.BIRTHDAY, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else {
             LocalDate birthday = LocalDate.parse(birthdayString);
 
             if (birthday.isBefore(minDate)) {
-                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue("user.error.dateBeforeMin"));
+                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_BEFORE_MIN));
             } else if (birthday.isAfter(maxDate)) {
-                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue("user.error.dateAfterMax"));
+                errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_AFTER_MAX));
             }
         }
 
@@ -111,12 +114,12 @@ public class UserValidator {
         String role = parameterMap.get(ParameterName.ROLE)[0];
 
         if (checkEmpty(role)) {
-            errors.put(ParameterName.ROLE, resourceManager.getValue("user.error.fieldIsEmpty"));
+            errors.put(ParameterName.ROLE, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else {
             try {
                 UserRole.valueOf(role);
             } catch (IllegalArgumentException e) {
-                errors.put(ParameterName.ROLE, resourceManager.getValue("user.error.incorrectRole"));
+                errors.put(ParameterName.ROLE, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_ROLE));
             }
         }
 
@@ -125,10 +128,6 @@ public class UserValidator {
 
     public boolean checkEmpty(String line) {
         return line == null || line.isEmpty();
-    }
-
-    public boolean isValid() {
-        return errors.isEmpty();
     }
 
     public Map<String, String> getErrors() {

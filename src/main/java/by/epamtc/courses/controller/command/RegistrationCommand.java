@@ -7,6 +7,7 @@ import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.ServiceProvider;
 import by.epamtc.courses.service.UserService;
+import by.epamtc.courses.service.i18n.LocaleMessage;
 import by.epamtc.courses.service.i18n.ResourceManager;
 import org.apache.log4j.Logger;
 
@@ -49,7 +50,8 @@ public class RegistrationCommand implements Command {
                 LOGGER.error("Registration error" + e.getMessage(), e);
 
                 req.setAttribute(ParameterName.INIT, parameters);
-                req.setAttribute(ParameterName.ERROR, resourceManager.getValue("errorPage.message"));
+                req.setAttribute(ParameterName.ERROR,
+                        resourceManager.getValue(LocaleMessage.ERROR_PAGE_MESSAGE));
                 page = PageName.REGISTRATION_PAGE;
             }
         } else {

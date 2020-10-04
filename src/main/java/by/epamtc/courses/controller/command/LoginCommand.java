@@ -6,6 +6,7 @@ import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.ServiceProvider;
 import by.epamtc.courses.service.UserService;
+import by.epamtc.courses.service.i18n.LocaleMessage;
 import by.epamtc.courses.service.i18n.ResourceManager;
 import org.apache.log4j.Logger;
 
@@ -42,7 +43,8 @@ public class LoginCommand implements Command {
                 } else {
                     LOGGER.debug("Authentication is canceled because wrong login or password");
                     req.setAttribute(ParameterName.INIT, req.getParameterMap());
-                    req.setAttribute(ParameterName.ERROR, resourceManager.getValue("login.error.wrongLoginOrPass"));
+                    req.setAttribute(ParameterName.ERROR,
+                            resourceManager.getValue(LocaleMessage.WRONG_LOGIN_OR_PASSWORD));
                     req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
                 }
             } catch (ServiceException e) {
