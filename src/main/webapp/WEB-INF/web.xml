@@ -17,6 +17,7 @@
     <servlet-mapping>
         <servlet-name>requestDispatcher</servlet-name>
         <url-pattern>/main</url-pattern>
+        <url-pattern>/main/user</url-pattern>
     </servlet-mapping>
 
     <filter>

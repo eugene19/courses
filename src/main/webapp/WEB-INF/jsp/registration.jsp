@@ -25,9 +25,9 @@
 <fmt:message bundle="${bundle}" key="registration.submit"
              var="try_register_button"/>
 <fmt:message bundle="${bundle}" key="registration.role.student"
-             var="student_select"/>
+             var="role_student"/>
 <fmt:message bundle="${bundle}" key="registration.role.lecturer"
-             var="lecturer_select"/>
+             var="role_lecturer"/>
 
 <div class="center-form">
     <form action="${pageContext.request.contextPath}/main" method="post">
@@ -106,10 +106,10 @@
                     <select name="role">
                         <option
                                 <c:if test="${init.role[0] == 'STUDENT'}">selected</c:if>
-                                value="STUDENT">${student_select}</option>
+                                value="STUDENT">${role_student}</option>
                         <option
                                 <c:if test="${init.role[0] == 'LECTURER'}">selected</c:if>
-                                value="LECTURER">${lecturer_select}</option>
+                                value="LECTURER">${role_lecturer}</option>
                     </select>
                 </td>
             </tr>

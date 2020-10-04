@@ -7,5 +7,6 @@ public enum CommandName {
     LOGOUT,
     LOCALE,
     REGISTRATION,
-    GET_REGISTRATION_PAGE
+    GET_REGISTRATION_PAGE,
+    GET_PROFILE_PAGE
 }

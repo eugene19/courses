@@ -14,6 +14,7 @@ public class CommandProvider {
         commands.put(CommandName.LOCALE, new LocaleCommand());
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
         commands.put(CommandName.GET_REGISTRATION_PAGE, new RegistrationPageCommand());
+        commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
     }
 
     public Command getCommand(String command) {
