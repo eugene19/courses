@@ -7,10 +7,17 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserRole;
+import org.apache.log4j.Logger;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class SqlUserDao implements UserDao {
+    private static final Logger LOGGER = Logger.getLogger(SqlUserDao.class);
+    private static final String ALGORITHM_NAME = "MD5";
+
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT users.id, surname, name, email, birthday, role " +
@@ -34,7 +41,7 @@ public class SqlUserDao implements UserDao {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(GET_BY_LOGIN_AND_PASSWORD);
             preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, hashPassword(password));
 
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -43,7 +50,7 @@ public class SqlUserDao implements UserDao {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while authenticate user " + login, e);
         } finally {
-                connectionPool.closeConnection(connection, preparedStatement, resultSet);
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
 
         return user;
@@ -59,7 +66,7 @@ public class SqlUserDao implements UserDao {
             preparedStatement = connection.prepareStatement(REGISTER_USER);
 
             preparedStatement.setString(1, user.getLogin());
-            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(2, hashPassword(user.getPassword()));
             preparedStatement.setString(3, user.getSurname());
             preparedStatement.setString(4, user.getName());
             preparedStatement.setString(5, user.getEmail());
@@ -85,5 +92,27 @@ public class SqlUserDao implements UserDao {
         user.setRole(UserRole.valueOf(resultSet.getString(6)));
 
         return user;
+    }
+
+    private String hashPassword(String password) {
+        byte[] digest = new byte[0];
+
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM_NAME);
+            messageDigest.reset();
+            messageDigest.update(password.getBytes());
+            digest = messageDigest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("Wrong hash algorithm.");
+        }
+
+        BigInteger bigInt = new BigInteger(1, digest);
+        StringBuilder md5Hex = new StringBuilder(bigInt.toString(16));
+
+        while (md5Hex.length() < 32) {
+            md5Hex.insert(0, "0");
+        }
+
+        return md5Hex.toString();
     }
 }
