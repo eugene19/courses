@@ -3,7 +3,10 @@
 <html>
 <head>
     <title>Error</title>
-    <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
 </head>
 <body>
 <%-- Костыль --%>
@@ -12,16 +15,17 @@
 </c:if>
 
 <%@include file="component/header.jsp" %>
-<%@include file="component/menu.jsp" %>
 
 <fmt:message bundle="${bundle}" key="errorPage.message" var="message"/>
 <fmt:message bundle="${bundle}" key="errorPage.button" var="button"/>
 
 <div class="center-form">
-    <p>${message}</p><br/>
-    <a href="../../index.jsp">
-        <button>${button}</button>
-    </a>
+    <div><p>${message}</p></div>
+    <div>
+        <a href="../../index.jsp">
+            <button>${button}</button>
+        </a>
+    </div>
 </div>
 
 <%@include file="component/footer.jsp" %>

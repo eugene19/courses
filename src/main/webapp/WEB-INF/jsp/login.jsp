@@ -4,13 +4,15 @@
 <html>
 <head>
     <title>Login</title>
-    <link href="../../css/style.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
 </head>
 <body>
 <jsp:useBean id="login" class="java.lang.String"/>
 
 <%@include file="component/header.jsp" %>
-<%@include file="component/menu.jsp" %>
 
 <fmt:message bundle="${bundle}" key="login.summary" var="login_summary"/>
 <fmt:message bundle="${bundle}" key="login.login" var="login_lable"/>
@@ -19,43 +21,41 @@
 <fmt:message bundle="${bundle}" key="registration.message.success"
              var="registration_message"/>
 
-<div class="center-form">
-    <form action="${pageContext.request.contextPath}/main" method="post">
-        <input type="hidden" name="command" value="login"/>
-        <h3>${login_summary}</h3>
-        <c:if test="${param.get('isRegistrationOk')}">
-            <div class="total-message">
-                    ${registration_message}
-            </div>
-        </c:if>
-        <div class="total-error">
-            ${error}
-        </div>
-        <table>
-            <tr>
-                <td class="col-name">${login_lable}</td>
-                <td>
-                    <input type="text" name="login" value="${init.login[0]}"/>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><p class="field-error">${errors.login}</p></td>
-            </tr>
-            <tr>
-                <td class="col-name">${password_lable}</td>
-                <td>
-                    <input type="password" name="password"/>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><p class="field-error">${errors.password}</p></td>
-            </tr>
-        </table>
+<div class="container">
+    <div class="row align-items-center justify-content-center py-5">
+        <form action="${pageContext.request.contextPath}/main" method="post">
+            <input type="hidden" name="command" value="login"/>
 
-        <input type="submit" value="${try_login_button}">
-    </form>
+            <h3 class="h3 mb-3 font-weight-normal">${login_summary}</h3>
+
+            <c:if test="${param.get('isRegistrationOk')}">
+                <div class="alert alert-success" role="alert">
+                        ${registration_message}
+                </div>
+            </c:if>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert">
+                        ${error}
+                </div>
+            </c:if>
+
+            <div class="form-group row">
+                <label for="login">${login_lable}</label>
+                <input type="text" class="form-control" id="login" name="login"
+                       value="${init.login[0]}"/>
+                <span class="text-danger small">${errors.login} </span>
+            </div>
+            <div class="form-group row">
+                <label for="password">${password_lable}</label>
+                <input class="form-control" id="password" type="password"
+                       name="password"/>
+                <div class="text-danger small">${errors.password} </div>
+            </div>
+
+            <button class="btn btn-outline-info"
+                    type="submit">${try_login_button}</button>
+        </form>
+    </div>
 </div>
 
 <%@include file="component/footer.jsp" %>

@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
-    <link href="../../css/style.css" rel="stylesheet">
+    <title>Profile</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
 </head>
 <body>
 <%@include file="component/header.jsp" %>
-<%@include file="component/menu.jsp" %>
 
 <fmt:message bundle="${bundle}" key="profile.summary" var="profile_summary"/>
 <fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>

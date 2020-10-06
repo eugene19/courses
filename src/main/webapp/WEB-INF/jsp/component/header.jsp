@@ -1,4 +1,4 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="strings" var="bundle"/>
 
@@ -8,47 +8,68 @@
 <fmt:message bundle="${bundle}" key="header.registration"
              var="register_button"/>
 <fmt:message bundle="${bundle}" key="header.logout" var="logout_button"/>
+<fmt:message bundle="${bundle}" key="menu.main" var="main_button"/>
+<fmt:message bundle="${bundle}" key="menu.about" var="about_button"/>
+<fmt:message bundle="${bundle}" key="menu.contacts" var="contacts_button"/>
+<fmt:message bundle="${bundle}" key="profile.summary" var="profile_button"/>
 
-<div class="header">
-    <div class="block">
-        <a href="${pageContext.request.contextPath}/">
-            <img src="../../picture/logo.png" alt="Courses academy">
-        </a>
-    </div>
-    <%--    <jsp:useBean id="user" class="by.epamtc.courses.entity.User"/>--%>
-    <div class="block">
-        <div class="block">
-            <div class="lang">
-                <form action="${pageContext.request.contextPath}/main?command=locale"
-                      method="post">
-<%--                    <input type="hidden" name="basePage" value="${pageContext.request.contextPath}">--%>
-                    <select onchange="submit()" name="locale">
-                        <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
-                            ${en_button}</option>
-                        <option value="ru" ${sessionScope.locale == 'ru' ? 'selected' : ''}>
-                            ${ru_button}</option>
-                    </select>
-                </form>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
+                <img src="../../picture/logo.png" alt="Courses academy">
+            </a>
         </div>
-        <div class="block">
-            <c:if test="${not empty user}">
-                <div class="right-block">
-                        ${user.name} ${user.surname}
-                    <form action="${pageContext.request.contextPath}/main"
-                          method="post">
-                        <input type="hidden" name="command" value="logout">
-                        <input type="submit" value="${logout_button}">
-                    </form>
-                </div>
-            </c:if>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link"
+                                        href="${pageContext.request.contextPath}/">${main_button}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/main?command=about">${about_button}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/main?command=contacts">${contacts_button}</a>
+                </li>
+                <c:if test="${not empty user}">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/main?command=get_profile_page">${profile_button}</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0"
+              action="${pageContext.request.contextPath}/main?command=locale"
+              method="post">
+            <select class="form-control form-control-sm" onchange="submit()"
+                    name="locale">
+                <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
+                    ${en_button}</option>
+                <option value="ru" ${sessionScope.locale == 'ru' ? 'selected' : ''}>
+                    ${ru_button}</option>
+            </select>
+        </form>
+        <c:if test="${not empty user}">
+            <form class="my-2 my-lg-0"
+                  action="${pageContext.request.contextPath}/main"
+                  method="post">
+                <input type="hidden" name="command" value="logout"/>
+                <span class="navbar-text">
+                    ${user.name} ${user.surname}
+                </span>
+                <button class="btn btn-sm btn-outline-secondary"
+                        type="submit">${logout_button}</button>
+            </form>
+        </c:if>
 
-            <c:if test="${empty user}">
-                <div class="right-block">
-                    <a href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
-                    <a href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_button}</a>
-                </div>
-            </c:if>
-        </div>
+        <c:if test="${empty user}">
+            <form class="my-2 my-lg-0">
+                <a href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
+                <a href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_button}</a>
+            </form>
+        </c:if>
     </div>
-</div>
+</nav>
