@@ -10,6 +10,6 @@
         ${address}
     </div>
     <div class="right-block">
-        <a href="#">${mobile}</a>
+        <a class="text-info" href="#">${mobile}</a>
     </div>
 </footer>

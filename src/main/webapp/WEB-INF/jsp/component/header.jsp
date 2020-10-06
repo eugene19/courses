@@ -41,7 +41,7 @@
                 </c:if>
             </ul>
         </div>
-        <form class="form-inline my-2 my-lg-0"
+        <form class="form-inline my-1 mx-2"
               action="${pageContext.request.contextPath}/main?command=locale"
               method="post">
             <select class="form-control form-control-sm" onchange="submit()"
@@ -53,10 +53,11 @@
             </select>
         </form>
         <c:if test="${not empty user}">
-            <form class="my-2 my-lg-0"
+            <form class="my-1"
                   action="${pageContext.request.contextPath}/main"
                   method="post">
                 <input type="hidden" name="command" value="logout"/>
+
                 <span class="navbar-text">
                     ${user.name} ${user.surname}
                 </span>
@@ -66,9 +67,11 @@
         </c:if>
 
         <c:if test="${empty user}">
-            <form class="my-2 my-lg-0">
-                <a href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
-                <a href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_button}</a>
+            <form class="my-1">
+                <a class="text-info"
+                   href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
+                <a class="text-info"
+                   href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_button}</a>
             </form>
         </c:if>
     </div>
