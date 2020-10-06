@@ -33,10 +33,13 @@
 
 <div class="container">
     <div class="row align-items-center justify-content-center py-5">
-        <form action="${pageContext.request.contextPath}/main" method="post">
-            <input type="hidden" name="command" value="registration"/>
+        <h3 class="h3 mb-3 font-weight-normal">${registration_summary}</h3>
+    </div>
 
-            <h3 class="h3 mb-3 font-weight-normal">${registration_summary}</h3>
+    <div class="row align-items-center justify-content-center py-2">
+        <form class="col-md-3" action="${pageContext.request.contextPath}/main"
+              method="post">
+            <input type="hidden" name="command" value="registration"/>
 
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">
@@ -86,7 +89,7 @@
             </div>
             <div class="form-group row">
                 <label for="birthday">${birthday_lable}</label>
-                <input type="text" class="form-control form-control-sm"
+                <input type="date" class="form-control form-control-sm"
                        id="birthday"
                        name="birthday" value="${init.birthday[0]}"/>
                 <span class="text-danger small">${errors.birthday} </span>
@@ -106,8 +109,10 @@
                 <span class="text-danger small">${errors.role} </span>
             </div>
 
-            <button class="btn btn-outline-info"
-                    type="submit">${try_register_button}</button>
+            <div class="row align-items-center justify-content-center py-4">
+                <button class="btn btn-outline-info"
+                        type="submit">${try_register_button}</button>
+            </div>
         </form>
     </div>
 </div>

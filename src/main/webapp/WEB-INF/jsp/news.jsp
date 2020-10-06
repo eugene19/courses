@@ -11,8 +11,10 @@
 <body>
 <%@include file="component/header.jsp" %>
 
-<div class="content">
-    ${news}
+<div class="container">
+    <div class="row align-items-center justify-content-center py-5">
+        ${news}
+    </div>
 </div>
 
 <%@include file="component/footer.jsp" %>

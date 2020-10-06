@@ -23,10 +23,13 @@
 
 <div class="container">
     <div class="row align-items-center justify-content-center py-5">
-        <form action="${pageContext.request.contextPath}/main" method="post">
-            <input type="hidden" name="command" value="login"/>
+        <h3 class="h3 mb-3 font-weight-normal">${login_summary}</h3>
+    </div>
 
-            <h3 class="h3 mb-3 font-weight-normal">${login_summary}</h3>
+    <div class="row align-items-center justify-content-center py-2">
+        <form class="col-md-3" action="${pageContext.request.contextPath}/main"
+              method="post">
+            <input type="hidden" name="command" value="login"/>
 
             <c:if test="${param.get('isRegistrationOk')}">
                 <div class="alert alert-success" role="alert">
@@ -41,19 +44,23 @@
 
             <div class="form-group row">
                 <label for="login">${login_lable}</label>
-                <input type="text" class="form-control" id="login" name="login"
+                <input type="text" class="form-control form-control-sm"
+                       id="login" name="login"
                        value="${init.login[0]}"/>
                 <span class="text-danger small">${errors.login} </span>
             </div>
             <div class="form-group row">
                 <label for="password">${password_lable}</label>
-                <input class="form-control" id="password" type="password"
+                <input class="form-control form-control-sm" id="password"
+                       type="password"
                        name="password"/>
                 <div class="text-danger small">${errors.password} </div>
             </div>
 
-            <button class="btn btn-outline-info"
-                    type="submit">${try_login_button}</button>
+            <div class="row align-items-center justify-content-center py-4">
+                <button class="btn btn-outline-info"
+                        type="submit">${try_login_button}</button>
+            </div>
         </form>
     </div>
 </div>

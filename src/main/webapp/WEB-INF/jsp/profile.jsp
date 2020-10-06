@@ -28,44 +28,62 @@
 <fmt:message bundle="${bundle}" key="profile.button.edit"
              var="edit_profile_button"/>
 
-<div class="center-form">
-    <div class="content-block"
-         style="width: 60%; background: #D4E7EE; height: 100%">
-        <h3>${profile_summary}</h3>
-        <table>
-            <tr>
-                <td class="col-name">${surname_lable}</td>
-                <td>
-                    ${user.surname}
-                </td>
-            </tr>
-            <tr>
-                <td class="col-name">${name_lable}</td>
-                <td>
-                    ${user.name}
-                </td>
-            </tr>
-            <tr>
-                <td class="col-name">${email_lable}</td>
-                <td>
-                    ${user.email}
-                </td>
-            </tr>
-            <tr>
-                <td class="col-name">${birthday_lable}</td>
-                <td>
-                    ${user.birthday}
-                </td>
-            </tr>
-            <tr>
-                <td class="col-name">${role_lable}</td>
-                <td>
-                    <c:if test="${user.role == 'STUDENT'}">${role_student}</c:if>
-                    <c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>
-                </td>
-            </tr>
-        </table>
+<div class="container">
+    <div class="row align-items-center justify-content-center py-5">
+        <h3 class="h3 mb-3 font-weight-normal">${profile_summary}</h3>
+    </div>
 
+    <div class="row align-items-center justify-content-center py-2">
+        <form class="col-md-6">
+            <div class="form-group row">
+                <label for="surname"
+                       class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
+                <div class="col-lg-4">
+                    <input type="text" readonly class="form-control-plaintext"
+                           id="surname" value="${user.surname}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="name"
+                       class="col-lg-2 col-form-label text-muted">${name_lable}</label>
+                <div class="col-lg-4">
+                    <input type="text" readonly class="form-control-plaintext"
+                           id="name" value="${user.name}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email"
+                       class="col-lg-2 col-form-label text-muted">${email_lable}</label>
+                <div class="col-lg-4">
+                    <input type="text" readonly class="form-control-plaintext"
+                           id="email" value="${user.email}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="birthday"
+                       class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
+                <div class="col-lg-4">
+                    <input type="text" readonly class="form-control-plaintext"
+                           id="birthday" value="${user.birthday}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="role"
+                       class="col-lg-2 col-form-label text-muted">${role_lable}</label>
+                <div class="col-lg-4">
+                    <input type="text" readonly class="form-control-plaintext"
+                           id="role"
+                           value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row align-items-center justify-content-center py-2">
         <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">${edit_profile_button}</a>
     </div>
 </div>
