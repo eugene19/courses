@@ -26,7 +26,8 @@ public class SecurityFilter implements Filter {
         Object user = req.getSession(true).getAttribute(ParameterName.USER);
 
         if (command != null
-                && command.equalsIgnoreCase(CommandName.GET_PROFILE_PAGE.toString())
+                && (command.equalsIgnoreCase(CommandName.GET_PROFILE_PAGE.toString())
+                || command.equalsIgnoreCase(CommandName.GET_EDIT_PROFILE_PAGE.toString()))
                 && user == null) {
             LOGGER.warn("Try opening private page not authored user");
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);

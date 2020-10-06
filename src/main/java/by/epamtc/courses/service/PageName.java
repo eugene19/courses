@@ -5,6 +5,7 @@ public abstract class PageName {
     public static final String REGISTRATION_PAGE = "WEB-INF/jsp/registration.jsp";
     public static final String NEWS_PAGE = "WEB-INF/jsp/news.jsp";
     public static final String PROFILE_PAGE = "WEB-INF/jsp/profile.jsp";
+    public static final String EDIT_PROFILE_PAGE = "WEB-INF/jsp/edit_profile.jsp";
     public static final String DEFAULT_PAGE_URL = "/";
     public static final String MAIN_SERVLET_URL = "/main";
 }

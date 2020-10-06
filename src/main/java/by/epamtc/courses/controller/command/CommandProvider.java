@@ -15,6 +15,7 @@ public class CommandProvider {
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
         commands.put(CommandName.GET_REGISTRATION_PAGE, new RegistrationPageCommand());
         commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
+        commands.put(CommandName.GET_EDIT_PROFILE_PAGE, new EditProfilePageCommand());
     }
 
     public Command getCommand(String command) {

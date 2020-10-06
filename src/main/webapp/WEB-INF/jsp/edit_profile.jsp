@@ -11,7 +11,8 @@
 <body>
 <%@include file="component/header.jsp" %>
 
-<fmt:message bundle="${bundle}" key="profile.summary" var="profile_summary"/>
+<fmt:message bundle="${bundle}" key="profile.edit.summary"
+             var="edit_profile_summary"/>
 <fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="registration.surname" var="surname_lable"/>
 <fmt:message bundle="${bundle}" key="registration.name" var="name_lable"/>
@@ -23,12 +24,12 @@
              var="role_student"/>
 <fmt:message bundle="${bundle}" key="registration.role.lecturer"
              var="role_lecturer"/>
-<fmt:message bundle="${bundle}" key="profile.button.edit"
-             var="edit_profile_button"/>
+<fmt:message bundle="${bundle}" key="profile.edit.button"
+             var="save_profile_button"/>
 
 <div class="container">
     <div class="row align-items-center justify-content-center py-5">
-        <h3 class="h3 mb-3 font-weight-normal">${profile_summary}</h3>
+        <h3 class="h3 mb-3 font-weight-normal">${edit_profile_summary}</h3>
     </div>
 
     <div class="row align-items-center justify-content-center py-2">
@@ -37,52 +38,63 @@
                 <label for="surname"
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
                 <div class="col-lg-6">
-                    <input type="text" readonly class="form-control-plaintext"
+                    <input type="text" class="form-control"
                            id="surname" value="${user.surname}">
                 </div>
+                <span class="text-danger small">${errors.surname} </span>
             </div>
 
             <div class="form-group row">
                 <label for="name"
                        class="col-lg-2 col-form-label text-muted">${name_lable}</label>
                 <div class="col-lg-6">
-                    <input type="text" readonly class="form-control-plaintext"
+                    <input type="text" class="form-control"
                            id="name" value="${user.name}">
                 </div>
+                <span class="text-danger small">${errors.name} </span>
             </div>
 
             <div class="form-group row">
                 <label for="email"
                        class="col-lg-2 col-form-label text-muted">${email_lable}</label>
                 <div class="col-lg-6">
-                    <input type="text" readonly class="form-control-plaintext"
+                    <input type="text" class="form-control"
                            id="email" value="${user.email}">
                 </div>
+                <span class="text-danger small">${errors.email} </span>
             </div>
 
             <div class="form-group row">
                 <label for="birthday"
                        class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
                 <div class="col-lg-6">
-                    <input type="text" readonly class="form-control-plaintext"
+                    <input type="text" class="form-control"
                            id="birthday" value="${user.birthday}">
                 </div>
+                <span class="text-danger small">${errors.birthday} </span>
             </div>
 
             <div class="form-group row">
                 <label for="role"
                        class="col-lg-2 col-form-label text-muted">${role_lable}</label>
                 <div class="col-lg-6">
-                    <input type="text" readonly class="form-control-plaintext"
-                           id="role"
-                           value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>">
+                    <select class="form-control" id="role"
+                            name="role">
+                        <option
+                                <c:if test="${user.role  == 'STUDENT'}">selected</c:if>
+                                value="STUDENT">${role_student}</option>
+                        <option
+                                <c:if test="${user.role == 'LECTURER'}">selected</c:if>
+                                value="LECTURER">${role_lecturer}</option>
+                    </select>
                 </div>
+                <span class="text-danger small">${errors.role} </span>
+            </div>
+
+            <div class="row align-items-center justify-content-center py-2">
+                <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">${save_profile_button}</a>
             </div>
         </form>
-    </div>
-
-    <div class="row align-items-center justify-content-center py-2">
-        <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">${edit_profile_button}</a>
     </div>
 </div>
 
