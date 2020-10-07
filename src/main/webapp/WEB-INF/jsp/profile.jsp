@@ -34,7 +34,7 @@
     </div>
 
     <div class="row align-items-center justify-content-center py-2">
-        <form class="col-md-6" action="${pageContext.request.contextPath}/main"
+        <form class="col-md-7" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="get_edit_profile_page">
 
@@ -45,6 +45,11 @@
             </c:if>
 
             <input type="hidden" name="id" value="${user.id}">
+
+            <div class="form-group row">
+                <img class="rounded mx-auto d-block w-50"
+                     src="/uploadDir/${user.id}.jpg" alt="No photo">
+            </div>
 
             <div class="form-group row">
                 <label for="surname"

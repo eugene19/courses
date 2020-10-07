@@ -11,6 +11,7 @@ public final class LocaleMessage {
     public static final String ERROR_INCORRECT_PASSWORD = "user.error.incorrectPassword";
     public static final String ERROR_INCORRECT_ROLE = "user.error.incorrectRole";
     public static final String ERROR_INCORRECT_SURNAME = "user.error.incorrectSurname";
+    public static final String SOMETHING_GOES_WRONG = "errorPage.message";
     public static final String WRONG_LOGIN_OR_PASSWORD = "login.error.wrongLoginOrPass";
     public static final String ERROR_PAGE_MESSAGE = "errorPage.message";
 }

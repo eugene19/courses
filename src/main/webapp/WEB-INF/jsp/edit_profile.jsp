@@ -7,6 +7,9 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
           crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <%@include file="component/header.jsp" %>
@@ -28,6 +31,10 @@
              var="save_profile_button"/>
 <fmt:message bundle="${bundle}" key="profile.edit.immutable.field"
              var="immutable_field"/>
+<fmt:message bundle="${bundle}" key="profile.edit.label.upload"
+             var="upload_label"/>
+<fmt:message bundle="${bundle}" key="profile.edit.button.upload"
+             var="upload_button"/>
 
 <div class="container">
     <div class="row align-items-center justify-content-center py-5">
@@ -35,7 +42,46 @@
     </div>
 
     <div class="row align-items-center justify-content-center py-2">
-        <form class="col-md-6" action="${pageContext.request.contextPath}/main"
+        <form class="col-md-7" method="post"
+              action="${pageContext.request.contextPath}/uploadFile"
+              enctype="multipart/form-data">
+
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert">
+                        ${error}
+                </div>
+            </c:if>
+
+            <div class="form-group row">
+                <label for="inputGroupFile02"
+                       class="col-lg-2 col-form-label text-muted">${upload_label}</label>
+                <div class="col-lg-6">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input"
+                               id="inputGroupFile02" name="file"
+                               data-browse=""/>
+                        <label class="custom-file-label"
+                               for="inputGroupFile02"></label>
+                    </div>
+                    <div class="input-group-append my-2">
+                        <button class="btn btn-outline-info">${upload_button}</button>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $("input[type=file]").change(function () {
+                    var fieldVal = $(this).val();
+                    fieldVal = fieldVal.replace("C:\\fakepath\\", "");
+
+                    if (fieldVal !== undefined || fieldVal !== "") {
+                        $(this).next(".custom-file-label").attr('data-content', fieldVal);
+                        $(this).next(".custom-file-label").text(fieldVal);
+                    }
+                });
+            </script>
+        </form>
+
+        <form class="col-md-7" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="edit_profile">
             <input type="hidden" name="id" value="${user.id}">
@@ -49,7 +95,6 @@
                            value="<c:if test="${init.surname[0] != null}">${init.surname[0]}</c:if><c:if test="${init.surname[0] == null}">${user.surname}</c:if>">
                     <span class="text-danger small col-lg-11">${errors.surname} </span>
                 </div>
-
             </div>
 
             <div class="form-group row">
