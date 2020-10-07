@@ -10,18 +10,21 @@ VALUES (2, 'IN_PROGRESS');
 INSERT INTO course_statuses (id, status)
 VALUES (3, 'FINISHED');
 
-INSERT INTO users (id, login, password, surname, name, email, birthday, role_id)
+INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
+                   photo_path)
 VALUES (1, 'user1', '698d51a19d8a121ce581499d7b701668', 'Surname1', 'Name1',
         'email1@test.ru', '2018-08-15',
-        1);
-INSERT INTO users (id, login, password, surname, name, email, birthday, role_id)
+        1, '1.png');
+INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
+                   photo_path)
 VALUES (2, 'user2', '698d51a19d8a121ce581499d7b701668', 'Surname2', 'Name2',
         'email2@test.ru', '2018-08-15',
-        2);
-INSERT INTO users (id, login, password, surname, name, email, birthday, role_id)
+        2, '2.png');
+INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
+                   photo_path)
 VALUES (3, 'user3', '698d51a19d8a121ce581499d7b701668', 'Surname3', 'Name3',
         'email3@test.ru', '2018-08-15',
-        2);
+        2, '3.png');
 
 INSERT INTO courses (id, summary, description, students_limit)
 VALUES (1, 'Summary1', 'Description1', 10);

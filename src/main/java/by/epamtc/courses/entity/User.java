@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String email;
     private LocalDate birthday;
     private UserRole role;
+    private String photoPath;
 
     public User() {
     }
@@ -65,6 +66,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,12 +84,13 @@ public class User implements Serializable {
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(birthday, user.birthday) &&
-                role == user.role;
+                role == user.role &&
+                Objects.equals(photoPath, user.photoPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, surname, name, email, birthday, role);
+        return Objects.hash(id, surname, name, email, birthday, role, photoPath);
     }
 
     @Override
@@ -92,6 +102,7 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", birthday=" + birthday +
                 ", role=" + role +
+                ", photoPath='" + photoPath + '\'' +
                 '}';
     }
 }

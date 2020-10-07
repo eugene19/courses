@@ -4,6 +4,8 @@ import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.service.PageName;
+import by.epamtc.courses.service.ServiceProvider;
+import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.i18n.LocaleMessage;
 import by.epamtc.courses.service.i18n.ResourceManager;
 import org.apache.log4j.Logger;
@@ -46,14 +48,16 @@ public class UploadFileServlet extends HttpServlet {
             }
 
             Part file = request.getPart("file");
-            String name = file.getSubmittedFileName();
-            if (name != null && name.length() > 0) {
-                String filePath = fullSavePath + File.separator + name;
+            String fileName = file.getSubmittedFileName();
+            if (fileName != null && fileName.length() > 0) {
+                String filePath = fullSavePath + File.separator + fileName;
                 file.write(filePath);
             }
 
-            // TODO: 10/7/20 Add saving filename in DB
+            user.setPhotoPath(fileName);
 
+            UserService userService = ServiceProvider.getInstance().getUserService();
+            userService.update(user);
 
             response.sendRedirect("/main?"
                     + ParameterName.COMMAND + "=" + CommandName.GET_PROFILE_PAGE +

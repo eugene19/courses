@@ -46,10 +46,22 @@
 
             <input type="hidden" name="id" value="${user.id}">
 
-            <div class="form-group row">
-                <img class="rounded mx-auto d-block w-50"
-                     src="/uploadDir/${user.id}.jpg" alt="No photo">
-            </div>
+            <c:choose>
+                <c:when test="${not empty user.photoPath}">
+                    <div class="form-group row">
+                        <img class="rounded mx-auto d-block w-50"
+                             src="/uploadFiles/${user.id}/${user.photoPath}"
+                             alt="User photo">
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="form-group row">
+                        <img class="rounded mx-auto d-block w-50"
+                             src="${pageContext.request.contextPath}/uploadFiles/default/defaultPhoto.png"
+                             alt="User default photo">
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
             <div class="form-group row">
                 <label for="surname"

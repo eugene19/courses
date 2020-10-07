@@ -20,7 +20,7 @@ public class SqlUserDao implements UserDao {
 
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-    private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT users.id, surname, name, email, birthday, role " +
+    private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT users.id, surname, name, email, birthday, role, photo_path " +
             "FROM users " +
             "INNER JOIN user_roles ON users.role_id = user_roles.id " +
             "WHERE login = ? " +
@@ -29,7 +29,7 @@ public class SqlUserDao implements UserDao {
     private static final String REGISTER_USER = "INSERT INTO users (login, password, surname, name, email, birthday, role_id) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-    private static final String EDIT_USER = "UPDATE users SET surname = ?, name = ?, email = ?, birthday = ? " +
+    private static final String EDIT_USER = "UPDATE users SET surname = ?, name = ?, email = ?, birthday = ?, photo_path = ? " +
             "WHERE id = ?;";
 
     @Override
@@ -97,7 +97,8 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setDate(4, Date.valueOf(user.getBirthday()));
-            preparedStatement.setInt(5, user.getId());
+            preparedStatement.setString(5, user.getPhotoPath());
+            preparedStatement.setInt(6, user.getId());
 
             return preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
@@ -116,6 +117,7 @@ public class SqlUserDao implements UserDao {
         user.setEmail(resultSet.getString(4));
         user.setBirthday(resultSet.getDate(5).toLocalDate());
         user.setRole(UserRole.valueOf(resultSet.getString(6)));
+        user.setPhotoPath(resultSet.getString(7));
 
         return user;
     }
