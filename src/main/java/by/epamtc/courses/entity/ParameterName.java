@@ -12,6 +12,7 @@ public abstract class ParameterName {
     public static final String NAME = "name";
     public static final String INIT = "init";
     public static final String IS_REGISTRATION_OK = "isRegistrationOk";
+    public static final String IS_UPDATING_OK = "isUpdatingOk";
     public static final String PASSWORD = "password";
     public static final String PREVIOUS_COMMAND = "previousCommand";
     public static final String ROLE = "role";

@@ -58,4 +58,26 @@ public class UserServiceImpl implements UserService {
                 .validateRole()
                 .getErrors();
     }
+
+    @Override
+    public Map<String, String> validateUserProfileData(Map<String, String[]> parameters, Locale lang) {
+        UserValidator validator = new UserValidator(parameters, lang);
+
+        return validator
+                .validateSurname()
+                .validateName()
+                .validateEmail()
+                .validateBirthday()
+                .validateRole()
+                .getErrors();
+    }
+
+    @Override
+    public void update(User user) throws ServiceException {
+        try {
+            userDao.update(user);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

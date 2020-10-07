@@ -15,4 +15,8 @@ public interface UserService {
     Map<String, String> validateUserAuthData(Map<String, String[]> parameters, Locale lang);
 
     Map<String, String> validateUserRegistrationData(Map<String, String[]> parameters, Locale lang);
+
+    Map<String, String> validateUserProfileData(Map<String, String[]> parameters, Locale lang);
+
+    void update(User user) throws ServiceException;
 }

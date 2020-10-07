@@ -12,6 +12,8 @@
 <%@include file="component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="profile.summary" var="profile_summary"/>
+<fmt:message bundle="${bundle}" key="profile.edit..message.success"
+             var="succsses_edit_message"/>
 <fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="registration.surname" var="surname_lable"/>
 <fmt:message bundle="${bundle}" key="registration.name" var="name_lable"/>
@@ -33,6 +35,12 @@
 
     <div class="row align-items-center justify-content-center py-2">
         <form class="col-md-6">
+            <c:if test="${param.get('isUpdatingOk')}">
+                <div class="alert alert-success" role="alert">
+                        ${succsses_edit_message}
+                </div>
+            </c:if>
+
             <div class="form-group row">
                 <label for="surname"
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
@@ -82,7 +90,10 @@
     </div>
 
     <div class="row align-items-center justify-content-center py-2">
-        <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">${edit_profile_button}</a>
+        <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">
+            <button class="btn btn-outline-info"
+                    type="submit">${edit_profile_button}</button>
+        </a>
     </div>
 </div>
 

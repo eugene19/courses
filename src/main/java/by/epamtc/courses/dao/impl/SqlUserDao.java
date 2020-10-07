@@ -29,6 +29,9 @@ public class SqlUserDao implements UserDao {
     private static final String REGISTER_USER = "INSERT INTO users (login, password, surname, name, email, birthday, role_id) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
+    private static final String EDIT_USER = "UPDATE users SET surname = ?, name = ?, email = ?, birthday = ?, role_id = ? " +
+            "WHERE id = ?;";
+
     @Override
     public User authenticate(String login, String password) throws DaoException {
         User user = null;
@@ -76,6 +79,30 @@ public class SqlUserDao implements UserDao {
             return preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while insert user " + user.getLogin(), e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public boolean update(User user) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(EDIT_USER);
+
+            preparedStatement.setString(1, user.getSurname());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setDate(4, Date.valueOf(user.getBirthday()));
+            preparedStatement.setInt(5, user.getRole().getId());
+            preparedStatement.setInt(6, user.getId());
+
+            return preparedStatement.execute();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while update user", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }

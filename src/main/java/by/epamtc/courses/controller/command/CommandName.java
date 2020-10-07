@@ -9,5 +9,6 @@ public enum CommandName {
     REGISTRATION,
     GET_REGISTRATION_PAGE,
     GET_PROFILE_PAGE,
+    EDIT_PROFILE,
     GET_EDIT_PROFILE_PAGE
 }

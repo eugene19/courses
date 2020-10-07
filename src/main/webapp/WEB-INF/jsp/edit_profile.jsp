@@ -33,15 +33,20 @@
     </div>
 
     <div class="row align-items-center justify-content-center py-2">
-        <form class="col-md-6">
+        <form class="col-md-6" action="${pageContext.request.contextPath}/main"
+              method="post">
+            <input type="hidden" name="command" value="edit_profile">
+
             <div class="form-group row">
                 <label for="surname"
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
-                           id="surname" value="${user.surname}">
+                           id="surname" name="surname"
+                           value="<c:if test="${init.surname[0] != null}">${init.surname[0]}</c:if><c:if test="${init.surname[0] == null}">${user.surname}</c:if>">
+                    <span class="text-danger small col-lg-11">${errors.surname} </span>
                 </div>
-                <span class="text-danger small">${errors.surname} </span>
+
             </div>
 
             <div class="form-group row">
@@ -49,9 +54,10 @@
                        class="col-lg-2 col-form-label text-muted">${name_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
-                           id="name" value="${user.name}">
+                           id="name" name="name"
+                           value="<c:if test="${init.name[0] != null}">${init.name[0]}</c:if><c:if test="${init.name[0] == null}">${user.name}</c:if>">
+                    <span class="text-danger small col-lg-11">${errors.name} </span>
                 </div>
-                <span class="text-danger small">${errors.name} </span>
             </div>
 
             <div class="form-group row">
@@ -59,19 +65,21 @@
                        class="col-lg-2 col-form-label text-muted">${email_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
-                           id="email" value="${user.email}">
+                           id="email" name="email"
+                           value="<c:if test="${init.email[0] != null}">${init.email[0]}</c:if><c:if test="${init.email[0] == null}">${user.email}</c:if>">
+                    <span class="text-danger small col-lg-11">${errors.email} </span>
                 </div>
-                <span class="text-danger small">${errors.email} </span>
             </div>
 
             <div class="form-group row">
                 <label for="birthday"
                        class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
                 <div class="col-lg-6">
-                    <input type="text" class="form-control"
-                           id="birthday" value="${user.birthday}">
+                    <input type="date" class="form-control"
+                           id="birthday" name="birthday"
+                           value="<c:if test="${init.birthday[0] != null}">${init.birthday[0]}</c:if><c:if test="${init.birthday[0] == null}">${user.birthday}</c:if>">
+                    <span class="text-danger small col-lg-11">${errors.birthday} </span>
                 </div>
-                <span class="text-danger small">${errors.birthday} </span>
             </div>
 
             <div class="form-group row">
@@ -80,19 +88,32 @@
                 <div class="col-lg-6">
                     <select class="form-control" id="role"
                             name="role">
-                        <option
-                                <c:if test="${user.role  == 'STUDENT'}">selected</c:if>
-                                value="STUDENT">${role_student}</option>
-                        <option
-                                <c:if test="${user.role == 'LECTURER'}">selected</c:if>
-                                value="LECTURER">${role_lecturer}</option>
+                        <c:choose>
+                            <c:when test="${init.role[0] != null}">
+                                <option
+                                        <c:if test="${init.role[0]  == 'STUDENT'}">selected</c:if>
+                                        value="STUDENT">${role_student}</option>
+                                <option
+                                        <c:if test="${init.role[0] == 'LECTURER'}">selected</c:if>
+                                        value="LECTURER">${role_lecturer}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option
+                                        <c:if test="${user.role  == 'STUDENT'}">selected</c:if>
+                                        value="STUDENT">${role_student}</option>
+                                <option
+                                        <c:if test="${user.role == 'LECTURER'}">selected</c:if>
+                                        value="LECTURER">${role_lecturer}</option>
+                            </c:otherwise>
+                        </c:choose>
                     </select>
+                    <span class="text-danger small col-lg-11">${errors.role} </span>
                 </div>
-                <span class="text-danger small">${errors.role} </span>
             </div>
 
             <div class="row align-items-center justify-content-center py-2">
-                <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">${save_profile_button}</a>
+                <button class="btn btn-outline-info"
+                        type="submit">${save_profile_button}</button>
             </div>
         </form>
     </div>

@@ -8,4 +8,6 @@ public interface UserDao {
     User authenticate(String login, String password) throws DaoException;
 
     boolean register(UserAuthData user) throws DaoException;
+
+    boolean update(User user) throws DaoException;
 }
