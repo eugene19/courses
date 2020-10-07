@@ -2,7 +2,7 @@
 <fmt:message bundle="${bundle}" key="footer.address" var="address"/>
 <fmt:message bundle="${bundle}" key="footer.mobile" var="mobile"/>
 
-<footer class="my-1 pt-2 text-muted text-center text-small">
+<footer class="mt-5 pt-2 text-muted text-center text-small">
     <div class="right-block">
         ${policy}
     </div>
