@@ -26,6 +26,8 @@
              var="role_lecturer"/>
 <fmt:message bundle="${bundle}" key="profile.edit.button"
              var="save_profile_button"/>
+<fmt:message bundle="${bundle}" key="profile.edit.immutable.field"
+             var="immutable_field"/>
 
 <div class="container">
     <div class="row align-items-center justify-content-center py-5">
@@ -89,25 +91,17 @@
                     <select class="form-control" id="role"
                             name="role">
                         <c:choose>
-                            <c:when test="${init.role[0] != null}">
-                                <option
-                                        <c:if test="${init.role[0]  == 'STUDENT'}">selected</c:if>
+                            <c:when test="${user.role  == 'STUDENT'}">
+                                <option selected
                                         value="STUDENT">${role_student}</option>
-                                <option
-                                        <c:if test="${init.role[0] == 'LECTURER'}">selected</c:if>
+                            </c:when>
+                            <c:when test="${user.role  == 'LECTURER'}">
+                                <option selected
                                         value="LECTURER">${role_lecturer}</option>
                             </c:when>
-                            <c:otherwise>
-                                <option
-                                        <c:if test="${user.role  == 'STUDENT'}">selected</c:if>
-                                        value="STUDENT">${role_student}</option>
-                                <option
-                                        <c:if test="${user.role == 'LECTURER'}">selected</c:if>
-                                        value="LECTURER">${role_lecturer}</option>
-                            </c:otherwise>
                         </c:choose>
                     </select>
-                    <span class="text-danger small col-lg-11">${errors.role} </span>
+                    <span class="text-warning small col-lg-11">${immutable_field} </span>
                 </div>
             </div>
 
