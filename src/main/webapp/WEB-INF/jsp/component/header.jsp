@@ -58,10 +58,10 @@
                   method="post">
                 <input type="hidden" name="command" value="logout"/>
 
-                <span class="navbar-text col-lg-5">
+                <span class="navbar-text col-lg-8">
                     ${user.name} ${user.surname}
                 </span>
-                <button class="btn btn-sm btn-outline-secondary col-sm-5 ml-2"
+                <button class="btn btn-sm btn-outline-secondary col-sm-4 ml-2"
                         type="submit">${logout_button}</button>
             </form>
         </c:if>
