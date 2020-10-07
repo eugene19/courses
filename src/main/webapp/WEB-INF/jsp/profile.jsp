@@ -41,6 +41,8 @@
                 </div>
             </c:if>
 
+            <input type="hidden" name="id" value="${user.id}">
+
             <div class="form-group row">
                 <label for="surname"
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>

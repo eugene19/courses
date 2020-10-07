@@ -27,6 +27,10 @@ public class UserBuilder {
     public User createUserFromParams(final Map<String, String[]> parameters) {
         User user = new User();
 
+        String[] idString = parameters.get(ParameterName.ID);
+        if (idString != null) {
+            user.setId(Integer.parseInt(idString[0]));
+        }
         user.setSurname(parameters.get(ParameterName.SURNAME)[0]);
         user.setName(parameters.get(ParameterName.NAME)[0]);
         user.setEmail(parameters.get(ParameterName.EMAIL)[0]);

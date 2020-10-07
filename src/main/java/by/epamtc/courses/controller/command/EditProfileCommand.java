@@ -40,13 +40,11 @@ public class EditProfileCommand implements Command {
         if (validationError.isEmpty()) {
             User user = userBuilder.createUserFromParams(parameters);
 
-            // todo убрать костыль
-            HttpSession session = req.getSession();
-            User us = (User) session.getAttribute(ParameterName.USER);
-            user.setId(us.getId());
 
             try {
                 userService.update(user);
+
+                HttpSession session = req.getSession();
                 session.setAttribute(ParameterName.USER, user);
 
                 LOGGER.debug("Updating user successful");

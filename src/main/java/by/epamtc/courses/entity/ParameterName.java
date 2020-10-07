@@ -10,6 +10,7 @@ public abstract class ParameterName {
     public static final String LOCALE = "locale";
     public static final String LOGIN = "login";
     public static final String NAME = "name";
+    public static final String ID = "id";
     public static final String INIT = "init";
     public static final String IS_REGISTRATION_OK = "isRegistrationOk";
     public static final String IS_UPDATING_OK = "isUpdatingOk";
