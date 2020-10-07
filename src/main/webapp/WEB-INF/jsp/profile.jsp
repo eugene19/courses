@@ -34,7 +34,10 @@
     </div>
 
     <div class="row align-items-center justify-content-center py-2">
-        <form class="col-md-6">
+        <form class="col-md-6" action="${pageContext.request.contextPath}/main"
+              method="post">
+            <input type="hidden" name="command" value="get_edit_profile_page">
+
             <c:if test="${param.get('isUpdatingOk')}">
                 <div class="alert alert-success" role="alert">
                         ${succsses_edit_message}
@@ -88,14 +91,12 @@
                            value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>">
                 </div>
             </div>
-        </form>
-    </div>
 
-    <div class="row align-items-center justify-content-center py-2">
-        <a href="${pageContext.request.contextPath}/main?command=get_edit_profile_page">
-            <button class="btn btn-outline-info"
-                    type="submit">${edit_profile_button}</button>
-        </a>
+            <div class="row align-items-center justify-content-center py-2">
+                <button class="btn btn-outline-info"
+                        type="submit">${edit_profile_button}</button>
+            </div>
+        </form>
     </div>
 </div>
 
