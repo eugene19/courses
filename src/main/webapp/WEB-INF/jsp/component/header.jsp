@@ -53,15 +53,15 @@
             </select>
         </form>
         <c:if test="${not empty user}">
-            <form class="my-1"
+            <form class="my-1 d-flex align-items-center"
                   action="${pageContext.request.contextPath}/main"
                   method="post">
                 <input type="hidden" name="command" value="logout"/>
 
-                <span class="navbar-text">
+                <span class="navbar-text col-lg-5">
                     ${user.name} ${user.surname}
                 </span>
-                <button class="btn btn-sm btn-outline-secondary"
+                <button class="btn btn-sm btn-outline-secondary col-sm-5 ml-2"
                         type="submit">${logout_button}</button>
             </form>
         </c:if>
