@@ -38,6 +38,7 @@
         <form class="col-md-6" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="edit_profile">
+            <input type="hidden" name="id" value="${user.id}">
 
             <div class="form-group row">
                 <label for="surname"
