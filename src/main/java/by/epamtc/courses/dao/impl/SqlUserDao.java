@@ -29,7 +29,7 @@ public class SqlUserDao implements UserDao {
     private static final String REGISTER_USER = "INSERT INTO users (login, password, surname, name, email, birthday, role_id) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-    private static final String EDIT_USER = "UPDATE users SET surname = ?, name = ?, email = ?, birthday = ?, role_id = ? " +
+    private static final String EDIT_USER = "UPDATE users SET surname = ?, name = ?, email = ?, birthday = ? " +
             "WHERE id = ?;";
 
     @Override
@@ -97,8 +97,7 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setDate(4, Date.valueOf(user.getBirthday()));
-            preparedStatement.setInt(5, user.getRole().getId());
-            preparedStatement.setInt(6, user.getId());
+            preparedStatement.setInt(5, user.getId());
 
             return preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
