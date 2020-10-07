@@ -1,7 +1,7 @@
 INSERT INTO user_roles (id, role)
 VALUES (1, 'STUDENT');
 INSERT INTO user_roles (id, role)
-VALUES (2, 'LECTURE');
+VALUES (2, 'LECTURER');
 
 INSERT INTO course_statuses (id, status)
 VALUES (1, 'NOT_STARTED');
