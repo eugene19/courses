@@ -15,4 +15,11 @@ public final class LocaleMessage {
     public static final String WRONG_LOGIN_OR_PASSWORD = "login.error.wrongLoginOrPass";
     public static final String ERROR_PAGE_MESSAGE = "errorPage.message";
     public static final String ERROR_INCORRECT_FILE_NAME = "user.error.fileIsEmpty";
+
+    public static final String ERROR_INCORRECT_SUMMARY = "course.error.summary";
+    public static final String ERROR_INCORRECT_DESCRIPTION = "course.error.description";
+    public static final String ERROR_END_DATE_AFTER_START = "course.error.endDateAfterStart";
+    public static final String ERROR_INCORRECT_STUDENTS_LIMIT = "course.error.studentsLimit";
+    public static final String ERROR_COURSE_DATE_BEFORE_MIN = "course.error.dateBeforeMin";
+    public static final String ERROR_COURSE_DATE_AFTER_MAX = "course.error.dateAfterMax";
 }

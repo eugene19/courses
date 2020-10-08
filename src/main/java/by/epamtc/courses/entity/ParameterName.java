@@ -26,4 +26,9 @@ public abstract class ParameterName {
 
     // course parameters
     public static final String COURSE_LIST = "courseList";
+    public static final String SUMMARY = "summary";
+    public static final String DESCRIPTION = "description";
+    public static final String START_DATE = "startDate";
+    public static final String END_DATE = "endDate";
+    public static final String STUDENTS_LIMIT = "studentsLimit";
 }

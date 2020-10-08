@@ -20,6 +20,14 @@
         <h3 class="h3 mb-3 font-weight-normal">${courses_summary}</h3>
     </div>
 
+    <c:if test="${user.role == 'LECTURER'}">
+        <div class="row ml-1 mb-3">
+            <a href="${pageContext.request.contextPath}/main?command=get_add_course_page">
+                <button class="btn btn-outline-primary">${add_course}</button>
+            </a>
+        </div>
+    </c:if>
+
     <c:if test="${error != null}">
         <div class="row align-items-center justify-content-center py-5">
             <div class="alert alert-danger w-100 text-center py-2" role="alert">
@@ -33,14 +41,6 @@
             <div class="alert alert-info w-100 text-center py-2" role="alert">
                     ${list_empty}
             </div>
-        </div>
-    </c:if>
-
-    <c:if test="${user.role == 'LECTURER'}">
-        <div class="row ml-1 mb-3">
-            <a href="${pageContext.request.contextPath}/main?command=get_add_course_page">
-                <button class="btn btn-outline-primary">${add_course}</button>
-            </a>
         </div>
     </c:if>
 
@@ -62,7 +62,7 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="row text-muted p-2">
+                    <div class="row text-muted p-2 small">
                             ${course.startDate} - ${course.endDate}
                     </div>
                 </div>

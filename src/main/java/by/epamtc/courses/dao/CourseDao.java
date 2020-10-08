@@ -7,4 +7,6 @@ import java.util.List;
 public interface CourseDao {
 
     List<Course> takeAllCourses() throws DaoException;
+
+    void createNew(Course course) throws DaoException;
 }

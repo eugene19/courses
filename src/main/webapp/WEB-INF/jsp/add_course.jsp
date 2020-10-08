@@ -51,7 +51,8 @@
             <div class="form-group row">
                 <label for="description">${description_lable}</label>
                 <textarea class="form-control form-control-sm" id="description"
-                          rows="3" name="description"></textarea>
+                          rows="3"
+                          name="description">${init.description[0]}</textarea>
                 <div class="text-danger small">${errors.description} </div>
             </div>
 

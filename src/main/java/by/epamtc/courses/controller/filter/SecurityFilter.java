@@ -25,9 +25,12 @@ public class SecurityFilter implements Filter {
         String command = req.getParameter(ParameterName.COMMAND);
         Object user = req.getSession(true).getAttribute(ParameterName.USER);
 
+        // TODO: 10/8/20 Refactoring this code to map<page, role[]>
+
         if (command != null
                 && (command.equalsIgnoreCase(CommandName.GET_PROFILE_PAGE.toString())
-                || command.equalsIgnoreCase(CommandName.GET_EDIT_PROFILE_PAGE.toString()))
+                || command.equalsIgnoreCase(CommandName.GET_EDIT_PROFILE_PAGE.toString())
+                || command.equalsIgnoreCase(CommandName.GET_ADD_COURSE_PAGE.toString()))
                 && user == null) {
             LOGGER.warn("Try opening private page not authored user");
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
