@@ -1,5 +1,6 @@
 package by.epamtc.courses.dao;
 
+import by.epamtc.courses.dao.impl.SqlCourseDao;
 import by.epamtc.courses.dao.impl.SqlUserDao;
 
 public final class DaoProvider {
@@ -7,7 +8,7 @@ public final class DaoProvider {
     private static final DaoProvider instance = new DaoProvider();
 
     private final UserDao userDao = new SqlUserDao();
-//    private final CourseDao courseDao = new SqlCourseDao();
+    private final CourseDao courseDao = new SqlCourseDao();
 
     private DaoProvider() {
     }
@@ -20,7 +21,7 @@ public final class DaoProvider {
         return userDao;
     }
 
-//    public CourseDao getCourseDao() {
-//        return courseDao;
-//    }
+    public CourseDao getCourseDao() {
+        return courseDao;
+    }
 }

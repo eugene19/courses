@@ -11,7 +11,13 @@
 <body>
 <%@include file="component/header.jsp" %>
 
+<fmt:message bundle="${bundle}" key="news.summary" var="news_summary"/>
+
 <div class="container">
+    <div class="row align-items-center justify-content-center my-5">
+        <h3 class="h3 mb-3 font-weight-normal">${news_summary}</h3>
+    </div>
+
     <div class="row align-items-center justify-content-center py-5">
         ${news}
     </div>

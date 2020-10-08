@@ -9,6 +9,7 @@
              var="register_button"/>
 <fmt:message bundle="${bundle}" key="header.logout" var="logout_button"/>
 <fmt:message bundle="${bundle}" key="menu.main" var="main_button"/>
+<fmt:message bundle="${bundle}" key="menu.courses" var="courses_button"/>
 <fmt:message bundle="${bundle}" key="menu.about" var="about_button"/>
 <fmt:message bundle="${bundle}" key="menu.contacts" var="contacts_button"/>
 <fmt:message bundle="${bundle}" key="profile.summary" var="profile_button"/>
@@ -25,6 +26,10 @@
                 <li class="nav-item">
                     <a class="nav-link"
                        href="${pageContext.request.contextPath}/">${main_button}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/main?command=get_courses_page">${courses_button}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
