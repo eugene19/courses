@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command.user;
 
+import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
@@ -44,9 +45,12 @@ public class RegistrationCommand implements Command {
                 userService.register(user);
 
                 LOGGER.debug("Registration successful " + user.getLogin());
-                resp.sendRedirect("/main?"
-                        + ParameterName.COMMAND + "=" + CommandName.GET_LOGIN_PAGE +
-                        "&" + ParameterName.IS_REGISTRATION_OK + "=" + true);
+
+                resp.sendRedirect(PageName.MAIN_SERVLET_URL
+                        + URLConstant.START_PARAMETERS_SYMBOL
+                        + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_LOGIN_PAGE
+                        + URLConstant.PARAMETERS_SEPARATOR
+                        + ParameterName.IS_REGISTRATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
                 LOGGER.error("Registration error" + e.getMessage(), e);

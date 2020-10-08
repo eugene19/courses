@@ -14,4 +14,5 @@ public final class LocaleMessage {
     public static final String SOMETHING_GOES_WRONG = "errorPage.message";
     public static final String WRONG_LOGIN_OR_PASSWORD = "login.error.wrongLoginOrPass";
     public static final String ERROR_PAGE_MESSAGE = "errorPage.message";
+    public static final String ERROR_INCORRECT_FILE_NAME = "user.error.fileIsEmpty";
 }

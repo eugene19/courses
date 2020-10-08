@@ -15,7 +15,7 @@ public abstract class ParameterName {
     public static final String IS_REGISTRATION_OK = "isRegistrationOk";
     public static final String IS_UPDATING_OK = "isUpdatingOk";
     public static final String PASSWORD = "password";
-    public static final String PHOTO = "photo";
+    public static final String PHOTO_FILE = "photoFile";
     public static final String PREVIOUS_COMMAND = "previousCommand";
     public static final String ROLE = "role";
     public static final String SURNAME = "surname";

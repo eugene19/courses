@@ -59,7 +59,7 @@
                 <div class="col-lg-6">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input"
-                               id="inputGroupFile02" name="file"
+                               id="inputGroupFile02" name="photoFile"
                                data-browse=""/>
                         <label class="custom-file-label"
                                for="inputGroupFile02"></label>
