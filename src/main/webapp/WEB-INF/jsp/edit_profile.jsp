@@ -47,6 +47,23 @@
               enctype="multipart/form-data">
             <input type="hidden" name="command" value="upload_user_photo">
 
+            <c:choose>
+                <c:when test="${not empty user.photoPath}">
+                    <div class="form-group row">
+                        <img class="rounded mx-auto d-block w-50"
+                             src="/uploadFiles/${user.id}/${user.photoPath}"
+                             alt="User photo">
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="form-group row">
+                        <img class="rounded mx-auto d-block w-50"
+                             src="${pageContext.request.contextPath}/uploadFiles/default/defaultPhoto.png"
+                             alt="User default photo">
+                    </div>
+                </c:otherwise>
+            </c:choose>
+
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">
                         ${error}
