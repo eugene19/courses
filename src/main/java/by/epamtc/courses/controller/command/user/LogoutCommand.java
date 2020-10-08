@@ -1,5 +1,6 @@
-package by.epamtc.courses.controller.command;
+package by.epamtc.courses.controller.command.user;
 
+import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.service.PageName;
 import org.apache.log4j.Logger;

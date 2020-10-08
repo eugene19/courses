@@ -1,5 +1,6 @@
-package by.epamtc.courses.controller.command;
+package by.epamtc.courses.controller.command.page;
 
+import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.service.PageName;
 
 import javax.servlet.ServletException;

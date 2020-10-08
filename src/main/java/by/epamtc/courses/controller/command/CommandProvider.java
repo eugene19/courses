@@ -1,5 +1,11 @@
 package by.epamtc.courses.controller.command;
 
+import by.epamtc.courses.controller.command.page.*;
+import by.epamtc.courses.controller.command.user.EditProfileCommand;
+import by.epamtc.courses.controller.command.user.LoginCommand;
+import by.epamtc.courses.controller.command.user.LogoutCommand;
+import by.epamtc.courses.controller.command.user.RegistrationCommand;
+
 import java.util.HashMap;
 import java.util.Map;
 
