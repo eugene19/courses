@@ -13,6 +13,7 @@
 
 <fmt:message bundle="${bundle}" key="courses.list.empty" var="list_empty"/>
 <fmt:message bundle="${bundle}" key="courses.summary" var="courses_summary"/>
+<fmt:message bundle="${bundle}" key="courses.button.add" var="add_course"/>
 
 <div class="container">
     <div class="row align-items-center justify-content-center my-5">
@@ -32,6 +33,14 @@
             <div class="alert alert-info w-100 text-center py-2" role="alert">
                     ${list_empty}
             </div>
+        </div>
+    </c:if>
+
+    <c:if test="${user.role == 'LECTURER'}">
+        <div class="row ml-1 mb-3">
+            <a href="${pageContext.request.contextPath}/main?command=get_add_course_page">
+                <button class="btn btn-outline-primary">${add_course}</button>
+            </a>
         </div>
     </c:if>
 

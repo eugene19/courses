@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command;
 
+import by.epamtc.courses.controller.command.course.AddCourseCommand;
 import by.epamtc.courses.controller.command.page.*;
 import by.epamtc.courses.controller.command.user.*;
 
@@ -22,6 +23,8 @@ public class CommandProvider {
         commands.put(CommandName.GET_EDIT_PROFILE_PAGE, new EditProfilePageCommand());
         commands.put(CommandName.UPLOAD_USER_PHOTO, new UploadPhotoCommand());
         commands.put(CommandName.GET_COURSES_PAGE, new CoursesPageCommand());
+        commands.put(CommandName.GET_ADD_COURSE_PAGE, new AddCoursePageCommand());
+        commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
     }
 
     public Command getCommand(String command) {

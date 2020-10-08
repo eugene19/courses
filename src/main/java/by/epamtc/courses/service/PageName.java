@@ -1,6 +1,7 @@
 package by.epamtc.courses.service;
 
 public abstract class PageName {
+    public static final String ADD_COURSE_PAGE = "WEB-INF/jsp/add_course.jsp";
     public static final String COURSES_PAGE = "WEB-INF/jsp/courses.jsp";
     public static final String DEFAULT_PAGE_URL = "/";
     public static final String EDIT_PROFILE_PAGE = "WEB-INF/jsp/edit_profile.jsp";
