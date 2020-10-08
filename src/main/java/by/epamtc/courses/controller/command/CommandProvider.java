@@ -1,10 +1,7 @@
 package by.epamtc.courses.controller.command;
 
 import by.epamtc.courses.controller.command.page.*;
-import by.epamtc.courses.controller.command.user.EditProfileCommand;
-import by.epamtc.courses.controller.command.user.LoginCommand;
-import by.epamtc.courses.controller.command.user.LogoutCommand;
-import by.epamtc.courses.controller.command.user.RegistrationCommand;
+import by.epamtc.courses.controller.command.user.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +20,7 @@ public class CommandProvider {
         commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
         commands.put(CommandName.EDIT_PROFILE, new EditProfileCommand());
         commands.put(CommandName.GET_EDIT_PROFILE_PAGE, new EditProfilePageCommand());
+        commands.put(CommandName.UPLOAD_USER_PHOTO, new UploadPhotoCommand());
     }
 
     public Command getCommand(String command) {

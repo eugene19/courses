@@ -43,8 +43,9 @@
 
     <div class="row align-items-center justify-content-center py-2">
         <form class="col-md-7" method="post"
-              action="${pageContext.request.contextPath}/uploadFile"
+              action="${pageContext.request.contextPath}/main"
               enctype="multipart/form-data">
+            <input type="hidden" name="command" value="upload_user_photo">
 
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">
