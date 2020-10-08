@@ -22,8 +22,9 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link"
-                                        href="${pageContext.request.contextPath}/">${main_button}</a>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/">${main_button}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
@@ -42,8 +43,10 @@
             </ul>
         </div>
         <form class="form-inline my-1 mx-2"
-              action="${pageContext.request.contextPath}/main?command=locale"
+              action="${pageContext.request.contextPath}/main"
               method="post">
+            <input type="hidden" name="command" value="locale"/>
+
             <select class="form-control form-control-sm" onchange="submit()"
                     name="locale">
                 <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
@@ -58,10 +61,10 @@
                   method="post">
                 <input type="hidden" name="command" value="logout"/>
 
-                <span class="navbar-text col-lg-8">
+                <span class="navbar-text col-lg-7">
                     ${user.name} ${user.surname}
                 </span>
-                <button class="btn btn-sm btn-outline-secondary col-sm-4 ml-2"
+                <button class="btn btn-sm btn-outline-secondary col-lg-5 ml-2"
                         type="submit">${logout_button}</button>
             </form>
         </c:if>
