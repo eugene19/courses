@@ -13,4 +13,6 @@ public interface CourseService {
     Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale);
 
     void createNew(Course course) throws ServiceException;
+
+    Course getCourse(int courseId) throws ServiceException;
 }

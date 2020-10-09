@@ -69,7 +69,7 @@
                                       method="post">
                                     <input type="hidden" name="command"
                                            value="edit_course">
-                                    <input type="hidden" name="course_id"
+                                    <input type="hidden" name="courseId"
                                            value="${course.id}">
 
                                     <button class="btn mb-0" type="submit"><i
@@ -83,7 +83,7 @@
                                       method="post">
                                     <input type="hidden" name="command"
                                            value="delete_course">
-                                    <input type="hidden" name="course_id"
+                                    <input type="hidden" name="courseId"
                                            value="${course.id}">
 
                                     <button class="btn mb-0" type="submit"><i

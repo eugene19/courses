@@ -25,10 +25,12 @@ public abstract class ParameterName {
     public static final String USER = "user";
 
     // course parameters
+    public static final String COURSE = "course";
     public static final String COURSE_LIST = "courseList";
     public static final String SUMMARY = "summary";
     public static final String DESCRIPTION = "description";
     public static final String START_DATE = "startDate";
     public static final String END_DATE = "endDate";
     public static final String STUDENTS_LIMIT = "studentsLimit";
+    public static final String COURSE_ID = "courseId";
 }

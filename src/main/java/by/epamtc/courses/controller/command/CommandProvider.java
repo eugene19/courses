@@ -25,6 +25,7 @@ public class CommandProvider {
         commands.put(CommandName.GET_COURSES_PAGE, new CoursesPageCommand());
         commands.put(CommandName.GET_ADD_COURSE_PAGE, new AddCoursePageCommand());
         commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
+        commands.put(CommandName.EDIT_COURSE, new EditCoursePageCommand());
     }
 
     public Command getCommand(String command) {

@@ -14,5 +14,6 @@ public enum CommandName {
     UPLOAD_USER_PHOTO,
     GET_COURSES_PAGE,
     GET_ADD_COURSE_PAGE,
-    ADD_COURSE
+    ADD_COURSE,
+    EDIT_COURSE
 }
