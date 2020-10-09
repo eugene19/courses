@@ -168,6 +168,9 @@ public final class ConnectionPool {
             if (connection.isReadOnly()) {
                 connection.setReadOnly(false);
             }
+
+            connection.setAutoCommit(true);
+
             if (!givenAwayConQueue.remove(this)) {
                 throw new SQLException(
                         "Error deleting connection from the given away connections pool.");

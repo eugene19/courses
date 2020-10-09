@@ -6,6 +6,7 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.CourseStatus;
+import jdk.internal.jline.internal.Nullable;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -57,49 +58,68 @@ public class SqlCourseDao implements CourseDao {
     @Override
     public void createNew(Course course) throws DaoException {
         Connection connection = null;
-        PreparedStatement statementCourse = null;
-        PreparedStatement statementCourseRun = null;
+        PreparedStatement preparedStatement = null;
 
         try {
             connection = connectionPool.takeConnection();
-            statementCourse = connection.prepareStatement(CREATE_COURSE, Statement.RETURN_GENERATED_KEYS);
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(CREATE_COURSE, Statement.RETURN_GENERATED_KEYS);
 
-            statementCourse.setString(1, course.getSummary());
-            statementCourse.setString(2, course.getDescription());
-            statementCourse.setInt(3, course.getStudentsLimit());
+            preparedStatement.setString(1, course.getSummary());
+            preparedStatement.setString(2, course.getDescription());
+            preparedStatement.setInt(3, course.getStudentsLimit());
 
-            int affectedRows = statementCourse.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
                 throw new DaoException("Error of creation course, no rows affected");
             }
 
-            ResultSet generatedKeys = statementCourse.getGeneratedKeys();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int idNewCourse = generatedKeys.getInt(1);
-                statementCourseRun = connection.prepareStatement(INSERT_COURSE_STATUS);
-
-                statementCourseRun.setInt(1, idNewCourse);
-                statementCourseRun.setDate(2, Date.valueOf(course.getStartDate()));
-                statementCourseRun.setDate(3, Date.valueOf(course.getEndDate()));
-                statementCourseRun.setInt(4, course.getLecturerId());
-                statementCourseRun.setInt(5, course.getStatus().getId());
-
-                statementCourseRun.execute();
+                insertCourseRun(idNewCourse, course, connection);
             } else {
                 throw new DaoException("Error of creation course, no ID obtained");
             }
         } catch (SQLException | ConnectionPoolException e) {
+            rollback(connection);
             throw new DaoException("Error while insert course", e);
         } finally {
-            if (statementCourseRun != null) {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    private void insertCourseRun(int courseId, Course course, Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(INSERT_COURSE_STATUS);
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setDate(2, Date.valueOf(course.getStartDate()));
+            preparedStatement.setDate(3, Date.valueOf(course.getEndDate()));
+            preparedStatement.setInt(4, course.getLecturerId());
+            preparedStatement.setInt(5, course.getStatus().getId());
+
+            preparedStatement.execute();
+        } finally {
+            if (preparedStatement != null) {
                 try {
-                    statementCourseRun.close();
+                    preparedStatement.close();
                 } catch (SQLException e) {
                     LOGGER.error("Error while closing prepare statement");
                 }
             }
-            connectionPool.closeConnection(connection, statementCourse);
+        }
+    }
+
+    private void rollback(@Nullable Connection connection) throws DaoException {
+        if (connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                throw new DaoException("Error while rollback connection", e);
+            }
         }
     }
 
