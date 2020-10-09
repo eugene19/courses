@@ -23,6 +23,13 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
             "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id;";
 
+    private static final String GET_COURSE_BY_ID = "SELECT courses.id, summary, description, " +
+            "start_date, end_date, students_limit, lecturer_id, status " +
+            "FROM courses " +
+            "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
+            "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id " +
+            "WHERE courses.id = ?;";
+
     private static final String CREATE_COURSE = "INSERT INTO courses (summary, description, " +
             "students_limit) VALUES (?, ?, ?);";
 
@@ -87,6 +94,33 @@ public class SqlCourseDao implements CourseDao {
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }
+    }
+
+    @Override
+    public Course getCourse(int courseId) throws DaoException {
+        Course course = null;
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(GET_COURSE_BY_ID);
+            statement.setInt(1, courseId);
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                course = createCourse(resultSet);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get course by id: " + courseId, e);
+        } finally {
+            connectionPool.closeConnection(connection, statement, resultSet);
+        }
+
+        return course;
     }
 
     private void insertCourseRun(int courseId, Course course, Connection connection) throws SQLException {

@@ -9,4 +9,6 @@ public interface CourseDao {
     List<Course> takeAllCourses() throws DaoException;
 
     void createNew(Course course) throws DaoException;
+
+    Course getCourse(int courseId) throws DaoException;
 }
