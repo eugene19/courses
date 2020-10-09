@@ -8,6 +8,13 @@ public class UserAuthData extends User {
     private String login;
     private String password;
 
+    public UserAuthData() {
+    }
+
+    public UserAuthData(User user) {
+        super(user);
+    }
+
     public String getLogin() {
         return login;
     }

@@ -18,6 +18,16 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(User user) {
+        this.id = user.id;
+        this.surname = user.surname;
+        this.name = user.name;
+        this.email = user.email;
+        this.birthday = user.birthday;
+        this.role = user.role;
+        this.photoPath = user.photoPath;
+    }
+
     public int getId() {
         return id;
     }

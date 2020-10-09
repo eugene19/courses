@@ -11,31 +11,54 @@ import java.util.Map;
 public class UserBuilder {
 
     public UserAuthData createUserDataFromParams(final Map<String, String[]> parameters) {
-        UserAuthData user = new UserAuthData();
+        User user = createUserFromParams(parameters);
+        UserAuthData userAuthData = new UserAuthData(user);
 
-        user.setLogin(parameters.get(ParameterName.LOGIN)[0]);
-        user.setPassword(parameters.get(ParameterName.PASSWORD)[0]);
-        user.setSurname(parameters.get(ParameterName.SURNAME)[0]);
-        user.setName(parameters.get(ParameterName.NAME)[0]);
-        user.setEmail(parameters.get(ParameterName.EMAIL)[0]);
-        user.setBirthday(LocalDate.parse(parameters.get(ParameterName.BIRTHDAY)[0]));
-        user.setRole(UserRole.valueOf(parameters.get(ParameterName.ROLE)[0]));
+        String[] loginValues = parameters.get(ParameterName.LOGIN);
+        if (loginValues != null) {
+            userAuthData.setLogin(loginValues[0]);
+        }
 
-        return user;
+        String[] passwordValues = parameters.get(ParameterName.PASSWORD);
+        if (passwordValues != null) {
+            userAuthData.setPassword(passwordValues[0]);
+        }
+
+        return userAuthData;
     }
 
     public User createUserFromParams(final Map<String, String[]> parameters) {
         User user = new User();
 
-        String[] idString = parameters.get(ParameterName.ID);
-        if (idString != null) {
-            user.setId(Integer.parseInt(idString[0]));
+        String[] idValues = parameters.get(ParameterName.ID);
+        if (idValues != null) {
+            user.setId(Integer.parseInt(idValues[0]));
         }
-        user.setSurname(parameters.get(ParameterName.SURNAME)[0]);
-        user.setName(parameters.get(ParameterName.NAME)[0]);
-        user.setEmail(parameters.get(ParameterName.EMAIL)[0]);
-        user.setBirthday(LocalDate.parse(parameters.get(ParameterName.BIRTHDAY)[0]));
-        user.setRole(UserRole.valueOf(parameters.get(ParameterName.ROLE)[0]));
+
+        String[] surnameValues = parameters.get(ParameterName.SURNAME);
+        if (surnameValues != null) {
+            user.setSurname(surnameValues[0]);
+        }
+
+        String[] nameValues = parameters.get(ParameterName.NAME);
+        if (nameValues != null) {
+            user.setName(nameValues[0]);
+        }
+
+        String[] emailValues = parameters.get(ParameterName.EMAIL);
+        if (emailValues != null) {
+            user.setEmail(emailValues[0]);
+        }
+
+        String[] birthdayValues = parameters.get(ParameterName.BIRTHDAY);
+        if (birthdayValues != null) {
+            user.setBirthday(LocalDate.parse(birthdayValues[0]));
+        }
+
+        String[] roleValues = parameters.get(ParameterName.ROLE);
+        if (roleValues != null) {
+            user.setRole(UserRole.valueOf(roleValues[0]));
+        }
 
         return user;
     }

@@ -11,11 +11,30 @@ public class CourseBuilder {
     public Course createCourseFromParams(final Map<String, String[]> parameters) {
         Course course = new Course();
 
-        course.setSummary(parameters.get(ParameterName.SUMMARY)[0]);
-        course.setDescription(parameters.get(ParameterName.DESCRIPTION)[0]);
-        course.setStartDate(LocalDate.parse(parameters.get(ParameterName.START_DATE)[0]));
-        course.setEndDate(LocalDate.parse(parameters.get(ParameterName.END_DATE)[0]));
-        course.setStudentsLimit(Integer.parseInt(parameters.get(ParameterName.STUDENTS_LIMIT)[0]));
+        String[] summaryValues = parameters.get(ParameterName.SUMMARY);
+        if (summaryValues != null) {
+            course.setSummary(summaryValues[0]);
+        }
+
+        String[] descriptionValues = parameters.get(ParameterName.DESCRIPTION);
+        if (descriptionValues != null) {
+            course.setDescription(descriptionValues[0]);
+        }
+
+        String[] startDateValues = parameters.get(ParameterName.START_DATE);
+        if (startDateValues != null) {
+            course.setStartDate(LocalDate.parse(startDateValues[0]));
+        }
+
+        String[] endDateValues = parameters.get(ParameterName.END_DATE);
+        if (endDateValues != null) {
+            course.setEndDate(LocalDate.parse(endDateValues[0]));
+        }
+
+        String[] studentsLimitValues = parameters.get(ParameterName.STUDENTS_LIMIT);
+        if (studentsLimitValues != null) {
+            course.setStudentsLimit(Integer.parseInt(studentsLimitValues[0]));
+        }
 
         return course;
     }
