@@ -1,5 +1,6 @@
 package by.epamtc.courses.dao.impl.connection;
 
+import jdk.internal.jline.internal.Nullable;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -75,34 +76,47 @@ public final class ConnectionPool {
         return connection;
     }
 
-    public void closeConnection(Connection con, Statement st, ResultSet rs) {
-        try {
-            rs.close();
-        } catch (SQLException e) {
-            LOGGER.error("ResultSet isn't closed.");
+    public void closeConnection(@Nullable Connection con, @Nullable Statement st, @Nullable ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                LOGGER.error("ResultSet isn't closed.");
+            }
         }
-        try {
-            st.close();
-        } catch (SQLException e) {
-            LOGGER.error("Statement isn't closed.");
+
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                LOGGER.error("Statement isn't closed.");
+            }
         }
-        try {
-            con.close();
-        } catch (SQLException e) {
-            LOGGER.error("Connection isn't return to the pool.");
+
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                LOGGER.error("Connection isn't return to the pool.");
+            }
         }
     }
 
-    public void closeConnection(Connection con, Statement st) {
-        try {
-            st.close();
-        } catch (SQLException e) {
-            LOGGER.error("Statement isn't closed.");
+    public void closeConnection(@Nullable Connection con, @Nullable Statement st) {
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                LOGGER.error("Statement isn't closed.");
+            }
         }
-        try {
-            con.close();
-        } catch (SQLException e) {
-            LOGGER.error("Connection isn't return to the pool.");
+
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                LOGGER.error("Connection isn't return to the pool.");
+            }
         }
     }
 
