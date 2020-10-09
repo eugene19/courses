@@ -6,7 +6,6 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.CourseStatus;
-import jdk.internal.jline.internal.Nullable;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -113,7 +112,7 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
-    private void rollback(@Nullable Connection connection) throws DaoException {
+    private void rollback(Connection connection) throws DaoException {
         if (connection != null) {
             try {
                 connection.rollback();

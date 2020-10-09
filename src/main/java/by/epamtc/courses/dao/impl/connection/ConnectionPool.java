@@ -1,6 +1,5 @@
 package by.epamtc.courses.dao.impl.connection;
 
-import jdk.internal.jline.internal.Nullable;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -76,7 +75,7 @@ public final class ConnectionPool {
         return connection;
     }
 
-    public void closeConnection(@Nullable Connection con, @Nullable Statement st, @Nullable ResultSet rs) {
+    public void closeConnection(Connection con, Statement st, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
@@ -102,7 +101,7 @@ public final class ConnectionPool {
         }
     }
 
-    public void closeConnection(@Nullable Connection con, @Nullable Statement st) {
+    public void closeConnection(Connection con, Statement st) {
         if (st != null) {
             try {
                 st.close();
