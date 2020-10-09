@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
@@ -25,6 +26,15 @@ public class LoginCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        Object yetAuthoredUser = session.getAttribute(ParameterName.USER);
+
+        if (yetAuthoredUser != null) {
+            LOGGER.warn("Try login again by authored user yet");
+            resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
+            return;
+        }
+
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
         ResourceManager resourceManager = new ResourceManager(locale);
 
@@ -39,7 +49,7 @@ public class LoginCommand implements Command {
 
                 if (user != null) {
                     LOGGER.debug("Authentication is successful");
-                    req.getSession().setAttribute(ParameterName.USER, user);
+                    session.setAttribute(ParameterName.USER, user);
                     resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
                 } else {
                     LOGGER.debug("Authentication is canceled because wrong login or password");
