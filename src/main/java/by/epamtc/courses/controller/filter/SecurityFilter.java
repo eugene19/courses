@@ -28,6 +28,7 @@ public class SecurityFilter implements Filter {
         authorizationMap.put(CommandName.UPLOAD_USER_PHOTO, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
         authorizationMap.put(CommandName.GET_ADD_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.ADD_COURSE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(CommandName.GET_EDIT_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.EDIT_COURSE, new UserRole[]{UserRole.LECTURER});
     }
 

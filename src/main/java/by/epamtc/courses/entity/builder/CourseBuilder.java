@@ -1,6 +1,7 @@
 package by.epamtc.courses.entity.builder;
 
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.ParameterName;
 
 import java.time.LocalDate;
@@ -10,6 +11,11 @@ public class CourseBuilder {
 
     public Course createCourseFromParams(final Map<String, String[]> parameters) {
         Course course = new Course();
+
+        String[] idValues = parameters.get(ParameterName.ID);
+        if (idValues != null) {
+            course.setId(Integer.parseInt(idValues[0]));
+        }
 
         String[] summaryValues = parameters.get(ParameterName.SUMMARY);
         if (summaryValues != null) {
@@ -34,6 +40,11 @@ public class CourseBuilder {
         String[] studentsLimitValues = parameters.get(ParameterName.STUDENTS_LIMIT);
         if (studentsLimitValues != null) {
             course.setStudentsLimit(Integer.parseInt(studentsLimitValues[0]));
+        }
+
+        String[] statusValues = parameters.get(ParameterName.STATUS);
+        if (statusValues != null) {
+            course.setStatus(CourseStatus.valueOf(statusValues[0]));
         }
 
         return course;

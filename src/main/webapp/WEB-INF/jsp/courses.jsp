@@ -68,7 +68,7 @@
                                       action="${pageContext.request.contextPath}/main"
                                       method="post">
                                     <input type="hidden" name="command"
-                                           value="edit_course">
+                                           value="get_edit_course_page">
                                     <input type="hidden" name="courseId"
                                            value="${course.id}">
 

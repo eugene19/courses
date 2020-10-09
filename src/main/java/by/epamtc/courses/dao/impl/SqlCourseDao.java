@@ -6,15 +6,12 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.CourseStatus;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SqlCourseDao implements CourseDao {
-    private static final Logger LOGGER = Logger.getLogger(SqlCourseDao.class);
-
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_ALL_COURSES = "SELECT courses.id, summary, description, " +
@@ -35,6 +32,14 @@ public class SqlCourseDao implements CourseDao {
 
     private static final String INSERT_COURSE_STATUS = "INSERT INTO course_runs (course_id, " +
             "start_date, end_date, lecturer_id, status_id) VALUES (?, ?, ?, ?, ?)";
+
+    private static final String EDIT_COURSE = "UPDATE courses SET summary = ?, " +
+            "description = ?, students_limit = ? " +
+            "WHERE id = ?;";
+
+    private static final String EDIT_COURSE_STATUS = "UPDATE course_runs SET start_date = ?, " +
+            "end_date = ?, status_id = ? " +
+            "WHERE course_id = ?;";
 
     @Override
     public List<Course> takeAllCourses() throws DaoException {
@@ -84,7 +89,9 @@ public class SqlCourseDao implements CourseDao {
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int idNewCourse = generatedKeys.getInt(1);
-                insertCourseRun(idNewCourse, course, connection);
+                course.setId(idNewCourse);
+
+                insertCourseRun(course, connection);
             } else {
                 throw new DaoException("Error of creation course, no ID obtained");
             }
@@ -123,12 +130,55 @@ public class SqlCourseDao implements CourseDao {
         return course;
     }
 
-    private void insertCourseRun(int courseId, Course course, Connection connection) throws SQLException {
+    @Override
+    public void update(Course course) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(EDIT_COURSE);
+
+            preparedStatement.setString(1, course.getSummary());
+            preparedStatement.setString(2, course.getDescription());
+            preparedStatement.setInt(3, course.getStudentsLimit());
+            preparedStatement.setInt(4, course.getId());
+
+            preparedStatement.executeUpdate();
+            updateCourseRun(course, connection);
+        } catch (SQLException | ConnectionPoolException e) {
+            rollback(connection);
+            throw new DaoException("Error while updating course", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    // todo Сделать обновление статуса
+    private void updateCourseRun(Course course, Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(EDIT_COURSE_STATUS);
+            preparedStatement.setDate(1, Date.valueOf(course.getStartDate()));
+            preparedStatement.setDate(2, Date.valueOf(course.getEndDate()));
+            // stub
+            preparedStatement.setInt(3, 1);
+            preparedStatement.setInt(4, course.getId());
+
+            preparedStatement.execute();
+        } finally {
+            connectionPool.closeConnection(null, preparedStatement);
+        }
+    }
+
+    private void insertCourseRun(Course course, Connection connection) throws SQLException {
         PreparedStatement preparedStatement = null;
 
         try {
             preparedStatement = connection.prepareStatement(INSERT_COURSE_STATUS);
-            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(1, course.getId());
             preparedStatement.setDate(2, Date.valueOf(course.getStartDate()));
             preparedStatement.setDate(3, Date.valueOf(course.getEndDate()));
             preparedStatement.setInt(4, course.getLecturerId());
@@ -136,13 +186,7 @@ public class SqlCourseDao implements CourseDao {
 
             preparedStatement.execute();
         } finally {
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e) {
-                    LOGGER.error("Error while closing prepare statement");
-                }
-            }
+            connectionPool.closeConnection(null, preparedStatement);
         }
     }
 

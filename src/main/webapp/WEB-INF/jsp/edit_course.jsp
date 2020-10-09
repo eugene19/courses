@@ -22,7 +22,7 @@
 <fmt:message bundle="${bundle}" key="courses.add.endDate" var="end_date_lable"/>
 <fmt:message bundle="${bundle}" key="courses.add.studentsLimit"
              var="students_limit_lable"/>
-<fmt:message bundle="${bundle}" key="courses.add.button.save"
+<fmt:message bundle="${bundle}" key="profile.edit.button"
              var="try_create_button"/>
 
 <div class="container">
@@ -34,6 +34,8 @@
         <form class="col-md-3" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="edit_course"/>
+            <input type="hidden" name="id"
+                   value="<c:if test="${init.id[0] != null}">${init.id[0]}</c:if><c:if test="${init.id[0] == null}">${course.id}</c:if>">
 
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">

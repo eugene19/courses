@@ -11,4 +11,6 @@ public interface CourseDao {
     void createNew(Course course) throws DaoException;
 
     Course getCourse(int courseId) throws DaoException;
+
+    void update(Course course) throws DaoException;
 }

@@ -15,5 +15,6 @@ public enum CommandName {
     GET_COURSES_PAGE,
     GET_ADD_COURSE_PAGE,
     ADD_COURSE,
+    GET_EDIT_COURSE_PAGE,
     EDIT_COURSE
 }

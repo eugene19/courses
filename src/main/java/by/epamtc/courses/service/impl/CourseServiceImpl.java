@@ -55,4 +55,13 @@ public class CourseServiceImpl implements CourseService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void update(Course course) throws ServiceException {
+        try {
+            courseDao.update(course);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

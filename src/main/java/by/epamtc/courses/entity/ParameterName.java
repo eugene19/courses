@@ -33,4 +33,5 @@ public abstract class ParameterName {
     public static final String END_DATE = "endDate";
     public static final String STUDENTS_LIMIT = "studentsLimit";
     public static final String COURSE_ID = "courseId";
+    public static final String STATUS = "status";
 }

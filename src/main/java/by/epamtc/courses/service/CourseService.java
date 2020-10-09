@@ -15,4 +15,6 @@ public interface CourseService {
     void createNew(Course course) throws ServiceException;
 
     Course getCourse(int courseId) throws ServiceException;
+
+    void update(Course course) throws ServiceException;
 }
