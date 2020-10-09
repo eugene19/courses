@@ -7,6 +7,8 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
           crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <%@include file="component/header.jsp" %>
@@ -50,7 +52,46 @@
                 <div class="col border border-light shadow-sm m-1"
                      style="height: 160px">
                     <div class="row font-weight-bold p-2">
-                            ${course.summary}
+                        <div class="col col-md-10 pl-0 align-middle">
+                            <c:choose>
+                                <c:when test="${course.summary.length() > 25}">
+                                    ${course.summary.substring(0, 25)}...
+                                </c:when>
+                                <c:otherwise>
+                                    ${course.summary}
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <c:if test="${course.lecturerId == user.id}">
+                            <div class="col col-md-1 p-0 m-0">
+                                <form class="m-0"
+                                      action="${pageContext.request.contextPath}/main"
+                                      method="post">
+                                    <input type="hidden" name="command"
+                                           value="edit_course">
+                                    <input type="hidden" name="course_id"
+                                           value="${course.id}">
+
+                                    <button class="btn mb-0" type="submit"><i
+                                            class="fa fa-edit text-info"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col col-md-1 p-0 m-0">
+                                <form class="m-0"
+                                      action="${pageContext.request.contextPath}/main"
+                                      method="post">
+                                    <input type="hidden" name="command"
+                                           value="delete_course">
+                                    <input type="hidden" name="course_id"
+                                           value="${course.id}">
+
+                                    <button class="btn mb-0" type="submit"><i
+                                            class="fa fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="row p-2">
                         <c:choose>

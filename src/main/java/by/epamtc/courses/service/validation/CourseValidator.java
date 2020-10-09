@@ -18,8 +18,8 @@ public class CourseValidator {
     private static final int MAXIMAL_STUDENTS_LIMIT = 99;
     private static final int MINIMAL_STUDENTS_LIMIT = 1;
 
-    private static final String SUMMARY_PATTERN = "[a-zA-Zа-яА-яёЁ0-9]{3,45}";
-    private static final String DESCRIPTION_PATTERN = "[a-zA-Zа-яА-яёЁ0-9]{3,500}";
+    private static final String SUMMARY_PATTERN = "[a-zA-Zа-яА-яёЁ0-9 ]{3,100}";
+    private static final String DESCRIPTION_PATTERN = ".{3,500}";
 
     private Map<String, String[]> parameterMap;
     private Map<String, String> errors;
@@ -37,7 +37,6 @@ public class CourseValidator {
         if (checkEmpty(summaryValues) || checkEmpty(summaryValues[0])) {
             errors.put(ParameterName.SUMMARY, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
         } else if (!summaryValues[0].matches(SUMMARY_PATTERN)) {
-            // TODO: 10/8/20 replace error messages
             errors.put(ParameterName.SUMMARY, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_SUMMARY));
         }
 
