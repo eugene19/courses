@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command.user;
 
+import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
@@ -42,7 +43,6 @@ public class EditProfileCommand implements Command {
         if (validationError.isEmpty()) {
             User user = userBuilder.createUserFromParams(parameters);
 
-
             try {
                 userService.update(user);
 
@@ -51,9 +51,11 @@ public class EditProfileCommand implements Command {
 
                 LOGGER.debug("Updating user successful");
 
-                resp.sendRedirect("/main?"
-                        + ParameterName.COMMAND + "=" + CommandName.GET_PROFILE_PAGE +
-                        "&" + ParameterName.IS_UPDATING_OK + "=" + true);
+                resp.sendRedirect(PageName.MAIN_SERVLET_URL
+                        + URLConstant.START_PARAMETERS_SYMBOL
+                        + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_PROFILE_PAGE
+                        + URLConstant.PARAMETERS_SEPARATOR
+                        + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
                 LOGGER.error("Updating user error" + e.getMessage(), e);
