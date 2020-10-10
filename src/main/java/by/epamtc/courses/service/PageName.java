@@ -1,7 +1,9 @@
 package by.epamtc.courses.service;
 
 public abstract class PageName {
+    public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
     public static final String ADD_COURSE_PAGE = "WEB-INF/jsp/course/add_course.jsp";
+    public static final String CONTACT_PAGE = "WEB-INF/jsp/contact.jsp";
     public static final String COURSES_PAGE = "WEB-INF/jsp/course/courses.jsp";
     public static final String DEFAULT_PAGE_URL = "/";
     public static final String EDIT_PROFILE_PAGE = "WEB-INF/jsp/user/edit_profile.jsp";
@@ -11,5 +13,4 @@ public abstract class PageName {
     public static final String NEWS_PAGE = "WEB-INF/jsp/news.jsp";
     public static final String PROFILE_PAGE = "WEB-INF/jsp/user/profile.jsp";
     public static final String REGISTRATION_PAGE = "WEB-INF/jsp/user/registration.jsp";
-    public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
 }

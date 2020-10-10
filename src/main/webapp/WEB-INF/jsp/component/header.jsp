@@ -37,7 +37,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="${pageContext.request.contextPath}/main?command=contacts">${contacts_button}</a>
+                       href="${pageContext.request.contextPath}/main?command=get_contact_page">${contacts_button}</a>
                 </li>
                 <c:if test="${not empty user}">
                     <li class="nav-item">
