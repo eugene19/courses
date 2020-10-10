@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -34,7 +34,7 @@
         </div>
         <div class="row container-fluid">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2351.0325171437325!2d27.54985211579111!3d53.895625980097805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfc2ad550759%3A0x57deacf90acc4fff!2z0YPQuy4g0JrQsNGA0LvQsCDQnNCw0YDQutGB0LAgMSwg0JzQuNC90YHQug!5e0!3m2!1sru!2sby!4v1602341247125!5m2!1sru!2sby"
-                    width="600" height="450" frameborder="0" style="border:0;"
+                    width="600" height="450" style="border:0;"
                     allowfullscreen="" aria-hidden="false"
                     tabindex="0"></iframe>
         </div>
