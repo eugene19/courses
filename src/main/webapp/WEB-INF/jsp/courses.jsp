@@ -70,7 +70,7 @@
                                     <input type="hidden" name="command"
                                            value="get_edit_course_page">
                                     <input type="hidden" name="courseId"
-                                           value="${course.id}">
+                                           value="${course.id}"/>
 
                                     <button class="btn mb-0" type="submit"><i
                                             class="fa fa-edit text-info"></i>
@@ -82,9 +82,9 @@
                                       action="${pageContext.request.contextPath}/main"
                                       method="post">
                                     <input type="hidden" name="command"
-                                           value="delete_course">
+                                           value="delete_course"/>
                                     <input type="hidden" name="courseId"
-                                           value="${course.id}">
+                                           value="${course.id}"/>
 
                                     <button class="btn mb-0" type="submit"><i
                                             class="fa fa-trash text-danger"></i>

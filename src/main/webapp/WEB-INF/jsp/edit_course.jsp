@@ -45,7 +45,7 @@
               method="post">
             <input type="hidden" name="command" value="edit_course"/>
             <input type="hidden" name="id"
-                   value="<c:if test="${init.id[0] != null}">${init.id[0]}</c:if><c:if test="${init.id[0] == null}">${course.id}</c:if>">
+                   value="<c:if test="${init.id[0] != null}">${init.id[0]}</c:if><c:if test="${init.id[0] == null}">${course.id}</c:if>"/>
 
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">

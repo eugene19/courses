@@ -36,7 +36,7 @@
     <div class="row align-items-center justify-content-center py-2">
         <form class="col-md-7" action="${pageContext.request.contextPath}/main"
               method="post">
-            <input type="hidden" name="command" value="get_edit_profile_page">
+            <input type="hidden" name="command" value="get_edit_profile_page"/>
 
             <c:if test="${param.get('isUpdatingOk')}">
                 <div class="alert alert-success" role="alert">
@@ -44,7 +44,7 @@
                 </div>
             </c:if>
 
-            <input type="hidden" name="id" value="${user.id}">
+            <input type="hidden" name="id" value="${user.id}"/>
 
             <c:choose>
                 <c:when test="${not empty user.photoPath}">
@@ -68,7 +68,7 @@
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="surname" value="${user.surname}">
+                           id="surname" value="${user.surname}"/>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@
                        class="col-lg-2 col-form-label text-muted">${name_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="name" value="${user.name}">
+                           id="name" value="${user.name}"/>
                 </div>
             </div>
 
@@ -86,7 +86,7 @@
                        class="col-lg-2 col-form-label text-muted">${email_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="email" value="${user.email}">
+                           id="email" value="${user.email}"/>
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
                        class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="birthday" value="${user.birthday}">
+                           id="birthday" value="${user.birthday}"/>
                 </div>
             </div>
 
@@ -105,7 +105,7 @@
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="role"
-                           value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>">
+                           value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>"/>
                 </div>
             </div>
 

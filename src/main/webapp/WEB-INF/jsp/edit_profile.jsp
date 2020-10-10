@@ -45,7 +45,7 @@
         <form class="col-md-7" method="post"
               action="${pageContext.request.contextPath}/main"
               enctype="multipart/form-data">
-            <input type="hidden" name="command" value="upload_user_photo">
+            <input type="hidden" name="command" value="upload_user_photo"/>
 
             <c:choose>
                 <c:when test="${not empty user.photoPath}">
@@ -101,8 +101,8 @@
 
         <form class="col-md-7" action="${pageContext.request.contextPath}/main"
               method="post">
-            <input type="hidden" name="command" value="edit_profile">
-            <input type="hidden" name="id" value="${user.id}">
+            <input type="hidden" name="command" value="edit_profile"/>
+            <input type="hidden" name="id" value="${user.id}"/>
 
             <div class="form-group row">
                 <label for="surname"
@@ -110,8 +110,8 @@
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="surname" name="surname"
-                           value="<c:if test="${init.surname[0] != null}">${init.surname[0]}</c:if><c:if test="${init.surname[0] == null}">${user.surname}</c:if>">
-                    <span class="text-danger small col-lg-11">${errors.surname} </span>
+                           value="<c:if test="${init.surname[0] != null}">${init.surname[0]}</c:if><c:if test="${init.surname[0] == null}">${user.surname}</c:if>"/>
+                    <div class="text-danger small col-lg-11">${errors.surname}</div>
                 </div>
             </div>
 
@@ -121,8 +121,8 @@
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="name" name="name"
-                           value="<c:if test="${init.name[0] != null}">${init.name[0]}</c:if><c:if test="${init.name[0] == null}">${user.name}</c:if>">
-                    <span class="text-danger small col-lg-11">${errors.name} </span>
+                           value="<c:if test="${init.name[0] != null}">${init.name[0]}</c:if><c:if test="${init.name[0] == null}">${user.name}</c:if>"/>
+                    <div class="text-danger small col-lg-11">${errors.name}</div>
                 </div>
             </div>
 
@@ -132,8 +132,8 @@
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="email" name="email"
-                           value="<c:if test="${init.email[0] != null}">${init.email[0]}</c:if><c:if test="${init.email[0] == null}">${user.email}</c:if>">
-                    <span class="text-danger small col-lg-11">${errors.email} </span>
+                           value="<c:if test="${init.email[0] != null}">${init.email[0]}</c:if><c:if test="${init.email[0] == null}">${user.email}</c:if>"/>
+                    <div class="text-danger small col-lg-11">${errors.email}</div>
                 </div>
             </div>
 
@@ -143,8 +143,8 @@
                 <div class="col-lg-6">
                     <input type="date" class="form-control"
                            id="birthday" name="birthday"
-                           value="<c:if test="${init.birthday[0] != null}">${init.birthday[0]}</c:if><c:if test="${init.birthday[0] == null}">${user.birthday}</c:if>">
-                    <span class="text-danger small col-lg-11">${errors.birthday} </span>
+                           value="<c:if test="${init.birthday[0] != null}">${init.birthday[0]}</c:if><c:if test="${init.birthday[0] == null}">${user.birthday}</c:if>"/>
+                    <div class="text-danger small col-lg-11">${errors.birthday}</div>
                 </div>
             </div>
 
@@ -165,7 +165,7 @@
                             </c:when>
                         </c:choose>
                     </select>
-                    <span class="text-warning small col-lg-11">${immutable_field} </span>
+                    <div class="text-warning small col-lg-11">${immutable_field}</div>
                 </div>
             </div>
 
