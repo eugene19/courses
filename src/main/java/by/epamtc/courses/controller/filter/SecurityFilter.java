@@ -43,7 +43,7 @@ public class SecurityFilter implements Filter {
         CommandName command = parseCommand(commandName);
 
         if (isCommandNeedAuthorization(command) && !hasUserAllowedRole(command, user)) {
-            LOGGER.warn("Authorization fail: try opening private page user without needed permission");
+            LOGGER.warn("Authorization fail: try opening private page by user without needed permission");
             resp.sendError(ERROR_PERMISSION_DENIED);
             return;
         }

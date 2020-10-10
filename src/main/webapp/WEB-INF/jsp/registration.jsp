@@ -50,16 +50,14 @@
             <div class="form-group row">
                 <label for="login">${login_lable}</label>
                 <input type="text" class="form-control form-control-sm"
-                       id="login" name="login"
-                       value="${init.login[0]}"/>
+                       id="login" name="login" value="${init.login[0]}"/>
                 <span class="text-danger small">${errors.login} </span>
             </div>
 
             <div class="form-group row">
                 <label for="password">${password_lable}</label>
                 <input class="form-control form-control-sm" id="password"
-                       type="password"
-                       name="password"/>
+                       type="password" name="password"/>
                 <div class="text-danger small">${errors.password} </div>
             </div>
 
@@ -85,14 +83,14 @@
                 <input type="text" class="form-control form-control-sm"
                        id="email" name="email"
                        value="${init.email[0]}"/>
-                <span class="text-danger small">${errors.email} </span>
+                <div class="text-danger small">${errors.email} </div>
             </div>
             <div class="form-group row">
                 <label for="birthday">${birthday_lable}</label>
                 <input type="date" class="form-control form-control-sm"
                        id="birthday"
                        name="birthday" value="${init.birthday[0]}"/>
-                <span class="text-danger small">${errors.birthday} </span>
+                <div class="text-danger small">${errors.birthday} </div>
             </div>
 
             <div class="form-group row">
@@ -106,7 +104,7 @@
                             <c:if test="${init.role[0] == 'LECTURER'}">selected</c:if>
                             value="LECTURER">${role_lecturer}</option>
                 </select>
-                <span class="text-danger small">${errors.role} </span>
+                <div class="text-danger small">${errors.role} </div>
             </div>
 
             <div class="row align-items-center justify-content-center py-4">

@@ -22,15 +22,25 @@
 <fmt:message bundle="${bundle}" key="courses.add.endDate" var="end_date_lable"/>
 <fmt:message bundle="${bundle}" key="courses.add.studentsLimit"
              var="students_limit_lable"/>
+<fmt:message bundle="${bundle}" key="courses.status"
+             var="status_lable"/>
+<fmt:message bundle="${bundle}" key="course.status.notStarted"
+             var="status_not_started"/>
+<fmt:message bundle="${bundle}" key="course.status.inProgress"
+             var="status_in_progress"/>
+<fmt:message bundle="${bundle}" key="course.status.finished"
+             var="status_finished"/>
+<fmt:message bundle="${bundle}" key="profile.edit.immutable.field"
+             var="immutable_field"/>
 <fmt:message bundle="${bundle}" key="profile.edit.button"
              var="try_create_button"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5">
+    <div class="row justify-content-center py-5">
         <h3 class="h3 mb-3 font-weight-normal">${page_title}</h3>
     </div>
 
-    <div class="row align-items-center justify-content-center py-2">
+    <div class="row justify-content-center py-2">
         <form class="col-md-3" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="edit_course"/>
@@ -44,49 +54,66 @@
             </c:if>
 
             <div class="form-group row">
-                <label for="summary">${summary_lable}</label>
+                <label class="text-muted" for="summary">${summary_lable}</label>
                 <input type="text" class="form-control form-control-sm"
                        id="summary" name="summary"
                        value="<c:if test="${init.summary[0] != null}">${init.summary[0]}</c:if><c:if test="${init.summary[0] == null}">${course.summary}</c:if>"/>
-                <span class="text-danger small">${errors.summary} </span>
+                <div class="text-danger small">${errors.summary}</div>
             </div>
 
             <div class="form-group row">
-                <label for="description">${description_lable}</label>
+                <label class="text-muted"
+                       for="description">${description_lable}</label>
                 <textarea class="form-control form-control-sm" id="description"
-                          rows="3"
+                          rows="4" style="resize: none"
                           name="description"><c:if
                         test="${init.description[0] != null}">${init.description[0]}</c:if><c:if
                         test="${init.description[0] == null}">${course.description}</c:if></textarea>
-                <div class="text-danger small">${errors.description} </div>
+                <div class="text-danger small">${errors.description}</div>
             </div>
 
             <div class="form-group row">
-                <label for="startDate">${start_date_lable}</label>
+                <label class="text-muted"
+                       for="startDate">${start_date_lable}</label>
                 <input type="date" class="form-control form-control-sm"
-                       id="startDate"
-                       name="startDate"
+                       id="startDate" name="startDate"
                        value="<c:if test="${init.startDate[0] != null}">${init.startDate[0]}</c:if><c:if test="${init.startDate[0] == null}">${course.startDate}</c:if>"/>
-                <span class="text-danger small">${errors.startDate} </span>
+                <div class="text-danger small">${errors.startDate}</div>
             </div>
 
             <div class="form-group row">
-                <label for="endDate">${end_date_lable}</label>
+                <label class="text-muted"
+                       for="endDate">${end_date_lable}</label>
                 <input type="date" class="form-control form-control-sm"
                        id="endDate" name="endDate"
                        value="<c:if test="${init.endDate[0] != null}">${init.endDate[0]}</c:if><c:if test="${init.endDate[0] == null}">${course.endDate}</c:if>"/>
-                <span class="text-danger small">${errors.endDate} </span>
+                <div class="text-danger small">${errors.endDate}</div>
             </div>
 
             <div class="form-group row">
-                <label for="studentsLimit">${students_limit_lable}</label>
+                <label class="text-muted"
+                       for="studentsLimit">${students_limit_lable}</label>
                 <input class="form-control" id="studentsLimit" type="number"
                        name="studentsLimit"
                        value="<c:if test="${init.studentsLimit[0] != null}">${init.studentsLimit[0]}</c:if><c:if test="${init.studentsLimit[0] == null}">${course.studentsLimit}</c:if>"/>
-                <div class="text-danger small">${errors.studentsLimit} </div>
+                <div class="text-danger small">${errors.studentsLimit}</div>
             </div>
 
-            <div class="row align-items-center justify-content-center py-4">
+            <div class="form-group row">
+                <label class="text-muted" for="status">${status_lable}</label>
+                <select class="form-control form-control-sm" id="status"
+                        name="status">
+                    <option selected
+                            value="NOT_STARTED">${status_not_started}</option>
+                    <option selected
+                            value="IN_PROGRESS">${status_in_progress}</option>
+                    <option selected
+                            value="FINISHED">${status_finished}</option>
+                </select>
+                <div class="text-warning small">${immutable_field}</div>
+            </div>
+
+            <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
                         type="submit">${try_create_button}</button>
             </div>
