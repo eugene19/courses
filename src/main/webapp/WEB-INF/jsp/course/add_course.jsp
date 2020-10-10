@@ -98,6 +98,7 @@
                             value="NOT_STARTED">${status_not_started}</option>
                 </select>
                 <div class="text-warning small">${immutable_field}</div>
+                <div class="text-danger small">${errors.status}</div>
             </div>
 
             <div class="row justify-content-center py-4">
