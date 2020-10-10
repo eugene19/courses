@@ -103,11 +103,14 @@
                 <label class="text-muted" for="status">${status_lable}</label>
                 <select class="form-control form-control-sm" id="status"
                         name="status">
-                    <option selected
+                    <option
+                            <c:if test="${init.status[0] == 'NOT_STARTED'}">selected</c:if>
                             value="NOT_STARTED">${status_not_started}</option>
-                    <option selected
+                    <option
+                            <c:if test="${init.status[0] == 'IN_PROGRESS'}">selected</c:if>
                             value="IN_PROGRESS">${status_in_progress}</option>
-                    <option selected
+                    <option
+                            <c:if test="${init.status[0] == 'FINISHED'}">selected</c:if>
                             value="FINISHED">${status_finished}</option>
                 </select>
                 <div class="text-warning small">${immutable_field}</div>
