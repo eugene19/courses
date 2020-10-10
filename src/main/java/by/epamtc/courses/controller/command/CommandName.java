@@ -2,6 +2,7 @@ package by.epamtc.courses.controller.command;
 
 public enum CommandName {
     // go to page commands
+    GET_ABOUT_US_PAGE,
     GET_ADD_COURSE_PAGE,
     GET_COURSES_PAGE,
     GET_EDIT_COURSE_PAGE,

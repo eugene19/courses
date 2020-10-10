@@ -13,6 +13,7 @@ public class CommandProvider {
 
     public CommandProvider() {
         // go to page commands
+        commands.put(CommandName.GET_ABOUT_US_PAGE, new AboutPageCommand());
         commands.put(CommandName.GET_ADD_COURSE_PAGE, new AddCoursePageCommand());
         commands.put(CommandName.GET_COURSES_PAGE, new CoursesPageCommand());
         commands.put(CommandName.GET_EDIT_COURSE_PAGE, new EditCoursePageCommand());

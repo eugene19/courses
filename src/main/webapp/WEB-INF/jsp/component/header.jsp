@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="${pageContext.request.contextPath}/main?command=about">${about_button}</a>
+                       href="${pageContext.request.contextPath}/main?command=get_about_us_page">${about_button}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"

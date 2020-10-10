@@ -11,4 +11,5 @@ public abstract class PageName {
     public static final String NEWS_PAGE = "WEB-INF/jsp/news.jsp";
     public static final String PROFILE_PAGE = "WEB-INF/jsp/user/profile.jsp";
     public static final String REGISTRATION_PAGE = "WEB-INF/jsp/user/registration.jsp";
+    public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
 }
