@@ -17,7 +17,8 @@
 <%@include file="component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="errorPage.message" var="message"/>
-<fmt:message bundle="${bundle}" key="errorPage.button" var="button"/>
+<fmt:message bundle="${bundle}" key="button.goToHomePage"
+             var="go_to_home_button"/>
 
 <div class="container">
     <div class="row justify-content-center py-5 mt-5">
@@ -27,7 +28,7 @@
     </div>
     <div class="row justify-content-center pb-5">
         <a href="../../index.jsp">
-            <button class="btn btn-outline-info">${button}</button>
+            <button class="btn btn-outline-info">${go_to_home_button}</button>
         </a>
     </div>
 </div>

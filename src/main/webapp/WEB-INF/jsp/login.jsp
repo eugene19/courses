@@ -14,11 +14,11 @@
 
 <%@include file="component/header.jsp" %>
 
-<fmt:message bundle="${bundle}" key="registration.message.success"
+<fmt:message bundle="${bundle}" key="message.registration.successes"
              var="registration_message"/>
 <fmt:message bundle="${bundle}" key="login.summary" var="login_summary"/>
-<fmt:message bundle="${bundle}" key="login.login" var="login_lable"/>
-<fmt:message bundle="${bundle}" key="login.password" var="password_lable"/>
+<fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
+<fmt:message bundle="${bundle}" key="user.password" var="password_lable"/>
 <fmt:message bundle="${bundle}" key="login.submit" var="try_login_button"/>
 
 

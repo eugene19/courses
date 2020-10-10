@@ -14,22 +14,22 @@
 <%@include file="component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="courses.add.title" var="page_title"/>
-<fmt:message bundle="${bundle}" key="courses.add.summary" var="summary_lable"/>
-<fmt:message bundle="${bundle}" key="courses.add.description"
+<fmt:message bundle="${bundle}" key="course.summary" var="summary_lable"/>
+<fmt:message bundle="${bundle}" key="course.description"
              var="description_lable"/>
-<fmt:message bundle="${bundle}" key="courses.add.startDate"
+<fmt:message bundle="${bundle}" key="course.startDate"
              var="start_date_lable"/>
-<fmt:message bundle="${bundle}" key="courses.add.endDate" var="end_date_lable"/>
-<fmt:message bundle="${bundle}" key="courses.add.studentsLimit"
+<fmt:message bundle="${bundle}" key="course.endDate" var="end_date_lable"/>
+<fmt:message bundle="${bundle}" key="course.studentsLimit"
              var="students_limit_lable"/>
-<fmt:message bundle="${bundle}" key="courses.status"
+<fmt:message bundle="${bundle}" key="course.status"
              var="status_lable"/>
 <fmt:message bundle="${bundle}" key="course.status.notStarted"
              var="status_not_started"/>
-<fmt:message bundle="${bundle}" key="profile.edit.immutable.field"
+<fmt:message bundle="${bundle}" key="error.fieldImmutable"
              var="immutable_field"/>
-<fmt:message bundle="${bundle}" key="courses.add.button.save"
-             var="try_create_button"/>
+<fmt:message bundle="${bundle}" key="button.create"
+             var="create_button"/>
 
 <div class="container">
     <div class="row justify-content-center my-5">
@@ -101,7 +101,7 @@
 
             <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
-                        type="submit">${try_create_button}</button>
+                        type="submit">${create_button}</button>
             </div>
         </form>
     </div>

@@ -12,7 +12,7 @@
 <fmt:message bundle="${bundle}" key="menu.courses" var="courses_button"/>
 <fmt:message bundle="${bundle}" key="menu.about" var="about_button"/>
 <fmt:message bundle="${bundle}" key="menu.contacts" var="contacts_button"/>
-<fmt:message bundle="${bundle}" key="profile.summary" var="profile_button"/>
+<fmt:message bundle="${bundle}" key="menu.profile" var="profile_button"/>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container">

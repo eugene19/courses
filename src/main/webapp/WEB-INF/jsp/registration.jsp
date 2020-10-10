@@ -15,21 +15,21 @@
 
 <fmt:message bundle="${bundle}" key="registration.summary"
              var="registration_summary"/>
-<fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>
-<fmt:message bundle="${bundle}" key="registration.password"
+<fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
+<fmt:message bundle="${bundle}" key="user.password"
              var="password_lable"/>
-<fmt:message bundle="${bundle}" key="registration.surname" var="surname_lable"/>
-<fmt:message bundle="${bundle}" key="registration.name" var="name_lable"/>
-<fmt:message bundle="${bundle}" key="registration.email" var="email_lable"/>
-<fmt:message bundle="${bundle}" key="registration.birthday"
+<fmt:message bundle="${bundle}" key="user.surname" var="surname_lable"/>
+<fmt:message bundle="${bundle}" key="user.name" var="name_lable"/>
+<fmt:message bundle="${bundle}" key="user.email" var="email_lable"/>
+<fmt:message bundle="${bundle}" key="user.birthday"
              var="birthday_lable"/>
-<fmt:message bundle="${bundle}" key="registration.role" var="role_lable"/>
-<fmt:message bundle="${bundle}" key="registration.role.student"
+<fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
+<fmt:message bundle="${bundle}" key="user.role.student"
              var="role_student"/>
-<fmt:message bundle="${bundle}" key="registration.role.lecturer"
+<fmt:message bundle="${bundle}" key="user.role.lecturer"
              var="role_lecturer"/>
 <fmt:message bundle="${bundle}" key="registration.submit"
-             var="try_register_button"/>
+             var="register_button"/>
 
 <div class="container">
     <div class="row justify-content-center my-5">
@@ -108,7 +108,7 @@
 
             <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
-                        type="submit">${try_register_button}</button>
+                        type="submit">${register_button}</button>
             </div>
         </form>
     </div>

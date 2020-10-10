@@ -16,8 +16,9 @@
 
 <%@include file="component/header.jsp" %>
 
-<fmt:message bundle="${bundle}" key="errorPage.403.message" var="message"/>
-<fmt:message bundle="${bundle}" key="errorPage.button" var="button"/>
+<fmt:message bundle="${bundle}" key="errorPage.message.403" var="message"/>
+<fmt:message bundle="${bundle}" key="button.goToHomePage"
+             var="go_to_home_button"/>
 
 <div class="container">
     <div class="row justify-content-center py-5 mt-5">
@@ -35,7 +36,7 @@
             </a>
         </c:if>
         <a href="../../index.jsp">
-            <button class="btn btn-outline-info mx-1">${button}</button>
+            <button class="btn btn-outline-info mx-1">${go_to_home_button}</button>
         </a>
     </div>
 </div>

@@ -13,9 +13,9 @@
 <body>
 <%@include file="component/header.jsp" %>
 
-<fmt:message bundle="${bundle}" key="courses.list.empty" var="list_empty"/>
+<fmt:message bundle="${bundle}" key="message.emptyList" var="list_empty"/>
 <fmt:message bundle="${bundle}" key="courses.summary" var="courses_summary"/>
-<fmt:message bundle="${bundle}" key="courses.button.add" var="add_course"/>
+<fmt:message bundle="${bundle}" key="button.create" var="create_button"/>
 
 <div class="container">
     <div class="row justify-content-center my-5">
@@ -25,7 +25,7 @@
     <c:if test="${user.role == 'LECTURER'}">
         <div class="row ml-1 mb-3">
             <a href="${pageContext.request.contextPath}/main?command=get_add_course_page">
-                <button class="btn btn-outline-primary">${add_course}</button>
+                <button class="btn btn-outline-primary">${create_button}</button>
             </a>
         </div>
     </c:if>

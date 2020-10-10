@@ -12,20 +12,20 @@
 <%@include file="component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="profile.summary" var="profile_summary"/>
-<fmt:message bundle="${bundle}" key="profile.edit..message.success"
+<fmt:message bundle="${bundle}" key="message.edit.successes"
              var="succsses_edit_message"/>
-<fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>
-<fmt:message bundle="${bundle}" key="registration.surname" var="surname_lable"/>
-<fmt:message bundle="${bundle}" key="registration.name" var="name_lable"/>
-<fmt:message bundle="${bundle}" key="registration.email" var="email_lable"/>
-<fmt:message bundle="${bundle}" key="registration.birthday"
+<fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
+<fmt:message bundle="${bundle}" key="user.surname" var="surname_lable"/>
+<fmt:message bundle="${bundle}" key="user.name" var="name_lable"/>
+<fmt:message bundle="${bundle}" key="user.email" var="email_lable"/>
+<fmt:message bundle="${bundle}" key="user.birthday"
              var="birthday_lable"/>
-<fmt:message bundle="${bundle}" key="registration.role" var="role_lable"/>
-<fmt:message bundle="${bundle}" key="registration.role.student"
+<fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
+<fmt:message bundle="${bundle}" key="user.role.student"
              var="role_student"/>
-<fmt:message bundle="${bundle}" key="registration.role.lecturer"
+<fmt:message bundle="${bundle}" key="user.role.lecturer"
              var="role_lecturer"/>
-<fmt:message bundle="${bundle}" key="profile.button.edit"
+<fmt:message bundle="${bundle}" key="button.edit"
              var="edit_profile_button"/>
 
 <div class="container">

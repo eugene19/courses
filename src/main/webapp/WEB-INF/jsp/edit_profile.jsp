@@ -16,24 +16,24 @@
 
 <fmt:message bundle="${bundle}" key="profile.edit.summary"
              var="edit_profile_summary"/>
-<fmt:message bundle="${bundle}" key="registration.login" var="login_lable"/>
-<fmt:message bundle="${bundle}" key="registration.surname" var="surname_lable"/>
-<fmt:message bundle="${bundle}" key="registration.name" var="name_lable"/>
-<fmt:message bundle="${bundle}" key="registration.email" var="email_lable"/>
-<fmt:message bundle="${bundle}" key="registration.birthday"
+<fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
+<fmt:message bundle="${bundle}" key="user.surname" var="surname_lable"/>
+<fmt:message bundle="${bundle}" key="user.name" var="name_lable"/>
+<fmt:message bundle="${bundle}" key="user.email" var="email_lable"/>
+<fmt:message bundle="${bundle}" key="user.birthday"
              var="birthday_lable"/>
-<fmt:message bundle="${bundle}" key="registration.role" var="role_lable"/>
-<fmt:message bundle="${bundle}" key="registration.role.student"
+<fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
+<fmt:message bundle="${bundle}" key="user.role.student"
              var="role_student"/>
-<fmt:message bundle="${bundle}" key="registration.role.lecturer"
+<fmt:message bundle="${bundle}" key="user.role.lecturer"
              var="role_lecturer"/>
-<fmt:message bundle="${bundle}" key="profile.edit.button"
+<fmt:message bundle="${bundle}" key="button.edit"
              var="save_profile_button"/>
-<fmt:message bundle="${bundle}" key="profile.edit.immutable.field"
+<fmt:message bundle="${bundle}" key="error.fieldImmutable"
              var="immutable_field"/>
 <fmt:message bundle="${bundle}" key="profile.edit.label.upload"
              var="upload_label"/>
-<fmt:message bundle="${bundle}" key="profile.edit.button.upload"
+<fmt:message bundle="${bundle}" key="button.upload"
              var="upload_button"/>
 
 <div class="container">
