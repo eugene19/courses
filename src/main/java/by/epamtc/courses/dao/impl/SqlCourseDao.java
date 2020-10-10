@@ -155,7 +155,6 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
-    // todo Сделать обновление статуса
     private void updateCourseRun(Course course, Connection connection) throws SQLException {
         PreparedStatement preparedStatement = null;
 
@@ -163,8 +162,7 @@ public class SqlCourseDao implements CourseDao {
             preparedStatement = connection.prepareStatement(EDIT_COURSE_STATUS);
             preparedStatement.setDate(1, Date.valueOf(course.getStartDate()));
             preparedStatement.setDate(2, Date.valueOf(course.getEndDate()));
-            // stub
-            preparedStatement.setInt(3, 1);
+            preparedStatement.setInt(3, course.getStatus().getId());
             preparedStatement.setInt(4, course.getId());
 
             preparedStatement.execute();

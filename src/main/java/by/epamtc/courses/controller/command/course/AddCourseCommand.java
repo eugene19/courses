@@ -4,7 +4,6 @@ import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.Course;
-import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.builder.CourseBuilder;
@@ -45,8 +44,6 @@ public class AddCourseCommand implements Command {
 
         if (validationError.isEmpty()) {
             Course course = courseBuilder.createCourseFromParams(parameters);
-            course.setLecturerId(user.getId());
-            course.setStatus(CourseStatus.NOT_STARTED);
 
             try {
                 courseService.createNew(course);

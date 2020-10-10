@@ -36,7 +36,6 @@ public class EditCourseCommand implements Command {
         Map<String, String[]> parameters = req.getParameterMap();
         HttpSession session = req.getSession();
         Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
-//        User user = (User) session.getAttribute(ParameterName.USER);
 
         ResourceManager resourceManager = new ResourceManager(locale);
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);

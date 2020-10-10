@@ -42,6 +42,11 @@ public class CourseBuilder {
             course.setStudentsLimit(Integer.parseInt(studentsLimitValues[0]));
         }
 
+        String[] lecturerIdValues = parameters.get(ParameterName.LECTURER_ID);
+        if (lecturerIdValues != null) {
+            course.setLecturerId(Integer.parseInt(lecturerIdValues[0]));
+        }
+
         String[] statusValues = parameters.get(ParameterName.STATUS);
         if (statusValues != null) {
             course.setStatus(CourseStatus.valueOf(statusValues[0]));

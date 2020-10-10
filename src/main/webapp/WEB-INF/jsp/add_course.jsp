@@ -40,6 +40,7 @@
         <form class="col-md-3" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="add_course"/>
+            <input type="hidden" name="lecturerId" value="${user.id}"/>
 
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">
