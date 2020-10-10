@@ -32,7 +32,7 @@
              var="try_register_button"/>
 
 <div class="container">
-    <div class="row justify-content-center py-5">
+    <div class="row justify-content-center my-5">
         <h3 class="h3 mb-3 font-weight-normal">${registration_summary}</h3>
     </div>
 

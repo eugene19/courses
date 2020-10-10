@@ -14,19 +14,20 @@
 
 <%@include file="component/header.jsp" %>
 
+<fmt:message bundle="${bundle}" key="registration.message.success"
+             var="registration_message"/>
 <fmt:message bundle="${bundle}" key="login.summary" var="login_summary"/>
 <fmt:message bundle="${bundle}" key="login.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="login.password" var="password_lable"/>
 <fmt:message bundle="${bundle}" key="login.submit" var="try_login_button"/>
-<fmt:message bundle="${bundle}" key="registration.message.success"
-             var="registration_message"/>
+
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5">
+    <div class="row justify-content-center my-5">
         <h3 class="h3 mb-3 font-weight-normal">${login_summary}</h3>
     </div>
 
-    <div class="row align-items-center justify-content-center py-2">
+    <div class="row justify-content-center py-2">
         <form class="col-md-3" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="login"/>
@@ -36,6 +37,7 @@
                         ${registration_message}
                 </div>
             </c:if>
+
             <c:if test="${not empty error}">
                 <div class="alert alert-danger" role="alert">
                         ${error}
@@ -43,21 +45,21 @@
             </c:if>
 
             <div class="form-group row">
-                <label for="login">${login_lable}</label>
+                <label class="text-muted" for="login">${login_lable}</label>
                 <input type="text" class="form-control form-control-sm"
-                       id="login" name="login"
-                       value="${init.login[0]}"/>
-                <span class="text-danger small">${errors.login} </span>
-            </div>
-            <div class="form-group row">
-                <label for="password">${password_lable}</label>
-                <input class="form-control form-control-sm" id="password"
-                       type="password"
-                       name="password"/>
-                <div class="text-danger small">${errors.password} </div>
+                       id="login" name="login" value="${init.login[0]}"/>
+                <div class="text-danger small">${errors.login}</div>
             </div>
 
-            <div class="row align-items-center justify-content-center py-4">
+            <div class="form-group row">
+                <label class="text-muted"
+                       for="password">${password_lable}</label>
+                <input class="form-control form-control-sm" id="password"
+                       type="password" name="password"/>
+                <div class="text-danger small">${errors.password}</div>
+            </div>
+
+            <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
                         type="submit">${try_login_button}</button>
             </div>
