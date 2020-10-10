@@ -11,7 +11,7 @@
           crossorigin="anonymous">
 </head>
 <body>
-<%@include file="component/header.jsp" %>
+<%@include file="../component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="courses.edit.title" var="page_title"/>
 <fmt:message bundle="${bundle}" key="course.summary" var="summary_lable"/>
@@ -140,6 +140,6 @@
     </div>
 </div>
 
-<%@include file="component/footer.jsp" %>
+<%@include file="../component/footer.jsp" %>
 </body>
 </html>

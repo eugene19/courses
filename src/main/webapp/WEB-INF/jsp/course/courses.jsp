@@ -11,7 +11,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%@include file="component/header.jsp" %>
+<%@include file="../component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="message.emptyList" var="list_empty"/>
 <fmt:message bundle="${bundle}" key="courses.summary" var="courses_summary"/>
@@ -98,6 +98,6 @@
     </div>
 </div>
 
-<%@include file="component/footer.jsp" %>
+<%@include file="../component/footer.jsp" %>
 </body>
 </html>

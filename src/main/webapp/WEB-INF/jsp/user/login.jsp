@@ -12,7 +12,7 @@
 <body>
 <jsp:useBean id="login" class="java.lang.String"/>
 
-<%@include file="component/header.jsp" %>
+<%@include file="../component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="message.registration.successes"
              var="registration_message"/>
@@ -67,6 +67,6 @@
     </div>
 </div>
 
-<%@include file="component/footer.jsp" %>
+<%@include file="../component/footer.jsp" %>
 </body>
 </html>

@@ -12,7 +12,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<%@include file="component/header.jsp" %>
+<%@include file="../component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="profile.edit.summary"
              var="edit_profile_summary"/>
@@ -177,6 +177,6 @@
     </div>
 </div>
 
-<%@include file="component/footer.jsp" %>
+<%@include file="../component/footer.jsp" %>
 </body>
 </html>
