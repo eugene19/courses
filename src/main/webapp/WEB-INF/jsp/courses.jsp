@@ -18,7 +18,7 @@
 <fmt:message bundle="${bundle}" key="courses.button.add" var="add_course"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center my-5">
+    <div class="row justify-content-center my-5">
         <h3 class="h3 mb-3 font-weight-normal">${courses_summary}</h3>
     </div>
 
@@ -31,7 +31,7 @@
     </c:if>
 
     <c:if test="${error != null}">
-        <div class="row align-items-center justify-content-center py-5">
+        <div class="row justify-content-center py-5">
             <div class="alert alert-danger w-100 text-center py-2" role="alert">
                     ${error}
             </div>
@@ -39,7 +39,7 @@
     </c:if>
 
     <c:if test="${empty courseList}">
-        <div class="row align-items-center justify-content-center py-5">
+        <div class="row justify-content-center py-5">
             <div class="alert alert-info w-100 text-center py-2" role="alert">
                     ${list_empty}
             </div>
