@@ -24,19 +24,19 @@
 <fmt:message bundle="${bundle}" key="registration.birthday"
              var="birthday_lable"/>
 <fmt:message bundle="${bundle}" key="registration.role" var="role_lable"/>
-<fmt:message bundle="${bundle}" key="registration.submit"
-             var="try_register_button"/>
 <fmt:message bundle="${bundle}" key="registration.role.student"
              var="role_student"/>
 <fmt:message bundle="${bundle}" key="registration.role.lecturer"
              var="role_lecturer"/>
+<fmt:message bundle="${bundle}" key="registration.submit"
+             var="try_register_button"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5">
+    <div class="row justify-content-center py-5">
         <h3 class="h3 mb-3 font-weight-normal">${registration_summary}</h3>
     </div>
 
-    <div class="row align-items-center justify-content-center py-2">
+    <div class="row justify-content-center py-2">
         <form class="col-md-3" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="registration"/>
@@ -48,53 +48,52 @@
             </c:if>
 
             <div class="form-group row">
-                <label for="login">${login_lable}</label>
+                <label class="text-muted" for="login">${login_lable}</label>
                 <input type="text" class="form-control form-control-sm"
                        id="login" name="login" value="${init.login[0]}"/>
-                <span class="text-danger small">${errors.login} </span>
+                <div class="text-danger small">${errors.login}</div>
             </div>
 
             <div class="form-group row">
-                <label for="password">${password_lable}</label>
+                <label class="text-muted"
+                       for="password">${password_lable}</label>
                 <input class="form-control form-control-sm" id="password"
                        type="password" name="password"/>
-                <div class="text-danger small">${errors.password} </div>
+                <div class="text-danger small">${errors.password}</div>
             </div>
 
             <div class="form-group row">
-                <label for="surname">${surname_lable}</label>
+                <label class="text-muted" for="surname">${surname_lable}</label>
                 <input class="form-control form-control-sm" id="surname"
-                       type="text"
-                       name="surname" value="${init.surname[0]}"/>
-                <div class="text-danger small">${errors.surname} </div>
+                       type="text" name="surname" value="${init.surname[0]}"/>
+                <div class="text-danger small">${errors.surname}</div>
             </div>
 
             <div class="form-group row">
-                <label for="name">${name_lable}</label>
+                <label class="text-muted" for="name">${name_lable}</label>
                 <input class="form-control form-control-sm" id="name"
-                       type="text"
-                       name="name"
-                       value="${init.name[0]}"/>
-                <div class="text-danger small">${errors.name} </div>
+                       type="text" name="name" value="${init.name[0]}"/>
+                <div class="text-danger small">${errors.name}</div>
             </div>
 
             <div class="form-group row">
-                <label for="email">${email_lable}</label>
-                <input type="text" class="form-control form-control-sm"
+                <label class="text-muted" for="email">${email_lable}</label>
+                <input class="form-control form-control-sm" type="text"
                        id="email" name="email"
                        value="${init.email[0]}"/>
-                <div class="text-danger small">${errors.email} </div>
+                <div class="text-danger small">${errors.email}</div>
             </div>
             <div class="form-group row">
-                <label for="birthday">${birthday_lable}</label>
+                <label class="text-muted"
+                       for="birthday">${birthday_lable}</label>
                 <input type="date" class="form-control form-control-sm"
-                       id="birthday"
-                       name="birthday" value="${init.birthday[0]}"/>
-                <div class="text-danger small">${errors.birthday} </div>
+                       id="birthday" name="birthday"
+                       value="${init.birthday[0]}"/>
+                <div class="text-danger small">${errors.birthday}</div>
             </div>
 
             <div class="form-group row">
-                <label for="role">${role_lable}</label>
+                <label class="text-muted" for="role">${role_lable}</label>
                 <select class="form-control form-control-sm" id="role"
                         name="role">
                     <option
@@ -104,10 +103,10 @@
                             <c:if test="${init.role[0] == 'LECTURER'}">selected</c:if>
                             value="LECTURER">${role_lecturer}</option>
                 </select>
-                <div class="text-danger small">${errors.role} </div>
+                <div class="text-danger small">${errors.role}</div>
             </div>
 
-            <div class="row align-items-center justify-content-center py-4">
+            <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
                         type="submit">${try_register_button}</button>
             </div>
