@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command;
 
+import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.service.PageName;
 import org.apache.log4j.Logger;
@@ -13,10 +14,6 @@ import java.util.Map;
 
 public class LocaleCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(LocaleCommand.class);
-
-    private static final String START_PARAMETERS_SYMBOL = "?";
-    private static final String KEY_VALUE_SEPARATOR = "=";
-    private static final String PARAMETERS_SEPARATOR = "&";
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -41,15 +38,15 @@ public class LocaleCommand implements Command {
 
         for (Map.Entry<String, String[]> parameterPair : previousParams.entrySet()) {
             if (paramCounter == 0) {
-                previousRequest.append(START_PARAMETERS_SYMBOL);
+                previousRequest.append(URLConstant.START_PARAMETERS_SYMBOL);
             }
             if (paramCounter++ != 0) {
-                previousRequest.append(PARAMETERS_SEPARATOR);
+                previousRequest.append(URLConstant.PARAMETERS_SEPARATOR);
             }
 
             previousRequest
                     .append(parameterPair.getKey())
-                    .append(KEY_VALUE_SEPARATOR)
+                    .append(URLConstant.KEY_VALUE_SEPARATOR)
                     .append(parameterPair.getValue()[0]);
         }
 
