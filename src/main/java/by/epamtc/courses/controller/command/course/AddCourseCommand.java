@@ -5,7 +5,6 @@ import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.ParameterName;
-import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.builder.CourseBuilder;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.PageName;
@@ -37,7 +36,6 @@ public class AddCourseCommand implements Command {
         Map<String, String[]> parameters = req.getParameterMap();
         HttpSession session = req.getSession();
         Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
-        User user = (User) session.getAttribute(ParameterName.USER);
         ResourceManager resourceManager = new ResourceManager(locale);
 
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);
@@ -53,8 +51,8 @@ public class AddCourseCommand implements Command {
                 resp.sendRedirect(PageName.MAIN_SERVLET_URL
                         + URLConstant.START_PARAMETERS_SYMBOL
                         + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSES_PAGE
-                        + URLConstant.PARAMETERS_SEPARATOR);
-//                        + ParameterName.IS_REGISTRATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
+                        + URLConstant.PARAMETERS_SEPARATOR
+                        + ParameterName.IS_CREATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
                 LOGGER.error("Creation of course error" + e.getMessage(), e);

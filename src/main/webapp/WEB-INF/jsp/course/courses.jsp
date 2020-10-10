@@ -13,6 +13,10 @@
 <body>
 <%@include file="../component/header.jsp" %>
 
+<fmt:message bundle="${bundle}" key="message.create.successes"
+             var="succsses_create_message"/>
+<fmt:message bundle="${bundle}" key="message.edit.successes"
+             var="succsses_edit_message"/>
 <fmt:message bundle="${bundle}" key="message.emptyList" var="list_empty"/>
 <fmt:message bundle="${bundle}" key="courses.summary" var="courses_summary"/>
 <fmt:message bundle="${bundle}" key="button.create" var="create_button"/>
@@ -21,6 +25,18 @@
     <div class="row justify-content-center my-5">
         <h3 class="h3 mb-3 font-weight-normal">${courses_summary}</h3>
     </div>
+
+    <c:if test="${param.get('isCreationOk')}">
+        <div class="alert alert-success" role="alert">
+                ${succsses_create_message}
+        </div>
+    </c:if>
+
+    <c:if test="${param.get('isUpdatingOk')}">
+        <div class="alert alert-success" role="alert">
+                ${succsses_edit_message}
+        </div>
+    </c:if>
 
     <c:if test="${user.role == 'LECTURER'}">
         <div class="row ml-1 mb-3">
@@ -54,8 +70,8 @@
                     <div class="row font-weight-bold p-2">
                         <div class="col col-md-11 pl-0 align-middle">
                             <c:choose>
-                                <c:when test="${course.summary.length() > 25}">
-                                    ${course.summary.substring(0, 25)}...
+                                <c:when test="${course.summary.length() > 30}">
+                                    ${course.summary.substring(0, 30)}...
                                 </c:when>
                                 <c:otherwise>
                                     ${course.summary}

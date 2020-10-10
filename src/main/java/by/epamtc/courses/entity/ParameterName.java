@@ -35,4 +35,5 @@ public abstract class ParameterName {
     public static final String COURSE_ID = "courseId";
     public static final String LECTURER_ID = "lecturerId";
     public static final String STATUS = "status";
+    public static final String IS_CREATION_OK = "isCreationOk";
 }
