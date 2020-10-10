@@ -20,12 +20,12 @@
 <fmt:message bundle="${bundle}" key="errorPage.button" var="button"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5 mt-5">
+    <div class="row justify-content-center py-5 mt-5">
         <div class="alert alert-danger col-lg-12 mt-5 text-center" role="alert">
             ${message}
         </div>
     </div>
-    <div class="row align-items-center justify-content-center pb-5">
+    <div class="row justify-content-center pb-5">
         <c:if test="${empty user}">
             <a href="${pageContext.request.contextPath}/main?command=get_login_page">
                 <button class="btn btn-outline-info mx-1">${login_button}</button>

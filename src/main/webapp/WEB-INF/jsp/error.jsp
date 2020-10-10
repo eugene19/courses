@@ -20,12 +20,12 @@
 <fmt:message bundle="${bundle}" key="errorPage.button" var="button"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5 mt-5">
+    <div class="row justify-content-center py-5 mt-5">
         <div class="alert alert-danger col-lg-12 mt-5 text-center" role="alert">
             ${message}
         </div>
     </div>
-    <div class="row align-items-center justify-content-center pb-5">
+    <div class="row justify-content-center pb-5">
         <a href="../../index.jsp">
             <button class="btn btn-outline-info">${button}</button>
         </a>
