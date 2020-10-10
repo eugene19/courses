@@ -12,22 +12,29 @@ public class CommandProvider {
     private Map<CommandName, Command> commands = new HashMap<>();
 
     public CommandProvider() {
-        commands.put(CommandName.GET_NEWS_PAGE, new NewsPageCommand());
-        commands.put(CommandName.LOGIN, new LoginCommand());
-        commands.put(CommandName.GET_LOGIN_PAGE, new LoginPageCommand());
-        commands.put(CommandName.LOGOUT, new LogoutCommand());
-        commands.put(CommandName.LOCALE, new LocaleCommand());
-        commands.put(CommandName.REGISTRATION, new RegistrationCommand());
-        commands.put(CommandName.GET_REGISTRATION_PAGE, new RegistrationPageCommand());
-        commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
-        commands.put(CommandName.EDIT_PROFILE, new EditProfileCommand());
-        commands.put(CommandName.GET_EDIT_PROFILE_PAGE, new EditProfilePageCommand());
-        commands.put(CommandName.UPLOAD_USER_PHOTO, new UploadPhotoCommand());
-        commands.put(CommandName.GET_COURSES_PAGE, new CoursesPageCommand());
+        // go to page commands
         commands.put(CommandName.GET_ADD_COURSE_PAGE, new AddCoursePageCommand());
-        commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
+        commands.put(CommandName.GET_COURSES_PAGE, new CoursesPageCommand());
         commands.put(CommandName.GET_EDIT_COURSE_PAGE, new EditCoursePageCommand());
+        commands.put(CommandName.GET_EDIT_PROFILE_PAGE, new EditProfilePageCommand());
+        commands.put(CommandName.GET_LOGIN_PAGE, new LoginPageCommand());
+        commands.put(CommandName.GET_NEWS_PAGE, new NewsPageCommand());
+        commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
+        commands.put(CommandName.GET_REGISTRATION_PAGE, new RegistrationPageCommand());
+
+        // user commands
+        commands.put(CommandName.EDIT_PROFILE, new EditProfileCommand());
+        commands.put(CommandName.LOGIN, new LoginCommand());
+        commands.put(CommandName.LOGOUT, new LogoutCommand());
+        commands.put(CommandName.REGISTRATION, new RegistrationCommand());
+        commands.put(CommandName.UPLOAD_USER_PHOTO, new UploadPhotoCommand());
+
+        // course commands
+        commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
         commands.put(CommandName.EDIT_COURSE, new EditCourseCommand());
+
+        // other commands
+        commands.put(CommandName.LOCALE, new LocaleCommand());
     }
 
     public Command getCommand(String command) {
