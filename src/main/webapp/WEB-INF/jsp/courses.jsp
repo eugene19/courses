@@ -52,7 +52,7 @@
                 <div class="col border border-light shadow-sm m-1"
                      style="height: 160px">
                     <div class="row font-weight-bold p-2">
-                        <div class="col col-md-10 pl-0 align-middle">
+                        <div class="col col-md-11 pl-0 align-middle">
                             <c:choose>
                                 <c:when test="${course.summary.length() > 25}">
                                     ${course.summary.substring(0, 25)}...
@@ -74,20 +74,6 @@
 
                                     <button class="btn mb-0" type="submit"><i
                                             class="fa fa-edit text-info"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="col col-md-1 p-0 m-0">
-                                <form class="m-0"
-                                      action="${pageContext.request.contextPath}/main"
-                                      method="post">
-                                    <input type="hidden" name="command"
-                                           value="delete_course"/>
-                                    <input type="hidden" name="courseId"
-                                           value="${course.id}"/>
-
-                                    <button class="btn mb-0" type="submit"><i
-                                            class="fa fa-trash text-danger"></i>
                                     </button>
                                 </form>
                             </div>
