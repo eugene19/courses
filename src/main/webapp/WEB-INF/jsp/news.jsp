@@ -31,6 +31,8 @@
         <h3 class="h3 mb-3 font-weight-normal">${news_summary}</h3>
     </div>
 
+    <%--        1 news--%>
+
     <div class="row">
         <div class="col col-md-4">
             <div class="col border border-light shadow-sm m-1"
@@ -63,6 +65,8 @@
             </div>
         </div>
 
+        <%--        2 news--%>
+
         <div class="col col-md-4">
             <div class="col border border-light shadow-sm m-1"
                  style="height: 400px">
@@ -94,6 +98,8 @@
             </div>
         </div>
 
+        <%--        3 news--%>
+
         <div class="col col-md-4">
             <div class="col border border-light shadow-sm m-1"
                  style="height: 400px">
@@ -124,6 +130,8 @@
                 </div>
             </div>
         </div>
+
+        <%--        4 news--%>
 
         <div class="col col-md-4">
             <div class="col border border-light shadow-sm m-1"
