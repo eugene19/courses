@@ -60,7 +60,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public boolean register(UserAuthData user) throws DaoException {
+    public void register(UserAuthData user) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -76,7 +76,7 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setDate(6, Date.valueOf(user.getBirthday()));
             preparedStatement.setInt(7, user.getRole().getId());
 
-            return preparedStatement.execute();
+            preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while insert user " + user.getLogin(), e);
         } finally {
