@@ -8,8 +8,6 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
           crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <%@include file="../component/header.jsp" %>
@@ -59,37 +57,22 @@
 
     <div class="row">
         <c:forEach var="course" items="${courseList}">
-            <div class="col col-md-4">
-                <div class="col border border-light shadow-sm m-1"
-                     style="height: 160px">
-                    <div class="row font-weight-bold p-2">
-                        <div class="col col-md-11 pl-0 align-middle">
+            <div class="col col-md-12 my-2 p-3  border border-light shadow-sm">
+                <div class="media position-relative">
+                    <div class="media-body">
+                        <h5 class="mt-0">
                             <myTag:cutLongText text="${course.summary}"
-                                               maxLength="30"/>
-                        </div>
-                        <c:if test="${course.lecturerId == user.id}">
-                            <div class="col col-md-1 p-0 m-0">
-                                <form class="m-0"
-                                      action="${pageContext.request.contextPath}/main"
-                                      method="post">
-                                    <input type="hidden" name="command"
-                                           value="get_edit_course_page">
-                                    <input type="hidden" name="courseId"
-                                           value="${course.id}"/>
-
-                                    <button class="btn mb-0" type="submit"><i
-                                            class="fa fa-edit text-info"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </c:if>
-                    </div>
-                    <div class="row p-2">
-                        <myTag:cutLongText text="${course.description}"
-                                           maxLength="100"/>
-                    </div>
-                    <div class="row text-muted p-2 small">
-                            ${course.startDate} - ${course.endDate}
+                                               maxLength="80"/>
+                        </h5>
+                        <p>
+                            <myTag:cutLongText text="${course.description}"
+                                               maxLength="300"/>
+                        </p>
+                        <p class="text-muted small">
+                                ${course.startDate} - ${course.endDate}
+                        </p>
+                        <a href="${pageContext.request.contextPath}/main?command=get_course_details_page&courseId=${course.id}"
+                           class="stretched-link small"></a>
                     </div>
                 </div>
             </div>

@@ -29,11 +29,11 @@
              var="edit_profile_button"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5">
+    <div class="row justify-content-center py-5">
         <h3 class="h3 mb-3 font-weight-normal">${profile_summary}</h3>
     </div>
 
-    <div class="row align-items-center justify-content-center py-2">
+    <div class="row justify-content-center py-2">
         <form class="col-md-7" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="get_edit_profile_page"/>
@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="row align-items-center justify-content-center py-2">
+            <div class="row justify-content-center py-2">
                 <button class="btn btn-outline-info"
                         type="submit">${edit_profile_button}</button>
             </div>

@@ -32,83 +32,71 @@
         <h3 class="h3 mb-3 font-weight-normal">${news_summary}</h3>
     </div>
 
-    <%--        1 news--%>
-
     <div class="row">
-        <div class="col col-md-4">
-            <div class="col border border-light shadow-sm m-1"
-                 style="height: 400px">
-                <div class="row p-2">
-                    <img style="height: 185px;"
-                         src="${pageContext.request.contextPath}/picture/news/1.jpg"
-                         alt="News img"/>
-                </div>
-                <div class="row font-weight-bold p-2">
-                    <myTag:cutLongText text="${news_1_title}" maxLength="40"/>
-                </div>
-                <div class="row p-2">
-                    <myTag:cutLongText text="${news_1_description}"
-                                       maxLength="150"/>
-                </div>
-            </div>
-        </div>
-
-        <%--        2 news--%>
-
-        <div class="col col-md-4">
-            <div class="col border border-light shadow-sm m-1"
-                 style="height: 400px">
-                <div class="row p-2">
-                    <img style="height: 185px;"
-                         src="${pageContext.request.contextPath}/picture/news/2.png"
-                         alt="News img"/>
-                </div>
-                <div class="row font-weight-bold p-2">
-                    <myTag:cutLongText text="${news_2_title}" maxLength="40"/>
-                </div>
-                <div class="row p-2">
-                    <myTag:cutLongText text="${news_2_description}"
-                                       maxLength="150"/>
+        <div class="col col-md-4 my-3">
+            <div class="card" style="width: 21rem; max-height: 400px;">
+                <img src="${pageContext.request.contextPath}/picture/news/1.jpg"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">
+                        <myTag:cutLongText text="${news_1_title}"
+                                           maxLength="40"/>
+                    </h5>
+                    <p class="card-text">
+                        <myTag:cutLongText text="${news_1_description}"
+                                           maxLength="150"/></p>
+                    <a href="#" class="stretched-link"></a>
                 </div>
             </div>
         </div>
 
-        <%--        3 news--%>
-
-        <div class="col col-md-4">
-            <div class="col border border-light shadow-sm m-1"
-                 style="height: 400px">
-                <div class="row p-2">
-                    <img style="height: 185px;"
-                         src="${pageContext.request.contextPath}/picture/news/3.png"
-                         alt="News img"/>
-                </div>
-                <div class="row font-weight-bold p-2">
-                    <myTag:cutLongText text="${news_3_title}" maxLength="40"/>
-                </div>
-                <div class="row p-2">
-                    <myTag:cutLongText text="${news_3_description}"
-                                       maxLength="150"/>
+        <div class="col col-md-4 my-3">
+            <div class="card" style="width: 21rem; max-height: 400px;">
+                <img src="${pageContext.request.contextPath}/picture/news/2.png"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">
+                        <myTag:cutLongText text="${news_2_title}"
+                                           maxLength="40"/>
+                    </h5>
+                    <p class="card-text">
+                        <myTag:cutLongText text="${news_2_description}"
+                                           maxLength="125"/></p>
+                    <a href="#" class="stretched-link"></a>
                 </div>
             </div>
         </div>
 
-        <%--        4 news--%>
+        <div class="col col-md-4 my-3">
+            <div class="card" style="width: 21rem; max-height: 400px;">
+                <img src="${pageContext.request.contextPath}/picture/news/3.png"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">
+                        <myTag:cutLongText text="${news_3_title}"
+                                           maxLength="40"/>
+                    </h5>
+                    <p class="card-text">
+                        <myTag:cutLongText text="${news_3_description}"
+                                           maxLength="150"/></p>
+                    <a href="#" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
 
-        <div class="col col-md-4">
-            <div class="col border border-light shadow-sm m-1"
-                 style="height: 400px">
-                <div class="row p-2">
-                    <img style="height: 185px;"
-                         src="${pageContext.request.contextPath}/picture/news/4.jpg"
-                         alt="News img"/>
-                </div>
-                <div class="row font-weight-bold p-2">
-                    <myTag:cutLongText text="${news_4_title}" maxLength="40"/>
-                </div>
-                <div class="row p-2">
-                    <myTag:cutLongText text="${news_4_description}"
-                                       maxLength="150"/>
+        <div class="col col-md-4 my-3">
+            <div class="card" style="width: 21rem; max-height: 400px;">
+                <img src="${pageContext.request.contextPath}/picture/news/4.jpg"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">
+                        <myTag:cutLongText text="${news_4_title}"
+                                           maxLength="40"/>
+                    </h5>
+                    <p class="card-text">
+                        <myTag:cutLongText text="${news_4_description}"
+                                           maxLength="150"/></p>
+                    <a href="#" class="stretched-link"></a>
                 </div>
             </div>
         </div>

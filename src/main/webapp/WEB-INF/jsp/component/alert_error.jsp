@@ -1,4 +1,4 @@
-<jsp:useBean id="error" scope="request" type="java.lang.String"/>
+<jsp:useBean id="error" scope="request" class="java.lang.String"/>
 
 <c:if test="${not empty error}">
     <div class="alert alert-danger" role="alert">

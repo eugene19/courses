@@ -4,6 +4,7 @@ public abstract class PageName {
     public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
     public static final String ADD_COURSE_PAGE = "WEB-INF/jsp/course/add_course.jsp";
     public static final String CONTACT_PAGE = "WEB-INF/jsp/contact.jsp";
+    public static final String COURSE_DETAILS_PAGE = "WEB-INF/jsp/course/course_details.jsp";
     public static final String COURSES_PAGE = "WEB-INF/jsp/course/courses.jsp";
     public static final String DEFAULT_PAGE_URL = "/";
     public static final String EDIT_PROFILE_PAGE = "WEB-INF/jsp/user/edit_profile.jsp";

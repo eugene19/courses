@@ -37,11 +37,11 @@
              var="upload_button"/>
 
 <div class="container">
-    <div class="row align-items-center justify-content-center py-5">
+    <div class="row justify-content-center py-5">
         <h3 class="h3 mb-3 font-weight-normal">${edit_profile_summary}</h3>
     </div>
 
-    <div class="row align-items-center justify-content-center py-2">
+    <div class="row justify-content-center py-2">
         <form class="col-md-7" method="post"
               action="${pageContext.request.contextPath}/main"
               enctype="multipart/form-data">
