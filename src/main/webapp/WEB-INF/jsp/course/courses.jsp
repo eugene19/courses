@@ -47,13 +47,7 @@
         </div>
     </c:if>
 
-    <c:if test="${error != null}">
-        <div class="row justify-content-center py-5">
-            <div class="alert alert-danger w-100 text-center py-2" role="alert">
-                    ${error}
-            </div>
-        </div>
-    </c:if>
+    <%@include file="../component/alert_error.jsp" %>
 
     <c:if test="${empty courseList}">
         <div class="row justify-content-center py-5">

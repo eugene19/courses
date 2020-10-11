@@ -42,11 +42,7 @@
             <input type="hidden" name="command" value="add_course"/>
             <input type="hidden" name="lecturerId" value="${user.id}"/>
 
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger" role="alert">
-                        ${error}
-                </div>
-            </c:if>
+            <%@include file="../component/alert_error.jsp" %>
 
             <div class="form-group row">
                 <label class="text-muted" for="summary">${summary_lable}</label>

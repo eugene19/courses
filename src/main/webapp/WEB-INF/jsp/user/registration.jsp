@@ -41,11 +41,7 @@
               method="post">
             <input type="hidden" name="command" value="registration"/>
 
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger" role="alert">
-                        ${error}
-                </div>
-            </c:if>
+            <%@include file="../component/alert_error.jsp" %>
 
             <div class="form-group row">
                 <label class="text-muted" for="login">${login_lable}</label>

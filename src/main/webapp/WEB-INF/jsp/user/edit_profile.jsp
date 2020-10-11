@@ -64,11 +64,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <c:if test="${not empty error}">
-                <div class="alert alert-danger" role="alert">
-                        ${error}
-                </div>
-            </c:if>
+            <%@include file="../component/alert_error.jsp" %>
 
             <div class="form-group row">
                 <label for="inputGroupFile02"
