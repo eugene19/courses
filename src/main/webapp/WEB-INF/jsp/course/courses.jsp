@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="myTag" uri="/WEB-INF/tld/myTag" %>
 <html>
 <head>
     <title>Courses</title>
@@ -69,14 +70,8 @@
                      style="height: 160px">
                     <div class="row font-weight-bold p-2">
                         <div class="col col-md-11 pl-0 align-middle">
-                            <c:choose>
-                                <c:when test="${course.summary.length() > 30}">
-                                    ${course.summary.substring(0, 30)}...
-                                </c:when>
-                                <c:otherwise>
-                                    ${course.summary}
-                                </c:otherwise>
-                            </c:choose>
+                            <myTag:cutLongText text="${course.summary}"
+                                               maxLength="30"/>
                         </div>
                         <c:if test="${course.lecturerId == user.id}">
                             <div class="col col-md-1 p-0 m-0">
@@ -96,14 +91,8 @@
                         </c:if>
                     </div>
                     <div class="row p-2">
-                        <c:choose>
-                            <c:when test="${course.description.length() > 100}">
-                                ${course.description.substring(0, 100)}...
-                            </c:when>
-                            <c:otherwise>
-                                ${course.description}
-                            </c:otherwise>
-                        </c:choose>
+                        <myTag:cutLongText text="${course.description}"
+                                           maxLength="100"/>
                     </div>
                     <div class="row text-muted p-2 small">
                             ${course.startDate} - ${course.endDate}

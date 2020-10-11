@@ -70,4 +70,11 @@
         <error-code>403</error-code>
         <location>/WEB-INF/jsp/error_403.jsp</location>
     </error-page>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/WEB-INF/tld/myTag</taglib-uri>
+            <taglib-location>WEB-INF/tld/myTag.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 </web-app>

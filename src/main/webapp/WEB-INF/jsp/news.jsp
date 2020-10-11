@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="myTag" uri="/WEB-INF/tld/myTag" %>
 
 <html>
 <head>
@@ -43,24 +44,11 @@
                          alt="News img"/>
                 </div>
                 <div class="row font-weight-bold p-2">
-                    <c:choose>
-                        <c:when test="${news_1_title.length() > 40}">
-                            ${news_1_title.substring(0, 40)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_1_title}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_1_title}" maxLength="40"/>
                 </div>
                 <div class="row p-2">
-                    <c:choose>
-                        <c:when test="${news_1_description.length() > 150}">
-                            ${news_1_description.substring(0, 150)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_1_description}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_1_description}"
+                                       maxLength="150"/>
                 </div>
             </div>
         </div>
@@ -76,24 +64,11 @@
                          alt="News img"/>
                 </div>
                 <div class="row font-weight-bold p-2">
-                    <c:choose>
-                        <c:when test="${news_2_title.length() > 40}">
-                            ${news_2_title.substring(0, 40)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_2_title}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_2_title}" maxLength="40"/>
                 </div>
                 <div class="row p-2">
-                    <c:choose>
-                        <c:when test="${news_2_description.length() > 150}">
-                            ${news_2_description.substring(0, 150)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_2_description}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_2_description}"
+                                       maxLength="150"/>
                 </div>
             </div>
         </div>
@@ -109,24 +84,11 @@
                          alt="News img"/>
                 </div>
                 <div class="row font-weight-bold p-2">
-                    <c:choose>
-                        <c:when test="${news_3_title.length() > 40}">
-                            ${news_3_title.substring(0, 40)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_3_title}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_3_title}" maxLength="40"/>
                 </div>
                 <div class="row p-2">
-                    <c:choose>
-                        <c:when test="${news_3_description.length() > 150}">
-                            ${news_3_description.substring(0, 150)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_3_description}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_3_description}"
+                                       maxLength="150"/>
                 </div>
             </div>
         </div>
@@ -142,24 +104,11 @@
                          alt="News img"/>
                 </div>
                 <div class="row font-weight-bold p-2">
-                    <c:choose>
-                        <c:when test="${news_4_title.length() > 40}">
-                            ${news_4_title.substring(0, 40)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_4_title}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_4_title}" maxLength="40"/>
                 </div>
                 <div class="row p-2">
-                    <c:choose>
-                        <c:when test="${news_4_description.length() > 150}">
-                            ${news_4_description.substring(0, 150)}...
-                        </c:when>
-                        <c:otherwise>
-                            ${news_4_description}
-                        </c:otherwise>
-                    </c:choose>
+                    <myTag:cutLongText text="${news_4_description}"
+                                       maxLength="150"/>
                 </div>
             </div>
         </div>
