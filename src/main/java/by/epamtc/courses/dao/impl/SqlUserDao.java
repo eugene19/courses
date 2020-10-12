@@ -6,6 +6,7 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
+import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.entity.UserRole;
 import org.apache.log4j.Logger;
 
@@ -13,6 +14,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SqlUserDao implements UserDao {
     private static final Logger LOGGER = Logger.getLogger(SqlUserDao.class);
@@ -31,6 +34,17 @@ public class SqlUserDao implements UserDao {
 
     private static final String EDIT_USER = "UPDATE users SET surname = ?, name = ?, email = ?, birthday = ?, photo_path = ? " +
             "WHERE id = ?;";
+
+    private static final String GET_USERS_ON_COURSE = "SELECT users.id, surname, name, email, birthday, role, photo_path, status " +
+            "FROM users " +
+            "INNER JOIN user_roles ON users.role_id = user_roles.id " +
+            "INNER JOIN user_courses ON users.id = user_courses.user_id " +
+            "INNER JOIN user_course_statuses ucs ON user_courses.user_course_status_id = ucs.id " +
+            "WHERE course_id = ?;";
+
+    private static final String UPDATE_USER_COURSE_STATUS = "UPDATE user_courses SET user_course_status_id = ? " +
+            "WHERE user_id = ? " +
+            "AND course_id = ?;";
 
     @Override
     public User authenticate(String login, String password) throws DaoException {
@@ -103,6 +117,57 @@ public class SqlUserDao implements UserDao {
             return preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while update user", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws DaoException {
+        Map<User, UserCourseStatus> users = new LinkedHashMap<>();
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(GET_USERS_ON_COURSE);
+
+            preparedStatement.setInt(1, courseId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                users.put(
+                        createUser(resultSet),
+                        UserCourseStatus.valueOf(resultSet.getString(8))
+                );
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get all courses", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return users;
+    }
+
+    @Override
+    public void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_USER_COURSE_STATUS);
+
+            preparedStatement.setInt(1, status.getId());
+            preparedStatement.setInt(2, userId);
+            preparedStatement.setInt(3, courseId);
+
+            preparedStatement.execute();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while update user course status", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }

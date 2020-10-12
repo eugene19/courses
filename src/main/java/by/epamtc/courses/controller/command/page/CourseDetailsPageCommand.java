@@ -5,21 +5,20 @@ import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserCourseStatus;
-import by.epamtc.courses.service.CourseService;
-import by.epamtc.courses.service.PageName;
-import by.epamtc.courses.service.ServiceException;
-import by.epamtc.courses.service.ServiceProvider;
+import by.epamtc.courses.service.*;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class CourseDetailsPageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(CourseDetailsPageCommand.class);
 
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private UserService userService = ServiceProvider.getInstance().getUserService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -39,6 +38,9 @@ public class CourseDetailsPageCommand implements Command {
             if (user != null) {
                 UserCourseStatus userCourseStatus = courseService.getUserCourseStatus(user.getId(), courseId);
                 req.setAttribute(ParameterName.USER_COURSE_STATUS, userCourseStatus);
+
+                Map<User, UserCourseStatus> usersOnCourse = userService.getUserOnCourse(courseId);
+                req.setAttribute(ParameterName.USERS_ON_COURSE, usersOnCourse);
             }
 
             req.setAttribute(ParameterName.COURSE, course);

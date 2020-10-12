@@ -20,6 +20,7 @@ public enum CommandName {
     LOGOUT,
     REGISTRATION,
     UPLOAD_USER_PHOTO,
+    UPDATE_USER_ON_COURSE_STATUS,
 
     // course commands
     ADD_COURSE,
