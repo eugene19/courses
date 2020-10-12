@@ -22,4 +22,6 @@ public final class LocaleMessage {
     public static final String ERROR_INCORRECT_STUDENTS_LIMIT = "course.error.studentsLimit";
     public static final String ERROR_COURSE_DATE_BEFORE_MIN = "course.error.dateBeforeMin";
     public static final String ERROR_COURSE_DATE_AFTER_MAX = "course.error.dateAfterMax";
+    public static final String ERROR_INCORRECT_MARK = "course.result.error.incorrectMark";
+    public static final String ERROR_INCORRECT_COMMENT = "course.result.error.incorrectDescription";
 }

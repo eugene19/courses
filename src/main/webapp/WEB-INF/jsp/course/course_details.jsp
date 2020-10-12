@@ -19,6 +19,10 @@
 
 <fmt:message bundle="${bundle}" key="course.details.summary"
              var="details_summary"/>
+<fmt:message bundle="${bundle}" key="course.details.button.startCourse"
+             var="start_button"/>
+<fmt:message bundle="${bundle}" key="course.details.button.finishCourse"
+             var="finish_button"/>
 <fmt:message bundle="${bundle}" key="message.enter.send.successes"
              var="enter_send_message"/>
 <fmt:message bundle="${bundle}" key="button.edit" var="edit_button"/>
@@ -36,6 +40,9 @@
              var="not_entered_value"/>
 <fmt:message bundle="${bundle}" key="message.edit.successes"
              var="succsses_edit_message"/>
+<fmt:message bundle="${bundle}" key="course.details.button.setResult"
+             var="set_result_button"/>
+<fmt:message bundle="${bundle}" key="message.emptyList" var="list_empty"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -75,13 +82,13 @@
                         <c:when test="${course.status == 'NOT_STARTED'}">
                             <button class="btn btn-outline-primary m-1"
                                     type="submit" name="status"
-                                    value="IN_PROGRESS">Start
+                                    value="IN_PROGRESS">${start_button}
                             </button>
                         </c:when>
                         <c:when test="${course.status == 'IN_PROGRESS'}">
                             <a class="btn btn-outline-primary m-1"
                                href="${pageContext.request.contextPath}/main?command=get_finish_course_page&courseId=${course.id}">
-                                Finish
+                                    ${finish_button}
                             </a>
                         </c:when>
                     </c:choose>
@@ -123,7 +130,7 @@
         <div class="container-fluid">
             <h5 class="h5 mb-5 font-weight-normal">${course.summary}</h5>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid pl-4">
             ${course.description}
         </div>
     </div>
@@ -133,6 +140,16 @@
             <div class="container-fluid">
                 <h5 class="h5 mb-5 font-weight-normal">${students_list_summary}</h5>
             </div>
+
+            <c:if test="${empty usersOnCourse}">
+                <div class="row justify-content-center py-5">
+                    <div class="alert alert-info w-100 text-center py-2"
+                         role="alert">
+                            ${list_empty}
+                    </div>
+                </div>
+            </c:if>
+
             <jsp:useBean id="usersOnCourse" scope="request"
                          type="java.util.Map"/>
             <c:forEach var="user_course" items="${usersOnCourse}">
@@ -165,7 +182,7 @@
                             <c:if test="${user_course.value == 'ENTERED'}">
                                 <a class="col-4"
                                    href="${pageContext.request.contextPath}/main?command=get_course_mark_page&userId=${user_course.key.id}&courseId=${course.id}">
-                                    Set mark
+                                        ${set_result_button}
                                 </a>
                             </c:if>
                         </div>

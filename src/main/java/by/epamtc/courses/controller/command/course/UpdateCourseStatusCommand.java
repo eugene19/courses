@@ -40,12 +40,16 @@ public class UpdateCourseStatusCommand implements Command {
                     + URLConstant.START_PARAMETERS_SYMBOL
                     + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
                     + URLConstant.PARAMETERS_SEPARATOR
+                    + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + courseIdStr
+                    + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException | IllegalArgumentException | NullPointerException e) {
             LOGGER.error("Updating course status error", e);
             resp.sendRedirect(PageName.MAIN_SERVLET_URL
                     + URLConstant.START_PARAMETERS_SYMBOL
                     + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
+                    + URLConstant.PARAMETERS_SEPARATOR
+                    + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + courseIdStr
                     + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + false);
         }

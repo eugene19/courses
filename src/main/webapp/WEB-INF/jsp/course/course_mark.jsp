@@ -12,8 +12,12 @@
 <body>
 <%@include file="../component/header.jsp" %>
 
-<fmt:message bundle="${bundle}" key="course.details.summary"
+<fmt:message bundle="${bundle}" key="course.result.summary"
              var="mark_page_summary"/>
+<fmt:message bundle="${bundle}" key="course.result.mark"
+             var="mark_label"/>
+<fmt:message bundle="${bundle}" key="course.result.comment"
+             var="comment_label"/>
 <fmt:message bundle="${bundle}" key="button.save" var="save_button"/>
 
 <div class="container">
@@ -28,20 +32,20 @@
                 <input type="hidden" name="command" value="set_course_mark"/>
                 <input type="hidden" name="courseId"
                        value="${param.get("courseId")}"/>
-                <input type="hidden" name="userId" value="${student.id}"/>
+                <input type="hidden" name="userId"
+                       value="${param.get("userId")}"/>
 
                 <div class="form-group row">
-                    <label class="text-muted col-12">${student.surname} ${student.name}</label>
-
                     <div class="container-fluid">
-                        <label class="text-muted col-6" for="mark">Mark</label>
+                        <label class="text-muted col-6"
+                               for="mark">${mark_label}</label>
                         <input class="form-control form-control-sm col-3"
                                id="mark" type="number" name="mark"
                                value="${init.mark[0]}"/>
                         <div class="text-danger small">${errors.mark}</div>
 
                         <label class="text-muted col-6"
-                               for="comment">Comment</label>
+                               for="comment">${comment_label}</label>
                         <textarea class="form-control form-control-sm"
                                   id="comment" rows="4" style="resize: none"
                                   name="comment">${init.comment[0]}</textarea>

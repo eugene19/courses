@@ -8,6 +8,7 @@ import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
+import by.epamtc.courses.service.validation.CourseResultValidator;
 import by.epamtc.courses.service.validation.CourseValidator;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Map<String, String> validateCourse(Map<String, String[]> parameters, Locale lang) {
-        CourseValidator validator = new CourseValidator(parameters, lang);
+    public Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale) {
+        CourseValidator validator = new CourseValidator(parameters, locale);
 
         return validator
                 .validateSummary()
@@ -37,6 +38,16 @@ public class CourseServiceImpl implements CourseService {
                 .validateStartDate()
                 .validateEndDate()
                 .validateStudentsLimit()
+                .getErrors();
+    }
+
+    @Override
+    public Map<String, String> validateCourseResult(Map<String, String[]> parameters, Locale locale) {
+        CourseResultValidator validator = new CourseResultValidator(parameters, locale);
+
+        return validator
+                .validateMark()
+                .validateDescription()
                 .getErrors();
     }
 

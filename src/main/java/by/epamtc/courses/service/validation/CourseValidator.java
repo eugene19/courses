@@ -128,7 +128,7 @@ public class CourseValidator {
                     errors.put(ParameterName.STUDENTS_LIMIT, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_STUDENTS_LIMIT));
                 }
             } catch (NumberFormatException e) {
-                LOGGER.error("Error while parsing students limit: " + limitValues[0]);
+                LOGGER.error("Error while parsing students limit: " + limitValues[0], e);
                 errors.put(ParameterName.STUDENTS_LIMIT, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_STUDENTS_LIMIT));
             }
         }

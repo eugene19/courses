@@ -30,7 +30,7 @@ public class CommandProvider {
         commands.put(CommandName.LOGIN, new LoginCommand());
         commands.put(CommandName.LOGOUT, new LogoutCommand());
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
-        commands.put(CommandName.SET_COURSE_MARK, new SetCourseMarkCommand());
+        commands.put(CommandName.SET_COURSE_MARK, new SetCourseResultCommand());
         commands.put(CommandName.UPLOAD_USER_PHOTO, new UploadPhotoCommand());
         commands.put(CommandName.UPDATE_USER_ON_COURSE_STATUS, new UpdateUserCourseStatusCommand());
 
