@@ -1,6 +1,7 @@
 package by.epamtc.courses.service;
 
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 
 import java.util.List;
@@ -24,4 +25,8 @@ public interface CourseService {
     void leaveUserFromCourse(int userId, int courseId) throws ServiceException;
 
     UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException;
+
+    void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException;
+
+    void setCourseResult(int studentId, int courseId, String mark, String comment) throws ServiceException;
 }

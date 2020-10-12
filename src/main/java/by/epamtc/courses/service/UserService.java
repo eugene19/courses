@@ -24,4 +24,6 @@ public interface UserService {
     Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws ServiceException;
 
     void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException;
+
+    User getUserById(int userId) throws ServiceException;
 }

@@ -100,4 +100,13 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public User getUserById(int userId) throws ServiceException {
+        try {
+            return userDao.getUserById(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

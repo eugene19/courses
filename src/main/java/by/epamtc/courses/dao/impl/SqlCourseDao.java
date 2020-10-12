@@ -57,6 +57,16 @@ public class SqlCourseDao implements CourseDao {
             "WHERE user_id = ? " +
             "AND course_id = ?;";
 
+    private static final String UPDATE_COURSE_STATUS = "UPDATE course_runs SET status_id = ? " +
+            "WHERE course_id = ?;";
+
+    private static final String INSERT_COURSE_RESULT = "INSERT INTO course_results (mark, comment) " +
+            "VALUES (?, ?);";
+
+    private static final String UPDATE_COURSE_RESULT = "UPDATE user_courses SET course_result_id = ? " +
+            "WHERE user_id = ? " +
+            "AND course_id = ?;";
+
     @Override
     public List<Course> takeAllCourses() throws DaoException {
         List<Course> courses = new ArrayList<>();
@@ -242,6 +252,73 @@ public class SqlCourseDao implements CourseDao {
         }
 
         return userCourseStatus;
+    }
+
+    @Override
+    public void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_COURSE_STATUS);
+
+            preparedStatement.setInt(1, courseStatus.getId());
+            preparedStatement.setInt(2, courseId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while updating course status", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void setCourseResult(int studentId, int courseId, String mark, String comment) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(INSERT_COURSE_RESULT, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setString(1, mark);
+            preparedStatement.setString(2, comment);
+
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new DaoException("Error of creation course result, no rows affected");
+            }
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int idCourseResult = generatedKeys.getInt(1);
+                insertCourseResult(idCourseResult, studentId, courseId, connection);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            rollback(connection);
+            throw new DaoException("Error while creation course result", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    void insertCourseResult(int courseResultId, int studentId, int courseId, Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT);
+            preparedStatement.setInt(1, courseResultId);
+            preparedStatement.setInt(2, studentId);
+            preparedStatement.setInt(3, courseId);
+
+            preparedStatement.execute();
+        } finally {
+            connectionPool.closeConnection(null, preparedStatement);
+        }
     }
 
     private void updateCourseRun(Course course, Connection connection) throws SQLException {

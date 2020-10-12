@@ -29,6 +29,11 @@ public class SqlUserDao implements UserDao {
             "WHERE login = ? " +
             "AND password = ?;";
 
+    private static final String GET_BY_ID = "SELECT users.id, surname, name, email, birthday, role, photo_path " +
+            "FROM users " +
+            "INNER JOIN user_roles ON users.role_id = user_roles.id " +
+            "WHERE users.id = ?;";
+
     private static final String REGISTER_USER = "INSERT INTO users (login, password, surname, name, email, birthday, role_id) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
 
@@ -171,6 +176,32 @@ public class SqlUserDao implements UserDao {
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }
+    }
+
+    @Override
+    public User getUserById(int userId) throws DaoException {
+        User user = null;
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(GET_BY_ID);
+            preparedStatement.setInt(1, userId);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = createUser(resultSet);
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while getting user by id", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return user;
     }
 
     private User createUser(ResultSet resultSet) throws SQLException {

@@ -1,6 +1,7 @@
 package by.epamtc.courses.dao;
 
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface CourseDao {
     void leaveUserFromCourse(int userId, int courseId) throws DaoException;
 
     UserCourseStatus getUserCourseStatus(int userId, int courseId) throws DaoException;
+
+    void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
+
+    void setCourseResult(int studentId, int courseId, String mark, String comment) throws DaoException;
 }

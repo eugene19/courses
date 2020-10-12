@@ -34,7 +34,8 @@
              var="entered_value"/>
 <fmt:message bundle="${bundle}" key="user.course.status.notEntered"
              var="not_entered_value"/>
-
+<fmt:message bundle="${bundle}" key="message.edit.successes"
+             var="succsses_edit_message"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -47,13 +48,44 @@
         </div>
     </c:if>
 
+    <c:if test="${param.get('isUpdatingOk')}">
+        <div class="alert alert-success" role="alert">
+                ${succsses_edit_message}
+        </div>
+    </c:if>
+
+    <%--    Добавить сообщение с ошибкой если isUpdating=false--%>
+
     <div class="row ml-2">
         <c:choose>
             <c:when test="${course.lecturerId == user.id}">
-                <a class="btn btn-outline-primary"
+                <a class="btn btn-outline-primary m-1"
                    href="${pageContext.request.contextPath}/main?command=get_edit_course_page&courseId=${course.id}">
                     <i class="fa fa-edit text-primary"></i> ${edit_button}
                 </a>
+                <form class="m-0 p-0"
+                      action="${pageContext.request.contextPath}/main"
+                      method="post">
+                    <input type="hidden" name="command"
+                           value="update_course_status"/>
+                    <input type="hidden" name="courseId"
+                           value="${course.id}"/>
+
+                    <c:choose>
+                        <c:when test="${course.status == 'NOT_STARTED'}">
+                            <button class="btn btn-outline-primary m-1"
+                                    type="submit" name="status"
+                                    value="IN_PROGRESS">Start
+                            </button>
+                        </c:when>
+                        <c:when test="${course.status == 'IN_PROGRESS'}">
+                            <a class="btn btn-outline-primary m-1"
+                               href="${pageContext.request.contextPath}/main?command=get_finish_course_page&courseId=${course.id}">
+                                Finish
+                            </a>
+                        </c:when>
+                    </c:choose>
+                </form>
             </c:when>
             <c:otherwise>
                 <c:if test="${userCourseStatus == null}">
@@ -114,9 +146,9 @@
                         <input type="hidden" name="userId"
                                value="${user_course.key.id}"/>
                         <div class="form-group row col-6">
-                            <label class="text-muted col-6"
+                            <label class="text-muted col-4"
                                    for="userCourseStatus">${user_course.key.surname} ${user_course.key.name}</label>
-                            <select class="form-control form-control-sm col-6"
+                            <select class="form-control form-control-sm col-4"
                                     id="userCourseStatus"
                                     name="userCourseStatus"
                                     onchange="submit()">
@@ -130,6 +162,12 @@
                                         <c:if test="${user_course.value == 'NOT_ENTERED'}">selected</c:if>
                                         value="NOT_ENTERED">${not_entered_value}</option>
                             </select>
+                            <c:if test="${user_course.value == 'ENTERED'}">
+                                <a class="col-4"
+                                   href="${pageContext.request.contextPath}/main?command=get_course_mark_page&userId=${user_course.key.id}&courseId=${course.id}">
+                                    Set mark
+                                </a>
+                            </c:if>
                         </div>
                     </form>
                 </div>

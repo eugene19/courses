@@ -9,6 +9,7 @@ public enum CommandName {
     GET_COURSES_PAGE,
     GET_EDIT_COURSE_PAGE,
     GET_EDIT_PROFILE_PAGE,
+    GET_COURSE_MARK_PAGE,
     GET_LOGIN_PAGE,
     GET_NEWS_PAGE,
     GET_PROFILE_PAGE,
@@ -19,6 +20,7 @@ public enum CommandName {
     LOGIN,
     LOGOUT,
     REGISTRATION,
+    SET_COURSE_MARK,
     UPLOAD_USER_PHOTO,
     UPDATE_USER_ON_COURSE_STATUS,
 
@@ -27,6 +29,7 @@ public enum CommandName {
     EDIT_COURSE,
     ENTER_ON_COURSE,
     LEAVE_FROM_COURSE,
+    UPDATE_COURSE_STATUS,
 
     // other commands
     LOCALE

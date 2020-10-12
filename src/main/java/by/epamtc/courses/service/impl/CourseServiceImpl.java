@@ -4,6 +4,7 @@ import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
@@ -91,6 +92,24 @@ public class CourseServiceImpl implements CourseService {
     public UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException {
         try {
             return courseDao.getUserCourseStatus(userId, courseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException {
+        try {
+            courseDao.updateStatus(courseId, courseStatus);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void setCourseResult(int studentId, int courseId, String mark, String comment) throws ServiceException {
+        try {
+            courseDao.setCourseResult(studentId, courseId, mark, comment);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
