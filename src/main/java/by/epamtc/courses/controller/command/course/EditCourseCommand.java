@@ -30,7 +30,7 @@ public class EditCourseCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to edit user's profile");
+        LOGGER.debug("Try to edit course");
         String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
