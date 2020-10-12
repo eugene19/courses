@@ -4,6 +4,7 @@ import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.validation.CourseValidator;
@@ -60,6 +61,36 @@ public class CourseServiceImpl implements CourseService {
     public void update(Course course) throws ServiceException {
         try {
             courseDao.update(course);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void enterUserOnCourse(int userId, int courseId) throws ServiceException {
+        try {
+            UserCourseStatus userCourseStatus = courseDao.getUserCourseStatus(userId, courseId);
+            if (userCourseStatus == null) {
+                courseDao.enterUserOnCourse(userId, courseId);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void leaveUserFromCourse(int userId, int courseId) throws ServiceException {
+        try {
+            courseDao.leaveUserFromCourse(userId, courseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException {
+        try {
+            return courseDao.getUserCourseStatus(userId, courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

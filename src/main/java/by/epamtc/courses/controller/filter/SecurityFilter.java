@@ -30,6 +30,8 @@ public class SecurityFilter implements Filter {
         authorizationMap.put(CommandName.ADD_COURSE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.GET_EDIT_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.EDIT_COURSE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(CommandName.ENTER_ON_COURSE, new UserRole[]{UserRole.STUDENT});
+        authorizationMap.put(CommandName.LEAVE_FROM_COURSE, new UserRole[]{UserRole.STUDENT});
     }
 
     @Override

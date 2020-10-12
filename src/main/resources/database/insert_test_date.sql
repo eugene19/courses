@@ -63,7 +63,16 @@ VALUES (1, 5, 'Good');
 INSERT INTO course_results (id, mark, comment)
 VALUES (2, 2, 'Bad student');
 
-INSERT INTO user_courses (id, user_id, course_id, course_result_id)
-VALUES (1, 1, 3, 1);
-INSERT INTO user_courses (id, user_id, course_id, course_result_id)
-VALUES (2, 1, 6, 2);
+INSERT INTO user_course_statuses (id, status)
+VALUES (1, 'APPLIED');
+INSERT INTO user_course_statuses (id, status)
+VALUES (2, 'ENTERED');
+INSERT INTO user_course_statuses (id, status)
+VALUES (3, 'NOT_ENTERED');
+
+INSERT INTO user_courses (id, user_id, course_id, course_result_id,
+                          user_course_status_id)
+VALUES (1, 1, 3, 1, 1);
+INSERT INTO user_courses (id, user_id, course_id, course_result_id,
+                          user_course_status_id)
+VALUES (2, 1, 6, 2, 1);

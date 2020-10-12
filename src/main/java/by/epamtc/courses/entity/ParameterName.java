@@ -23,6 +23,7 @@ public abstract class ParameterName {
     public static final String ROLE = "role";
     public static final String SURNAME = "surname";
     public static final String USER = "user";
+    public static final String USER_COURSE_STATUS = "userCourseStatus";
 
     // course parameters
     public static final String COURSE = "course";
@@ -36,4 +37,5 @@ public abstract class ParameterName {
     public static final String LECTURER_ID = "lecturerId";
     public static final String STATUS = "status";
     public static final String IS_CREATION_OK = "isCreationOk";
+    public static final String IS_SENT_OK = "isSentOk";
 }

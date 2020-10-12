@@ -3,6 +3,8 @@ package by.epamtc.courses.controller.command.page;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.ParameterName;
+import by.epamtc.courses.entity.User;
+import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
@@ -15,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CourseDetailsPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(EditCoursePageCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(CourseDetailsPageCommand.class);
 
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
@@ -23,20 +25,27 @@ public class CourseDetailsPageCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Opening course detail page");
 
-        String courseId = req.getParameter(ParameterName.COURSE_ID);
+        User user = (User) req.getSession().getAttribute(ParameterName.USER);
+        String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
 
-        if (courseId == null) {
+        if (courseIdStr == null) {
             throw new ServletException("Opening of course detail page is canceled because 'course id' is 'null'");
         }
 
         try {
-            int id = Integer.parseInt(courseId);
-            Course course = courseService.getCourse(id);
+            int courseId = Integer.parseInt(courseIdStr);
+            Course course = courseService.getCourse(courseId);
+
+            if (user != null) {
+                UserCourseStatus userCourseStatus = courseService.getUserCourseStatus(user.getId(), courseId);
+                req.setAttribute(ParameterName.USER_COURSE_STATUS, userCourseStatus);
+            }
 
             req.setAttribute(ParameterName.COURSE, course);
+
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);
         } catch (ServiceException e) {
-            throw new ServletException("Error while getting course with id " + courseId);
+            throw new ServletException("Error while getting course with id " + courseIdStr);
         } catch (NumberFormatException ex) {
             throw new ServletException("Opening of course detail page is canceled because 'course id' is not 'integer'");
         }

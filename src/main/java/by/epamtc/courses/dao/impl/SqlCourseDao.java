@@ -6,6 +6,7 @@ import by.epamtc.courses.dao.impl.connection.ConnectionPool;
 import by.epamtc.courses.dao.impl.connection.ConnectionPoolException;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.CourseStatus;
+import by.epamtc.courses.entity.UserCourseStatus;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,6 +41,21 @@ public class SqlCourseDao implements CourseDao {
     private static final String EDIT_COURSE_STATUS = "UPDATE course_runs SET start_date = ?, " +
             "end_date = ?, status_id = ? " +
             "WHERE course_id = ?;";
+
+    private static final String ENTER_USER_ON_COURSE = "INSERT INTO user_courses (user_id, " +
+            "course_id, user_course_status_id) " +
+            "VALUES (?, ?, ?);";
+
+    private static final String GET_USER_COURSE_STATUS = "SELECT status " +
+            "FROM user_course_statuses " +
+            "JOIN user_courses " +
+            "ON user_course_statuses.id = user_courses.user_course_status_id " +
+            "WHERE user_id = ? " +
+            "AND course_id = ?;";
+
+    private static final String LEAVE_USER_FROM_COURSE = "DELETE FROM user_courses " +
+            "WHERE user_id = ? " +
+            "AND course_id = ?;";
 
     @Override
     public List<Course> takeAllCourses() throws DaoException {
@@ -153,6 +169,79 @@ public class SqlCourseDao implements CourseDao {
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }
+    }
+
+    @Override
+    public void enterUserOnCourse(int userId, int courseId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(ENTER_USER_ON_COURSE);
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, courseId);
+            preparedStatement.setInt(3, UserCourseStatus.APPLIED.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException | ConnectionPoolException e) {
+            rollback(connection);
+            throw new DaoException("Error while user enter on course", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void leaveUserFromCourse(int userId, int courseId) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(LEAVE_USER_FROM_COURSE);
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, courseId);
+
+            preparedStatement.execute();
+        } catch (SQLException | ConnectionPoolException e) {
+            rollback(connection);
+            throw new DaoException("Error while user leave from course", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public UserCourseStatus getUserCourseStatus(int userId, int courseId) throws DaoException {
+        UserCourseStatus userCourseStatus = null;
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(GET_USER_COURSE_STATUS);
+            statement.setInt(1, userId);
+            statement.setInt(2, courseId);
+
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                userCourseStatus = UserCourseStatus.valueOf(resultSet.getString(1));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get course by id: " + courseId, e);
+        } finally {
+            connectionPool.closeConnection(connection, statement, resultSet);
+        }
+
+        return userCourseStatus;
     }
 
     private void updateCourseRun(Course course, Connection connection) throws SQLException {

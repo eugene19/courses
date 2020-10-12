@@ -84,16 +84,26 @@ CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`course_runs`
 )
     DEFAULT CHARACTER SET = utf8;
 
+CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`user_course_statuses`
+(
+    `id`     INT         NOT NULL AUTO_INCREMENT,
+    `status` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+    DEFAULT CHARACTER SET = utf8;
+
 CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`user_courses`
 (
-    `id`               INT NOT NULL AUTO_INCREMENT,
-    `user_id`          INT NOT NULL,
-    `course_id`        INT NOT NULL,
-    `course_result_id` INT NULL,
+    `id`                    INT NOT NULL AUTO_INCREMENT,
+    `user_id`               INT NOT NULL,
+    `course_id`             INT NOT NULL,
+    `course_result_id`      INT NULL,
+    `user_course_status_id` INT NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `ID_UNIQUE` (`id` ASC) VISIBLE,
     INDEX `USER_idx` (`user_id` ASC) VISIBLE,
     INDEX `COURSE_idx` (`course_id` ASC) VISIBLE,
+    INDEX `USER_COURSE_STATUS_ID_idx` (`user_course_status_id` ASC) VISIBLE,
     CONSTRAINT `USER`
         FOREIGN KEY (`user_id`)
             REFERENCES `COURSES_MANAGER`.`users` (`id`),
@@ -102,6 +112,10 @@ CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`user_courses`
             REFERENCES `COURSES_MANAGER`.`courses` (`id`),
     CONSTRAINT `COURSE_RESULT_ID`
         FOREIGN KEY (`course_result_id`)
-            REFERENCES `COURSES_MANAGER`.`course_results` (`id`)
+            REFERENCES `COURSES_MANAGER`.`course_results` (`id`),
+    CONSTRAINT `USER_COURSE_STATUS_ID`
+        FOREIGN KEY (`user_course_status_id`)
+            REFERENCES `COURSES_MANAGER`.`user_course_statuses` (`id`)
 )
     DEFAULT CHARACTER SET = utf8;
+

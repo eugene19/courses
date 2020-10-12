@@ -2,6 +2,8 @@ package by.epamtc.courses.controller.command;
 
 import by.epamtc.courses.controller.command.course.AddCourseCommand;
 import by.epamtc.courses.controller.command.course.EditCourseCommand;
+import by.epamtc.courses.controller.command.course.EnterOnCourseCommand;
+import by.epamtc.courses.controller.command.course.LeaveFromCourseCommand;
 import by.epamtc.courses.controller.command.page.*;
 import by.epamtc.courses.controller.command.user.*;
 
@@ -35,6 +37,8 @@ public class CommandProvider {
         // course commands
         commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
         commands.put(CommandName.EDIT_COURSE, new EditCourseCommand());
+        commands.put(CommandName.ENTER_ON_COURSE, new EnterOnCourseCommand());
+        commands.put(CommandName.LEAVE_FROM_COURSE, new LeaveFromCourseCommand());
 
         // other commands
         commands.put(CommandName.LOCALE, new LocaleCommand());
