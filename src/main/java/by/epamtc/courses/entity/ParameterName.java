@@ -24,6 +24,8 @@ public abstract class ParameterName {
     public static final String SURNAME = "surname";
     public static final String USER = "user";
     public static final String USER_COURSE_STATUS = "userCourseStatus";
+    public static final String USERS_ON_COURSE = "usersOnCourse";
+    public static final String USER_ID = "userId";
 
     // course parameters
     public static final String COURSE = "course";

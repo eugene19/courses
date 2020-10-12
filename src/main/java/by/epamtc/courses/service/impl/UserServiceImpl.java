@@ -5,6 +5,7 @@ import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
+import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
@@ -76,6 +77,25 @@ public class UserServiceImpl implements UserService {
     public void update(User user) throws ServiceException {
         try {
             userDao.update(user);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
+    @Override
+    public Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws ServiceException {
+        try {
+            return userDao.getUserOnCourse(courseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException {
+        try {
+            userDao.updateUserCourseStatus(userId, courseId, status);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

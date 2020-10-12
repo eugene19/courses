@@ -2,6 +2,7 @@ package by.epamtc.courses.service;
 
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
+import by.epamtc.courses.entity.UserCourseStatus;
 
 import java.util.Locale;
 import java.util.Map;
@@ -19,4 +20,8 @@ public interface UserService {
     Map<String, String> validateUserProfileData(Map<String, String[]> parameters, Locale lang);
 
     void update(User user) throws ServiceException;
+
+    Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws ServiceException;
+
+    void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException;
 }
