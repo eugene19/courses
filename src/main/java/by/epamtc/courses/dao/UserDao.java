@@ -14,7 +14,9 @@ public interface UserDao {
 
     boolean update(User user) throws DaoException;
 
-    Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws DaoException;
+    Map<User, UserCourseStatus> getAllUserOnCourse(int courseId) throws DaoException;
+
+    Map<User, UserCourseStatus> getEnteredUserOnCourse(int courseId) throws DaoException;
 
     void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws DaoException;
 

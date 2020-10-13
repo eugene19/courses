@@ -1,11 +1,10 @@
 package by.epamtc.courses.service.impl;
 
+import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
-import by.epamtc.courses.entity.User;
-import by.epamtc.courses.entity.UserAuthData;
-import by.epamtc.courses.entity.UserCourseStatus;
+import by.epamtc.courses.entity.*;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
@@ -82,11 +81,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
     @Override
     public Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws ServiceException {
         try {
-            return userDao.getUserOnCourse(courseId);
+            CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
+            Course course = courseDao.getCourse(courseId);
+            CourseStatus status = course.getStatus();
+
+            if (status == CourseStatus.NOT_STARTED) {
+                return userDao.getAllUserOnCourse(courseId);
+            }
+
+            return userDao.getEnteredUserOnCourse(courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

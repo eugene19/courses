@@ -47,6 +47,14 @@ public class SqlUserDao implements UserDao {
             "INNER JOIN user_course_statuses ucs ON user_courses.user_course_status_id = ucs.id " +
             "WHERE course_id = ?;";
 
+    private static final String GET_ENTERED_USERS_ON_COURSE = "SELECT users.id, surname, name, email, birthday, role, photo_path, status " +
+            "FROM users " +
+            "INNER JOIN user_roles ON users.role_id = user_roles.id " +
+            "INNER JOIN user_courses ON users.id = user_courses.user_id " +
+            "INNER JOIN user_course_statuses ucs ON user_courses.user_course_status_id = ucs.id " +
+            "WHERE course_id = ? " +
+            "AND user_course_status_id = ?;";
+
     private static final String UPDATE_USER_COURSE_STATUS = "UPDATE user_courses SET user_course_status_id = ? " +
             "WHERE user_id = ? " +
             "AND course_id = ?;";
@@ -128,7 +136,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws DaoException {
+    public Map<User, UserCourseStatus> getAllUserOnCourse(int courseId) throws DaoException {
         Map<User, UserCourseStatus> users = new LinkedHashMap<>();
 
         Connection connection = null;
@@ -149,7 +157,7 @@ public class SqlUserDao implements UserDao {
                 );
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get all courses", e);
+            throw new DaoException("Error while get entered users on course", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
@@ -202,6 +210,37 @@ public class SqlUserDao implements UserDao {
         }
 
         return user;
+    }
+
+    @Override
+    public Map<User, UserCourseStatus> getEnteredUserOnCourse(int courseId) throws DaoException {
+        Map<User, UserCourseStatus> users = new LinkedHashMap<>();
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(GET_ENTERED_USERS_ON_COURSE);
+
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(2, UserCourseStatus.ENTERED.getId());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                users.put(
+                        createUser(resultSet),
+                        UserCourseStatus.valueOf(resultSet.getString(8))
+                );
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get entered users on course", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return users;
     }
 
     private User createUser(ResultSet resultSet) throws SQLException {
