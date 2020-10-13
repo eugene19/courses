@@ -12,6 +12,8 @@ public interface CourseService {
 
     List<Course> takeAllCourses() throws ServiceException;
 
+    List<Course> takeCoursesWithStatus(CourseStatus status) throws ServiceException;
+
     Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale);
 
     void createNew(Course course) throws ServiceException;

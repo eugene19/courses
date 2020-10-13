@@ -21,6 +21,13 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
             "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id;";
 
+    private static final String GET_ALL_COURSES_WITH_STATUS = "SELECT courses.id, summary, description, " +
+            "start_date, end_date, students_limit, lecturer_id, status " +
+            "FROM courses " +
+            "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
+            "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id " +
+            "WHERE course_runs.status_id = ?;";
+
     private static final String GET_COURSE_BY_ID = "SELECT courses.id, summary, description, " +
             "start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses " +
@@ -78,6 +85,33 @@ public class SqlCourseDao implements CourseDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while get all courses", e);
+        } finally {
+            connectionPool.closeConnection(connection, statement, resultSet);
+        }
+
+        return courses;
+    }
+
+    @Override
+    public List<Course> takeCoursesWithStatus(CourseStatus status) throws DaoException {
+        List<Course> courses = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(GET_ALL_COURSES_WITH_STATUS);
+            statement.setInt(1, status.getId());
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                courses.add(createCourse(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get courses by status", e);
         } finally {
             connectionPool.closeConnection(connection, statement, resultSet);
         }

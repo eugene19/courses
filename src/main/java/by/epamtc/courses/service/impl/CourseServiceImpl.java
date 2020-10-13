@@ -28,6 +28,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> takeCoursesWithStatus(CourseStatus status) throws ServiceException {
+        try {
+            return courseDao.takeCoursesWithStatus(status);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale) {
         CourseValidator validator = new CourseValidator(parameters, locale);
 

@@ -2,6 +2,7 @@ package by.epamtc.courses.controller.command.page;
 
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.PageName;
@@ -23,10 +24,10 @@ public class CoursesPageCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Opening courses page");
         try {
-            List<Course> courses = courseService.takeAllCourses();
+            List<Course> courses = courseService.takeCoursesWithStatus(CourseStatus.NOT_STARTED);
             req.setAttribute(ParameterName.COURSE_LIST, courses);
         } catch (ServiceException e) {
-            LOGGER.error("Error when get all courses: " + e.getMessage());
+            LOGGER.error("Error when get all courses: ", e);
             // todo: localize message below
             req.setAttribute(ParameterName.ERROR, "Error when get all courses");
         }
