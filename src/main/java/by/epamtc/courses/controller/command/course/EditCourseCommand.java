@@ -5,6 +5,7 @@ import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.ParameterName;
+import by.epamtc.courses.entity.builder.BuilderProvider;
 import by.epamtc.courses.entity.builder.CourseBuilder;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.PageName;
@@ -26,7 +27,7 @@ public class EditCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(EditCourseCommand.class);
 
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
-    private CourseBuilder courseBuilder = new CourseBuilder();
+    private CourseBuilder courseBuilder = BuilderProvider.getInstance().getCourseBuilder();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

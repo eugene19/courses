@@ -5,6 +5,7 @@ import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.UserAuthData;
+import by.epamtc.courses.entity.builder.BuilderProvider;
 import by.epamtc.courses.entity.builder.UserBuilder;
 import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
@@ -25,7 +26,7 @@ public class RegistrationCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(RegistrationCommand.class);
 
     private UserService userService = ServiceProvider.getInstance().getUserService();
-    private UserBuilder userBuilder = new UserBuilder();
+    private UserBuilder userBuilder = BuilderProvider.getInstance().getUserBuilder();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
