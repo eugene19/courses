@@ -144,7 +144,7 @@
 
                 <%--@elvariable id="usersOnCourse" type="java.util.List"--%>
             <c:if test="${empty usersOnCourse}">
-                <div class="row justify-content-center py-5">
+                <div class="container-fluid ml-4">
                     <div class="alert alert-info w-100 text-center py-2"
                          role="alert">
                             ${empty_list_msg}

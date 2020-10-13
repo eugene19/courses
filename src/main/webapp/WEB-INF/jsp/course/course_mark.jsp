@@ -20,6 +20,7 @@
              var="mark_label"/>
 <fmt:message bundle="${bundle}" key="course.result.comment"
              var="comment_label"/>
+<fmt:message bundle="${bundle}" key="button.back" var="back_button"/>
 <fmt:message bundle="${bundle}" key="button.save" var="save_button"/>
 
 <div class="container">
@@ -41,20 +42,29 @@
                     <div class="container-fluid">
                         <label class="text-muted col-6"
                                for="mark">${mark_label}</label>
+                        <%--@elvariable id="courseResult" type="by.epamtc.courses.entity.CourseResult"--%>
                         <input class="form-control form-control-sm col-3"
                                id="mark" type="number" name="mark"
-                               value="${init.mark[0]}"/>
+                               value="<c:if
+                               test="${init.mark[0] != null}">${init.mark[0]}</c:if><c:if
+                               test="${init.mark[0] == null}">${courseResult.mark}</c:if>"/>
                         <div class="text-danger small">${errors.mark}</div>
 
                         <label class="text-muted col-6"
                                for="comment">${comment_label}</label>
                         <textarea class="form-control form-control-sm"
                                   id="comment" rows="4" style="resize: none"
-                                  name="comment">${init.comment[0]}</textarea>
+                                  name="comment"><c:if
+                                test="${init.comment[0] != null}">${init.comment[0]}</c:if><c:if
+                                test="${init.comment[0] == null}">${courseResult.comment}</c:if></textarea>
                         <div class="text-danger small">${errors.comment}</div>
                     </div>
                 </div>
 
+                <a class="btn btn-outline-secondary mr-2"
+                   href="${pageContext.request.contextPath}/main?command=get_course_details_page&courseId=${param.get("courseId")}">
+                    ${back_button}
+                </a>
                 <input type="submit" class="btn btn-outline-primary"
                        value="${save_button}"/>
             </form>

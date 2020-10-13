@@ -6,10 +6,19 @@ import java.util.Objects;
 public class CourseResult implements Serializable {
     private static final long serialVersionUID = -2876084831222741139L;
 
+    private int id;
     private int mark;
     private String comment;
 
     public CourseResult() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMark() {
@@ -33,19 +42,21 @@ public class CourseResult implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseResult that = (CourseResult) o;
-        return mark == that.mark &&
+        return id == that.id &&
+                mark == that.mark &&
                 Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mark, comment);
+        return Objects.hash(id, mark, comment);
     }
 
     @Override
     public String toString() {
         return "CourseResult{" +
-                "mark=" + mark +
+                "id=" + id +
+                ", mark=" + mark +
                 ", comment='" + comment + '\'' +
                 '}';
     }

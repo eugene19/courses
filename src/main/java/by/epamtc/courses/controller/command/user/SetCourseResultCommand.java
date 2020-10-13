@@ -24,7 +24,7 @@ public class SetCourseResultCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try set course mark");
+        LOGGER.debug("Try set course result");
 
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
         Map<String, String[]> parameters = req.getParameterMap();
@@ -44,7 +44,9 @@ public class SetCourseResultCommand implements Command {
                 courseService.setCourseResult(studentId, courseId, mark, comment);
 
                 resp.sendRedirect(PageName.MAIN_SERVLET_URL + URLConstant.START_PARAMETERS_SYMBOL +
-                        ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSES_PAGE +
+                        ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE +
+                        URLConstant.PARAMETERS_SEPARATOR +
+                        ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + courseId +
                         URLConstant.PARAMETERS_SEPARATOR +
                         ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
             } catch (ServiceException e) {
@@ -62,9 +64,6 @@ public class SetCourseResultCommand implements Command {
             }
         } else {
             LOGGER.warn("Set course result is canceled because course result's data is invalid");
-
-            // TODO: 10/12/20 Добавить атрибут "Студент" в атрибуты,
-            //  т.к. на странице в таком случа пропадает инфа о студенте
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
