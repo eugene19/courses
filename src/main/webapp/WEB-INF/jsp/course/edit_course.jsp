@@ -37,8 +37,7 @@
              var="status_finished"/>
 <fmt:message bundle="${bundle}" key="error.fieldImmutable"
              var="immutable_field"/>
-<fmt:message bundle="${bundle}" key="button.save"
-             var="create_button"/>
+<fmt:message bundle="${bundle}" key="button.save" var="create_button"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -70,8 +69,7 @@
                           rows="4" style="resize: none"
                           name="description"><c:if
                         test="${init.description[0] != null}">${init.description[0]}</c:if><c:if
-                        test="${init.description[0] == null}">
-                    ${course.description}</c:if></textarea>
+                        test="${init.description[0] == null}">${course.description}</c:if></textarea>
                 <div class="text-danger small">${errors.description}</div>
             </div>
 

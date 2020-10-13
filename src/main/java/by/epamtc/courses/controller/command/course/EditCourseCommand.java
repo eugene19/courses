@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
@@ -35,10 +34,8 @@ public class EditCourseCommand implements Command {
         String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
-        HttpSession session = req.getSession();
-        Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
+        Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
 
-        ResourceManager resourceManager = new ResourceManager(locale);
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);
 
         if (validationError.isEmpty()) {
@@ -49,16 +46,18 @@ public class EditCourseCommand implements Command {
 
                 LOGGER.debug("Updating course successful");
 
-                // TODO: 10/9/20 Заменить редирект не на список курсов, а на детали курса
-                //  и добавить там сообщение об успехе
                 resp.sendRedirect(PageName.MAIN_SERVLET_URL
                         + URLConstant.START_PARAMETERS_SYMBOL
-                        + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSES_PAGE
+                        + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
+                        + URLConstant.PARAMETERS_SEPARATOR
+                        + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + course.getId()
                         + URLConstant.PARAMETERS_SEPARATOR
                         + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
                 LOGGER.error("Updating course error" + e.getMessage(), e);
+
+                ResourceManager resourceManager = new ResourceManager(locale);
 
                 req.setAttribute(ParameterName.INIT, parameters);
                 req.setAttribute(ParameterName.ERROR,

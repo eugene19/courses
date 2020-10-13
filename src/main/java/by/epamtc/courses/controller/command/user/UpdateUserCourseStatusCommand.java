@@ -50,6 +50,6 @@ public class UpdateUserCourseStatusCommand implements Command {
                 URLConstant.PARAMETERS_SEPARATOR +
                 ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + courseId +
                 URLConstant.PARAMETERS_SEPARATOR +
-                ParameterName.IS_SENT_OK + URLConstant.KEY_VALUE_SEPARATOR + statusIsOk);
+                ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + statusIsOk);
     }
 }
