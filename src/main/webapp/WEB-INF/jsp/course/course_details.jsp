@@ -22,19 +22,10 @@
              var="details_summary"/>
 <fmt:message bundle="${bundle}" key="message.enter.send.successes"
              var="enter_send_message"/>
-<fmt:message bundle="${bundle}" key="button.edit" var="edit_button"/>
 <fmt:message bundle="${bundle}" key="course.details.students.summary"
              var="students_list_summary"/>
-<fmt:message bundle="${bundle}" key="user.course.status.applied"
-             var="applied_value"/>
-<fmt:message bundle="${bundle}" key="user.course.status.entered"
-             var="entered_value"/>
-<fmt:message bundle="${bundle}" key="user.course.status.notEntered"
-             var="not_entered_value"/>
 <fmt:message bundle="${bundle}" key="message.edit.successes"
              var="succsses_edit_message"/>
-<fmt:message bundle="${bundle}" key="course.details.button.setResult"
-             var="set_result_button"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -55,34 +46,19 @@
 
     <%--    Добавить сообщение с ошибкой если isUpdating=false--%>
 
+    <%-- Actions for course--%>
     <div class="row ml-2">
-        <c:choose>
-            <c:when test="${course.lecturerId == user.id}">
-                <a class="btn btn-outline-primary m-1"
-                   href="${pageContext.request.contextPath}/main?command=get_edit_course_page&courseId=${course.id}">
-                    <i class="fa fa-edit text-primary"></i> ${edit_button}
-                </a>
+        <c:if test="${course.status == 'NOT_STARTED'}">
+            <%@include file="buttons/not_started_course_actions.jsp" %>
+        </c:if>
 
-                <c:choose>
-                    <c:when test="${course.status == 'NOT_STARTED'}">
-                        <%@include file="buttons/start_course_button.jsp" %>
-                    </c:when>
-                    <c:when test="${course.status == 'IN_PROGRESS'}">
-                        <%@include file="buttons/finish_course_button.jsp" %>
-                    </c:when>
-                </c:choose>
+        <c:if test="${course.status == 'IN_PROGRESS'}">
+            <%@include file="buttons/in_progress_course_actions.jsp" %>
+        </c:if>
 
-            </c:when>
-            <c:otherwise>
-                <c:if test="${userCourseStatus == null}">
-                    <%@include file="buttons/enter_on_course_button.jsp" %>
-                </c:if>
-
-                <c:if test="${userCourseStatus != null}">
-                    <%@include file="buttons/leave_course_button.jsp" %>
-                </c:if>
-            </c:otherwise>
-        </c:choose>
+        <c:if test="${course.status == 'FINISHED'}">
+            <%@include file="buttons/finished_course_actions.jsp" %>
+        </c:if>
     </div>
 
     <div class="row py-5">
@@ -104,43 +80,17 @@
                 <%@include file="../component/alert_empty_list.jsp" %>
             </c:if>
 
-            <c:forEach var="user_course" items="${usersOnCourse}">
-                <div class="container-fluid">
-                    <form class="form"
-                          action="${pageContext.request.contextPath}/main">
-                        <input type="hidden" name="command"
-                               value="update_user_on_course_status"/>
-                        <input type="hidden" name="courseId"
-                               value="${course.id}"/>
-                        <input type="hidden" name="userId"
-                               value="${user_course.key.id}"/>
-                        <div class="form-group row col-6">
-                            <label class="text-muted col-4"
-                                   for="userCourseStatus">${user_course.key.surname} ${user_course.key.name}</label>
-                            <select class="form-control form-control-sm col-4"
-                                    id="userCourseStatus"
-                                    name="userCourseStatus"
-                                    onchange="submit()">
-                                <option
-                                        <c:if test="${user_course.value == 'APPLIED'}">selected</c:if>
-                                        value="APPLIED">${applied_value}</option>
-                                <option
-                                        <c:if test="${user_course.value == 'ENTERED'}">selected</c:if>
-                                        value="ENTERED">${entered_value}</option>
-                                <option
-                                        <c:if test="${user_course.value == 'NOT_ENTERED'}">selected</c:if>
-                                        value="NOT_ENTERED">${not_entered_value}</option>
-                            </select>
-                            <c:if test="${user_course.value == 'ENTERED'}">
-                                <a class="col-4"
-                                   href="${pageContext.request.contextPath}/main?command=get_course_mark_page&userId=${user_course.key.id}&courseId=${course.id}">
-                                        ${set_result_button}
-                                </a>
-                            </c:if>
-                        </div>
-                    </form>
-                </div>
-            </c:forEach>
+            <c:if test="${course.status == 'NOT_STARTED'}">
+                <%@ include file="lists/not_started_course_students.jsp" %>
+            </c:if>
+
+            <c:if test="${course.status == 'IN_PROGRESS'}">
+                <%@ include file="lists/in_progress_course_students.jsp" %>
+            </c:if>
+
+            <c:if test="${course.status == 'FINISHED'}">
+                <%@ include file="lists/finished_course_students.jsp" %>
+            </c:if>
         </div>
     </c:if>
 </div>
