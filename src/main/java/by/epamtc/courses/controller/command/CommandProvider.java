@@ -38,8 +38,9 @@ public class CommandProvider {
         commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
         commands.put(CommandName.EDIT_COURSE, new EditCourseCommand());
         commands.put(CommandName.ENTER_ON_COURSE, new EnterOnCourseCommand());
+        commands.put(CommandName.FINISH_COURSE, new FinishCourseCommand());
         commands.put(CommandName.LEAVE_FROM_COURSE, new LeaveFromCourseCommand());
-        commands.put(CommandName.UPDATE_COURSE_STATUS, new UpdateCourseStatusCommand());
+        commands.put(CommandName.START_COURSE, new StartCourseCommand());
 
         // other commands
         commands.put(CommandName.LOCALE, new LocaleCommand());

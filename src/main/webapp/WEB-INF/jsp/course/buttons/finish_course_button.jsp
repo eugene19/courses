@@ -5,6 +5,8 @@
       method="post">
     <input type="hidden" name="command" value="finish_course"/>
     <input type="hidden" name="courseId" value="${course.id}"/>
-    <button class="btn btn-outline-primary m-1"
-            type="submit">${finish_button}</button>
+    <button class="btn btn-outline-primary m-1" type="submit" name="status"
+            value="FINISHED">${finish_button}
+    </button>
 </form>
+

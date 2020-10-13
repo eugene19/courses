@@ -16,25 +16,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UpdateCourseStatusCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(UpdateCourseStatusCommand.class);
+public class FinishCourseCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(FinishCourseCommand.class);
 
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to change course status");
+        LOGGER.debug("Try to finish course");
 
-        String status = req.getParameter(ParameterName.STATUS);
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
 
         try {
-            CourseStatus courseStatus = CourseStatus.valueOf(status);
             int courseId = Integer.parseInt(courseIdStr);
 
-            courseService.updateStatus(courseId, courseStatus);
+            courseService.updateStatus(courseId, CourseStatus.FINISHED);
 
-            LOGGER.debug("Updating course status successful");
+            LOGGER.debug("Finishing course successful");
 
             resp.sendRedirect(PageName.MAIN_SERVLET_URL
                     + URLConstant.START_PARAMETERS_SYMBOL
@@ -44,7 +42,7 @@ public class UpdateCourseStatusCommand implements Command {
                     + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException | IllegalArgumentException | NullPointerException e) {
-            LOGGER.error("Updating course status error", e);
+            LOGGER.error("Finishing course error", e);
             resp.sendRedirect(PageName.MAIN_SERVLET_URL
                     + URLConstant.START_PARAMETERS_SYMBOL
                     + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
