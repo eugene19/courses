@@ -36,7 +36,7 @@
         <div class="col col-md-4 my-3">
             <div class="card" style="width: 21rem; max-height: 400px;">
                 <img src="${pageContext.request.contextPath}/picture/news/1.jpg"
-                     class="card-img-top" alt="...">
+                     class="card-img-top" alt="News image">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">
                         <myTag:cutLongText text="${news_1_title}"
@@ -53,7 +53,7 @@
         <div class="col col-md-4 my-3">
             <div class="card" style="width: 21rem; max-height: 400px;">
                 <img src="${pageContext.request.contextPath}/picture/news/2.png"
-                     class="card-img-top" alt="...">
+                     class="card-img-top" alt="News image">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">
                         <myTag:cutLongText text="${news_2_title}"
@@ -70,7 +70,7 @@
         <div class="col col-md-4 my-3">
             <div class="card" style="width: 21rem; max-height: 400px;">
                 <img src="${pageContext.request.contextPath}/picture/news/3.png"
-                     class="card-img-top" alt="...">
+                     class="card-img-top" alt="News image">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">
                         <myTag:cutLongText text="${news_3_title}"
@@ -87,7 +87,7 @@
         <div class="col col-md-4 my-3">
             <div class="card" style="width: 21rem; max-height: 400px;">
                 <img src="${pageContext.request.contextPath}/picture/news/4.jpg"
-                     class="card-img-top" alt="...">
+                     class="card-img-top" alt="News image">
                 <div class="card-body">
                     <h5 class="card-title font-weight-bold">
                         <myTag:cutLongText text="${news_4_title}"
