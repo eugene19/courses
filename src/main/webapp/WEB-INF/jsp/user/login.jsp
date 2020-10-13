@@ -19,8 +19,7 @@
 <fmt:message bundle="${bundle}" key="login.summary" var="login_summary"/>
 <fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="user.password" var="password_lable"/>
-<fmt:message bundle="${bundle}" key="login.submit" var="try_login_button"/>
-
+<fmt:message bundle="${bundle}" key="login.submit" var="login_button"/>
 
 <div class="container">
     <div class="row justify-content-center my-5">
@@ -57,7 +56,7 @@
 
             <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
-                        type="submit">${try_login_button}</button>
+                        type="submit">${login_button}</button>
             </div>
         </form>
     </div>

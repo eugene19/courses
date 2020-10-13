@@ -6,7 +6,7 @@
 <fmt:message bundle="${bundle}" key="header.enButton" var="en_button"/>
 <fmt:message bundle="${bundle}" key="header.login" var="login_button"/>
 <fmt:message bundle="${bundle}" key="header.registration"
-             var="register_button"/>
+             var="register_btn"/>
 <fmt:message bundle="${bundle}" key="header.logout" var="logout_button"/>
 <fmt:message bundle="${bundle}" key="menu.main" var="main_button"/>
 <fmt:message bundle="${bundle}" key="menu.courses" var="courses_button"/>

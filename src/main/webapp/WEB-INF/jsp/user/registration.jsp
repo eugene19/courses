@@ -14,26 +14,21 @@
 <%@include file="../component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="registration.summary"
-             var="registration_summary"/>
+             var="register_summary"/>
 <fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
-<fmt:message bundle="${bundle}" key="user.password"
-             var="password_lable"/>
+<fmt:message bundle="${bundle}" key="user.password" var="password_lable"/>
 <fmt:message bundle="${bundle}" key="user.surname" var="surname_lable"/>
 <fmt:message bundle="${bundle}" key="user.name" var="name_lable"/>
 <fmt:message bundle="${bundle}" key="user.email" var="email_lable"/>
-<fmt:message bundle="${bundle}" key="user.birthday"
-             var="birthday_lable"/>
+<fmt:message bundle="${bundle}" key="user.birthday" var="birthday_lable"/>
 <fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
-<fmt:message bundle="${bundle}" key="user.role.student"
-             var="role_student"/>
-<fmt:message bundle="${bundle}" key="user.role.lecturer"
-             var="role_lecturer"/>
-<fmt:message bundle="${bundle}" key="registration.submit"
-             var="register_button"/>
+<fmt:message bundle="${bundle}" key="user.role.student" var="role_student"/>
+<fmt:message bundle="${bundle}" key="user.role.lecturer" var="role_lecturer"/>
+<fmt:message bundle="${bundle}" key="registration.submit" var="register_btn"/>
 
 <div class="container">
     <div class="row justify-content-center my-5">
-        <h3 class="h3 mb-3 font-weight-normal">${registration_summary}</h3>
+        <h3 class="h3 mb-3 font-weight-normal">${register_summary}</h3>
     </div>
 
     <div class="row justify-content-center py-2">
@@ -104,7 +99,7 @@
 
             <div class="row justify-content-center py-4">
                 <button class="btn btn-outline-info"
-                        type="submit">${register_button}</button>
+                        type="submit">${register_btn}</button>
             </div>
         </form>
     </div>

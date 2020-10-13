@@ -18,15 +18,11 @@
 <fmt:message bundle="${bundle}" key="user.surname" var="surname_lable"/>
 <fmt:message bundle="${bundle}" key="user.name" var="name_lable"/>
 <fmt:message bundle="${bundle}" key="user.email" var="email_lable"/>
-<fmt:message bundle="${bundle}" key="user.birthday"
-             var="birthday_lable"/>
+<fmt:message bundle="${bundle}" key="user.birthday" var="birthday_lable"/>
 <fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
-<fmt:message bundle="${bundle}" key="user.role.student"
-             var="role_student"/>
-<fmt:message bundle="${bundle}" key="user.role.lecturer"
-             var="role_lecturer"/>
-<fmt:message bundle="${bundle}" key="button.edit"
-             var="edit_profile_button"/>
+<fmt:message bundle="${bundle}" key="user.role.student" var="role_student"/>
+<fmt:message bundle="${bundle}" key="user.role.lecturer" var="role_lecturer"/>
+<fmt:message bundle="${bundle}" key="button.edit" var="edit_button"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -111,7 +107,7 @@
 
             <div class="row justify-content-center py-2">
                 <button class="btn btn-outline-info"
-                        type="submit">${edit_profile_button}</button>
+                        type="submit">${edit_button}</button>
             </div>
         </form>
     </div>
