@@ -1,3 +1,5 @@
+<%--@elvariable id="errors" type="java.util.Map"--%>
+<%--@elvariable id="init" type="java.util.Map"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

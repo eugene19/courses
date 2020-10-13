@@ -42,7 +42,7 @@
              var="succsses_edit_message"/>
 <fmt:message bundle="${bundle}" key="course.details.button.setResult"
              var="set_result_button"/>
-<fmt:message bundle="${bundle}" key="message.emptyList" var="list_empty"/>
+<fmt:message bundle="${bundle}" key="message.emptyList" var="empty_list_msg"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -95,6 +95,7 @@
                 </form>
             </c:when>
             <c:otherwise>
+                <%--@elvariable id="userCourseStatus" type="by.epamtc.courses.entity.UserCourseStatus"--%>
                 <c:if test="${userCourseStatus == null}">
                     <form class="m-0 p-0"
                           action="${pageContext.request.contextPath}/main"
@@ -141,17 +142,16 @@
                 <h5 class="h5 mb-5 font-weight-normal">${students_list_summary}</h5>
             </div>
 
+                <%--@elvariable id="usersOnCourse" type="java.util.List"--%>
             <c:if test="${empty usersOnCourse}">
                 <div class="row justify-content-center py-5">
                     <div class="alert alert-info w-100 text-center py-2"
                          role="alert">
-                            ${list_empty}
+                            ${empty_list_msg}
                     </div>
                 </div>
             </c:if>
 
-            <jsp:useBean id="usersOnCourse" scope="request"
-                         type="java.util.Map"/>
             <c:forEach var="user_course" items="${usersOnCourse}">
                 <div class="container-fluid">
                     <form class="form"

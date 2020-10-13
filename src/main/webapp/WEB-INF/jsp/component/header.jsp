@@ -1,3 +1,4 @@
+<%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="strings" var="bundle"/>
@@ -18,7 +19,7 @@
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="${pageContext.request.contextPath}/">
-                <img src="../../picture/logo.png" alt="Courses academy">
+                <img src="../../../picture/logo.png" alt="Courses academy">
             </a>
         </div>
         <div class="collapse navbar-collapse">
@@ -52,13 +53,15 @@
               method="post">
             <input type="hidden" name="command" value="locale"/>
 
-            <select class="form-control form-control-sm" onchange="submit()"
-                    name="locale">
-                <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
-                    ${en_button}</option>
-                <option value="ru" ${sessionScope.locale == 'ru' ? 'selected' : ''}>
-                    ${ru_button}</option>
-            </select>
+            <label>
+                <select class="form-control form-control-sm" onchange="submit()"
+                        name="locale">
+                    <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
+                        ${en_button}</option>
+                    <option value="ru" ${sessionScope.locale == 'ru' ? 'selected' : ''}>
+                        ${ru_button}</option>
+                </select>
+            </label>
         </form>
         <c:if test="${not empty user}">
             <form class="my-1 d-flex align-items-center"
@@ -79,7 +82,7 @@
                 <a class="text-info"
                    href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
                 <a class="text-info"
-                   href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_button}</a>
+                   href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_btn}</a>
             </form>
         </c:if>
     </div>

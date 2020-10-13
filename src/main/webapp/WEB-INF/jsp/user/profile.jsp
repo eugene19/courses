@@ -1,3 +1,4 @@
+<%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>

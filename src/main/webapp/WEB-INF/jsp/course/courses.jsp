@@ -16,7 +16,7 @@
              var="succsses_create_message"/>
 <fmt:message bundle="${bundle}" key="message.edit.successes"
              var="succsses_edit_message"/>
-<fmt:message bundle="${bundle}" key="message.emptyList" var="list_empty"/>
+<fmt:message bundle="${bundle}" key="message.emptyList" var="empty_list_msg"/>
 <fmt:message bundle="${bundle}" key="courses.summary" var="courses_summary"/>
 <fmt:message bundle="${bundle}" key="button.create" var="create_button"/>
 
@@ -47,10 +47,11 @@
 
     <%@include file="../component/alert_error.jsp" %>
 
+    <%--@elvariable id="courseList" type="java.util.List"--%>
     <c:if test="${empty courseList}">
         <div class="row justify-content-center py-5">
             <div class="alert alert-info w-100 text-center py-2" role="alert">
-                    ${list_empty}
+                    ${empty_list_msg}
             </div>
         </div>
     </c:if>

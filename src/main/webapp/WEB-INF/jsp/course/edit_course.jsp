@@ -1,3 +1,8 @@
+<%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
+<%--@elvariable id="course" type="by.epamtc.courses.entity.Course"--%>
+<%--@elvariable id="errors" type="java.util.Map"--%>
+<%--@elvariable id="init" type="java.util.Map"--%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -65,7 +70,8 @@
                           rows="4" style="resize: none"
                           name="description"><c:if
                         test="${init.description[0] != null}">${init.description[0]}</c:if><c:if
-                        test="${init.description[0] == null}">${course.description}</c:if></textarea>
+                        test="${init.description[0] == null}">
+                    ${course.description}</c:if></textarea>
                 <div class="text-danger small">${errors.description}</div>
             </div>
 
