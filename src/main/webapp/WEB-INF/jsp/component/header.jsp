@@ -1,5 +1,7 @@
 <%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="strings" var="bundle"/>
 
@@ -63,27 +65,29 @@
                 </select>
             </label>
         </form>
-        <c:if test="${not empty user}">
-            <form class="my-1 d-flex align-items-center"
-                  action="${pageContext.request.contextPath}/main"
-                  method="post">
-                <input type="hidden" name="command" value="logout"/>
 
-                <span class="navbar-text col-lg-7">
+        <c:choose>
+            <c:when test="${not empty user}">
+                <form class="my-1 d-flex align-items-center"
+                      action="${pageContext.request.contextPath}/main"
+                      method="post">
+                    <input type="hidden" name="command" value="logout"/>
+
+                    <span class="navbar-text col-lg-7">
                     ${user.name} ${user.surname}
                 </span>
-                <button class="btn btn-sm btn-outline-secondary col-lg-5 ml-2"
-                        type="submit">${logout_button}</button>
-            </form>
-        </c:if>
-
-        <c:if test="${empty user}">
-            <form class="my-1">
-                <a class="text-info"
-                   href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
-                <a class="text-info"
-                   href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_btn}</a>
-            </form>
-        </c:if>
+                    <button class="btn btn-sm btn-outline-secondary col-lg-5 ml-2"
+                            type="submit">${logout_button}</button>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <form class="my-1">
+                    <a class="text-info"
+                       href="${pageContext.request.contextPath}/main?command=get_login_page">${login_button}</a><br/>
+                    <a class="text-info"
+                       href="${pageContext.request.contextPath}/main?command=get_registration_page">${register_btn}</a>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </div>
 </nav>
