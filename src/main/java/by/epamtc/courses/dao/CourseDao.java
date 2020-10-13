@@ -23,6 +23,4 @@ public interface CourseDao {
     UserCourseStatus getUserCourseStatus(int userId, int courseId) throws DaoException;
 
     void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
-
-    void setCourseResult(int studentId, int courseId, String mark, String comment) throws DaoException;
 }

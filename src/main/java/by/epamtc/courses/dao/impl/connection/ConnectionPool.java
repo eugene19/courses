@@ -119,6 +119,16 @@ public final class ConnectionPool {
         }
     }
 
+    public void rollback(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                LOGGER.error("Error while rollback connection", e);
+            }
+        }
+    }
+
     private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
         Connection connection;
         while ((connection = queue.poll()) != null) {

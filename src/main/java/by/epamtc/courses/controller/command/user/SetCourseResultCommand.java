@@ -4,7 +4,7 @@ import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
-import by.epamtc.courses.service.CourseService;
+import by.epamtc.courses.service.CourseResultService;
 import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.ServiceProvider;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class SetCourseResultCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(SetCourseResultCommand.class);
 
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -28,20 +28,21 @@ public class SetCourseResultCommand implements Command {
 
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
         Map<String, String[]> parameters = req.getParameterMap();
-        Map<String, String> validationError = courseService.validateCourseResult(parameters, locale);
+        Map<String, String> validationError = courseResultService.validateCourseResult(parameters, locale);
 
         if (validationError.isEmpty()) {
             String studentIdStr = req.getParameter(ParameterName.USER_ID);
             String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
 
-            String mark = req.getParameter(ParameterName.MARK);
+            String markStr = req.getParameter(ParameterName.MARK);
             String comment = req.getParameter(ParameterName.COMMENT);
 
             try {
                 int courseId = Integer.parseInt(courseIdStr);
                 int studentId = Integer.parseInt(studentIdStr);
+                int mark = Integer.parseInt(markStr);
 
-                courseService.setCourseResult(studentId, courseId, mark, comment);
+                courseResultService.setCourseResult(studentId, courseId, mark, comment);
 
                 resp.sendRedirect(PageName.MAIN_SERVLET_URL + URLConstant.START_PARAMETERS_SYMBOL +
                         ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE +

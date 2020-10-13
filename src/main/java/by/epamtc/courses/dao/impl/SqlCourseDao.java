@@ -60,13 +60,6 @@ public class SqlCourseDao implements CourseDao {
     private static final String UPDATE_COURSE_STATUS = "UPDATE course_runs SET status_id = ? " +
             "WHERE course_id = ?;";
 
-    private static final String INSERT_COURSE_RESULT = "INSERT INTO course_results (mark, comment) " +
-            "VALUES (?, ?);";
-
-    private static final String UPDATE_COURSE_RESULT = "UPDATE user_courses SET course_result_id = ? " +
-            "WHERE user_id = ? " +
-            "AND course_id = ?;";
-
     @Override
     public List<Course> takeAllCourses() throws DaoException {
         List<Course> courses = new ArrayList<>();
@@ -122,7 +115,7 @@ public class SqlCourseDao implements CourseDao {
                 throw new DaoException("Error of creation course, no ID obtained");
             }
         } catch (SQLException | ConnectionPoolException e) {
-            rollback(connection);
+            connectionPool.rollback(connection);
             throw new DaoException("Error while insert course", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
@@ -174,7 +167,7 @@ public class SqlCourseDao implements CourseDao {
             preparedStatement.executeUpdate();
             updateCourseRun(course, connection);
         } catch (SQLException | ConnectionPoolException e) {
-            rollback(connection);
+            connectionPool.rollback(connection);
             throw new DaoException("Error while updating course", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
@@ -197,7 +190,7 @@ public class SqlCourseDao implements CourseDao {
 
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
-            rollback(connection);
+            connectionPool.rollback(connection);
             throw new DaoException("Error while user enter on course", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
@@ -219,7 +212,7 @@ public class SqlCourseDao implements CourseDao {
 
             preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
-            rollback(connection);
+            connectionPool.rollback(connection);
             throw new DaoException("Error while user leave from course", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
@@ -274,53 +267,6 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
-    @Override
-    public void setCourseResult(int studentId, int courseId, String mark, String comment) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            connection.setAutoCommit(false);
-            preparedStatement = connection.prepareStatement(INSERT_COURSE_RESULT, Statement.RETURN_GENERATED_KEYS);
-
-            preparedStatement.setString(1, mark);
-            preparedStatement.setString(2, comment);
-
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new DaoException("Error of creation course result, no rows affected");
-            }
-
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int idCourseResult = generatedKeys.getInt(1);
-                insertCourseResult(idCourseResult, studentId, courseId, connection);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            rollback(connection);
-            throw new DaoException("Error while creation course result", e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement);
-        }
-    }
-
-    void insertCourseResult(int courseResultId, int studentId, int courseId, Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT);
-            preparedStatement.setInt(1, courseResultId);
-            preparedStatement.setInt(2, studentId);
-            preparedStatement.setInt(3, courseId);
-
-            preparedStatement.execute();
-        } finally {
-            connectionPool.closeConnection(null, preparedStatement);
-        }
-    }
-
     private void updateCourseRun(Course course, Connection connection) throws SQLException {
         PreparedStatement preparedStatement = null;
 
@@ -351,16 +297,6 @@ public class SqlCourseDao implements CourseDao {
             preparedStatement.execute();
         } finally {
             connectionPool.closeConnection(null, preparedStatement);
-        }
-    }
-
-    private void rollback(Connection connection) throws DaoException {
-        if (connection != null) {
-            try {
-                connection.rollback();
-            } catch (SQLException e) {
-                throw new DaoException("Error while rollback connection", e);
-            }
         }
     }
 

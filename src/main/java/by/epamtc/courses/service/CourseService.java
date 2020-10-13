@@ -14,8 +14,6 @@ public interface CourseService {
 
     Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale);
 
-    Map<String, String> validateCourseResult(Map<String, String[]> parameters, Locale locale);
-
     void createNew(Course course) throws ServiceException;
 
     Course getCourse(int courseId) throws ServiceException;
@@ -29,6 +27,4 @@ public interface CourseService {
     UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException;
 
     void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException;
-
-    void setCourseResult(int studentId, int courseId, String mark, String comment) throws ServiceException;
 }

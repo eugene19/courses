@@ -8,7 +8,6 @@ import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
-import by.epamtc.courses.service.validation.CourseResultValidator;
 import by.epamtc.courses.service.validation.CourseValidator;
 
 import java.util.List;
@@ -38,16 +37,6 @@ public class CourseServiceImpl implements CourseService {
                 .validateStartDate()
                 .validateEndDate()
                 .validateStudentsLimit()
-                .getErrors();
-    }
-
-    @Override
-    public Map<String, String> validateCourseResult(Map<String, String[]> parameters, Locale locale) {
-        CourseResultValidator validator = new CourseResultValidator(parameters, locale);
-
-        return validator
-                .validateMark()
-                .validateDescription()
                 .getErrors();
     }
 
@@ -112,15 +101,6 @@ public class CourseServiceImpl implements CourseService {
     public void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException {
         try {
             courseDao.updateStatus(courseId, courseStatus);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public void setCourseResult(int studentId, int courseId, String mark, String comment) throws ServiceException {
-        try {
-            courseDao.setCourseResult(studentId, courseId, mark, comment);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
