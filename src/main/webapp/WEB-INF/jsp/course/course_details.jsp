@@ -26,6 +26,12 @@
              var="students_list_summary"/>
 <fmt:message bundle="${bundle}" key="message.edit.successes"
              var="succsses_edit_message"/>
+<fmt:message bundle="${bundle}" key="user.course.isApplied"
+             var="user_is_applied"/>
+<fmt:message bundle="${bundle}" key="user.course.isEntered"
+             var="user_is_entered"/>
+<fmt:message bundle="${bundle}" key="user.course.isNotEntered"
+             var="user_is_not_entered"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -46,18 +52,38 @@
 
     <%--    Добавить сообщение с ошибкой если isUpdating=false--%>
 
-    <%-- Actions for course--%>
-    <div class="row ml-2">
-        <c:if test="${course.status == 'NOT_STARTED'}">
-            <%@include file="buttons/not_started_course_actions.jsp" %>
-        </c:if>
+    <div class="row ml-1">
+        <%-- Actions for course--%>
+        <div class="col-10">
+            <div class="row">
+                <c:if test="${course.status == 'NOT_STARTED'}">
+                    <%@include file="buttons/not_started_course_actions.jsp" %>
+                </c:if>
 
-        <c:if test="${course.status == 'IN_PROGRESS'}">
-            <%@include file="buttons/in_progress_course_actions.jsp" %>
-        </c:if>
+                <c:if test="${course.status == 'IN_PROGRESS'}">
+                    <%@include file="buttons/in_progress_course_actions.jsp" %>
+                </c:if>
 
-        <c:if test="${course.status == 'FINISHED'}">
-            <%@include file="buttons/finished_course_actions.jsp" %>
+                <c:if test="${course.status == 'FINISHED'}">
+                    <%@include file="buttons/finished_course_actions.jsp" %>
+                </c:if>
+            </div>
+        </div>
+
+        <c:if test="${userCourseStatus != null}">
+            <div class="col-2 text-right small">
+                <c:choose>
+                    <c:when test="${userCourseStatus == 'APPLIED'}">
+                        <p class="text-info font-weight-bold">${user_is_applied}</p>
+                    </c:when>
+                    <c:when test="${userCourseStatus == 'ENTERED'}">
+                        <p class="text-success font-weight-bold">${user_is_entered}</p>
+                    </c:when>
+                    <c:when test="${userCourseStatus == 'NOT_ENTERED'}">
+                        <p class="text-warning font-weight-bold">${user_is_not_entered}</p>
+                    </c:when>
+                </c:choose>
+            </div>
         </c:if>
     </div>
 
