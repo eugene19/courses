@@ -31,7 +31,6 @@ public class RegistrationCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try register user");
-        String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
@@ -54,21 +53,19 @@ public class RegistrationCommand implements Command {
                         + ParameterName.IS_REGISTRATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
-                LOGGER.error("Registration error" + e.getMessage(), e);
+                LOGGER.error("Registration error", e);
 
                 req.setAttribute(ParameterName.INIT, parameters);
                 req.setAttribute(ParameterName.ERROR,
-                        resourceManager.getValue(LocaleMessage.ERROR_PAGE_MESSAGE));
-                page = PageName.REGISTRATION_PAGE;
+                        resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             }
         } else {
             LOGGER.warn("Registration canceled because user's data is invalid");
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
-            page = PageName.REGISTRATION_PAGE;
         }
 
-        req.getRequestDispatcher(page).forward(req, resp);
+        req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
     }
 }

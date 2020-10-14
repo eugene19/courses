@@ -33,12 +33,10 @@ public class EditProfileCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try to edit user's profile");
 
-        String page;
-
         Map<String, String[]> parameters = req.getParameterMap();
-        Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
+        HttpSession session = req.getSession();
+        Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
 
-        ResourceManager resourceManager = new ResourceManager(locale);
         Map<String, String> validationError = userService.validateUserProfileData(parameters, locale);
 
         if (validationError.isEmpty()) {
@@ -46,8 +44,6 @@ public class EditProfileCommand implements Command {
 
             try {
                 userService.update(user);
-
-                HttpSession session = req.getSession();
                 session.setAttribute(ParameterName.USER, user);
 
                 LOGGER.debug("Updating user successful");
@@ -59,21 +55,20 @@ public class EditProfileCommand implements Command {
                         + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
-                LOGGER.error("Updating user error" + e.getMessage(), e);
+                LOGGER.error("Updating user's profile error", e);
+
+                ResourceManager resourceManager = new ResourceManager(locale);
 
                 req.setAttribute(ParameterName.INIT, parameters);
-                req.setAttribute(ParameterName.ERROR,
-                        resourceManager.getValue(LocaleMessage.ERROR_PAGE_MESSAGE));
-                page = PageName.EDIT_PROFILE_PAGE;
+                req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             }
         } else {
-            LOGGER.warn("Updating user canceled because user's data is invalid");
+            LOGGER.warn("Updating user's profile canceled because user's data is invalid");
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
-            page = PageName.EDIT_PROFILE_PAGE;
         }
 
-        req.getRequestDispatcher(page).forward(req, resp);
+        req.getRequestDispatcher(PageName.EDIT_PROFILE_PAGE).forward(req, resp);
     }
 }

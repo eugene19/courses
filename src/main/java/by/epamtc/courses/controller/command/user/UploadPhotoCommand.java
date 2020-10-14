@@ -23,8 +23,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class UploadPhotoCommand implements Command {
-    public static final String SAVE_DIRECTORY = "uploadFiles";
     private static final Logger LOGGER = Logger.getLogger(UploadPhotoCommand.class);
+
+    private static final String SAVE_DIRECTORY = "uploadFiles";
     private static final String EMPTY_STRING = "";
     private static final String BACK_SLASH_SYMBOL = "\\";
 
@@ -35,8 +36,9 @@ public class UploadPhotoCommand implements Command {
         LOGGER.debug("Try upload user photo");
 
         HttpSession session = req.getSession();
-        ResourceManager resourceManager = new ResourceManager((Locale) session.getAttribute(ParameterName.LOCALE));
         User user = (User) session.getAttribute(ParameterName.USER);
+        Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
+        ResourceManager resourceManager = new ResourceManager(locale);
 
         try {
             String fullSavePath = pathToSavePhoto(req);

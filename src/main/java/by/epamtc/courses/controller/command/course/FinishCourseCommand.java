@@ -40,7 +40,6 @@ public class FinishCourseCommand implements Command {
                 return;
             }
 
-            // TODO: 10/14/20 Сделать старт курс и финиш одной коммандой
             courseService.updateStatus(courseId, CourseStatus.FINISHED);
 
             LOGGER.debug("Finishing course successful");

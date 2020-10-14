@@ -30,12 +30,12 @@ public class LoginCommand implements Command {
         Object yetAuthoredUser = session.getAttribute(ParameterName.USER);
 
         if (yetAuthoredUser != null) {
-            LOGGER.warn("Try login again by authored user yet");
+            LOGGER.warn("Try login again by autho   red user yet");
             resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
             return;
         }
 
-        Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
+        Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
         ResourceManager resourceManager = new ResourceManager(locale);
 
         Map<String, String> validationErrors = userService.validateUserAuthData(req.getParameterMap(), locale);
@@ -60,6 +60,9 @@ public class LoginCommand implements Command {
                 }
             } catch (ServiceException e) {
                 LOGGER.error("Error while authenticate user, try later", e);
+                req.setAttribute(ParameterName.INIT, req.getParameterMap());
+                req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
+                req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
             }
         } else {
             LOGGER.debug("Authentication is canceled because login or password are invalid");

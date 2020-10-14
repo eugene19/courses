@@ -27,10 +27,6 @@ public class CourseDetailsPageCommand implements Command {
         User user = (User) req.getSession().getAttribute(ParameterName.USER);
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
 
-        if (courseIdStr == null) {
-            throw new ServletException("Opening of course detail page is canceled because 'course id' is 'null'");
-        }
-
         try {
             int courseId = Integer.parseInt(courseIdStr);
             Course course = courseService.getCourse(courseId);
@@ -39,17 +35,15 @@ public class CourseDetailsPageCommand implements Command {
                 UserCourseStatus userCourseStatus = courseService.getUserCourseStatus(user.getId(), courseId);
                 req.setAttribute(ParameterName.USER_COURSE_STATUS, userCourseStatus);
 
-                Map<User, UserCourseStatus> usersOnCourse = userService.getUserOnCourse(courseId);
-                req.setAttribute(ParameterName.USERS_ON_COURSE, usersOnCourse);
+                Map<User, UserCourseStatus> studentsOfCourse = userService.getUserOnCourse(courseId);
+                req.setAttribute(ParameterName.USERS_ON_COURSE, studentsOfCourse);
             }
 
             req.setAttribute(ParameterName.COURSE, course);
 
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);
-        } catch (ServiceException e) {
+        } catch (NumberFormatException | ServiceException e) {
             throw new ServletException("Error while getting course with id " + courseIdStr);
-        } catch (NumberFormatException ex) {
-            throw new ServletException("Opening of course detail page is canceled because 'course id' is not 'integer'");
         }
     }
 }
