@@ -56,10 +56,31 @@
             <div class="col col-md-12 my-2 p-3  border border-light shadow-sm">
                 <div class="media position-relative">
                     <div class="media-body">
-                        <h5 class="mt-0">
-                            <myTag:cutLongText text="${course.summary}"
-                                               maxLength="80"/>
-                        </h5>
+                        <div class="row">
+                            <div class="col-10 m-0">
+                                <h5 class="mt-0">
+                                    <myTag:cutLongText text="${course.summary}"
+                                                       maxLength="80"/>
+                                </h5>
+                            </div>
+                            <div class="col-2 m-0 text-right">
+                                <c:choose>
+                                    <c:when test="${course.status == 'NOT_STARTED'}">
+                                        <%@include
+                                                file="statuses/not_started.jsp" %>
+                                    </c:when>
+                                    <c:when test="${course.status == 'IN_PROGRESS'}">
+                                        <%@include
+                                                file="statuses/in_progress.jsp" %>
+                                    </c:when>
+                                    <c:when test="${course.status == 'FINISHED'}">
+                                        <%@include
+                                                file="statuses/finished.jsp" %>
+                                    </c:when>
+                                </c:choose>
+                            </div>
+                        </div>
+
                         <p>
                             <myTag:cutLongText text="${course.description}"
                                                maxLength="300"/>
