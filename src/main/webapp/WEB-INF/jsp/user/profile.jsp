@@ -60,7 +60,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <div class="form-group row">
+            <div class="form-group row justify-content-center">
                 <label for="surname"
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
                 <div class="col-lg-6">
@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row justify-content-center">
                 <label for="name"
                        class="col-lg-2 col-form-label text-muted">${name_lable}</label>
                 <div class="col-lg-6">
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row justify-content-center">
                 <label for="email"
                        class="col-lg-2 col-form-label text-muted">${email_lable}</label>
                 <div class="col-lg-6">
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row justify-content-center">
                 <label for="birthday"
                        class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
                 <div class="col-lg-6">
@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row justify-content-center">
                 <label for="role"
                        class="col-lg-2 col-form-label text-muted">${role_lable}</label>
                 <div class="col-lg-6">
