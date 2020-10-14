@@ -99,35 +99,8 @@
             </div>
 
             <div class="form-group row">
-                <label class="text-muted" for="status">${status_lable}</label>
-                <select class="form-control form-control-sm" id="status"
-                        name="status">
-                    <c:choose>
-                        <c:when test="${init != null}">
-                            <option
-                                    <c:if test="${init.status[0] == 'NOT_STARTED'}">selected</c:if>
-                                    value="NOT_STARTED">${status_not_started}</option>
-                            <option
-                                    <c:if test="${init.status[0] == 'IN_PROGRESS'}">selected</c:if>
-                                    value="IN_PROGRESS">${status_in_progress}</option>
-                            <option
-                                    <c:if test="${init.status[0] == 'FINISHED'}">selected</c:if>
-                                    value="FINISHED">${status_finished}</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option
-                                    <c:if test="${course.status == 'NOT_STARTED'}">selected</c:if>
-                                    value="NOT_STARTED">${status_not_started}</option>
-                            <option
-                                    <c:if test="${course.status == 'IN_PROGRESS'}">selected</c:if>
-                                    value="IN_PROGRESS">${status_in_progress}</option>
-                            <option
-                                    <c:if test="${course.status == 'FINISHED'}">selected</c:if>
-                                    value="FINISHED">${status_finished}</option>
-                        </c:otherwise>
-                    </c:choose>
-                </select>
-                <div class="text-danger small">${errors.status}</div>
+                <input type="hidden" name="status"
+                       value="<c:if test="${init.status[0] != null}">${init.status[0]}</c:if><c:if test="${init.status[0] == null}">${course.status}</c:if>"/>
             </div>
 
             <div class="row justify-content-center py-4">

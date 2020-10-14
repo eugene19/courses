@@ -89,11 +89,11 @@
             </div>
 
             <div class="form-group row">
+                <input type="hidden" name="status" value="NOT_STARTED"/>
                 <label class="text-muted" for="status">${status_lable}</label>
-                <select class="form-control form-control-sm" id="status"
-                        name="status">
-                    <option selected
-                            value="NOT_STARTED">${status_not_started}</option>
+                <select class="form-control form-control-sm disabled"
+                        id="status" disabled>
+                    <option selected>${status_not_started}</option>
                 </select>
                 <div class="text-warning small">${immutable_field}</div>
                 <div class="text-danger small">${errors.status}</div>
