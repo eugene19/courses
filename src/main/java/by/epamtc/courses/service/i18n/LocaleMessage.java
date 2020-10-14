@@ -24,4 +24,5 @@ public final class LocaleMessage {
     public static final String ERROR_COURSE_DATE_AFTER_MAX = "course.error.dateAfterMax";
     public static final String ERROR_INCORRECT_MARK = "course.result.error.incorrectMark";
     public static final String ERROR_INCORRECT_COMMENT = "course.result.error.incorrectDescription";
+    public static final String ERROR_SET_RESULTS = "message.course.finish.warning";
 }

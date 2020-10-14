@@ -32,8 +32,6 @@
              var="user_is_entered"/>
 <fmt:message bundle="${bundle}" key="user.course.isNotEntered"
              var="user_is_not_entered"/>
-<fmt:message bundle="${bundle}" key="message.course.finish.warning"
-             var="warn_finishing_msg"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -52,14 +50,7 @@
         </div>
     </c:if>
 
-    <%--@elvariable id="error" type="java.lang.String"--%>
-    <c:if test="${error != null}">
-        <div class="alert alert-warning" role="alert">
-                ${warn_finishing_msg}
-        </div>
-    </c:if>
-
-    <%--    Добавить сообщение с ошибкой если isUpdating=false--%>
+    <%@include file="../component/alert_error.jsp" %>
 
     <div class="row ml-1">
         <%-- Actions for course--%>
