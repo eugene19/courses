@@ -103,6 +103,7 @@
               method="post">
             <input type="hidden" name="command" value="edit_profile"/>
             <input type="hidden" name="id" value="${user.id}"/>
+            <input type="hidden" name="photoFile" value="${user.photoPath}"/>
 
             <div class="form-group row justify-content-center">
                 <label for="surname"

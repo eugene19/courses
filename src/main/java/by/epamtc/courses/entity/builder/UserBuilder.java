@@ -60,6 +60,11 @@ public class UserBuilder {
             user.setRole(UserRole.valueOf(roleValues[0]));
         }
 
+        String[] photoPathValues = parameters.get(ParameterName.PHOTO_FILE);
+        if (photoPathValues != null) {
+            user.setPhotoPath(photoPathValues[0]);
+        }
+
         return user;
     }
 }
