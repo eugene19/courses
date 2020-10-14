@@ -1,8 +1,6 @@
 package by.epamtc.courses.controller.command.course;
 
-import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
-import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.service.*;
@@ -30,33 +28,29 @@ public class FinishCourseCommand implements Command {
         ResourceManager resourceManager = new ResourceManager(locale);
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
-
-        String courseDetailURL = PageName.MAIN_SERVLET_URL + URLConstant.START_PARAMETERS_SYMBOL
-                + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
-                + URLConstant.PARAMETERS_SEPARATOR
-                + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + courseIdStr;
+        String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
 
         try {
             int courseId = Integer.parseInt(courseIdStr);
-            boolean areAllStudentHasResult = courseResultService.checkAllStudentHasResult(courseId);
+            boolean allStudentHasResult = courseResultService.checkAllStudentHasResult(courseId);
 
-            if (!areAllStudentHasResult) {
+            if (!allStudentHasResult) {
                 req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.ERROR_SET_RESULTS));
-                req.getRequestDispatcher(courseDetailURL).forward(req, resp);
+                req.getRequestDispatcher(courseDetailsURL).forward(req, resp);
                 return;
             }
 
+            // TODO: 10/14/20 Сделать старт курс и финиш одной коммандой
             courseService.updateStatus(courseId, CourseStatus.FINISHED);
 
             LOGGER.debug("Finishing course successful");
 
-            resp.sendRedirect(courseDetailURL + URLConstant.PARAMETERS_SEPARATOR
-                    + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
+            resp.sendRedirect(courseDetailsURL);
         } catch (ServiceException | IllegalArgumentException | NullPointerException e) {
             LOGGER.error("Finishing course error", e);
 
-            resp.sendRedirect(courseDetailURL + URLConstant.PARAMETERS_SEPARATOR
-                    + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + false);
+            req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
+            req.getRequestDispatcher(courseDetailsURL).forward(req, resp);
         }
     }
 }

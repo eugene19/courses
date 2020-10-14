@@ -1,5 +1,9 @@
 package by.epamtc.courses.service;
 
+import by.epamtc.courses.URLConstant;
+import by.epamtc.courses.controller.command.CommandName;
+import by.epamtc.courses.entity.ParameterName;
+
 public abstract class PageName {
     public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
     public static final String ADD_COURSE_PAGE = "WEB-INF/jsp/course/add_course.jsp";
@@ -15,4 +19,9 @@ public abstract class PageName {
     public static final String NEWS_PAGE = "WEB-INF/jsp/news.jsp";
     public static final String PROFILE_PAGE = "WEB-INF/jsp/user/profile.jsp";
     public static final String REGISTRATION_PAGE = "WEB-INF/jsp/user/registration.jsp";
+    public static final String COURSE_DETAILS_URL = MAIN_SERVLET_URL
+            + URLConstant.START_PARAMETERS_SYMBOL
+            + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
+            + URLConstant.PARAMETERS_SEPARATOR
+            + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR;
 }

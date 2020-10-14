@@ -2,7 +2,6 @@ package by.epamtc.courses.controller.command.course;
 
 import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
-import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.builder.BuilderProvider;
@@ -46,12 +45,8 @@ public class EditCourseCommand implements Command {
 
                 LOGGER.debug("Updating course successful");
 
-                resp.sendRedirect(PageName.MAIN_SERVLET_URL
-                        + URLConstant.START_PARAMETERS_SYMBOL
-                        + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
-                        + URLConstant.PARAMETERS_SEPARATOR
-                        + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR + course.getId()
-                        + URLConstant.PARAMETERS_SEPARATOR
+                String courseDetailsURL = PageName.COURSE_DETAILS_URL + course.getId();
+                resp.sendRedirect(courseDetailsURL + URLConstant.PARAMETERS_SEPARATOR
                         + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;
             } catch (ServiceException e) {
@@ -61,7 +56,7 @@ public class EditCourseCommand implements Command {
 
                 req.setAttribute(ParameterName.INIT, parameters);
                 req.setAttribute(ParameterName.ERROR,
-                        resourceManager.getValue(LocaleMessage.ERROR_PAGE_MESSAGE));
+                        resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
                 page = PageName.EDIT_COURSE_PAGE;
             }
         } else {

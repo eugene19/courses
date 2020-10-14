@@ -60,7 +60,7 @@ public class AddCourseCommand implements Command {
 
                 req.setAttribute(ParameterName.INIT, parameters);
                 req.setAttribute(ParameterName.ERROR,
-                        resourceManager.getValue(LocaleMessage.ERROR_PAGE_MESSAGE));
+                        resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
                 page = PageName.ADD_COURSE_PAGE;
             }
         } else {
