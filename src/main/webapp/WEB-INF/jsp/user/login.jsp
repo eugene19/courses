@@ -33,8 +33,6 @@
               method="post">
             <input type="hidden" name="command" value="login"/>
 
-            <%@include file="../component/alert_error.jsp" %>
-
             <c:if test="${param.get('isRegistrationOk')}">
                 <div class="alert alert-success" role="alert">
                         ${registration_message}

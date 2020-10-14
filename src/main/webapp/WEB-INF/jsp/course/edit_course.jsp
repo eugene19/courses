@@ -35,8 +35,6 @@
              var="status_in_progress"/>
 <fmt:message bundle="${bundle}" key="course.status.finished"
              var="status_finished"/>
-<fmt:message bundle="${bundle}" key="error.fieldImmutable"
-             var="immutable_field"/>
 <fmt:message bundle="${bundle}" key="button.save" var="create_button"/>
 
 <div class="container">

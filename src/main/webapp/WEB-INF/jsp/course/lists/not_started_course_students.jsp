@@ -1,5 +1,3 @@
-<fmt:message bundle="${bundle}" key="course.details.button.setResult"
-             var="set_result_button"/>
 <fmt:message bundle="${bundle}" key="user.course.status.applied"
              var="applied_value"/>
 <fmt:message bundle="${bundle}" key="user.course.status.entered"

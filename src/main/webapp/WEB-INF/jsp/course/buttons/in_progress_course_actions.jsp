@@ -6,8 +6,6 @@
 <fmt:message bundle="${bundle}" key="button.edit" var="edit_button"/>
 <fmt:message bundle="${bundle}" key="course.details.button.finishCourse"
              var="finish_button"/>
-<fmt:message bundle="${bundle}" key="button.enterOnCourse"
-             var="enter_on_course_button"/>
 <fmt:message bundle="${bundle}" key="button.leaveFromCourse" var="leave_btn"/>
 <fmt:message bundle="${bundle}" key="button.getMaterials" var="materials_btn"/>
 
