@@ -18,6 +18,9 @@
 
 <fmt:message bundle="${bundle}" key="errorPage.message.403" var="message"/>
 <fmt:message bundle="${bundle}" key="button.goToHomePage" var="go_home_btn"/>
+<fmt:message bundle="${bundle}" key="login.submit" var="login_button"/>
+<fmt:message bundle="${bundle}" key="header.registration"
+             var="register_btn"/>
 
 <div class="container">
     <div class="row justify-content-center py-5 mt-5">
@@ -31,7 +34,7 @@
                 <button class="btn btn-outline-info mx-1">${login_button}</button>
             </a>
             <a href="${pageContext.request.contextPath}/main?command=get_registration_page">
-                <button class="btn btn-outline-info mx-1">${register_button}</button>
+                <button class="btn btn-outline-info mx-1">${register_btn}</button>
             </a>
         </c:if>
         <a href="../../index.jsp">
