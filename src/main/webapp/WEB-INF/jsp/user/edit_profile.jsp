@@ -151,17 +151,16 @@
             <div class="form-group row">
                 <label for="role"
                        class="col-lg-2 col-form-label text-muted">${role_lable}</label>
+                <input type="hidden" name="role"
+                       value="<c:if test="${init.role[0] != null}">${init.role[0]}</c:if><c:if test="${init.role[0] == null}">${user.role}</c:if>"/>
                 <div class="col-lg-6">
-                    <select class="form-control" id="role"
-                            name="role">
+                    <select disabled class="form-control disabled" id="role">
                         <c:choose>
                             <c:when test="${user.role  == 'STUDENT'}">
-                                <option selected
-                                        value="STUDENT">${role_student}</option>
+                                <option selected>${role_student}</option>
                             </c:when>
                             <c:when test="${user.role  == 'LECTURER'}">
-                                <option selected
-                                        value="LECTURER">${role_lecturer}</option>
+                                <option selected>${role_lecturer}</option>
                             </c:when>
                         </c:choose>
                     </select>
