@@ -12,4 +12,6 @@ public interface CourseResultService {
     Map<String, String> validateCourseResult(Map<String, String[]> parameters, Locale locale);
 
     void setCourseResult(int studentId, int courseId, int mark, String comment) throws ServiceException;
+
+    boolean checkAllStudentHasResult(int courseId) throws ServiceException;
 }

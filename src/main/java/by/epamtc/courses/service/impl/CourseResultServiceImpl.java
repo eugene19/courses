@@ -4,8 +4,12 @@ import by.epamtc.courses.dao.CourseResultDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.entity.CourseResult;
+import by.epamtc.courses.entity.User;
+import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseResultService;
 import by.epamtc.courses.service.ServiceException;
+import by.epamtc.courses.service.ServiceProvider;
+import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.CourseResultValidator;
 import org.apache.log4j.Logger;
 
@@ -40,6 +44,22 @@ public class CourseResultServiceImpl implements CourseResultService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public boolean checkAllStudentHasResult(int courseId) throws ServiceException {
+        UserService userService = ServiceProvider.getInstance().getUserService();
+        Map<User, UserCourseStatus> userOnCourse = userService.getUserOnCourse(courseId);
+
+        for (Map.Entry<User, UserCourseStatus> userCourse : userOnCourse.entrySet()) {
+            int userId = userCourse.getKey().getId();
+            CourseResult result = getCourseResultForUserByCourse(userId, courseId);
+            if (result == null) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

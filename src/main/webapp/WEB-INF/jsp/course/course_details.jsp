@@ -32,6 +32,8 @@
              var="user_is_entered"/>
 <fmt:message bundle="${bundle}" key="user.course.isNotEntered"
              var="user_is_not_entered"/>
+<fmt:message bundle="${bundle}" key="message.course.finish.warning"
+             var="warn_finishing_msg"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -47,6 +49,13 @@
     <c:if test="${param.get('isUpdatingOk')}">
         <div class="alert alert-success" role="alert">
                 ${succsses_edit_message}
+        </div>
+    </c:if>
+
+    <%--@elvariable id="error" type="java.lang.String"--%>
+    <c:if test="${error != null}">
+        <div class="alert alert-warning" role="alert">
+                ${warn_finishing_msg}
         </div>
     </c:if>
 
