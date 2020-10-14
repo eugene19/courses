@@ -9,7 +9,7 @@ public enum CommandName {
     GET_COURSES_PAGE,
     GET_EDIT_COURSE_PAGE,
     GET_EDIT_PROFILE_PAGE,
-    GET_COURSE_MARK_PAGE,
+    GET_COURSE_RESULT_PAGE,
     GET_LOGIN_PAGE,
     GET_NEWS_PAGE,
     GET_PROFILE_PAGE,
@@ -27,7 +27,7 @@ public enum CommandName {
     // course commands
     ADD_COURSE,
     EDIT_COURSE,
-    ENTER_ON_COURSE,
+    APPLY_ON_COURSE,
     FINISH_COURSE,
     LEAVE_FROM_COURSE,
     START_COURSE,

@@ -30,12 +30,12 @@ public class SecurityFilter implements Filter {
         authorizationMap.put(CommandName.ADD_COURSE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.GET_EDIT_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.EDIT_COURSE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.ENTER_ON_COURSE, new UserRole[]{UserRole.STUDENT});
+        authorizationMap.put(CommandName.APPLY_ON_COURSE, new UserRole[]{UserRole.STUDENT});
         authorizationMap.put(CommandName.LEAVE_FROM_COURSE, new UserRole[]{UserRole.STUDENT});
         authorizationMap.put(CommandName.UPDATE_USER_ON_COURSE_STATUS, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.START_COURSE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.FINISH_COURSE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_COURSE_MARK_PAGE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(CommandName.GET_COURSE_RESULT_PAGE, new UserRole[]{UserRole.LECTURER});
         authorizationMap.put(CommandName.SET_COURSE_MARK, new UserRole[]{UserRole.LECTURER});
     }
 

@@ -23,8 +23,8 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
-public class AddCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(AddCourseCommand.class);
+public class CreateCourseCommand implements Command {
+    private static final Logger LOGGER = Logger.getLogger(CreateCourseCommand.class);
 
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
     private CourseBuilder courseBuilder = BuilderProvider.getInstance().getCourseBuilder();

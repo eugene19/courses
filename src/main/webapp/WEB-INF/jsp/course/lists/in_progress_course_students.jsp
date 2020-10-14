@@ -8,7 +8,7 @@
                 <p class="text-muted col-4">${user_course.key.surname} ${user_course.key.name}</p>
 
                 <a class="col-4"
-                   href="${pageContext.request.contextPath}/main?command=get_course_mark_page&userId=${user_course.key.id}&courseId=${course.id}">
+                   href="${pageContext.request.contextPath}/main?command=get_course_result_page&userId=${user_course.key.id}&courseId=${course.id}">
                         ${set_result_button}
                 </a>
             </div>

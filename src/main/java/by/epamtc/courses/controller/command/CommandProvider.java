@@ -19,7 +19,7 @@ public class CommandProvider {
         commands.put(CommandName.GET_CONTACT_PAGE, new ContactPageCommand());
         commands.put(CommandName.GET_EDIT_COURSE_PAGE, new EditCoursePageCommand());
         commands.put(CommandName.GET_EDIT_PROFILE_PAGE, new EditProfilePageCommand());
-        commands.put(CommandName.GET_COURSE_MARK_PAGE, new CourseMarkPageCommand());
+        commands.put(CommandName.GET_COURSE_RESULT_PAGE, new CourseResultPageCommand());
         commands.put(CommandName.GET_LOGIN_PAGE, new LoginPageCommand());
         commands.put(CommandName.GET_NEWS_PAGE, new NewsPageCommand());
         commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
@@ -35,9 +35,9 @@ public class CommandProvider {
         commands.put(CommandName.UPDATE_USER_ON_COURSE_STATUS, new UpdateUserCourseStatusCommand());
 
         // course commands
-        commands.put(CommandName.ADD_COURSE, new AddCourseCommand());
+        commands.put(CommandName.ADD_COURSE, new CreateCourseCommand());
         commands.put(CommandName.EDIT_COURSE, new EditCourseCommand());
-        commands.put(CommandName.ENTER_ON_COURSE, new EnterOnCourseCommand());
+        commands.put(CommandName.APPLY_ON_COURSE, new ApplyOnCourseCommand());
         commands.put(CommandName.FINISH_COURSE, new FinishCourseCommand());
         commands.put(CommandName.LEAVE_FROM_COURSE, new LeaveFromCourseCommand());
         commands.put(CommandName.START_COURSE, new StartCourseCommand());

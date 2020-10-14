@@ -7,7 +7,7 @@
 <fmt:message bundle="${bundle}" key="course.details.button.startCourse"
              var="start_button"/>
 <fmt:message bundle="${bundle}" key="button.enterOnCourse"
-             var="enter_on_course_button"/>
+             var="apply_on_course_button"/>
 <fmt:message bundle="${bundle}" key="button.leaveFromCourse" var="leave_btn"/>
 
 <c:if test="${user.role == 'LECTURER' and course.lecturerId == user.id}">
@@ -30,11 +30,11 @@
 <c:if test="${user.role == 'STUDENT' and userCourseStatus == null}">
     <form class="m-0 p-0" action="${pageContext.request.contextPath}/main"
           method="post">
-        <input type="hidden" name="command" value="enter_on_course"/>
+        <input type="hidden" name="command" value="apply_on_course"/>
         <input type="hidden" name="courseId" value="${course.id}"/>
 
         <input class="btn btn-outline-primary m-1" type="submit"
-               value="${enter_on_course_button}"/>
+               value="${apply_on_course_button}"/>
     </form>
 </c:if>
 
