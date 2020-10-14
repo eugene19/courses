@@ -38,12 +38,6 @@
         <h3 class="h3 mb-3 font-weight-normal">${details_summary}</h3>
     </div>
 
-    <c:if test="${param.get('isSentOk')}">
-        <div class="alert alert-success" role="alert">
-                ${enter_send_message}
-        </div>
-    </c:if>
-
     <c:if test="${param.get('isUpdatingOk')}">
         <div class="alert alert-success" role="alert">
                 ${succsses_edit_message}

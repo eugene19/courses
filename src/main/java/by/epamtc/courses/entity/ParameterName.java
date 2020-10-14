@@ -39,9 +39,7 @@ public abstract class ParameterName {
     public static final String LECTURER_ID = "lecturerId";
     public static final String STATUS = "status";
     public static final String IS_CREATION_OK = "isCreationOk";
-    public static final String IS_SENT_OK = "isSentOk";
     public static final String MARK = "mark";
     public static final String COMMENT = "comment";
     public static final String COURSE_RESULT = "courseResult";
-    public static final String IS_FINISHING_OK = "isFinishingError";
 }
