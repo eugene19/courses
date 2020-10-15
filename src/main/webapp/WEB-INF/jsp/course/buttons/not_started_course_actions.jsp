@@ -27,7 +27,7 @@
     </form>
 </c:if>
 
-<c:if test="${user.role == 'STUDENT' and userCourseStatus == null}">
+<c:if test="${user == null or (user.role == 'STUDENT' and userCourseStatus == null)}">
     <form class="m-0 p-0" action="${pageContext.request.contextPath}/main"
           method="post">
         <input type="hidden" name="command" value="apply_on_course"/>
