@@ -14,17 +14,17 @@ INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
 VALUES (1, 'user1', '698d51a19d8a121ce581499d7b701668', 'Дегтярёв', 'Евгений',
         'email1@test.ru', '2018-08-15',
-        1, '1.png');
+        1, '1.jpg');
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
 VALUES (2, 'user2', '698d51a19d8a121ce581499d7b701668', 'Иванов', 'Иван',
         'email2@test.ru', '2018-08-15',
-        1, '2.png');
+        1, '2.jpg');
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
 VALUES (3, 'user3', '698d51a19d8a121ce581499d7b701668', 'Петров', 'Петр',
         'email3@test.ru', '2018-08-15',
-        1, '3.png');
+        1, '3.jpg');
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
 VALUES (4, 'user4', '698d51a19d8a121ce581499d7b701668', 'Сидоров', 'Лев',
