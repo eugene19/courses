@@ -2,7 +2,6 @@ package by.epamtc.courses.controller.command.user;
 
 import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
-import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.builder.BuilderProvider;
@@ -48,9 +47,7 @@ public class EditProfileCommand implements Command {
 
                 LOGGER.debug("Updating user successful");
 
-                resp.sendRedirect(PageName.MAIN_SERVLET_URL
-                        + URLConstant.START_PARAMETERS_SYMBOL
-                        + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_PROFILE_PAGE
+                resp.sendRedirect(PageName.PROFILE_URL
                         + URLConstant.PARAMETERS_SEPARATOR
                         + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
                 return;

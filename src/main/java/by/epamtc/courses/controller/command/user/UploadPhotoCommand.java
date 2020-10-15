@@ -2,7 +2,6 @@ package by.epamtc.courses.controller.command.user;
 
 import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.Command;
-import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.service.PageName;
@@ -59,7 +58,9 @@ public class UploadPhotoCommand implements Command {
             user.setPhotoPath(fileName);
             userService.update(user);
 
-            sendSuccessUploading(resp);
+            resp.sendRedirect(PageName.PROFILE_URL
+                    + URLConstant.PARAMETERS_SEPARATOR
+                    + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException | IOException e) {
             LOGGER.warn("Uploading user photo canceled because user's data is invalid");
             String errorMessage = resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG);
@@ -87,14 +88,6 @@ public class UploadPhotoCommand implements Command {
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
-    }
-
-    private void sendSuccessUploading(HttpServletResponse resp) throws IOException {
-        resp.sendRedirect(PageName.MAIN_SERVLET_URL
-                + URLConstant.START_PARAMETERS_SYMBOL
-                + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_PROFILE_PAGE
-                + URLConstant.PARAMETERS_SEPARATOR
-                + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
     }
 
     private void sendErrorUploading(HttpServletRequest req, HttpServletResponse resp, String errorMessage) throws ServletException, IOException {
