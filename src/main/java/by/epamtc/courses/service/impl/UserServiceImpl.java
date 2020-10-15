@@ -5,7 +5,9 @@ import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.entity.*;
+import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
+import by.epamtc.courses.service.ServiceProvider;
 import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
 
@@ -82,14 +84,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<User, UserCourseStatus> getUserOnCourse(int courseId) throws ServiceException {
+    public Map<User, UserCourseStatus> takeUsersOnCourse(int courseId) throws ServiceException {
         try {
             CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
             Course course = courseDao.getCourse(courseId);
             CourseStatus status = course.getStatus();
 
             if (status == CourseStatus.NOT_STARTED) {
-                return userDao.getAllUserOnCourse(courseId);
+                return userDao.takeUsersOnCourse(courseId);
             }
 
             return userDao.getEnteredUserOnCourse(courseId);
@@ -99,9 +101,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException {
+    public boolean updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException {
+        if (status == UserCourseStatus.ENTERED) {
+            CourseService courseService = ServiceProvider.getInstance().getCourseService();
+            Course course = courseService.getCourse(courseId);
+            int studentsLimit = course.getStudentsLimit();
+
+            Map<User, UserCourseStatus> usersOnCourse = takeUsersOnCourse(courseId);
+            int enteredUsers = countEnteredUsers(usersOnCourse);
+
+            if (enteredUsers >= studentsLimit) {
+                return false;
+            }
+        }
+
         try {
-            userDao.updateUserCourseStatus(userId, courseId, status);
+            return userDao.updateUserCourseStatus(userId, courseId, status);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -114,5 +129,18 @@ public class UserServiceImpl implements UserService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    private int countEnteredUsers(Map<User, UserCourseStatus> usersOnCourse) {
+        int count = 0;
+
+        for (Map.Entry<User, UserCourseStatus> entrySet : usersOnCourse.entrySet()) {
+            UserCourseStatus status = entrySet.getValue();
+            if (status == UserCourseStatus.ENTERED) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

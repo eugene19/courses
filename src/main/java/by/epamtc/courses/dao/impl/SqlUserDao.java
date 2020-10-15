@@ -136,7 +136,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public Map<User, UserCourseStatus> getAllUserOnCourse(int courseId) throws DaoException {
+    public Map<User, UserCourseStatus> takeUsersOnCourse(int courseId) throws DaoException {
         Map<User, UserCourseStatus> users = new LinkedHashMap<>();
 
         Connection connection = null;
@@ -166,7 +166,7 @@ public class SqlUserDao implements UserDao {
     }
 
     @Override
-    public void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws DaoException {
+    public boolean updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -179,6 +179,7 @@ public class SqlUserDao implements UserDao {
             preparedStatement.setInt(3, courseId);
 
             preparedStatement.execute();
+            return true;
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while update user course status", e);
         } finally {

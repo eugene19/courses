@@ -35,7 +35,7 @@ public class CourseDetailsPageCommand implements Command {
                 UserCourseStatus userCourseStatus = courseService.getUserCourseStatus(user.getId(), courseId);
                 req.setAttribute(ParameterName.USER_COURSE_STATUS, userCourseStatus);
 
-                Map<User, UserCourseStatus> studentsOfCourse = userService.getUserOnCourse(courseId);
+                Map<User, UserCourseStatus> studentsOfCourse = userService.takeUsersOnCourse(courseId);
                 req.setAttribute(ParameterName.USERS_ON_COURSE, studentsOfCourse);
             }
 

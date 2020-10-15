@@ -49,7 +49,7 @@ public class CourseResultServiceImpl implements CourseResultService {
     @Override
     public boolean checkAllStudentHasResult(int courseId) throws ServiceException {
         UserService userService = ServiceProvider.getInstance().getUserService();
-        Map<User, UserCourseStatus> userOnCourse = userService.getUserOnCourse(courseId);
+        Map<User, UserCourseStatus> userOnCourse = userService.takeUsersOnCourse(courseId);
 
         for (Map.Entry<User, UserCourseStatus> userCourse : userOnCourse.entrySet()) {
             int userId = userCourse.getKey().getId();

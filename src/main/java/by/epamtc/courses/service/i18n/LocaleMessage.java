@@ -25,4 +25,5 @@ public final class LocaleMessage {
     public static final String ERROR_INCORRECT_MARK = "course.result.error.incorrectMark";
     public static final String ERROR_INCORRECT_COMMENT = "course.result.error.incorrectDescription";
     public static final String ERROR_SET_RESULTS = "message.course.finish.warning";
+    public static final String ERROR_UPDATE_STATUS_STUDENTS_LIMIT = "error.update.userCourse.status.studentsLimit";
 }

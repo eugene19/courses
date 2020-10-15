@@ -31,20 +31,29 @@ public class UpdateUserCourseStatusCommand implements Command {
         String userIdString = req.getParameter(ParameterName.USER_ID);
         String status = req.getParameter(ParameterName.USER_COURSE_STATUS);
 
+        Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
+        ResourceManager resourceManager = new ResourceManager(locale);
+
         try {
             int courseId = Integer.parseInt(courseIdStr);
             int userId = Integer.parseInt(userIdString);
 
-            userService.updateUserCourseStatus(userId, courseId, UserCourseStatus.valueOf(status));
+            boolean isUpdateOk = userService.updateUserCourseStatus(userId, courseId, UserCourseStatus.valueOf(status));
+
+            if (!isUpdateOk) {
+                LOGGER.warn("Updating user course status failed because limit of students");
+
+                req.setAttribute(ParameterName.ERROR,
+                        resourceManager.getValue(LocaleMessage.ERROR_UPDATE_STATUS_STUDENTS_LIMIT));
+                req.getRequestDispatcher(courseDetailsURL).forward(req, resp);
+                return;
+            }
 
             LOGGER.debug("User status is changed");
 
             resp.sendRedirect(courseDetailsURL);
         } catch (NumberFormatException | ServiceException e) {
             LOGGER.error("Error while change user status on course", e);
-
-            Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
-            ResourceManager resourceManager = new ResourceManager(locale);
 
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             req.getRequestDispatcher(courseDetailsURL).forward(req, resp);
