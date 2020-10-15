@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Locale;
 import java.util.Map;
 
@@ -25,6 +26,8 @@ public class LocaleCommand implements Command {
 
         doPreviousCommand(resp, session);
     }
+
+    private static final String PARAM_VALUES_CHARSET = "UTF-8";
 
     private void doPreviousCommand(HttpServletResponse resp, HttpSession session) throws IOException {
         LOGGER.debug("Start do previous command");
@@ -44,10 +47,11 @@ public class LocaleCommand implements Command {
                 previousRequest.append(URLConstant.PARAMETERS_SEPARATOR);
             }
 
+            // Encoding need if param's value contain cyrillic symbols
             previousRequest
                     .append(parameterPair.getKey())
                     .append(URLConstant.KEY_VALUE_SEPARATOR)
-                    .append(parameterPair.getValue()[0]);
+                    .append(URLEncoder.encode(parameterPair.getValue()[0], PARAM_VALUES_CHARSET));
         }
 
         resp.sendRedirect(previousRequest.toString());
