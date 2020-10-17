@@ -29,4 +29,6 @@ public interface CourseService {
     UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException;
 
     void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException;
+
+    void updateCourseMaterialPath(int courseId, String fileName) throws ServiceException;
 }

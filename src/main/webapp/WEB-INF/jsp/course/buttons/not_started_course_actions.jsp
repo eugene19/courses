@@ -10,8 +10,8 @@
              var="apply_on_course_button"/>
 <fmt:message bundle="${bundle}" key="button.leaveFromCourse" var="leave_btn"/>
 
-<c:if test="${user.role == 'LECTURER' and course.lecturerId == user.id}">
-    <a class="btn btn-outline-primary m-1"
+<c:if test="${course.lecturerId == user.id}">
+    <a class="btn btn-outline-primary ml-3 my-1"
        href="${pageContext.request.contextPath}/main?command=get_edit_course_page&courseId=${course.id}">
         <i class="fa fa-edit text-primary"></i> ${edit_button}
     </a>

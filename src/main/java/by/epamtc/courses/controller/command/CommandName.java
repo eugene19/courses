@@ -29,8 +29,10 @@ public enum CommandName {
     EDIT_COURSE,
     APPLY_ON_COURSE,
     FINISH_COURSE,
+    GET_COURSE_MATERIALS,
     LEAVE_FROM_COURSE,
     START_COURSE,
+    UPLOAD_COURSE_MATERIALS,
 
     // other commands
     LOCALE

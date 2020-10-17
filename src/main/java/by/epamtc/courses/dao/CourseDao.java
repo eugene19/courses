@@ -25,4 +25,6 @@ public interface CourseDao {
     UserCourseStatus getUserCourseStatus(int userId, int courseId) throws DaoException;
 
     void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
+
+    void updateCourseMaterialPath(int courseId, String fileName) throws DaoException;
 }

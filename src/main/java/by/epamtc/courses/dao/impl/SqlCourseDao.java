@@ -16,14 +16,14 @@ public class SqlCourseDao implements CourseDao {
     private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_ALL_COURSES = "SELECT courses.id, summary, description, " +
-            "start_date, end_date, students_limit, lecturer_id, status " +
+            "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses " +
             "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
             "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id " +
             "ORDER BY courses.id DESC;";
 
     private static final String GET_ALL_COURSES_WITH_STATUS = "SELECT courses.id, summary, description, " +
-            "start_date, end_date, students_limit, lecturer_id, status " +
+            "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses " +
             "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
             "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id " +
@@ -31,14 +31,14 @@ public class SqlCourseDao implements CourseDao {
             "ORDER BY courses.id DESC;";
 
     private static final String GET_COURSE_BY_ID = "SELECT courses.id, summary, description, " +
-            "start_date, end_date, students_limit, lecturer_id, status " +
+            "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses " +
             "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
             "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id " +
             "WHERE courses.id = ?;";
 
     private static final String CREATE_COURSE = "INSERT INTO courses (summary, description, " +
-            "students_limit) VALUES (?, ?, ?);";
+            "students_limit, materials_path) VALUES (?, ?, ?, ?);";
 
     private static final String INSERT_COURSE_STATUS = "INSERT INTO course_runs (course_id, " +
             "start_date, end_date, lecturer_id, status_id) VALUES (?, ?, ?, ?, ?)";
@@ -68,6 +68,9 @@ public class SqlCourseDao implements CourseDao {
 
     private static final String UPDATE_COURSE_STATUS = "UPDATE course_runs SET status_id = ? " +
             "WHERE course_id = ?;";
+
+    private static final String UPDATE_COURSE_MATERIAL_PATH = "UPDATE courses SET materials_path = ? " +
+            "WHERE id = ?;";
 
     @Override
     public List<Course> takeAllCourses() throws DaoException {
@@ -134,12 +137,9 @@ public class SqlCourseDao implements CourseDao {
             preparedStatement.setString(1, course.getSummary());
             preparedStatement.setString(2, course.getDescription());
             preparedStatement.setInt(3, course.getStudentsLimit());
+            preparedStatement.setString(4, course.getMaterialPath());
 
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new DaoException("Error of creation course, no rows affected");
-            }
+            preparedStatement.executeUpdate();
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -303,6 +303,26 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    @Override
+    public void updateCourseMaterialPath(int courseId, String fileName) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_COURSE_MATERIAL_PATH);
+
+            preparedStatement.setString(1, fileName);
+            preparedStatement.setInt(2, courseId);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while updating course material path", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
     private void updateCourseRun(Course course, Connection connection) throws SQLException {
         PreparedStatement preparedStatement = null;
 
@@ -342,11 +362,12 @@ public class SqlCourseDao implements CourseDao {
         course.setId(resultSet.getInt(1));
         course.setSummary(resultSet.getString(2));
         course.setDescription(resultSet.getString(3));
-        course.setStartDate(resultSet.getDate(4).toLocalDate());
-        course.setEndDate(resultSet.getDate(5).toLocalDate());
-        course.setStudentsLimit(resultSet.getInt(6));
-        course.setLecturerId(resultSet.getInt(7));
-        course.setStatus(CourseStatus.valueOf(resultSet.getString(8)));
+        course.setMaterialPath(resultSet.getString(4));
+        course.setStartDate(resultSet.getDate(5).toLocalDate());
+        course.setEndDate(resultSet.getDate(6).toLocalDate());
+        course.setStudentsLimit(resultSet.getInt(7));
+        course.setLecturerId(resultSet.getInt(8));
+        course.setStatus(CourseStatus.valueOf(resultSet.getString(9)));
 
         return course;
     }

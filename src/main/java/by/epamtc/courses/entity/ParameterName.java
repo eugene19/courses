@@ -42,4 +42,5 @@ public abstract class ParameterName {
     public static final String MARK = "mark";
     public static final String COMMENT = "comment";
     public static final String COURSE_RESULT = "courseResult";
+    public static final String MATERIALS = "materials";
 }

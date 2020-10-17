@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `COURSES_MANAGER`.`courses`
     `summary`        VARCHAR(255) NOT NULL,
     `description`    LONGTEXT     NOT NULL,
     `students_limit` INT          NULL,
+    `materials_path` VARCHAR(255) NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `ID_UNIQUE` (`id` ASC) VISIBLE
 )

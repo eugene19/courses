@@ -10,7 +10,7 @@
 <fmt:message bundle="${bundle}" key="button.getMaterials" var="materials_btn"/>
 
 <c:if test="${course.lecturerId == user.id}">
-    <a class="btn btn-outline-primary m-1"
+    <a class="btn btn-outline-primary ml-3 my-1"
        href="${pageContext.request.contextPath}/main?command=get_edit_course_page&courseId=${course.id}">
         <i class="fa fa-edit text-primary"></i> ${edit_button}
     </a>
@@ -30,6 +30,8 @@
           method="post">
         <input type="hidden" name="command" value="get_course_materials"/>
         <input type="hidden" name="courseId" value="${course.id}"/>
+        <input type="hidden" name="lecturerId" value="${course.lecturerId}"/>
+        <input type="hidden" name="materials" value="${course.materialPath}"/>
 
         <input class="btn btn-outline-primary m-1" type="submit"
                value="${materials_btn}"/>

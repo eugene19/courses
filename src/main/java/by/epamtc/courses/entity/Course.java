@@ -10,6 +10,7 @@ public class Course implements Serializable {
     private int id;
     private String summary;
     private String description;
+    private String materialPath;
     private LocalDate startDate;
     private LocalDate endDate;
     private int studentsLimit;
@@ -41,6 +42,14 @@ public class Course implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMaterialPath() {
+        return materialPath;
+    }
+
+    public void setMaterialPath(String materialPath) {
+        this.materialPath = materialPath;
     }
 
     public LocalDate getStartDate() {
@@ -93,6 +102,7 @@ public class Course implements Serializable {
                 lecturerId == course.lecturerId &&
                 Objects.equals(summary, course.summary) &&
                 Objects.equals(description, course.description) &&
+                Objects.equals(materialPath, course.materialPath) &&
                 Objects.equals(startDate, course.startDate) &&
                 Objects.equals(endDate, course.endDate) &&
                 status == course.status;
@@ -100,7 +110,7 @@ public class Course implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, summary, description, startDate, endDate, studentsLimit, lecturerId, status);
+        return Objects.hash(id, summary, description, materialPath, startDate, endDate, studentsLimit, lecturerId, status);
     }
 
     @Override
@@ -109,6 +119,7 @@ public class Course implements Serializable {
                 "id=" + id +
                 ", summary='" + summary + '\'' +
                 ", description='" + description + '\'' +
+                ", materialPath='" + materialPath + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", studentsLimit=" + studentsLimit +

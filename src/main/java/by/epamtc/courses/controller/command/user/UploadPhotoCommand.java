@@ -40,9 +40,6 @@ public class UploadPhotoCommand implements Command {
         ResourceManager resourceManager = new ResourceManager(locale);
 
         try {
-            String fullSavePath = pathToSavePhoto(req);
-            createDirIfNoExist(fullSavePath);
-
             Part file = req.getPart(ParameterName.PHOTO_FILE);
             String fileName = file.getSubmittedFileName();
 
@@ -53,6 +50,9 @@ public class UploadPhotoCommand implements Command {
                 return;
             }
 
+            String fullSavePath = pathToSavePhoto(req);
+            createDirIfNoExist(fullSavePath);
+
             file.write(fullSavePath + File.separator + fileName);
 
             user.setPhotoPath(fileName);
@@ -62,7 +62,7 @@ public class UploadPhotoCommand implements Command {
                     + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException | IOException e) {
-            LOGGER.warn("Uploading user photo canceled because user's data is invalid");
+            LOGGER.warn("Uploading user photo canceled");
             String errorMessage = resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG);
             sendErrorUploading(req, resp, errorMessage);
         }

@@ -10,6 +10,8 @@
           method="post">
         <input type="hidden" name="command" value="get_course_materials"/>
         <input type="hidden" name="courseId" value="${course.id}"/>
+        <input type="hidden" name="lecturerId" value="${course.lecturerId}"/>
+        <input type="hidden" name="materials" value="${course.materialPath}"/>
 
         <input class="btn btn-outline-primary m-1" type="submit"
                value="${materials_btn}"/>

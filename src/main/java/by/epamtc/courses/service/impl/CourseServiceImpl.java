@@ -114,4 +114,13 @@ public class CourseServiceImpl implements CourseService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void updateCourseMaterialPath(int courseId, String fileName) throws ServiceException {
+        try {
+            courseDao.updateCourseMaterialPath(courseId, fileName);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

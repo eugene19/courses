@@ -31,4 +31,5 @@ public abstract class PageName {
     public static final String PROFILE_URL = PageName.MAIN_SERVLET_URL
             + URLConstant.START_PARAMETERS_SYMBOL
             + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_PROFILE_PAGE;
+    public static final String UPLOAD_FILES_FORMAT_URL = "/uploadFiles/%d/%s";
 }

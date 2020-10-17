@@ -14,6 +14,17 @@
           crossorigin="anonymous">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.spoiler-title').click(function () {
+                $(this).parent().children('.spoiler-body').slideToggle(100);
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
 <%@include file="../component/header.jsp" %>
@@ -32,6 +43,8 @@
              var="user_is_entered"/>
 <fmt:message bundle="${bundle}" key="user.course.isNotEntered"
              var="user_is_not_entered"/>
+<fmt:message bundle="${bundle}" key="user.error.fileIsEmpty"
+             var="file_unchosen"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -44,11 +57,17 @@
         </div>
     </c:if>
 
+    <c:if test="${param.get('isUpdatingOk') != null and !param.get('isUpdatingOk')}">
+        <div class="alert alert-danger" role="alert">
+                ${file_unchosen}
+        </div>
+    </c:if>
+
     <%@include file="../component/alert_error.jsp" %>
 
     <div class="row ml-1">
         <%-- Actions for course--%>
-        <div class="col-10">
+        <div class="col-10 pl-0">
             <div class="row">
                 <c:if test="${course.status == 'NOT_STARTED'}">
                     <%@include file="buttons/not_started_course_actions.jsp" %>
@@ -62,6 +81,10 @@
                     <%@include file="buttons/finished_course_actions.jsp" %>
                 </c:if>
             </div>
+
+            <c:if test="${course.status == 'NOT_STARTED' and user.id == course.lecturerId}">
+                <%@include file="upload_materials_form.jsp" %>
+            </c:if>
         </div>
 
         <c:if test="${userCourseStatus != null}">
@@ -90,7 +113,7 @@
         </div>
     </div>
 
-    <c:if test="${user.role == 'LECTURER' and course.lecturerId == user.id}">
+    <c:if test="${course.lecturerId == user.id}">
         <div class="row py-5">
             <div class="container-fluid">
                 <h5 class="h5 mb-5 font-weight-normal">${students_list_summary}</h5>

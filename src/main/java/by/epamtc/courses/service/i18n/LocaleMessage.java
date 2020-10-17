@@ -13,7 +13,6 @@ public final class LocaleMessage {
     public static final String ERROR_INCORRECT_SURNAME = "user.error.incorrectSurname";
     public static final String SOMETHING_GOES_WRONG = "errorPage.message";
     public static final String WRONG_LOGIN_OR_PASSWORD = "login.error.wrongLoginOrPass";
-    public static final String ERROR_PAGE_MESSAGE = "errorPage.message";
     public static final String ERROR_INCORRECT_FILE_NAME = "user.error.fileIsEmpty";
 
     public static final String ERROR_INCORRECT_SUMMARY = "course.error.summary";
@@ -26,4 +25,5 @@ public final class LocaleMessage {
     public static final String ERROR_INCORRECT_COMMENT = "course.result.error.incorrectDescription";
     public static final String ERROR_SET_RESULTS = "message.course.finish.warning";
     public static final String ERROR_UPDATE_STATUS_STUDENTS_LIMIT = "error.update.userCourse.status.studentsLimit";
+    public static final String NO_MATERIALS = "course.error.noMaterials";
 }
