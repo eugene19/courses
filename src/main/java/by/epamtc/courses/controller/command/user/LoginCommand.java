@@ -27,6 +27,7 @@ public class LoginCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
+        Map<String, String[]> parameters = req.getParameterMap();
 
         // check if user already authored
         Object alreadyAuthoredUser = session.getAttribute(ParameterName.USER);
@@ -40,12 +41,13 @@ public class LoginCommand implements Command {
         ResourceManager resourceManager = new ResourceManager(locale);
 
         // check inputted auth data
-        Map<String, String> validationErrors = userService.validateUserAuthData(req.getParameterMap(), locale);
+        Map<String, String> validationErrors = userService.validateUserAuthData(parameters, locale);
         if (!validationErrors.isEmpty()) {
             LOGGER.debug("Authentication is canceled because login or password are invalid");
-            req.setAttribute(ParameterName.INIT, req.getParameterMap());
+            req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationErrors);
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
+            return;
         }
 
         try {
@@ -55,20 +57,22 @@ public class LoginCommand implements Command {
             User user = userService.authenticate(login,
                     PasswordHasher.hashPassword(password));
 
-            if (user != null) {
-                LOGGER.debug("Authentication is successful");
-                session.setAttribute(ParameterName.USER, user);
-                resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
-            } else {
+            // check if user not found
+            if (user == null) {
                 LOGGER.debug("Authentication is canceled because wrong login or password");
-                req.setAttribute(ParameterName.INIT, req.getParameterMap());
+                req.setAttribute(ParameterName.INIT, parameters);
                 req.setAttribute(ParameterName.ERROR,
                         resourceManager.getValue(LocaleMessage.WRONG_LOGIN_OR_PASSWORD));
                 req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
+                return;
             }
+
+            LOGGER.debug("Authentication is successful");
+            session.setAttribute(ParameterName.USER, user);
+            resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
         } catch (ServiceException e) {
             LOGGER.error("Error while authenticate user, try later", e);
-            req.setAttribute(ParameterName.INIT, req.getParameterMap());
+            req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
         }
