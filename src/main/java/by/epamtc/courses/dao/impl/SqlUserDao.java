@@ -8,18 +8,12 @@ import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.entity.UserRole;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SqlUserDao implements UserDao {
-    private static final Logger LOGGER = Logger.getLogger(SqlUserDao.class);
-    private static final String ALGORITHM_NAME = "MD5";
-
-    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
-
     private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT users.id, surname, name, email, birthday, role, photo_path " +
             "FROM users " +
             "INNER JOIN user_roles ON users.role_id = user_roles.id " +
@@ -55,6 +49,8 @@ public class SqlUserDao implements UserDao {
     private static final String UPDATE_USER_COURSE_STATUS = "UPDATE user_courses SET user_course_status_id = ? " +
             "WHERE user_id = ? " +
             "AND course_id = ?;";
+
+    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public User authenticate(String login, String password) throws DaoException {
