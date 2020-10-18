@@ -34,12 +34,12 @@ public class RegistrationCommand implements Command {
 
         Map<String, String[]> parameters = req.getParameterMap();
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
-
         ResourceManager resourceManager = new ResourceManager(locale);
-        Map<String, String> validationError = userService.validateUserRegistrationData(parameters, locale);
 
+        Map<String, String> validationError = userService.validateUserRegistrationData(parameters, locale);
         if (validationError.isEmpty()) {
             UserAuthData user = userBuilder.createUserDataFromParams(parameters);
+            hashPassword(user);
 
             try {
                 userService.register(user);
@@ -67,5 +67,10 @@ public class RegistrationCommand implements Command {
         }
 
         req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
+    }
+
+    private void hashPassword(UserAuthData user) {
+        String passwordHash = PasswordHasher.hashPassword(user.getPassword());
+        user.setPassword(passwordHash);
     }
 }
