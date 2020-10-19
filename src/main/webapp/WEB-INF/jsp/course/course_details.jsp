@@ -155,17 +155,17 @@
                 <%@include file="../component/alert_empty_list.jsp" %>
             </c:if>
 
-            <c:if test="${course.status == 'NOT_STARTED'}">
-                <%@ include file="lists/not_started_course_students.jsp" %>
-            </c:if>
-
-            <c:if test="${course.status == 'IN_PROGRESS'}">
-                <%@ include file="lists/in_progress_course_students.jsp" %>
-            </c:if>
-
-            <c:if test="${course.status == 'FINISHED'}">
-                <%@ include file="lists/finished_course_students.jsp" %>
-            </c:if>
+            <c:choose>
+                <c:when test="${course.status == 'NOT_STARTED'}">
+                    <%@ include file="lists/not_started_course_students.jsp" %>
+                </c:when>
+                <c:when test="${course.status == 'IN_PROGRESS'}">
+                    <%@ include file="lists/in_progress_course_students.jsp" %>
+                </c:when>
+                <c:when test="${course.status == 'FINISHED'}">
+                    <%@ include file="lists/finished_course_students.jsp" %>
+                </c:when>
+            </c:choose>
         </div>
     </c:if>
 </div>
