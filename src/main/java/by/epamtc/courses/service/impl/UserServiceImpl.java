@@ -131,6 +131,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public int countEnteredUsersOnCourse(int courseId) throws ServiceException {
+        try {
+            Map<User, UserCourseStatus> enteredUserOnCourse = userDao.getEnteredUserOnCourse(courseId);
+            return enteredUserOnCourse.size();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
     private int countEnteredUsers(Map<User, UserCourseStatus> usersOnCourse) {
         int count = 0;
 

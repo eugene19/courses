@@ -1,3 +1,4 @@
+<%--@elvariable id="countEnteredUsers" type="java.lang.Integer"--%>
 <%--@elvariable id="course" type="by.epamtc.courses.entity.Course"--%>
 <%--@elvariable id="usersOnCourse" type="java.util.List"--%>
 <%--@elvariable id="userCourseStatus" type="by.epamtc.courses.entity.UserCourseStatus"--%>
@@ -111,8 +112,17 @@
         <div class="container-fluid pl-4">
             ${course.description}
         </div>
+
+        <c:if test="${course.status == 'NOT_STARTED'}">
+            <fmt:message bundle="${bundle}" key="course.warning.studentsLimit"
+                         var="warning_limit"/>
+            <div class="ml-4 mt-5 p-2 alert-warning">
+                    ${warning_limit} : ${countEnteredUsers}
+                / ${course.studentsLimit}
+            </div>
+        </c:if>
     </div>
-    <div class="row py-5">
+    <div class="row pb-5">
         <div class="container-fluid pl-4">
             <fmt:message bundle="${bundle}" key="user.role.lecturer"
                          var="lecturer_summary"/>

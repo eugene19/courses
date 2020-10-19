@@ -26,4 +26,6 @@ public interface UserService {
     boolean updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException;
 
     User getUserById(int userId) throws ServiceException;
+
+    int countEnteredUsersOnCourse(int courseId) throws ServiceException;
 }

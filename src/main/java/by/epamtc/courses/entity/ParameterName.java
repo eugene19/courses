@@ -45,4 +45,5 @@ public abstract class ParameterName {
     public static final String STATUS = "status";
     public static final String STUDENTS_LIMIT = "studentsLimit";
     public static final String SUMMARY = "summary";
+    public static final String COUNT_ENTERED_USERS = "countEnteredUsers";
 }
