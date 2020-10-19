@@ -39,6 +39,8 @@ public class CourseDetailsPageCommand implements Command {
                 req.setAttribute(ParameterName.USERS_ON_COURSE, studentsOfCourse);
             }
 
+            User lecturer = userService.getUserById(course.getLecturerId());
+            req.setAttribute(ParameterName.LECTURER, lecturer);
             req.setAttribute(ParameterName.COURSE, course);
 
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);

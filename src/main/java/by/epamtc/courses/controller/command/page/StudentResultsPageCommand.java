@@ -33,8 +33,7 @@ public class StudentResultsPageCommand implements Command {
             req.setAttribute(ParameterName.COURSES_WITH_RESULTS, coursesWithResults);
             req.getRequestDispatcher(PageName.STUDENT_RESULTS).forward(req, resp);
         } catch (ServiceException e) {
-            LOGGER.error("Error when opening student result page", e);
-            resp.sendError(500);
+            throw new ServletException("Error while take courses with results for student");
         }
     }
 }

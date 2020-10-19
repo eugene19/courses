@@ -106,17 +106,49 @@
 
     <div class="row py-5">
         <div class="container-fluid">
-            <h5 class="h5 mb-5 font-weight-normal">${course.summary}</h5>
+            <h5 class="h5 mb-5 font-weight-normal pl-5">${course.summary}</h5>
         </div>
         <div class="container-fluid pl-4">
             ${course.description}
+        </div>
+    </div>
+    <div class="row py-5">
+        <div class="container-fluid pl-4">
+            <fmt:message bundle="${bundle}" key="user.role.lecturer"
+                         var="lecturer_summary"/>
+            <div class="container-fluid">
+                <h5 class="h5 mb-5 font-weight-normal pl-5">${lecturer_summary}</h5>
+            </div>
+            <div class="container-fluid">
+                <div class="card" style="width: 18rem;">
+                    <%--@elvariable id="lecturer" type="by.epamtc.courses.entity.User"--%>
+                    <c:choose>
+                        <c:when test="${not empty lecturer.photoPath}">
+                            <img class="card-img-top rounded mx-auto d-block w-100"
+                                 src="/uploadFiles/${lecturer.id}/${lecturer.photoPath}"
+                                 alt="User photo">
+                        </c:when>
+                        <c:otherwise>
+                            <img class="card-img-top rounded mx-auto d-block w-50"
+                                 src="${pageContext.request.contextPath}/uploadFiles/default/defaultPhoto.png"
+                                 alt="User default photo">
+                        </c:otherwise>
+                    </c:choose>
+                    <div class="card-body">
+                        <fmt:message bundle="${bundle}" key="user.itsMe"
+                                     var="its_me"/>
+                        <p class="card-text">${lecturer.surname} ${lecturer.name}
+                            <c:if test="${user.id == lecturer.id}">(${its_me})</c:if></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <c:if test="${course.lecturerId == user.id}">
         <div class="row py-5">
             <div class="container-fluid">
-                <h5 class="h5 mb-5 font-weight-normal">${students_list_summary}</h5>
+                <h5 class="h5 mb-5 font-weight-normal pl-5">${students_list_summary}</h5>
             </div>
 
             <c:if test="${empty usersOnCourse}">

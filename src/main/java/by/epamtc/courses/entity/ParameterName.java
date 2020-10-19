@@ -28,20 +28,21 @@ public abstract class ParameterName {
     public static final String USER_ID = "userId";
 
     // course parameters
+    public static final String COMMENT = "comment";
     public static final String COURSE = "course";
     public static final String COURSE_LIST = "courseList";
-    public static final String SUMMARY = "summary";
-    public static final String DESCRIPTION = "description";
-    public static final String START_DATE = "startDate";
-    public static final String END_DATE = "endDate";
-    public static final String STUDENTS_LIMIT = "studentsLimit";
-    public static final String COURSE_ID = "courseId";
-    public static final String LECTURER_ID = "lecturerId";
-    public static final String STATUS = "status";
-    public static final String IS_CREATION_OK = "isCreationOk";
-    public static final String MARK = "mark";
-    public static final String COMMENT = "comment";
     public static final String COURSE_RESULT = "courseResult";
-    public static final String MATERIALS = "materials";
     public static final String COURSES_WITH_RESULTS = "coursesWithResult";
+    public static final String DESCRIPTION = "description";
+    public static final String END_DATE = "endDate";
+    public static final String IS_CREATION_OK = "isCreationOk";
+    public static final String COURSE_ID = "courseId";
+    public static final String LECTURER = "lecturer";
+    public static final String LECTURER_ID = "lecturerId";
+    public static final String MARK = "mark";
+    public static final String MATERIALS = "materials";
+    public static final String START_DATE = "startDate";
+    public static final String STATUS = "status";
+    public static final String STUDENTS_LIMIT = "studentsLimit";
+    public static final String SUMMARY = "summary";
 }

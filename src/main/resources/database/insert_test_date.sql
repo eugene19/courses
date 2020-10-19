@@ -54,13 +54,13 @@ INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
 VALUES (9, 'user9', '698d51a19d8a121ce581499d7b701668', 'Вакуленко', 'Вася',
         'email9@test.ru', '2018-08-15',
-        2, null);
+        2, '9.jpeg');
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
 VALUES (10, 'user10', '698d51a19d8a121ce581499d7b701668', 'Степаненко',
         'Степан',
         'email10@test.ru', '2018-08-15',
-        2, null);
+        2, '10.jpg');
 
 INSERT INTO courses (id, summary, description, materials_path, students_limit)
 VALUES (1, 'Промышленная разработка программного обеспечения на Java',
