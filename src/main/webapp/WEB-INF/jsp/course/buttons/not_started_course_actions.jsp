@@ -44,7 +44,7 @@
         <input type="hidden" name="command" value="leave_from_course"/>
         <input type="hidden" name="courseId" value="${course.id}"/>
 
-        <input class="btn btn-outline-secondary m-1" type="submit"
+        <input class="btn btn-outline-danger m-1" type="submit"
                value="${leave_btn}"/>
     </form>
 </c:if>
