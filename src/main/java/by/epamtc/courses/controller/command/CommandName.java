@@ -14,6 +14,7 @@ public enum CommandName {
     GET_NEWS_PAGE,
     GET_PROFILE_PAGE,
     GET_REGISTRATION_PAGE,
+    GET_STUDENTS_RESULT_PAGE,
 
     // user commands
     EDIT_PROFILE,

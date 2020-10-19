@@ -16,6 +16,8 @@
 <fmt:message bundle="${bundle}" key="menu.about" var="about_button"/>
 <fmt:message bundle="${bundle}" key="menu.contacts" var="contacts_button"/>
 <fmt:message bundle="${bundle}" key="menu.profile" var="profile_button"/>
+<fmt:message bundle="${bundle}" key="menu.account" var="account_button"/>
+<fmt:message bundle="${bundle}" key="menu.account.marks" var="marks_button"/>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container">
@@ -43,9 +45,23 @@
                        href="${pageContext.request.contextPath}/main?command=get_contact_page">${contacts_button}</a>
                 </li>
                 <c:if test="${not empty user}">
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="${pageContext.request.contextPath}/main?command=get_profile_page">${profile_button}</a>
+                    <script type="text/javascript"
+                            src="https://itchief.ru/examples/vendors/jquery/jquery-3.4.1.min.js"></script>
+                    <script type="text/javascript"
+                            src="https://itchief.ru/examples/vendors/bootstrap-4.3/js/bootstrap.bundle.min.js"></script>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           data-toggle="dropdown" role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false">${account_button}</a>
+                        <div class="dropdown-menu">
+                            <a class="nav-link"
+                               href="${pageContext.request.contextPath}/main?command=get_profile_page">${profile_button}</a>
+                            <c:if test="${user.role == 'STUDENT'}">
+                                <a class="nav-link"
+                                   href="${pageContext.request.contextPath}/main?command=get_students_result_page">${marks_button}</a>
+                            </c:if>
+                        </div>
                     </li>
                 </c:if>
             </ul>

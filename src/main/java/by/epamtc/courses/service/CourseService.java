@@ -1,6 +1,7 @@
 package by.epamtc.courses.service;
 
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseResult;
 import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 
@@ -11,6 +12,8 @@ import java.util.Map;
 public interface CourseService {
 
     List<Course> takeAllCourses() throws ServiceException;
+
+    Map<Course, CourseResult> takeCoursesWithResultForStudent(int userId) throws ServiceException;
 
     List<Course> takeCoursesWithStatus(CourseStatus status) throws ServiceException;
 

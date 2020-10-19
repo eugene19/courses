@@ -30,6 +30,16 @@ public class SqlCourseDao implements CourseDao {
             "WHERE course_runs.status_id = ? " +
             "ORDER BY courses.id DESC;";
 
+    private static final String GET_COURSES_WITH_RESULTS_USER = "SELECT courses.id, summary, description, " +
+            "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
+            "FROM courses " +
+            "LEFT JOIN course_runs ON courses.id = course_runs.course_id " +
+            "LEFT JOIN course_statuses ON course_runs.status_id = course_statuses.id " +
+            "LEFT JOIN user_courses uc ON courses.id = uc.course_id " +
+            "WHERE course_result_id IS NOT NULL " +
+            "AND user_id = ? " +
+            "ORDER BY courses.id DESC;";
+
     private static final String GET_COURSE_BY_ID = "SELECT courses.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses " +
@@ -321,6 +331,33 @@ public class SqlCourseDao implements CourseDao {
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }
+    }
+
+    @Override
+    public List<Course> takeCoursesForEnterStudent(int userId) throws DaoException {
+        List<Course> courses = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(GET_COURSES_WITH_RESULTS_USER);
+            statement.setInt(1, userId);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                courses.add(createCourse(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get courses by status", e);
+        } finally {
+            connectionPool.closeConnection(connection, statement, resultSet);
+        }
+
+        return courses;
     }
 
     private void updateCourseRun(Course course, Connection connection) throws SQLException {

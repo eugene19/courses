@@ -24,6 +24,7 @@ public class CommandProvider {
         commands.put(CommandName.GET_NEWS_PAGE, new NewsPageCommand());
         commands.put(CommandName.GET_PROFILE_PAGE, new ProfilePageCommand());
         commands.put(CommandName.GET_REGISTRATION_PAGE, new RegistrationPageCommand());
+        commands.put(CommandName.GET_STUDENTS_RESULT_PAGE, new StudentResultsPageCommand());
 
         // user commands
         commands.put(CommandName.EDIT_PROFILE, new EditProfileCommand());

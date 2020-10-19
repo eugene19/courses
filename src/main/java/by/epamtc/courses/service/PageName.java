@@ -17,6 +17,7 @@ public abstract class PageName {
     public static final String NEWS_PAGE = "WEB-INF/jsp/news.jsp";
     public static final String PROFILE_PAGE = "WEB-INF/jsp/user/profile.jsp";
     public static final String REGISTRATION_PAGE = "WEB-INF/jsp/user/registration.jsp";
+    public static final String STUDENT_RESULTS = "WEB-INF/jsp/user/student_result.jsp";
 
     public static final String DEFAULT_PAGE_URL = "/";
     public static final String MAIN_SERVLET_URL = "/main";

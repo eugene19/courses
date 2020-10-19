@@ -1,15 +1,18 @@
 package by.epamtc.courses.service.impl;
 
 import by.epamtc.courses.dao.CourseDao;
+import by.epamtc.courses.dao.CourseResultDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseResult;
 import by.epamtc.courses.entity.CourseStatus;
 import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.validation.CourseValidator;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -17,6 +20,7 @@ import java.util.Map;
 public class CourseServiceImpl implements CourseService {
 
     private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
+    private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     @Override
     public List<Course> takeAllCourses() throws ServiceException {
@@ -25,6 +29,25 @@ public class CourseServiceImpl implements CourseService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public Map<Course, CourseResult> takeCoursesWithResultForStudent(int userId) throws ServiceException {
+        Map<Course, CourseResult> coursesWithResults = new HashMap<>();
+
+        try {
+            List<Course> courses = courseDao.takeCoursesForEnterStudent(userId);
+
+            for (Course course : courses) {
+                CourseResult courseResult = courseResultDao.getCourseResultForUserByCourse(userId, course.getId());
+
+                coursesWithResults.put(course, courseResult);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+        return coursesWithResults;
     }
 
     @Override

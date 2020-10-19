@@ -27,4 +27,6 @@ public interface CourseDao {
     void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
 
     void updateCourseMaterialPath(int courseId, String fileName) throws DaoException;
+
+    List<Course> takeCoursesForEnterStudent(int userId) throws DaoException;
 }
