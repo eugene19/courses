@@ -42,7 +42,7 @@ VALUES (6, 'user6', '698d51a19d8a121ce581499d7b701668', 'Груздев', 'Ол�
         1, null);
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
-VALUES (7, 'user7', '698d51a19d8a121ce581499d7b701668', 'Василенко', 'Василий',
+VALUES (7, 'user7', '698d51a19d8a121ce581499d7b701668', 'Лев', 'Лёва',
         'email7@test.ru', '2018-08-15',
         1, null);
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
@@ -52,7 +52,7 @@ VALUES (8, 'user8', '698d51a19d8a121ce581499d7b701668', 'Максимчук', '�
         1, null);
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
                    photo_path)
-VALUES (9, 'user9', '698d51a19d8a121ce581499d7b701668', 'Вакуленко', 'Вася',
+VALUES (9, 'user9', '698d51a19d8a121ce581499d7b701668', 'Василенко', 'Василий',
         'email9@test.ru', '2018-08-15',
         2, '9.jpeg');
 INSERT INTO users (id, login, password, surname, name, email, birthday, role_id,
