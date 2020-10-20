@@ -101,7 +101,7 @@ INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
 VALUES (4, 4, '2021-01-02', '2021-02-20', 10, 1);
 INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
                          status_id)
-VALUES (5, 5, '2020-12-25', '2020-12-15', 10, 2);
+VALUES (5, 5, '2020-12-25', '2020-12-30', 10, 2);
 INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
                          status_id)
 VALUES (6, 6, '2020-11-20', '2020-12-20', 10, 3);
