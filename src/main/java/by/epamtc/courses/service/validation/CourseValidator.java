@@ -18,8 +18,8 @@ public class CourseValidator {
     private static final int MAXIMAL_STUDENTS_LIMIT = 99;
     private static final int MINIMAL_STUDENTS_LIMIT = 1;
 
-    private static final String SUMMARY_PATTERN = "[a-zA-Zа-яА-яёЁ0-9 ]{3,100}";
-    private static final String DESCRIPTION_PATTERN = ".{3,500}";
+    private static final String SUMMARY_PATTERN = ".{3,100}";
+    private static final String DESCRIPTION_PATTERN = ".{3,1130}";
 
     private Map<String, String[]> parameterMap;
     private Map<String, String> errors;
