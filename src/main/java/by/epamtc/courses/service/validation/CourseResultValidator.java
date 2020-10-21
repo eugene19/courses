@@ -32,16 +32,17 @@ public class CourseResultValidator {
 
         if (checkEmpty(markValues) || checkEmpty(markValues[0])) {
             errors.put(ParameterName.MARK, resourceManager.getValue(LocaleMessage.ERROR_FIELD_EMPTY));
-        } else {
-            try {
-                int mark = Integer.parseInt(markValues[0]);
-                if (mark < MINIMAL_MARK || mark > MAXIMAL_MARK) {
-                    errors.put(ParameterName.MARK, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_MARK));
-                }
-            } catch (NumberFormatException e) {
-                LOGGER.error("Error while parsing mark: " + markValues[0], e);
+            return this;
+        }
+
+        try {
+            int mark = Integer.parseInt(markValues[0]);
+            if (mark < MINIMAL_MARK || mark > MAXIMAL_MARK) {
                 errors.put(ParameterName.MARK, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_MARK));
             }
+        } catch (NumberFormatException e) {
+            LOGGER.error("Error while parsing mark: " + markValues[0], e);
+            errors.put(ParameterName.MARK, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_MARK));
         }
 
         return this;
