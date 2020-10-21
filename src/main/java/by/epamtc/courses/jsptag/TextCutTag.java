@@ -40,7 +40,7 @@ public class TextCutTag extends TagSupport {
                 out.print(text);
             }
         } catch (IOException e) {
-            throw new JspException(e.getMessage());
+            throw new JspException(e);
         }
 
         return SKIP_BODY;
