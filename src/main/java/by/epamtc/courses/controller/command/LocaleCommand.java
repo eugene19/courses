@@ -41,7 +41,7 @@ public class LocaleCommand implements Command {
 
         for (Map.Entry<String, String[]> parameterPair : previousParams.entrySet()) {
             if (paramCounter == 0) {
-                previousRequest.append(URLConstant.START_PARAMETERS_SYMBOL);
+                previousRequest.append(URLConstant.START_PARAMETERS);
             }
             if (paramCounter++ != 0) {
                 previousRequest.append(URLConstant.PARAMETERS_SEPARATOR);

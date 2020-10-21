@@ -47,7 +47,7 @@ public class RegistrationCommand implements Command {
                 LOGGER.debug("Registration successful " + user.getLogin());
 
                 resp.sendRedirect(PageName.MAIN_SERVLET_URL
-                        + URLConstant.START_PARAMETERS_SYMBOL
+                        + URLConstant.START_PARAMETERS
                         + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_LOGIN_PAGE
                         + URLConstant.PARAMETERS_SEPARATOR
                         + ParameterName.IS_REGISTRATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);

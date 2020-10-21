@@ -22,15 +22,15 @@ public abstract class PageName {
     public static final String DEFAULT_PAGE_URL = "/";
     public static final String MAIN_SERVLET_URL = "/main";
     public static final String COURSES_URL = MAIN_SERVLET_URL
-            + URLConstant.START_PARAMETERS_SYMBOL
+            + URLConstant.START_PARAMETERS
             + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSES_PAGE;
     public static final String COURSE_DETAILS_URL = MAIN_SERVLET_URL
-            + URLConstant.START_PARAMETERS_SYMBOL
+            + URLConstant.START_PARAMETERS
             + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_COURSE_DETAILS_PAGE
             + URLConstant.PARAMETERS_SEPARATOR
             + ParameterName.COURSE_ID + URLConstant.KEY_VALUE_SEPARATOR;
     public static final String PROFILE_URL = PageName.MAIN_SERVLET_URL
-            + URLConstant.START_PARAMETERS_SYMBOL
+            + URLConstant.START_PARAMETERS
             + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_PROFILE_PAGE;
     public static final String UPLOAD_FILES_FORMAT_URL = "/uploadFiles/%d/%s";
 }
