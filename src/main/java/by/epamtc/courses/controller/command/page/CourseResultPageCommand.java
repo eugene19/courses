@@ -33,7 +33,7 @@ public class CourseResultPageCommand implements Command {
             int courseId = Integer.parseInt(courseIdStr);
             int studentId = Integer.parseInt(studentIdStr);
 
-            CourseResult courseResult = courseResultService.getCourseResultForUserByCourse(studentId, courseId);
+            CourseResult courseResult = courseResultService.takeCourseResultForUser(studentId, courseId);
 
             req.setAttribute(ParameterName.USER_ID, studentId);
             req.setAttribute(ParameterName.COURSE_ID, courseId);

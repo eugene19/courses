@@ -18,8 +18,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class CourseServiceImpl implements CourseService {
-    private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
 
+    private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
     private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     @Override

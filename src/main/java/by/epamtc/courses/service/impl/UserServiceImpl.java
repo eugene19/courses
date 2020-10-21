@@ -1,12 +1,11 @@
 package by.epamtc.courses.service.impl;
 
+import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.entity.*;
-import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
-import by.epamtc.courses.service.ServiceProvider;
 import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
 
@@ -16,6 +15,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao = DaoProvider.getInstance().getUserDao();
+    private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
 
     @Override
     public User authenticate(String login, String password) throws ServiceException {
@@ -96,8 +96,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<User, UserCourseStatus> findUsersOnCourse(int courseId) throws ServiceException {
         try {
-            CourseService courseService = ServiceProvider.getInstance().getCourseService();
-            Course course = courseService.findCourseById(courseId);
+            Course course = courseDao.findCourseById(courseId);
             CourseStatus status = course.getStatus();
 
             return (status == CourseStatus.NOT_STARTED) ?
@@ -110,17 +109,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException {
-        if (status == UserCourseStatus.ENTERED) {
-            CourseService courseService = ServiceProvider.getInstance().getCourseService();
-            Course course = courseService.findCourseById(courseId);
-            int enteredUsers = countStudentsOnCourseInStatus(courseId, UserCourseStatus.ENTERED);
-
-            if (enteredUsers >= course.getStudentsLimit()) {
-                return false;
-            }
-        }
-
         try {
+            if (status == UserCourseStatus.ENTERED) {
+                Course course = courseDao.findCourseById(courseId);
+                int enteredUsers = countStudentsOnCourseInStatus(courseId, UserCourseStatus.ENTERED);
+
+                if (enteredUsers >= course.getStudentsLimit()) {
+                    return false;
+                }
+            }
+
             userDao.updateUserCourseStatus(userId, courseId, status);
             return true;
         } catch (DaoException e) {

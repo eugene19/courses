@@ -32,7 +32,7 @@ public class FinishCourseCommand implements Command {
 
         try {
             int courseId = Integer.parseInt(courseIdStr);
-            boolean allStudentHasResult = courseResultService.checkAllStudentHasResult(courseId);
+            boolean allStudentHasResult = courseResultService.areAllStudentsHaveResult(courseId);
 
             if (!allStudentHasResult) {
                 req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.ERROR_SET_RESULTS));
