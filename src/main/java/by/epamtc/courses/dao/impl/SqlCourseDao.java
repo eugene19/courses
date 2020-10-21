@@ -58,14 +58,11 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "WHERE c.id = ?;";
 
-    // TODO: 10/21/20 Заменить на 1 команду (с джоином)
-    private static final String UPDATE_COURSE = "UPDATE courses " +
-            "SET summary = ?, description = ?, students_limit = ? " +
-            "WHERE id = ?;";
-
-    private static final String UPDATE_COURSE_RUN = "UPDATE course_runs " +
-            "SET start_date = ?, end_date = ?, status_id = ? " +
-            "WHERE course_id = ?;";
+    private static final String UPDATE_COURSE = "UPDATE courses c " +
+            "JOIN course_runs cr on c.id = cr.course_id " +
+            "SET summary = ?, description = ?, students_limit = ?, start_date = ?, " +
+            "end_date = ?, status_id = ? " +
+            "WHERE c.id = ?;";
 
     private static final String GET_USER_COURSE_STATUS = "SELECT status " +
             "FROM user_course_statuses ucs " +
@@ -301,19 +298,18 @@ public class SqlCourseDao implements CourseDao {
 
         try {
             connection = connectionPool.takeConnection();
-            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(UPDATE_COURSE);
 
             preparedStatement.setString(1, course.getSummary());
             preparedStatement.setString(2, course.getDescription());
             preparedStatement.setInt(3, course.getStudentsLimit());
-            preparedStatement.setInt(4, course.getId());
+            preparedStatement.setDate(4, Date.valueOf(course.getStartDate()));
+            preparedStatement.setDate(5, Date.valueOf(course.getEndDate()));
+            preparedStatement.setInt(6, course.getStatus().getId());
+            preparedStatement.setInt(7, course.getId());
 
             preparedStatement.executeUpdate();
-            updateCourseRun(course, connection);
-            connection.commit();
         } catch (SQLException | ConnectionPoolException e) {
-            connectionPool.rollback(connection);
             throw new DaoException("Error while updating course", e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
@@ -371,23 +367,6 @@ public class SqlCourseDao implements CourseDao {
             preparedStatement.setDate(3, Date.valueOf(course.getEndDate()));
             preparedStatement.setInt(4, course.getLecturerId());
             preparedStatement.setInt(5, course.getStatus().getId());
-
-            preparedStatement.execute();
-        } finally {
-            connectionPool.closeConnection(null, preparedStatement);
-        }
-    }
-
-    private void updateCourseRun(Course course, Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(UPDATE_COURSE_RUN);
-
-            preparedStatement.setDate(1, Date.valueOf(course.getStartDate()));
-            preparedStatement.setDate(2, Date.valueOf(course.getEndDate()));
-            preparedStatement.setInt(3, course.getStatus().getId());
-            preparedStatement.setInt(4, course.getId());
 
             preparedStatement.execute();
         } finally {
