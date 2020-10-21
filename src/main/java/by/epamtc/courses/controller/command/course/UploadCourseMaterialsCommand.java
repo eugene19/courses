@@ -50,7 +50,7 @@ public class UploadCourseMaterialsCommand implements Command {
 
             courseMaterials.write(fullSavePath + File.separator + fileName);
 
-            courseService.updateCourseMaterialPath(courseId, fileName);
+            courseService.updateMaterialPath(courseId, fileName);
 
             resp.sendRedirect(PageName.COURSE_DETAILS_URL + courseIdStr +
                     URLConstant.PARAMETERS_SEPARATOR +

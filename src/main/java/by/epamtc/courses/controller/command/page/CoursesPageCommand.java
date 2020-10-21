@@ -28,7 +28,7 @@ public class CoursesPageCommand implements Command {
         LOGGER.debug("Opening courses page");
 
         try {
-            List<Course> courses = courseService.takeAllCourses();
+            List<Course> courses = courseService.findAllCourses();
             req.setAttribute(ParameterName.COURSE_LIST, courses);
         } catch (ServiceException e) {
             LOGGER.error("Error when get all courses: ", e);

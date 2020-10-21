@@ -32,7 +32,7 @@ public class LeaveFromCourseCommand implements Command {
 
         try {
             int courseId = Integer.parseInt(courseIdStr);
-            courseService.leaveUserFromCourse(user.getId(), courseId);
+            courseService.leaveStudentFromCourse(user.getId(), courseId);
 
             LOGGER.debug("User leave from course successful");
 

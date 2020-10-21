@@ -29,7 +29,7 @@ public class StudentResultsPageCommand implements Command {
         User user = (User) req.getSession().getAttribute(ParameterName.USER);
 
         try {
-            Map<Course, CourseResult> coursesWithResults = courseService.takeCoursesWithResultForStudent(user.getId());
+            Map<Course, CourseResult> coursesWithResults = courseService.findCoursesWithResultForStudent(user.getId());
             req.setAttribute(ParameterName.COURSES_WITH_RESULTS, coursesWithResults);
             req.getRequestDispatcher(PageName.STUDENT_RESULTS).forward(req, resp);
         } catch (ServiceException e) {

@@ -11,27 +11,27 @@ import java.util.Map;
 
 public interface CourseService {
 
-    List<Course> takeAllCourses() throws ServiceException;
+    void create(Course course) throws ServiceException;
 
-    Map<Course, CourseResult> takeCoursesWithResultForStudent(int userId) throws ServiceException;
+    void enterStudentOnCourse(int userId, int courseId) throws ServiceException;
 
-    List<Course> takeCoursesWithStatus(CourseStatus status) throws ServiceException;
+    List<Course> findAllCourses() throws ServiceException;
 
-    Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale);
+    Course findCourseById(int courseId) throws ServiceException;
 
-    void createNew(Course course) throws ServiceException;
+    Map<Course, CourseResult> findCoursesWithResultForStudent(int studentId) throws ServiceException;
 
-    Course getCourse(int courseId) throws ServiceException;
+    List<Course> findCoursesWithStatus(CourseStatus status) throws ServiceException;
 
-    void update(Course course) throws ServiceException;
-
-    void enterUserOnCourse(int userId, int courseId) throws ServiceException;
-
-    void leaveUserFromCourse(int userId, int courseId) throws ServiceException;
+    void leaveStudentFromCourse(int userId, int courseId) throws ServiceException;
 
     UserCourseStatus takeUserCourseStatus(int userId, int courseId) throws ServiceException;
 
+    void update(Course course) throws ServiceException;
+
     void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException;
 
-    void updateCourseMaterialPath(int courseId, String fileName) throws ServiceException;
+    void updateMaterialPath(int courseId, String fileName) throws ServiceException;
+
+    Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale);
 }

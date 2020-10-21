@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
     public Map<User, UserCourseStatus> findUsersOnCourse(int courseId) throws ServiceException {
         try {
             CourseService courseService = ServiceProvider.getInstance().getCourseService();
-            Course course = courseService.getCourse(courseId);
+            Course course = courseService.findCourseById(courseId);
             CourseStatus status = course.getStatus();
 
             return (status == CourseStatus.NOT_STARTED) ?
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
     public boolean updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws ServiceException {
         if (status == UserCourseStatus.ENTERED) {
             CourseService courseService = ServiceProvider.getInstance().getCourseService();
-            Course course = courseService.getCourse(courseId);
+            Course course = courseService.findCourseById(courseId);
             int enteredUsers = countStudentsOnCourseInStatus(courseId, UserCourseStatus.ENTERED);
 
             if (enteredUsers >= course.getStudentsLimit()) {

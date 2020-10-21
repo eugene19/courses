@@ -37,7 +37,7 @@ public class EditCoursePageCommand implements Command {
 
         try {
             int courseId = Integer.parseInt(courseIdStr);
-            Course course = courseService.getCourse(courseId);
+            Course course = courseService.findCourseById(courseId);
 
             if (course.getLecturerId() != user.getId()) {
                 resp.sendError(ERROR_PERMISSION_DENIED);

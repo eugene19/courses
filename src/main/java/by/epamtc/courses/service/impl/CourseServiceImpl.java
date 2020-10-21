@@ -18,12 +18,33 @@ import java.util.Locale;
 import java.util.Map;
 
 public class CourseServiceImpl implements CourseService {
-
     private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
+
     private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     @Override
-    public List<Course> takeAllCourses() throws ServiceException {
+    public void create(Course course) throws ServiceException {
+        try {
+            courseDao.create(course);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void enterStudentOnCourse(int studentId, int courseId) throws ServiceException {
+        try {
+            UserCourseStatus userCourseStatus = courseDao.takeUserCourseStatus(studentId, courseId);
+            if (userCourseStatus == null) {
+                courseDao.addStudentApplicationOnCourse(studentId, courseId);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Course> findAllCourses() throws ServiceException {
         try {
             return courseDao.findAllCourses();
         } catch (DaoException e) {
@@ -32,15 +53,23 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Map<Course, CourseResult> takeCoursesWithResultForStudent(int userId) throws ServiceException {
+    public Course findCourseById(int courseId) throws ServiceException {
+        try {
+            return courseDao.findCourseById(courseId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public Map<Course, CourseResult> findCoursesWithResultForStudent(int studentId) throws ServiceException {
         Map<Course, CourseResult> coursesWithResults = new HashMap<>();
 
         try {
-            List<Course> courses = courseDao.findAllCoursesWithResultsForStudent(userId);
+            List<Course> courses = courseDao.findAllCoursesWithResultsForStudent(studentId);
 
             for (Course course : courses) {
-                CourseResult courseResult = courseResultDao.takeCourseResult(userId, course.getId());
-
+                CourseResult courseResult = courseResultDao.takeCourseResult(studentId, course.getId());
                 coursesWithResults.put(course, courseResult);
             }
         } catch (DaoException e) {
@@ -51,40 +80,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> takeCoursesWithStatus(CourseStatus status) throws ServiceException {
+    public List<Course> findCoursesWithStatus(CourseStatus status) throws ServiceException {
         try {
             return courseDao.findCoursesWithStatus(status);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale) {
-        CourseValidator validator = new CourseValidator(parameters, locale);
-
-        return validator
-                .validateSummary()
-                .validateDescription()
-                .validateStartDate()
-                .validateEndDate()
-                .validateStudentsLimit()
-                .getErrors();
-    }
-
-    @Override
-    public void createNew(Course course) throws ServiceException {
-        try {
-            courseDao.create(course);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public Course getCourse(int courseId) throws ServiceException {
-        try {
-            return courseDao.findCourseById(courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -100,21 +98,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void enterUserOnCourse(int userId, int courseId) throws ServiceException {
+    public void leaveStudentFromCourse(int studentId, int courseId) throws ServiceException {
         try {
-            UserCourseStatus userCourseStatus = courseDao.takeUserCourseStatus(userId, courseId);
-            if (userCourseStatus == null) {
-                courseDao.addStudentApplicationOnCourse(userId, courseId);
-            }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public void leaveUserFromCourse(int userId, int courseId) throws ServiceException {
-        try {
-            courseDao.leaveStudentFromCourse(userId, courseId);
+            courseDao.leaveStudentFromCourse(studentId, courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -139,11 +125,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void updateCourseMaterialPath(int courseId, String fileName) throws ServiceException {
+    public void updateMaterialPath(int courseId, String fileName) throws ServiceException {
         try {
             courseDao.updateCourseMaterialPath(courseId, fileName);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public Map<String, String> validateCourse(Map<String, String[]> parameters, Locale locale) {
+        CourseValidator validator = new CourseValidator(parameters, locale);
+
+        return validator
+                .validateSummary()
+                .validateDescription()
+                .validateStartDate()
+                .validateEndDate()
+                .validateStudentsLimit()
+                .getErrors();
     }
 }

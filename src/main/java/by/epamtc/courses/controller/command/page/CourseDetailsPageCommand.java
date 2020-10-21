@@ -29,7 +29,7 @@ public class CourseDetailsPageCommand implements Command {
 
         try {
             int courseId = Integer.parseInt(courseIdStr);
-            Course course = courseService.getCourse(courseId);
+            Course course = courseService.findCourseById(courseId);
 
             if (user != null) {
                 UserCourseStatus userCourseStatus = courseService.takeUserCourseStatus(user.getId(), courseId);

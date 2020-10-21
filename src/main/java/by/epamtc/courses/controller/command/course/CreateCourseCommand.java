@@ -43,7 +43,7 @@ public class CreateCourseCommand implements Command {
             Course course = courseBuilder.createCourseFromParams(parameters);
 
             try {
-                courseService.createNew(course);
+                courseService.create(course);
 
                 LOGGER.debug("Creation of course is successful " + course.getSummary());
 

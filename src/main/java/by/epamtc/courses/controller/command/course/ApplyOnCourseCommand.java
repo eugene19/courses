@@ -32,7 +32,7 @@ public class ApplyOnCourseCommand implements Command {
 
         try {
             int courseId = Integer.parseInt(courseIdStr);
-            courseService.enterUserOnCourse(user.getId(), courseId);
+            courseService.enterStudentOnCourse(user.getId(), courseId);
 
             LOGGER.debug("User applied on course successful");
 
