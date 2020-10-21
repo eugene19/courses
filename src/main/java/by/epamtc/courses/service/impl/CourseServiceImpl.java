@@ -39,7 +39,7 @@ public class CourseServiceImpl implements CourseService {
             List<Course> courses = courseDao.findAllCoursesWithResultsForStudent(userId);
 
             for (Course course : courses) {
-                CourseResult courseResult = courseResultDao.getCourseResultForUserByCourse(userId, course.getId());
+                CourseResult courseResult = courseResultDao.takeCourseResult(userId, course.getId());
 
                 coursesWithResults.put(course, courseResult);
             }

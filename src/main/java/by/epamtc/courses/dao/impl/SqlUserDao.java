@@ -91,7 +91,6 @@ public class SqlUserDao implements UserDao {
     public Map<User, UserCourseStatus> findStudentsOnCourseWithStatus(int courseId,
                                                                       UserCourseStatus status
     ) throws DaoException {
-        // TODO: 10/21/20 Переделать Мар в обычный лист, т.к. в мапе значение не нужное
         Map<User, UserCourseStatus> users = new LinkedHashMap<>();
 
         Connection connection = null;

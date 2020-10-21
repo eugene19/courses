@@ -10,16 +10,17 @@ import java.sql.*;
 
 public class SqlCourseResultDao implements CourseResultDao {
 
-    private static final String GET_COURSE_RESULT_FOR_USER = "SELECT course_results.id, mark, comment " +
-            "FROM course_results " +
-            "JOIN user_courses ON course_results.id = user_courses.course_result_id " +
+    private static final String GET_COURSE_RESULT = "SELECT cr.id, mark, comment " +
+            "FROM course_results cr " +
+            "JOIN user_courses uc ON cr.id = uc.course_result_id " +
             "WHERE user_id = ? " +
             "AND course_id = ?;";
 
-    private static final String INSERT_COURSE_RESULT = "INSERT INTO course_results (mark, comment) " +
+    private static final String CREATE_COURSE_RESULT = "INSERT INTO course_results (mark, comment) " +
             "VALUES (?, ?);";
 
-    private static final String INSERT_COURSE_RESULT_ID = "UPDATE user_courses SET course_result_id = ? " +
+    private static final String UPDATE_COURSE_RESULT_ID = "UPDATE user_courses " +
+            "SET course_result_id = ? " +
             "WHERE user_id = ? " +
             "AND course_id = ?;";
 
@@ -33,7 +34,37 @@ public class SqlCourseResultDao implements CourseResultDao {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public CourseResult getCourseResultForUserByCourse(int userId, int courseId) throws DaoException {
+    public void setCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(CREATE_COURSE_RESULT, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, mark);
+            preparedStatement.setString(2, comment);
+
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (!generatedKeys.next()) {
+                throw new DaoException("Error of creation course result, no ID obtained");
+            }
+
+            int idCourseResult = generatedKeys.getInt(1);
+            insertCourseResult(idCourseResult, studentId, courseId, connection);
+            connection.commit();
+        } catch (SQLException | ConnectionPoolException e) {
+            connectionPool.rollback(connection);
+            throw new DaoException("Error while creation course result", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public CourseResult takeCourseResult(int userId, int courseId) throws DaoException {
         CourseResult courseResult = null;
 
         Connection connection = null;
@@ -42,54 +73,21 @@ public class SqlCourseResultDao implements CourseResultDao {
 
         try {
             connection = connectionPool.takeConnection();
-            statement = connection.prepareStatement(GET_COURSE_RESULT_FOR_USER);
+            statement = connection.prepareStatement(GET_COURSE_RESULT);
             statement.setInt(1, userId);
             statement.setInt(2, courseId);
 
             resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 courseResult = createCourseResult(resultSet);
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get courseResult by id: " + courseId, e);
+            throw new DaoException("Error while get course result", e);
         } finally {
             connectionPool.closeConnection(connection, statement, resultSet);
         }
 
         return courseResult;
-    }
-
-    @Override
-    public void setCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            connection.setAutoCommit(false);
-            preparedStatement = connection.prepareStatement(INSERT_COURSE_RESULT, Statement.RETURN_GENERATED_KEYS);
-
-            preparedStatement.setInt(1, mark);
-            preparedStatement.setString(2, comment);
-
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new DaoException("Error of creation course result, no rows affected");
-            }
-
-            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int idCourseResult = generatedKeys.getInt(1);
-                insertCourseResult(idCourseResult, studentId, courseId, connection);
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            connectionPool.rollback(connection);
-            throw new DaoException("Error while creation course result", e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement);
-        }
     }
 
     @Override
@@ -118,7 +116,7 @@ public class SqlCourseResultDao implements CourseResultDao {
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement(INSERT_COURSE_RESULT_ID);
+            preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT_ID);
             preparedStatement.setInt(1, courseResultId);
             preparedStatement.setInt(2, studentId);
             preparedStatement.setInt(3, courseId);

@@ -58,6 +58,7 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "WHERE c.id = ?;";
 
+    // TODO: 10/21/20 Заменить на 1 команду (с джоином)
     private static final String UPDATE_COURSE = "UPDATE courses " +
             "SET summary = ?, description = ?, students_limit = ? " +
             "WHERE id = ?;";

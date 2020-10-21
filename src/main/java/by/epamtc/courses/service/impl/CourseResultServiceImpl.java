@@ -24,7 +24,7 @@ public class CourseResultServiceImpl implements CourseResultService {
     @Override
     public CourseResult getCourseResultForUserByCourse(int userId, int courseId) throws ServiceException {
         try {
-            return courseResultDao.getCourseResultForUserByCourse(userId, courseId);
+            return courseResultDao.takeCourseResult(userId, courseId);
         } catch (DaoException e) {
             LOGGER.error("Error while get course result for user by course", e);
             throw new ServiceException(e);
@@ -34,7 +34,7 @@ public class CourseResultServiceImpl implements CourseResultService {
     @Override
     public void setCourseResult(int studentId, int courseId, int mark, String comment) throws ServiceException {
         try {
-            CourseResult courseResultForUserByCourse = courseResultDao.getCourseResultForUserByCourse(studentId, courseId);
+            CourseResult courseResultForUserByCourse = courseResultDao.takeCourseResult(studentId, courseId);
 
             if (courseResultForUserByCourse == null) {
                 courseResultDao.setCourseResult(studentId, courseId, mark, comment);
