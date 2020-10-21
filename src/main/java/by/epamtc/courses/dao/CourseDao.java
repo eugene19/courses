@@ -8,25 +8,25 @@ import java.util.List;
 
 public interface CourseDao {
 
-    List<Course> takeAllCourses() throws DaoException;
+    void addStudentApplicationOnCourse(int userId, int courseId) throws DaoException;
 
-    List<Course> takeCoursesWithStatus(CourseStatus status) throws DaoException;
+    void create(Course course) throws DaoException;
 
-    void createNew(Course course) throws DaoException;
+    List<Course> findAllCourses() throws DaoException;
 
-    Course getCourse(int courseId) throws DaoException;
+    List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException;
+
+    Course findCourseById(int courseId) throws DaoException;
+
+    List<Course> findAllCoursesWithResultsForStudent(int userId) throws DaoException;
+
+    void leaveStudentFromCourse(int userId, int courseId) throws DaoException;
+
+    UserCourseStatus takeUserCourseStatus(int userId, int courseId) throws DaoException;
 
     void update(Course course) throws DaoException;
 
-    void enterUserOnCourse(int userId, int courseId) throws DaoException;
-
-    void leaveUserFromCourse(int userId, int courseId) throws DaoException;
-
-    UserCourseStatus getUserCourseStatus(int userId, int courseId) throws DaoException;
-
-    void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
-
     void updateCourseMaterialPath(int courseId, String fileName) throws DaoException;
 
-    List<Course> takeCoursesForEnterStudent(int userId) throws DaoException;
+    void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
 }

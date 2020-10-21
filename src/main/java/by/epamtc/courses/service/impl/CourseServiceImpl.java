@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> takeAllCourses() throws ServiceException {
         try {
-            return courseDao.takeAllCourses();
+            return courseDao.findAllCourses();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -36,7 +36,7 @@ public class CourseServiceImpl implements CourseService {
         Map<Course, CourseResult> coursesWithResults = new HashMap<>();
 
         try {
-            List<Course> courses = courseDao.takeCoursesForEnterStudent(userId);
+            List<Course> courses = courseDao.findAllCoursesWithResultsForStudent(userId);
 
             for (Course course : courses) {
                 CourseResult courseResult = courseResultDao.getCourseResultForUserByCourse(userId, course.getId());
@@ -53,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> takeCoursesWithStatus(CourseStatus status) throws ServiceException {
         try {
-            return courseDao.takeCoursesWithStatus(status);
+            return courseDao.findCoursesWithStatus(status);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -75,7 +75,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void createNew(Course course) throws ServiceException {
         try {
-            courseDao.createNew(course);
+            courseDao.create(course);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -84,7 +84,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course getCourse(int courseId) throws ServiceException {
         try {
-            return courseDao.getCourse(courseId);
+            return courseDao.findCourseById(courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -102,9 +102,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void enterUserOnCourse(int userId, int courseId) throws ServiceException {
         try {
-            UserCourseStatus userCourseStatus = courseDao.getUserCourseStatus(userId, courseId);
+            UserCourseStatus userCourseStatus = courseDao.takeUserCourseStatus(userId, courseId);
             if (userCourseStatus == null) {
-                courseDao.enterUserOnCourse(userId, courseId);
+                courseDao.addStudentApplicationOnCourse(userId, courseId);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -114,7 +114,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void leaveUserFromCourse(int userId, int courseId) throws ServiceException {
         try {
-            courseDao.leaveUserFromCourse(userId, courseId);
+            courseDao.leaveStudentFromCourse(userId, courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -123,7 +123,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException {
         try {
-            return courseDao.getUserCourseStatus(userId, courseId);
+            return courseDao.takeUserCourseStatus(userId, courseId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     public Map<User, UserCourseStatus> takeUsersOnCourse(int courseId) throws ServiceException {
         try {
             CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
-            Course course = courseDao.getCourse(courseId);
+            Course course = courseDao.findCourseById(courseId);
             CourseStatus status = course.getStatus();
 
             if (status == CourseStatus.NOT_STARTED) {
