@@ -1,6 +1,6 @@
 package by.epamtc.courses.entity;
 
-public abstract class ParameterName {
+public final class ParameterName {
     // general parameters
     public static final String COMMAND = "command";
     public static final String CHARSET = "charset";

@@ -5,7 +5,7 @@ package by.epamtc.courses;
  *
  * @author DEA
  */
-public class URLConstant {
+public final class URLConstant {
     public static final String START_PARAMETERS = "?";
     public static final String KEY_VALUE_SEPARATOR = "=";
     public static final String PARAMETERS_SEPARATOR = "&";

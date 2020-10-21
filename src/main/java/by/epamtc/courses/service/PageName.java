@@ -4,7 +4,7 @@ import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
 
-public abstract class PageName {
+public final class PageName {
     public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
     public static final String ADD_COURSE_PAGE = "WEB-INF/jsp/course/add_course.jsp";
     public static final String CONTACT_PAGE = "WEB-INF/jsp/contact.jsp";
