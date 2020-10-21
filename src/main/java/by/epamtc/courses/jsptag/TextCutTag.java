@@ -5,12 +5,24 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 
+/**
+ * Class implements custom tag for cutting long text
+ *
+ * @author DEA
+ */
 public class TextCutTag extends TagSupport {
     private static final long serialVersionUID = 254400180801394636L;
 
     private static final String ELLIPSIS = "...";
 
+    /**
+     * Field which contains original text
+     */
     private String text;
+
+    /**
+     * Field which contains maximal length of outgoing text
+     */
     private int maxLength;
 
     public String getText() {
@@ -29,6 +41,12 @@ public class TextCutTag extends TagSupport {
         this.maxLength = maxLength;
     }
 
+    /**
+     * Trims with ellipsis if the source text is longer than the maximum length
+     *
+     * @return Integer value characterizing further action with the body of the custom tag
+     * @throws JspException - if an error occurred while processing this tag
+     */
     @Override
     public int doStartTag() throws JspException {
         JspWriter out = pageContext.getOut();
