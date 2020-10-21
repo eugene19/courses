@@ -32,19 +32,19 @@ public class CourseDetailsPageCommand implements Command {
             Course course = courseService.getCourse(courseId);
 
             if (user != null) {
-                UserCourseStatus userCourseStatus = courseService.getUserCourseStatus(user.getId(), courseId);
+                UserCourseStatus userCourseStatus = courseService.takeUserCourseStatus(user.getId(), courseId);
                 req.setAttribute(ParameterName.USER_COURSE_STATUS, userCourseStatus);
 
-                Map<User, UserCourseStatus> studentsOfCourse = userService.takeUsersOnCourse(courseId);
+                Map<User, UserCourseStatus> studentsOfCourse = userService.findUsersOnCourse(courseId);
                 req.setAttribute(ParameterName.USERS_ON_COURSE, studentsOfCourse);
             }
 
             req.setAttribute(ParameterName.COURSE, course);
 
-            User lecturer = userService.getUserById(course.getLecturerId());
+            User lecturer = userService.findUserById(course.getLecturerId());
             req.setAttribute(ParameterName.LECTURER, lecturer);
 
-            int countEnteredUsers = userService.countEnteredUsersOnCourse(courseId);
+            int countEnteredUsers = userService.countStudentsOnCourseInStatus(courseId, UserCourseStatus.ENTERED);
             req.setAttribute(ParameterName.COUNT_ENTERED_USERS, countEnteredUsers);
 
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);

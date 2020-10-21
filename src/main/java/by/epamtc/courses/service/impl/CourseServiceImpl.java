@@ -121,7 +121,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException {
+    public UserCourseStatus takeUserCourseStatus(int userId, int courseId) throws ServiceException {
         try {
             return courseDao.takeUserCourseStatus(userId, courseId);
         } catch (DaoException e) {

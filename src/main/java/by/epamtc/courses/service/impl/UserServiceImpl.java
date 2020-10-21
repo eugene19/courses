@@ -1,6 +1,5 @@
 package by.epamtc.courses.service.impl;
 
-import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
@@ -22,6 +21,17 @@ public class UserServiceImpl implements UserService {
     public User authenticate(String login, String password) throws ServiceException {
         try {
             return userDao.authenticate(login, password);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int countStudentsOnCourseInStatus(int courseId, UserCourseStatus status) throws ServiceException {
+        try {
+            return userDao
+                    .findStudentsOnCourseWithStatus(courseId, status)
+                    .size();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -84,17 +94,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<User, UserCourseStatus> takeUsersOnCourse(int courseId) throws ServiceException {
+    public Map<User, UserCourseStatus> findUsersOnCourse(int courseId) throws ServiceException {
         try {
-            CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
-            Course course = courseDao.findCourseById(courseId);
+            CourseService courseService = ServiceProvider.getInstance().getCourseService();
+            Course course = courseService.getCourse(courseId);
             CourseStatus status = course.getStatus();
 
-            if (status == CourseStatus.NOT_STARTED) {
-                return userDao.findAllStudentsOnCourse(courseId);
-            }
-
-            return userDao.findStudentsOnCourseWithStatus(courseId, UserCourseStatus.ENTERED);
+            return (status == CourseStatus.NOT_STARTED) ?
+                    userDao.findAllStudentsOnCourse(courseId) :
+                    userDao.findStudentsOnCourseWithStatus(courseId, UserCourseStatus.ENTERED);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -105,12 +113,9 @@ public class UserServiceImpl implements UserService {
         if (status == UserCourseStatus.ENTERED) {
             CourseService courseService = ServiceProvider.getInstance().getCourseService();
             Course course = courseService.getCourse(courseId);
-            int studentsLimit = course.getStudentsLimit();
+            int enteredUsers = countStudentsOnCourseInStatus(courseId, UserCourseStatus.ENTERED);
 
-            Map<User, UserCourseStatus> usersOnCourse = takeUsersOnCourse(courseId);
-            int enteredUsers = countEnteredUsers(usersOnCourse);
-
-            if (enteredUsers >= studentsLimit) {
+            if (enteredUsers >= course.getStudentsLimit()) {
                 return false;
             }
         }
@@ -124,34 +129,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(int userId) throws ServiceException {
+    public User findUserById(int userId) throws ServiceException {
         try {
             return userDao.findUserById(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-    }
-
-    @Override
-    public int countEnteredUsersOnCourse(int courseId) throws ServiceException {
-        try {
-            Map<User, UserCourseStatus> enteredUserOnCourse = userDao.findStudentsOnCourseWithStatus(courseId, UserCourseStatus.ENTERED);
-            return enteredUserOnCourse.size();
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    private int countEnteredUsers(Map<User, UserCourseStatus> usersOnCourse) {
-        int count = 0;
-
-        for (Map.Entry<User, UserCourseStatus> entrySet : usersOnCourse.entrySet()) {
-            UserCourseStatus status = entrySet.getValue();
-            if (status == UserCourseStatus.ENTERED) {
-                count++;
-            }
-        }
-
-        return count;
     }
 }

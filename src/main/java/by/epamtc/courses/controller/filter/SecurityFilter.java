@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static by.epamtc.courses.controller.command.CommandName.*;
+
 public class SecurityFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(SecurityFilter.class);
 
@@ -23,28 +25,28 @@ public class SecurityFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         // pages command
-        authorizationMap.put(CommandName.GET_ADD_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_COURSE_RESULT_PAGE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_EDIT_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_EDIT_PROFILE_PAGE, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_PROFILE_PAGE, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_STUDENTS_RESULT_PAGE, new UserRole[]{UserRole.STUDENT});
+        authorizationMap.put(GET_ADD_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(GET_COURSE_RESULT_PAGE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(GET_EDIT_COURSE_PAGE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(GET_EDIT_PROFILE_PAGE, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
+        authorizationMap.put(GET_PROFILE_PAGE, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
+        authorizationMap.put(GET_STUDENTS_RESULT_PAGE, new UserRole[]{UserRole.STUDENT});
 
         // user command
-        authorizationMap.put(CommandName.APPLY_ON_COURSE, new UserRole[]{UserRole.STUDENT});
-        authorizationMap.put(CommandName.EDIT_PROFILE, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
-        authorizationMap.put(CommandName.LEAVE_FROM_COURSE, new UserRole[]{UserRole.STUDENT});
-        authorizationMap.put(CommandName.UPLOAD_USER_PHOTO, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
+        authorizationMap.put(APPLY_ON_COURSE, new UserRole[]{UserRole.STUDENT});
+        authorizationMap.put(EDIT_PROFILE, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
+        authorizationMap.put(LEAVE_FROM_COURSE, new UserRole[]{UserRole.STUDENT});
+        authorizationMap.put(UPLOAD_USER_PHOTO, new UserRole[]{UserRole.STUDENT, UserRole.LECTURER});
 
         // course command
-        authorizationMap.put(CommandName.ADD_COURSE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.EDIT_COURSE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.FINISH_COURSE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.GET_COURSE_MATERIALS, new UserRole[]{UserRole.LECTURER, UserRole.STUDENT});
-        authorizationMap.put(CommandName.SET_COURSE_MARK, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.START_COURSE, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.UPDATE_USER_ON_COURSE_STATUS, new UserRole[]{UserRole.LECTURER});
-        authorizationMap.put(CommandName.UPLOAD_COURSE_MATERIALS, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(ADD_COURSE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(EDIT_COURSE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(FINISH_COURSE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(GET_COURSE_MATERIALS, new UserRole[]{UserRole.LECTURER, UserRole.STUDENT});
+        authorizationMap.put(SET_COURSE_MARK, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(START_COURSE, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(UPDATE_USER_ON_COURSE_STATUS, new UserRole[]{UserRole.LECTURER});
+        authorizationMap.put(UPLOAD_COURSE_MATERIALS, new UserRole[]{UserRole.LECTURER});
     }
 
     @Override

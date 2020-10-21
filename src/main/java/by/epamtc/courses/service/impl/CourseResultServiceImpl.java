@@ -11,14 +11,11 @@ import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.ServiceProvider;
 import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.CourseResultValidator;
-import org.apache.log4j.Logger;
 
 import java.util.Locale;
 import java.util.Map;
 
 public class CourseResultServiceImpl implements CourseResultService {
-    private static final Logger LOGGER = Logger.getLogger(CourseResultServiceImpl.class);
-
     private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     @Override
@@ -26,7 +23,6 @@ public class CourseResultServiceImpl implements CourseResultService {
         try {
             return courseResultDao.takeCourseResult(userId, courseId);
         } catch (DaoException e) {
-            LOGGER.error("Error while get course result for user by course", e);
             throw new ServiceException(e);
         }
     }
@@ -49,7 +45,7 @@ public class CourseResultServiceImpl implements CourseResultService {
     @Override
     public boolean checkAllStudentHasResult(int courseId) throws ServiceException {
         UserService userService = ServiceProvider.getInstance().getUserService();
-        Map<User, UserCourseStatus> userOnCourse = userService.takeUsersOnCourse(courseId);
+        Map<User, UserCourseStatus> userOnCourse = userService.findUsersOnCourse(courseId);
 
         for (Map.Entry<User, UserCourseStatus> userCourse : userOnCourse.entrySet()) {
             int userId = userCourse.getKey().getId();

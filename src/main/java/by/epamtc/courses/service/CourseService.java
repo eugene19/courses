@@ -29,7 +29,7 @@ public interface CourseService {
 
     void leaveUserFromCourse(int userId, int courseId) throws ServiceException;
 
-    UserCourseStatus getUserCourseStatus(int userId, int courseId) throws ServiceException;
+    UserCourseStatus takeUserCourseStatus(int userId, int courseId) throws ServiceException;
 
     void updateStatus(int courseId, CourseStatus courseStatus) throws ServiceException;
 

@@ -52,7 +52,7 @@ public class GetCourseMaterialsCommand implements Command {
             int courseId = Integer.parseInt(courseIdStr);
             int lecturerId = Integer.parseInt(lecturerIdStr);
 
-            Map<User, UserCourseStatus> usersOnCourse = userService.takeUsersOnCourse(courseId);
+            Map<User, UserCourseStatus> usersOnCourse = userService.findUsersOnCourse(courseId);
             if (!usersOnCourse.containsKey(user) && user.getId() != lecturerId) {
                 resp.sendError(ERROR_PERMISSION_DENIED);
                 return;
