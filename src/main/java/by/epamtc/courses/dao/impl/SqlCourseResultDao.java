@@ -30,7 +30,7 @@ public class SqlCourseResultDao implements CourseResultDao {
             "WHERE uc.user_id = ? " +
             "AND uc.course_id = ?;";
 
-    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public CourseResult getCourseResultForUserByCourse(int userId, int courseId) throws DaoException {

@@ -91,10 +91,10 @@ public class UserServiceImpl implements UserService {
             CourseStatus status = course.getStatus();
 
             if (status == CourseStatus.NOT_STARTED) {
-                return userDao.takeUsersOnCourse(courseId);
+                return userDao.findAllStudentsOnCourse(courseId);
             }
 
-            return userDao.getEnteredUserOnCourse(courseId);
+            return userDao.findStudentsOnCourseWithStatus(courseId, UserCourseStatus.ENTERED);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -116,7 +116,8 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-            return userDao.updateUserCourseStatus(userId, courseId, status);
+            userDao.updateUserCourseStatus(userId, courseId, status);
+            return true;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -125,7 +126,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(int userId) throws ServiceException {
         try {
-            return userDao.getUserById(userId);
+            return userDao.findUserById(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -134,7 +135,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int countEnteredUsersOnCourse(int courseId) throws ServiceException {
         try {
-            Map<User, UserCourseStatus> enteredUserOnCourse = userDao.getEnteredUserOnCourse(courseId);
+            Map<User, UserCourseStatus> enteredUserOnCourse = userDao.findStudentsOnCourseWithStatus(courseId, UserCourseStatus.ENTERED);
             return enteredUserOnCourse.size();
         } catch (DaoException e) {
             throw new ServiceException(e);

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlCourseDao implements CourseDao {
-    private static final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private static final String GET_ALL_COURSES = "SELECT courses.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
@@ -81,6 +80,8 @@ public class SqlCourseDao implements CourseDao {
 
     private static final String UPDATE_COURSE_MATERIAL_PATH = "UPDATE courses SET materials_path = ? " +
             "WHERE id = ?;";
+
+    private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
     public List<Course> takeAllCourses() throws DaoException {

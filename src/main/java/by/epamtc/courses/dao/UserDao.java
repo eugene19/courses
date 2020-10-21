@@ -10,15 +10,15 @@ public interface UserDao {
 
     User authenticate(String login, String password) throws DaoException;
 
+    Map<User, UserCourseStatus> findAllStudentsOnCourse(int courseId) throws DaoException;
+
+    Map<User, UserCourseStatus> findStudentsOnCourseWithStatus(int courseId, UserCourseStatus userStatus) throws DaoException;
+
+    User findUserById(int userId) throws DaoException;
+
     void register(UserAuthData user) throws DaoException;
 
-    boolean update(User user) throws DaoException;
+    void update(User user) throws DaoException;
 
-    Map<User, UserCourseStatus> takeUsersOnCourse(int courseId) throws DaoException;
-
-    Map<User, UserCourseStatus> getEnteredUserOnCourse(int courseId) throws DaoException;
-
-    boolean updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws DaoException;
-
-    User getUserById(int userId) throws DaoException;
+    void updateUserCourseStatus(int userId, int courseId, UserCourseStatus status) throws DaoException;
 }
