@@ -25,18 +25,38 @@ public class TextCutTag extends TagSupport {
      */
     private int maxLength;
 
+    /**
+     * Getting original text
+     *
+     * @return original text
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Set new original text
+     *
+     * @param text new original text
+     */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * Getting max length of text
+     *
+     * @return max length of text
+     */
     public int getMaxLength() {
         return maxLength;
     }
 
+    /**
+     * Set new max length of text
+     *
+     * @param maxLength max length of text
+     */
     public void setMaxLength(int maxLength) {
         this.maxLength = maxLength;
     }
