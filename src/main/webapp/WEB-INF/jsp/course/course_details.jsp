@@ -127,7 +127,7 @@
             <fmt:message bundle="${bundle}" key="user.role.lecturer"
                          var="lecturer_summary"/>
             <div class="container-fluid">
-                <h5 class="h5 mb-5 font-weight-normal pl-5">${lecturer_summary}</h5>
+                <h5 class="h5 mb-5 font-weight-normal pl-4">${lecturer_summary}</h5>
             </div>
             <div class="container-fluid">
                 <div class="card" style="width: 18rem;">
