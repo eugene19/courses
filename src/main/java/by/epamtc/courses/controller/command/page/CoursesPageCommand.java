@@ -18,11 +18,27 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Class implementing action of opening 'Courses list' page
+ *
+ * @author DEA
+ */
 public class CoursesPageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(CoursesPageCommand.class);
 
+    /**
+     * Course service instance
+     */
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
+    /**
+     * Implementation of action to open 'Courses list' page
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Opening courses page");
@@ -31,7 +47,7 @@ public class CoursesPageCommand implements Command {
             List<Course> courses = courseService.findAllCourses();
             req.setAttribute(ParameterName.COURSE_LIST, courses);
         } catch (ServiceException e) {
-            LOGGER.error("Error when get all courses: ", e);
+            LOGGER.error("Error when get all courses", e);
 
             Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);

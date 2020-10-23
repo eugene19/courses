@@ -12,9 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Class implementing action of opening 'Login' page
+ *
+ * @author DEA
+ */
 public class LoginPageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(LoginPageCommand.class);
 
+    /**
+     * Implementation of action to open 'Login' page
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();

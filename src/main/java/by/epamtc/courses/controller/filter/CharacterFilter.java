@@ -13,7 +13,7 @@ import java.io.IOException;
 public class CharacterFilter implements Filter {
 
     /**
-     * Field containing value of charset
+     * Field containing name of charset
      */
     private String charset;
 

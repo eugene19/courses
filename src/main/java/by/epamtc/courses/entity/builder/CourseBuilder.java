@@ -7,8 +7,19 @@ import by.epamtc.courses.entity.ParameterName;
 import java.time.LocalDate;
 import java.util.Map;
 
+/**
+ * Class for creation Course entity
+ *
+ * @author DEA
+ */
 public class CourseBuilder {
 
+    /**
+     * Create <code>Course</code> entity from request's parameters
+     *
+     * @param parameters request's parameters from client
+     * @return <code>Course</code> entity
+     */
     public Course createCourseFromParams(final Map<String, String[]> parameters) {
         Course course = new Course();
 

@@ -17,11 +17,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * Class implementing adding of student's application on course
+ *
+ * @author DEA
+ */
 public class ApplyOnCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(ApplyOnCourseCommand.class);
 
+    /**
+     * Course service instance
+     */
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
+    /**
+     * Implementation of 'Add student's application on course' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("User try to apply on course");

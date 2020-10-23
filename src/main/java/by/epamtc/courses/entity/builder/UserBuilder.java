@@ -8,8 +8,19 @@ import by.epamtc.courses.entity.UserRole;
 import java.time.LocalDate;
 import java.util.Map;
 
+/**
+ * Class for creation User entity
+ *
+ * @author DEA
+ */
 public class UserBuilder {
 
+    /**
+     * Create <code>UserAuthData</code> entity from request's parameters
+     *
+     * @param parameters request's parameters from client
+     * @return <code>UserAuthData</code> entity
+     */
     public UserAuthData createUserDataFromParams(final Map<String, String[]> parameters) {
         User user = createUserFromParams(parameters);
         UserAuthData userAuthData = new UserAuthData(user);
@@ -27,6 +38,12 @@ public class UserBuilder {
         return userAuthData;
     }
 
+    /**
+     * Create <code>User</code> entity from request's parameters
+     *
+     * @param parameters request's parameters from client
+     * @return <code>User</code> entity
+     */
     public User createUserFromParams(final Map<String, String[]> parameters) {
         User user = new User();
 

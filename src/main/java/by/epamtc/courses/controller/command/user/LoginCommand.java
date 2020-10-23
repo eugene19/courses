@@ -19,11 +19,27 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class implementing authorization of client
+ *
+ * @author DEA
+ */
 public class LoginCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
 
+    /**
+     * User service instance
+     */
     private UserService userService = ServiceProvider.getInstance().getUserService();
 
+    /**
+     * Implementation of 'Log in' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();

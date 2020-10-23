@@ -20,14 +20,37 @@ import java.net.URLEncoder;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class implementing getting course's materials
+ *
+ * @author DEA
+ */
 public class GetCourseMaterialsCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(GetCourseMaterialsCommand.class);
 
+    /**
+     * Field containing code of status http 'permission denied' error response
+     */
     private static final int ERROR_PERMISSION_DENIED = 403;
+
+    /**
+     * Field containing charset of parameters in url
+     */
     private static final String PARAM_VALUES_CHARSET = "UTF-8";
 
+    /**
+     * Course service instance
+     */
     private UserService userService = ServiceProvider.getInstance().getUserService();
 
+    /**
+     * Implementation of 'Get course's materials' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try to get courses materials");

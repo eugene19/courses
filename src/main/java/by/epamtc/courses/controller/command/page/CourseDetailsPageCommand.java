@@ -14,12 +14,32 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Class implementing action of opening 'Course details' page
+ *
+ * @author DEA
+ */
 public class CourseDetailsPageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(CourseDetailsPageCommand.class);
 
+    /**
+     * Course service instance
+     */
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+
+    /**
+     * User service instance
+     */
     private UserService userService = ServiceProvider.getInstance().getUserService();
 
+    /**
+     * Implementation of action to open 'Course details' page
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Opening course detail page");
@@ -49,6 +69,7 @@ public class CourseDetailsPageCommand implements Command {
 
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);
         } catch (NumberFormatException | ServiceException e) {
+            // TODO: 10/23/20 возможно стоит сделать редирект на список курсов
             throw new ServletException("Error while getting course with id " + courseIdStr);
         }
     }

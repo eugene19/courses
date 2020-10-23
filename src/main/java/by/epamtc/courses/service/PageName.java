@@ -5,7 +5,7 @@ import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.ParameterName;
 
 /**
- * Enum containing path to jsp pages
+ * Class containing path to jsp pages
  *
  * @author DEA
  */

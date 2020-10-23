@@ -22,12 +22,32 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class implementing adding of course
+ *
+ * @author DEA
+ */
 public class CreateCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(CreateCourseCommand.class);
 
+    /**
+     * Course service instance
+     */
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+
+    /**
+     * Course builder instance
+     */
     private CourseBuilder courseBuilder = BuilderProvider.getInstance().getCourseBuilder();
 
+    /**
+     * Implementation of 'Add course' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try create course");
@@ -39,32 +59,31 @@ public class CreateCourseCommand implements Command {
 
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);
 
-        if (validationError.isEmpty()) {
-            Course course = courseBuilder.createCourseFromParams(parameters);
-
-            try {
-                courseService.create(course);
-
-                LOGGER.debug("Creation of course is successful " + course.getSummary());
-
-                resp.sendRedirect(PageName.COURSES_URL
-                        + URLConstant.PARAMETERS_SEPARATOR
-                        + ParameterName.IS_CREATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
-                return;
-            } catch (ServiceException e) {
-                LOGGER.error("Creation of course error" + e.getMessage(), e);
-
-                req.setAttribute(ParameterName.INIT, parameters);
-                req.setAttribute(ParameterName.ERROR,
-                        resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
-            }
-        } else {
+        if (!validationError.isEmpty()) {
             LOGGER.warn("Creation of course canceled because course's data is invalid");
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
+            req.getRequestDispatcher(PageName.ADD_COURSE_PAGE).forward(req, resp);
+            return;
         }
+        Course course = courseBuilder.createCourseFromParams(parameters);
 
-        req.getRequestDispatcher(PageName.ADD_COURSE_PAGE).forward(req, resp);
+        try {
+            courseService.create(course);
+
+            LOGGER.debug("Creation of course is successful " + course.getSummary());
+
+            resp.sendRedirect(PageName.COURSES_URL
+                    + URLConstant.PARAMETERS_SEPARATOR
+                    + ParameterName.IS_CREATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
+        } catch (ServiceException e) {
+            LOGGER.error("Creation of course error" + e.getMessage(), e);
+
+            req.setAttribute(ParameterName.INIT, parameters);
+            req.setAttribute(ParameterName.ERROR,
+                    resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
+            req.getRequestDispatcher(PageName.ADD_COURSE_PAGE).forward(req, resp);
+        }
     }
 }

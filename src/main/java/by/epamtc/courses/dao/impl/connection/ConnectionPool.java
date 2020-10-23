@@ -9,19 +9,57 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
+/**
+ * Class for storing connections
+ *
+ * @author DEA
+ */
 public final class ConnectionPool {
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
+    /**
+     * ConnectionPool instance
+     */
     private static final ConnectionPool instance = new ConnectionPool();
 
+    /**
+     * Free connections queue
+     */
     private BlockingQueue<Connection> connectionQueue;
+
+    /**
+     * Given away connections queue
+     */
     private BlockingQueue<Connection> givenAwayConQueue;
+
+    /**
+     * Name of DB
+     */
     private String driverName;
+
+    /**
+     * URL of DB
+     */
     private String url;
+
+    /**
+     * User name from DB
+     */
     private String user;
+
+    /**
+     * User passwords from DB
+     */
     private String password;
+
+    /**
+     * Count of connections in pool
+     */
     private int poolSize;
 
+    /**
+     * Construct a Connection pool
+     */
     private ConnectionPool() {
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
         this.driverName = dbResourceManager.getValue(DBParameter.DB_DRIVER);
@@ -40,10 +78,16 @@ public final class ConnectionPool {
         initPoolData();
     }
 
+    /**
+     * @return instance of ConnectionPool
+     */
     public static ConnectionPool getInstance() {
         return instance;
     }
 
+    /**
+     * Initialize all connection in the pool
+     */
     private void initPoolData() {
         try {
             Class.forName(driverName);
@@ -64,6 +108,13 @@ public final class ConnectionPool {
         }
     }
 
+    /**
+     * Return connection from pool if there is free connection
+     *
+     * @return connection from pool
+     * @throws ConnectionPoolException if an InterruptedException error has
+     *                                 occurred during the waiting of free connection
+     */
     public Connection takeConnection() throws ConnectionPoolException {
         Connection connection;
         try {
@@ -75,12 +126,19 @@ public final class ConnectionPool {
         return connection;
     }
 
+    /**
+     * Close ResultSet, Statement and Connection if they is not null
+     *
+     * @param con object of <code>Connection</code>
+     * @param st  object of <code>Statement</code>
+     * @param rs  object of <code>ResultSet</code>
+     */
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
             } catch (SQLException e) {
-                LOGGER.error("ResultSet isn't closed.");
+                LOGGER.error("ResultSet isn't closed");
             }
         }
 
@@ -88,7 +146,7 @@ public final class ConnectionPool {
             try {
                 st.close();
             } catch (SQLException e) {
-                LOGGER.error("Statement isn't closed.");
+                LOGGER.error("Statement isn't closed");
             }
         }
 
@@ -96,17 +154,23 @@ public final class ConnectionPool {
             try {
                 con.close();
             } catch (SQLException e) {
-                LOGGER.error("Connection isn't return to the pool.");
+                LOGGER.error("Connection isn't return to the pool");
             }
         }
     }
 
+    /**
+     * Close Statement and Connection if they is not null
+     *
+     * @param con object of <code>Connection</code>
+     * @param st  object of <code>Statement</code>
+     */
     public void closeConnection(Connection con, Statement st) {
         if (st != null) {
             try {
                 st.close();
             } catch (SQLException e) {
-                LOGGER.error("Statement isn't closed.");
+                LOGGER.error("Statement isn't closed");
             }
         }
 
@@ -114,11 +178,16 @@ public final class ConnectionPool {
             try {
                 con.close();
             } catch (SQLException e) {
-                LOGGER.error("Connection isn't return to the pool.");
+                LOGGER.error("Connection isn't return to the pool");
             }
         }
     }
 
+    /**
+     * Rollback changes in are made in connection
+     *
+     * @param connection object of <code>Connection</code>
+     */
     public void rollback(Connection connection) {
         if (connection != null) {
             try {
@@ -129,6 +198,12 @@ public final class ConnectionPool {
         }
     }
 
+    /**
+     * Close all connections in queue
+     *
+     * @param queue queue of connections
+     * @throws SQLException if an SQL related error has occurred during the processing
+     */
     private void closeConnectionsQueue(BlockingQueue<Connection> queue) throws SQLException {
         Connection connection;
         while ((connection = queue.poll()) != null) {
@@ -139,40 +214,66 @@ public final class ConnectionPool {
         }
     }
 
+    /**
+     * Close all connections from free and given away connections
+     */
     public void dispose() {
         clearConnectionQueue();
     }
 
+    /**
+     * Close all connections from free and given away connections
+     */
     private void clearConnectionQueue() {
         try {
             closeConnectionsQueue(connectionQueue);
             closeConnectionsQueue(givenAwayConQueue);
         } catch (SQLException e) {
-            LOGGER.error("Error closing the connection.", e);
+            LOGGER.error("Error closing the connection", e);
         }
     }
 
+    /**
+     * Class-wrapper on <code>PooledConnection</code> for work in pool
+     */
     private class PooledConnection implements Connection {
+
+        /**
+         * Instance of Connection
+         */
         private Connection connection;
 
-        public PooledConnection(Connection c) throws SQLException {
-            this.connection = c;
+        /**
+         * Construct PooledConnection above Connection
+         *
+         * @param connection instance of real connection
+         * @throws SQLException if an SQL related error has occurred during
+         *                      the processing
+         */
+        public PooledConnection(Connection connection) throws SQLException {
+            this.connection = connection;
             this.connection.setAutoCommit(true);
         }
 
+        /**
+         * Really close connection
+         *
+         * @throws SQLException if an SQL related error has occurred during
+         *                      closing connection
+         */
         public void reallyClose() throws SQLException {
             connection.close();
         }
 
-        @Override
-        public void clearWarnings() throws SQLException {
-            connection.clearWarnings();
-        }
-
+        /**
+         * Transfer connection from given away queue to free queue
+         *
+         * @throws SQLException if an SQL related error has occurred during the processing
+         */
         @Override
         public void close() throws SQLException {
             if (connection.isClosed()) {
-                throw new SQLException("Attempting to close closed connection.");
+                throw new SQLException("Attempting to close closed connection");
             }
             if (connection.isReadOnly()) {
                 connection.setReadOnly(false);
@@ -182,11 +283,16 @@ public final class ConnectionPool {
 
             if (!givenAwayConQueue.remove(this)) {
                 throw new SQLException(
-                        "Error deleting connection from the given away connections pool.");
+                        "Error deleting connection from the given away connections pool");
             }
             if (!connectionQueue.offer(this)) {
-                throw new SQLException("Error allocating connection in the pool.");
+                throw new SQLException("Error allocating connection in the pool");
             }
+        }
+
+        @Override
+        public void clearWarnings() throws SQLException {
+            connection.clearWarnings();
         }
 
         @Override

@@ -6,10 +6,25 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Class for hash some string
+ *
+ * @author DEA
+ */
 public class PasswordHasher {
     private static final Logger LOGGER = Logger.getLogger(PasswordHasher.class);
+
+    /**
+     * Field containing name of hash algorithm
+     */
     private static final String ALGORITHM_NAME = "MD5";
 
+    /**
+     * Method to hash user's password
+     *
+     * @param password original representation of password
+     * @return hashed representation of password
+     */
     public static String hashPassword(String password) {
         byte[] digest = new byte[0];
 
@@ -20,6 +35,7 @@ public class PasswordHasher {
             digest = messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {
             LOGGER.error("Wrong hash algorithm.");
+            return null;
         }
 
         BigInteger bigInt = new BigInteger(1, digest);

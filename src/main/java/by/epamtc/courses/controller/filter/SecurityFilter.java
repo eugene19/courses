@@ -24,7 +24,7 @@ public class SecurityFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(SecurityFilter.class);
 
     /**
-     * Field containing code of status http error response
+     * Field containing code of status http 'permission denied' error response
      */
     private static final int ERROR_PERMISSION_DENIED = 403;
 

@@ -21,52 +21,69 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class implementing editing of course
+ *
+ * @author DEA
+ */
 public class EditCourseCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(EditCourseCommand.class);
 
+    /**
+     * Course service instance
+     */
     private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+
+    /**
+     * Course builder instance
+     */
     private CourseBuilder courseBuilder = BuilderProvider.getInstance().getCourseBuilder();
 
+    /**
+     * Implementation of 'Edit course' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try to edit course");
-        String page;
 
         Map<String, String[]> parameters = req.getParameterMap();
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
 
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);
 
-        if (validationError.isEmpty()) {
-            Course course = courseBuilder.createCourseFromParams(parameters);
-
-            try {
-                courseService.update(course);
-
-                LOGGER.debug("Updating course successful");
-
-                String courseDetailsURL = PageName.COURSE_DETAILS_URL + course.getId();
-                resp.sendRedirect(courseDetailsURL + URLConstant.PARAMETERS_SEPARATOR
-                        + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
-                return;
-            } catch (ServiceException e) {
-                LOGGER.error("Updating course error" + e.getMessage(), e);
-
-                ResourceManager resourceManager = new ResourceManager(locale);
-
-                req.setAttribute(ParameterName.INIT, parameters);
-                req.setAttribute(ParameterName.ERROR,
-                        resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
-                page = PageName.EDIT_COURSE_PAGE;
-            }
-        } else {
+        if (!validationError.isEmpty()) {
             LOGGER.warn("Updating course canceled because course's data is invalid");
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
-            page = PageName.EDIT_COURSE_PAGE;
+            req.getRequestDispatcher(PageName.EDIT_COURSE_PAGE).forward(req, resp);
+            return;
         }
 
-        req.getRequestDispatcher(page).forward(req, resp);
+        Course course = courseBuilder.createCourseFromParams(parameters);
+
+        try {
+            courseService.update(course);
+
+            LOGGER.debug("Updating course successful");
+
+            String courseDetailsURL = PageName.COURSE_DETAILS_URL + course.getId();
+            resp.sendRedirect(courseDetailsURL + URLConstant.PARAMETERS_SEPARATOR
+                    + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
+        } catch (ServiceException e) {
+            LOGGER.error("Updating course error" + e.getMessage(), e);
+
+            ResourceManager resourceManager = new ResourceManager(locale);
+
+            req.setAttribute(ParameterName.INIT, parameters);
+            req.setAttribute(ParameterName.ERROR,
+                    resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
+            req.getRequestDispatcher(PageName.EDIT_COURSE_PAGE).forward(req, resp);
+        }
     }
 }

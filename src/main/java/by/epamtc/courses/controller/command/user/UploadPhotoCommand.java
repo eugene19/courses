@@ -21,15 +21,42 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * Class implementing add user's photo
+ *
+ * @author DEA
+ */
 public class UploadPhotoCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(UploadPhotoCommand.class);
 
+    /**
+     * Name of directory to save photo
+     */
     private static final String SAVE_DIRECTORY = "uploadFiles";
+
+    /**
+     * Empty string constant
+     */
     private static final String EMPTY_STRING = "";
+
+    /**
+     * Back slash symbol constant
+     */
     private static final String BACK_SLASH_SYMBOL = "\\";
 
+    /**
+     * User service instance
+     */
     private UserService userService = ServiceProvider.getInstance().getUserService();
 
+    /**
+     * Implementation of 'Upload user's photo' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try upload user photo");
@@ -52,7 +79,6 @@ public class UploadPhotoCommand implements Command {
 
             String fullSavePath = pathToSavePhoto(req);
             createDirIfNoExist(fullSavePath);
-
             file.write(fullSavePath + File.separator + fileName);
 
             user.setPhotoPath(fileName);
@@ -68,6 +94,12 @@ public class UploadPhotoCommand implements Command {
         }
     }
 
+    /**
+     * Make path to directory of saving photos
+     *
+     * @param req the <code>HttpServletRequest</code> object contains the client's request
+     * @return path to directory of saving photos
+     */
     private String pathToSavePhoto(HttpServletRequest req) {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(ParameterName.USER);
@@ -83,6 +115,11 @@ public class UploadPhotoCommand implements Command {
         return appPath + SAVE_DIRECTORY + File.separator + user.getId();
     }
 
+    /**
+     * Create directory if directory is not exist
+     *
+     * @param path path of directory
+     */
     private void createDirIfNoExist(String path) {
         File fileSaveDir = new File(path);
         if (!fileSaveDir.exists()) {
@@ -90,6 +127,15 @@ public class UploadPhotoCommand implements Command {
         }
     }
 
+    /**
+     * Send response to client with error and message
+     *
+     * @param req          the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp         the <code>HttpServletResponse</code> object contains response to client
+     * @param errorMessage message about error
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     private void sendErrorUploading(HttpServletRequest req, HttpServletResponse resp, String errorMessage) throws ServletException, IOException {
         req.setAttribute(ParameterName.ERROR, errorMessage);
         req.getRequestDispatcher(PageName.EDIT_PROFILE_PAGE).forward(req, resp);

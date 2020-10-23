@@ -17,14 +17,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ * Class implementing action of opening 'Course result' page
+ *
+ * @author DEA
+ */
 public class CourseResultPageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(CourseResultPageCommand.class);
 
+    /**
+     * CourseResult service instance
+     */
     private CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
 
+    /**
+     * Implementation of action to open 'Course result' page
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try set course result page");
+        LOGGER.debug("Try open course result page");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         String studentIdStr = req.getParameter(ParameterName.USER_ID);

@@ -22,12 +22,32 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class implementing editing of user's profile
+ *
+ * @author DEA
+ */
 public class EditProfileCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(EditProfileCommand.class);
 
+    /**
+     * User service instance
+     */
     private UserService userService = ServiceProvider.getInstance().getUserService();
+
+    /**
+     * User builder instance
+     */
     private UserBuilder userBuilder = BuilderProvider.getInstance().getUserBuilder();
 
+    /**
+     * Implementation of 'Edit user's profile' action
+     *
+     * @param req  the <code>HttpServletRequest</code> object contains the client's request
+     * @param resp the <code>HttpServletResponse</code> object contains response to client
+     * @throws IOException      if an I/O related error has occurred during the processing
+     * @throws ServletException if an exception occurs that interferes with operation
+     */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Try to edit user's profile");
@@ -38,34 +58,32 @@ public class EditProfileCommand implements Command {
 
         Map<String, String> validationError = userService.validateUserProfileData(parameters, locale);
 
-        if (validationError.isEmpty()) {
-            User user = userBuilder.createUserFromParams(parameters);
-
-            try {
-                userService.update(user);
-                session.setAttribute(ParameterName.USER, user);
-
-                LOGGER.debug("Updating user successful");
-
-                resp.sendRedirect(PageName.PROFILE_URL
-                        + URLConstant.PARAMETERS_SEPARATOR
-                        + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
-                return;
-            } catch (ServiceException e) {
-                LOGGER.error("Updating user's profile error", e);
-
-                ResourceManager resourceManager = new ResourceManager(locale);
-
-                req.setAttribute(ParameterName.INIT, parameters);
-                req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
-            }
-        } else {
+        if (!validationError.isEmpty()) {
             LOGGER.warn("Updating user's profile canceled because user's data is invalid");
-
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
+            req.getRequestDispatcher(PageName.EDIT_PROFILE_PAGE).forward(req, resp);
+            return;
         }
 
-        req.getRequestDispatcher(PageName.EDIT_PROFILE_PAGE).forward(req, resp);
+        try {
+            User user = userBuilder.createUserFromParams(parameters);
+            userService.update(user);
+            session.setAttribute(ParameterName.USER, user);
+
+            LOGGER.debug("Updating user successful");
+
+            resp.sendRedirect(PageName.PROFILE_URL
+                    + URLConstant.PARAMETERS_SEPARATOR
+                    + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
+        } catch (ServiceException e) {
+            LOGGER.error("Updating user's profile error", e);
+
+            ResourceManager resourceManager = new ResourceManager(locale);
+
+            req.setAttribute(ParameterName.INIT, parameters);
+            req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
+            req.getRequestDispatcher(PageName.EDIT_PROFILE_PAGE).forward(req, resp);
+        }
     }
 }

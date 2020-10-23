@@ -12,27 +12,77 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Class for checking values of <code>User</code> attributes
+ *
+ * @author DEA
+ */
 public class UserValidator {
     private static final Logger LOGGER = Logger.getLogger(UserValidator.class);
 
-    private static final String MINIMAL_DATE = "1900-01-01";
+    /**
+     * Constant containing minimal date of user's birth
+     */
+    private static final String MINIMAL_BIRTH_DATE = "1900-01-01";
 
+    /**
+     * Pattern of valid user's login
+     */
     private static final String LOGIN_PATTERN = "\\w{3,15}";
+
+    /**
+     * Pattern of valid user's password
+     */
     private static final String PASSWORD_PATTERN = "\\w{3,15}";
-    private static final String SURNAME_PATTERN = "[A-Za-zА-Яа-яЁё]{3,15}";
-    private static final String NAME_PATTERN = "[A-Za-zА-Яа-яЁё]{3,15}";
+
+    /**
+     * Pattern of valid user's surname
+     */
+    private static final String SURNAME_PATTERN = "[A-Za-zА-Яа-яЁё]{2,15}";
+
+    /**
+     * Pattern of valid user's name
+     */
+    private static final String NAME_PATTERN = "[A-Za-zА-Яа-яЁё]{2,15}";
+
+    /**
+     * Pattern of valid user's email
+     */
     private static final String EMAIL_PATTERN = "\\w{3,15}@[A-Za-z]{3,15}\\.[A-Za-z]{1,4}";
 
+    /**
+     * Request's parameters with values from client
+     */
     private Map<String, String[]> parameterMap;
+
+    /**
+     * Map containing validation errors of user's parameters.
+     * Key - name of parameter, value - validation error message
+     */
     private Map<String, String> errors;
+
+    /**
+     * Instance of <code>ResourceManager</code> which get localized messages
+     */
     private ResourceManager resourceManager;
 
+    /**
+     * Construct a UserValidator
+     *
+     * @param parameterMap request's parameters with values from client
+     * @param locale       locale of client to select translation of error messages
+     */
     public UserValidator(Map<String, String[]> parameterMap, Locale locale) {
         this.parameterMap = parameterMap;
         this.errors = new HashMap<>();
         this.resourceManager = new ResourceManager(locale);
     }
 
+    /**
+     * Check if value of login is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validateLogin() {
         String[] loginValues = parameterMap.get(ParameterName.LOGIN);
 
@@ -45,6 +95,11 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if value of password is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validatePassword() {
         String[] passwordValues = parameterMap.get(ParameterName.PASSWORD);
 
@@ -57,6 +112,11 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if value of surname is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validateSurname() {
         String[] surnameValues = parameterMap.get(ParameterName.SURNAME);
 
@@ -69,6 +129,11 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if value of name is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validateName() {
         String[] nameValues = parameterMap.get(ParameterName.NAME);
 
@@ -81,6 +146,11 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if value of email is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validateEmail() {
         String[] emailValues = parameterMap.get(ParameterName.EMAIL);
 
@@ -93,8 +163,13 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if value of birthday is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validateBirthday() {
-        LocalDate minDate = LocalDate.parse(MINIMAL_DATE);
+        LocalDate minDate = LocalDate.parse(MINIMAL_BIRTH_DATE);
         LocalDate maxDate = LocalDate.now();
 
         String[] birthdayString = parameterMap.get(ParameterName.BIRTHDAY);
@@ -120,6 +195,11 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if value of user's role is valid
+     *
+     * @return instance of validator object (this)
+     */
     public UserValidator validateRole() {
         String[] roleValues = parameterMap.get(ParameterName.ROLE);
 
@@ -137,14 +217,29 @@ public class UserValidator {
         return this;
     }
 
+    /**
+     * Check if string is empty
+     *
+     * @param line string for checking
+     * @return true if string is empty or null
+     */
     public boolean checkEmpty(String line) {
         return line == null || line.isEmpty();
     }
 
-    public boolean checkEmpty(String[] parameterValues) {
-        return parameterValues == null;
+    /**
+     * Check if string array is empty
+     *
+     * @param parameters string array for checking
+     * @return true if string array is empty or null
+     */
+    public boolean checkEmpty(String[] parameters) {
+        return parameters == null || parameters.length == 0;
     }
 
+    /**
+     * @return All errors which were found after validations
+     */
     public Map<String, String> getErrors() {
         return errors;
     }
