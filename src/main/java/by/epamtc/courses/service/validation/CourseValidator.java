@@ -2,12 +2,10 @@ package by.epamtc.courses.service.validation;
 
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.service.i18n.LocaleMessage;
-import by.epamtc.courses.service.i18n.ResourceManager;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -16,7 +14,7 @@ import java.util.Map;
  *
  * @author DEA
  */
-public class CourseValidator {
+public class CourseValidator extends AbstractValidator {
     private static final Logger LOGGER = Logger.getLogger(CourseValidator.class);
 
     /**
@@ -45,31 +43,13 @@ public class CourseValidator {
     private static final String DESCRIPTION_PATTERN = ".{3,1130}";
 
     /**
-     * Request's parameters with values from client
-     */
-    private Map<String, String[]> parameterMap;
-
-    /**
-     * Map containing validation errors of user's parameters.
-     * Key - name of parameter, value - validation error message
-     */
-    private Map<String, String> errors;
-
-    /**
-     * Instance of <code>ResourceManager</code> which get localized messages
-     */
-    private ResourceManager resourceManager;
-
-    /**
      * Construct a CourseValidator
      *
      * @param parameterMap request's parameters with values from client
      * @param locale       locale of client to select translation of error messages
      */
     public CourseValidator(Map<String, String[]> parameterMap, Locale locale) {
-        this.parameterMap = parameterMap;
-        this.errors = new HashMap<>();
-        this.resourceManager = new ResourceManager(locale);
+        super(parameterMap, locale);
     }
 
     /**
@@ -200,32 +180,5 @@ public class CourseValidator {
         }
 
         return this;
-    }
-
-    /**
-     * Check if string is empty
-     *
-     * @param line string for checking
-     * @return true if string is empty or null
-     */
-    public boolean checkEmpty(String line) {
-        return line == null || line.isEmpty();
-    }
-
-    /**
-     * Check if string array is empty
-     *
-     * @param parameters string array for checking
-     * @return true if string array is empty or null
-     */
-    public boolean checkEmpty(String[] parameters) {
-        return parameters == null || parameters.length == 0;
-    }
-
-    /**
-     * @return All errors which were found after validations
-     */
-    public Map<String, String> getErrors() {
-        return errors;
     }
 }

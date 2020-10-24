@@ -2,31 +2,49 @@ package by.epamtc.courses.service.validation;
 
 import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.service.i18n.LocaleMessage;
-import by.epamtc.courses.service.i18n.ResourceManager;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class CourseResultValidator {
+/**
+ * Class for checking values of <code>CourseResult</code> attributes
+ *
+ * @author DEA
+ */
+public class CourseResultValidator extends AbstractValidator {
     private static final Logger LOGGER = Logger.getLogger(CourseResultValidator.class);
 
+    /**
+     * Constant containing maximal allowed mark
+     */
     private static final int MAXIMAL_MARK = 10;
+
+    /**
+     * Constant containing minimal allowed mark
+     */
     private static final int MINIMAL_MARK = 0;
 
+    /**
+     * Pattern of valid comment
+     */
     private static final String COMMENT_PATTERN = ".{3,500}";
 
-    private Map<String, String[]> parameterMap;
-    private Map<String, String> errors;
-    private ResourceManager resourceManager;
-
+    /**
+     * Construct a CourseResultValidator
+     *
+     * @param parameterMap request's parameters with values from client
+     * @param locale       locale of client to select translation of error messages
+     */
     public CourseResultValidator(Map<String, String[]> parameterMap, Locale locale) {
-        this.parameterMap = parameterMap;
-        this.errors = new HashMap<>();
-        this.resourceManager = new ResourceManager(locale);
+        super(parameterMap, locale);
     }
 
+    /**
+     * Check if value of mark is valid
+     *
+     * @return instance of validator object (this)
+     */
     public CourseResultValidator validateMark() {
         String[] markValues = parameterMap.get(ParameterName.MARK);
 
@@ -48,6 +66,11 @@ public class CourseResultValidator {
         return this;
     }
 
+    /**
+     * Check if value of description is valid
+     *
+     * @return instance of validator object (this)
+     */
     public CourseResultValidator validateDescription() {
         String[] commentValues = parameterMap.get(ParameterName.COMMENT);
 
@@ -58,17 +81,5 @@ public class CourseResultValidator {
         }
 
         return this;
-    }
-
-    public boolean checkEmpty(String line) {
-        return line == null || line.isEmpty();
-    }
-
-    public boolean checkEmpty(String[] parameterValues) {
-        return parameterValues == null;
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
     }
 }
