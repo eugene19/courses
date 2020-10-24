@@ -6,27 +6,108 @@ import by.epamtc.courses.entity.UserCourseStatus;
 
 import java.util.List;
 
+/**
+ * Interface of course dao layer
+ *
+ * @author DEA
+ */
 public interface CourseDao {
 
-    void addStudentApplicationOnCourse(int userId, int courseId) throws DaoException;
+    /**
+     * Add student's application on course
+     *
+     * @param studentId id of student who apply
+     * @param courseId  id of course to apply
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    void addStudentApplicationOnCourse(int studentId, int courseId) throws DaoException;
 
+    /**
+     * Create (add) new course
+     *
+     * @param course entity of <code>Course</code> object
+     * @throws DaoException if an dao exception occurred while processing
+     */
     void create(Course course) throws DaoException;
 
+    /**
+     * Find all existing courses
+     *
+     * @return <code>List</code> of courses
+     * @throws DaoException if an dao exception occurred while processing
+     */
     List<Course> findAllCourses() throws DaoException;
 
-    List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException;
-
+    /**
+     * Find course by identifier
+     *
+     * @param courseId id of course to find
+     * @return object of <code>Course</code> entity or null if such course does not exist
+     * @throws DaoException if an dao exception occurred while processing
+     */
     Course findCourseById(int courseId) throws DaoException;
 
-    List<Course> findAllCoursesWithResultsForStudent(int userId) throws DaoException;
+    /**
+     * Find list of courses with their results as <code>Map</code>
+     * for student
+     *
+     * @param studentId id of student to find
+     * @return <code>Map</code> of courses with results for student
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    List<Course> findAllCoursesWithResultsForStudent(int studentId) throws DaoException;
 
-    void leaveStudentFromCourse(int userId, int courseId) throws DaoException;
+    /**
+     * Find list of courses of define status
+     *
+     * @param status value of status to find
+     * @return List of courses with define status
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException;
 
+    /**
+     * Left student from course
+     *
+     * @param studentId id of student to leave
+     * @param courseId  id of course from which should leave
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    void leaveStudentFromCourse(int studentId, int courseId) throws DaoException;
+
+    /**
+     * Take students status
+     *
+     * @param userId   id of student to take status
+     * @param courseId id of course to take status
+     * @return <code>UserCourseStatus</code> object which contain student's status
+     * @throws DaoException if an dao exception occurred while processing
+     */
     UserCourseStatus takeUserCourseStatus(int userId, int courseId) throws DaoException;
 
+    /**
+     * Update course's data
+     *
+     * @param course object <code>Course</code> of course to update
+     * @throws DaoException if an dao exception occurred while processing
+     */
     void update(Course course) throws DaoException;
 
-    void updateCourseMaterialPath(int courseId, String fileName) throws DaoException;
+    /**
+     * Update course's material path
+     *
+     * @param courseId id of course to update
+     * @param fileName new value of file name
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    void updateMaterialPath(int courseId, String fileName) throws DaoException;
 
+    /**
+     * Update course's status
+     *
+     * @param courseId     id of course to update
+     * @param courseStatus new value of course status
+     * @throws DaoException if an dao exception occurred while processing
+     */
     void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException;
 }

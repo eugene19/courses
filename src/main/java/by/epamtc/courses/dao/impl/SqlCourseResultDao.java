@@ -8,22 +8,31 @@ import by.epamtc.courses.entity.CourseResult;
 
 import java.sql.*;
 
+/**
+ * Implementation of course result dao layer
+ *
+ * @author DEA
+ */
 public class SqlCourseResultDao implements CourseResultDao {
 
+    /**
+     * SQL statement to get course result
+     */
     private static final String GET_COURSE_RESULT = "SELECT cr.id, mark, comment " +
             "FROM course_results cr " +
             "JOIN user_courses uc ON cr.id = uc.course_result_id " +
             "WHERE user_id = ? " +
             "AND course_id = ?;";
 
+    /**
+     * SQL statement to add new course result
+     */
     private static final String CREATE_COURSE_RESULT = "INSERT INTO course_results (mark, comment) " +
             "VALUES (?, ?);";
 
-    private static final String UPDATE_COURSE_RESULT_ID = "UPDATE user_courses " +
-            "SET course_result_id = ? " +
-            "WHERE user_id = ? " +
-            "AND course_id = ?;";
-
+    /**
+     * SQL statement to update course result
+     */
     private static final String UPDATE_COURSE_RESULT = "UPDATE course_results cr " +
             "JOIN user_courses uc " +
             "ON cr.id = uc.course_result_id " +
@@ -31,8 +40,28 @@ public class SqlCourseResultDao implements CourseResultDao {
             "WHERE uc.user_id = ? " +
             "AND uc.course_id = ?;";
 
+    /**
+     * SQL statement to update course result id
+     */
+    private static final String UPDATE_COURSE_RESULT_ID = "UPDATE user_courses " +
+            "SET course_result_id = ? " +
+            "WHERE user_id = ? " +
+            "AND course_id = ?;";
+
+    /**
+     * Instance of connection pool
+     */
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
+    /**
+     * Set student's course result
+     *
+     * @param studentId id of student whom set result
+     * @param courseId  id of course to set result
+     * @param mark      value of mark
+     * @param comment   value of comment
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public void setCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
         Connection connection = null;
@@ -63,8 +92,16 @@ public class SqlCourseResultDao implements CourseResultDao {
         }
     }
 
+    /**
+     * Take course result for some student
+     *
+     * @param studentId id of student whom take result
+     * @param courseId  id of course to take result
+     * @return student's result at course
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
-    public CourseResult takeCourseResult(int userId, int courseId) throws DaoException {
+    public CourseResult takeCourseResult(int studentId, int courseId) throws DaoException {
         CourseResult courseResult = null;
 
         Connection connection = null;
@@ -74,7 +111,7 @@ public class SqlCourseResultDao implements CourseResultDao {
         try {
             connection = connectionPool.takeConnection();
             statement = connection.prepareStatement(GET_COURSE_RESULT);
-            statement.setInt(1, userId);
+            statement.setInt(1, studentId);
             statement.setInt(2, courseId);
 
             resultSet = statement.executeQuery();
@@ -90,6 +127,15 @@ public class SqlCourseResultDao implements CourseResultDao {
         return courseResult;
     }
 
+    /**
+     * Update student's course result
+     *
+     * @param studentId id of student whom update result
+     * @param courseId  id of course to update result
+     * @param mark      value of mark
+     * @param comment   value of comment
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public void updateCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
         Connection connection = null;
@@ -112,7 +158,17 @@ public class SqlCourseResultDao implements CourseResultDao {
         }
     }
 
-    private void insertCourseResult(int courseResultId, int studentId, int courseId, Connection connection) throws SQLException {
+    /**
+     * Insert course result
+     *
+     * @param courseResultId id of new course result
+     * @param studentId      id of student whom set result
+     * @param courseId       id of course to set result
+     * @param connection     connection with DB
+     * @throws SQLException if an SQL exception occurred while processing
+     */
+    private void insertCourseResult(int courseResultId, int studentId,
+                                    int courseId, Connection connection) throws SQLException {
         PreparedStatement preparedStatement = null;
 
         try {
@@ -127,6 +183,13 @@ public class SqlCourseResultDao implements CourseResultDao {
         }
     }
 
+    /**
+     * Create <code>CourseResult</code> from result set
+     *
+     * @param resultSet result set from sql with course result's data
+     * @return <code>CourseResult</code> object from result set
+     * @throws SQLException if an SQL exception occurred while processing
+     */
     private CourseResult createCourseResult(ResultSet resultSet) throws SQLException {
         CourseResult course = new CourseResult();
 

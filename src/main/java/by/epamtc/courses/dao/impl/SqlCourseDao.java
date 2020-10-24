@@ -12,20 +12,37 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of course dao layer
+ *
+ * @author DEA
+ */
 public class SqlCourseDao implements CourseDao {
 
+    /**
+     * SQL statement to add student's application
+     */
     private static final String ADD_STUDENT_APPLY_ON_COURSE = "INSERT INTO user_courses " +
             "(user_id, course_id, user_course_status_id) " +
             "VALUES (?, ?, ?);";
 
+    /**
+     * SQL statement to add new course
+     */
     private static final String CREATE_COURSE = "INSERT INTO courses " +
             "(summary, description, students_limit, materials_path) " +
             "VALUES (?, ?, ?, ?);";
 
+    /**
+     * SQL statement to insert course's data
+     */
     private static final String INSERT_COURSE_RUN = "INSERT INTO course_runs " +
             "(course_id, start_date, end_date, lecturer_id, status_id) " +
             "VALUES (?, ?, ?, ?, ?)";
 
+    /**
+     * SQL statement to get all courses
+     */
     private static final String GET_ALL_COURSES = "SELECT c.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
@@ -33,6 +50,9 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "ORDER BY c.id DESC;";
 
+    /**
+     * SQL statement to get courses with status
+     */
     private static final String GET_COURSES_WITH_STATUS = "SELECT c.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
@@ -41,6 +61,9 @@ public class SqlCourseDao implements CourseDao {
             "WHERE cr.status_id = ? " +
             "ORDER BY c.id DESC;";
 
+    /**
+     * SQL statement to get courses for which student has result
+     */
     private static final String GET_COURSES_WITH_RESULTS_FOR_STUDENT = "SELECT c.id, summary, " +
             "description, materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
@@ -51,6 +74,9 @@ public class SqlCourseDao implements CourseDao {
             "AND user_id = ? " +
             "ORDER BY c.id DESC;";
 
+    /**
+     * SQL statement to get course by id
+     */
     private static final String GET_COURSE_BY_ID = "SELECT c.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
@@ -58,34 +84,59 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "WHERE c.id = ?;";
 
+    /**
+     * SQL statement to update course
+     */
     private static final String UPDATE_COURSE = "UPDATE courses c " +
             "JOIN course_runs cr on c.id = cr.course_id " +
             "SET summary = ?, description = ?, students_limit = ?, start_date = ?, " +
             "end_date = ?, status_id = ? " +
             "WHERE c.id = ?;";
 
+    /**
+     * SQL statement to get student's status at course
+     */
     private static final String GET_USER_COURSE_STATUS = "SELECT status " +
             "FROM user_course_statuses ucs " +
             "JOIN user_courses uc ON ucs.id = uc.user_course_status_id " +
             "WHERE uc.user_id = ? " +
             "AND uc.course_id = ?;";
 
+    /**
+     * SQL statement to leave student from course
+     */
     private static final String LEAVE_USER_FROM_COURSE = "DELETE FROM user_courses " +
             "WHERE user_id = ? " +
             "AND course_id = ?;";
 
+    /**
+     * SQL statement to update course's status
+     */
     private static final String UPDATE_COURSE_STATUS = "UPDATE course_runs " +
             "SET status_id = ? " +
             "WHERE course_id = ?;";
 
+    /**
+     * SQL statement to update course's material path
+     */
     private static final String UPDATE_COURSE_MATERIAL_PATH = "UPDATE courses " +
             "SET materials_path = ? " +
             "WHERE id = ?;";
 
+    /**
+     * Instance of connection pool
+     */
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
+    /**
+     * Add student's application on course
+     *
+     * @param studentId id of student who apply
+     * @param courseId  id of course to apply
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
-    public void addStudentApplicationOnCourse(int userId, int courseId) throws DaoException {
+    public void addStudentApplicationOnCourse(int studentId, int courseId) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -93,7 +144,7 @@ public class SqlCourseDao implements CourseDao {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(ADD_STUDENT_APPLY_ON_COURSE);
 
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(1, studentId);
             preparedStatement.setInt(2, courseId);
             preparedStatement.setInt(3, UserCourseStatus.APPLIED.getId());
 
@@ -105,6 +156,12 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Create (add) new course
+     *
+     * @param course entity of <code>Course</code> object
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public void create(Course course) throws DaoException {
         Connection connection = null;
@@ -140,6 +197,12 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Find all existing courses
+     *
+     * @return <code>List</code> of courses
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public List<Course> findAllCourses() throws DaoException {
         List<Course> courses = new ArrayList<>();
@@ -165,32 +228,13 @@ public class SqlCourseDao implements CourseDao {
         return courses;
     }
 
-    @Override
-    public List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException {
-        List<Course> courses = new ArrayList<>();
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(GET_COURSES_WITH_STATUS);
-            preparedStatement.setInt(1, status.getId());
-
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                courses.add(createCourse(resultSet));
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get courses with status " + status, e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
-        }
-
-        return courses;
-    }
-
+    /**
+     * Find course by identifier
+     *
+     * @param courseId id of course to find
+     * @return object of <code>Course</code> entity or null if such course does not exist
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public Course findCourseById(int courseId) throws DaoException {
         Course course = null;
@@ -218,8 +262,16 @@ public class SqlCourseDao implements CourseDao {
         return course;
     }
 
+    /**
+     * Find list of courses with their results as <code>Map</code>
+     * for student
+     *
+     * @param studentId id of student to find
+     * @return <code>Map</code> of courses with results for student
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
-    public List<Course> findAllCoursesWithResultsForStudent(int userId) throws DaoException {
+    public List<Course> findAllCoursesWithResultsForStudent(int studentId) throws DaoException {
         List<Course> courses = new ArrayList<>();
 
         Connection connection = null;
@@ -229,7 +281,7 @@ public class SqlCourseDao implements CourseDao {
         try {
             connection = connectionPool.takeConnection();
             statement = connection.prepareStatement(GET_COURSES_WITH_RESULTS_FOR_STUDENT);
-            statement.setInt(1, userId);
+            statement.setInt(1, studentId);
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -244,8 +296,48 @@ public class SqlCourseDao implements CourseDao {
         return courses;
     }
 
+    /**
+     * Find list of courses of define status
+     *
+     * @param status value of status to find
+     * @return List of courses with define status
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
-    public void leaveStudentFromCourse(int userId, int courseId) throws DaoException {
+    public List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException {
+        List<Course> courses = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(GET_COURSES_WITH_STATUS);
+            preparedStatement.setInt(1, status.getId());
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                courses.add(createCourse(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get courses with status " + status, e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return courses;
+    }
+
+    /**
+     * Left student from course
+     *
+     * @param studentId id of student to leave
+     * @param courseId  id of course from which should leave
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    @Override
+    public void leaveStudentFromCourse(int studentId, int courseId) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -253,7 +345,7 @@ public class SqlCourseDao implements CourseDao {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(LEAVE_USER_FROM_COURSE);
 
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(1, studentId);
             preparedStatement.setInt(2, courseId);
 
             preparedStatement.execute();
@@ -264,6 +356,14 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Take students status
+     *
+     * @param userId   id of student to take status
+     * @param courseId id of course to take status
+     * @return <code>UserCourseStatus</code> object which contain student's status
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public UserCourseStatus takeUserCourseStatus(int userId, int courseId) throws DaoException {
         UserCourseStatus userCourseStatus = null;
@@ -291,6 +391,12 @@ public class SqlCourseDao implements CourseDao {
         return userCourseStatus;
     }
 
+    /**
+     * Update course's data
+     *
+     * @param course object <code>Course</code> of course to update
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public void update(Course course) throws DaoException {
         Connection connection = null;
@@ -316,8 +422,15 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Update course's material path
+     *
+     * @param courseId id of course to update
+     * @param fileName new value of file name
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
-    public void updateCourseMaterialPath(int courseId, String fileName) throws DaoException {
+    public void updateMaterialPath(int courseId, String fileName) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
@@ -336,6 +449,13 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Update course's status
+     *
+     * @param courseId     id of course to update
+     * @param courseStatus new value of course status
+     * @throws DaoException if an dao exception occurred while processing
+     */
     @Override
     public void updateStatus(int courseId, CourseStatus courseStatus) throws DaoException {
         Connection connection = null;
@@ -356,6 +476,13 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Add new course run
+     *
+     * @param course     course's data
+     * @param connection connection with DB
+     * @throws SQLException if an SQL exception occurred while processing
+     */
     private void insertCourseRun(Course course, Connection connection) throws SQLException {
         PreparedStatement preparedStatement = null;
 
@@ -374,6 +501,13 @@ public class SqlCourseDao implements CourseDao {
         }
     }
 
+    /**
+     * Create <code>Course</code> from result set
+     *
+     * @param resultSet result set from sql with course's data
+     * @return <code>Course</code> object from result set
+     * @throws SQLException if an SQL exception occurred while processing
+     */
     private Course createCourse(ResultSet resultSet) throws SQLException {
         Course course = new Course();
 
