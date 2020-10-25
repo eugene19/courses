@@ -11,11 +11,9 @@ import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.validation.CourseValidator;
+import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Implementation of course service layer
@@ -23,6 +21,7 @@ import java.util.Map;
  * @author DEA
  */
 public class CourseServiceImpl implements CourseService {
+    private static final Logger LOGGER = Logger.getLogger(CourseServiceImpl.class);
 
     /**
      * Instance of course dao
@@ -126,19 +125,28 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * Find list of courses of define status
+     * Find list of courses of define statuses
      *
-     * @param status value of status to find
-     * @return List of courses with define status
+     * @param statuses values of status to find
+     * @return List of courses with define statuses
      * @throws ServiceException if an service exception occurred while processing
      */
     @Override
-    public List<Course> findCoursesWithStatus(CourseStatus status) throws ServiceException {
-        try {
-            return courseDao.findCoursesWithStatus(status);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+    public List<Course> findCoursesWithStatus(String[] statuses) throws ServiceException {
+        List<Course> courses = new ArrayList<>();
+
+        for (String status : statuses) {
+            try {
+                CourseStatus courseStatus = CourseStatus.valueOf(status);
+                courses.addAll(courseDao.findCoursesWithStatus(courseStatus));
+            } catch (NullPointerException | IllegalArgumentException e) {
+                LOGGER.error("Wrong status: " + status, e);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
         }
+
+        return courses;
     }
 
     /**

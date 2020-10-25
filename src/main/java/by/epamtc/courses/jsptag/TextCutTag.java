@@ -13,6 +13,9 @@ import java.io.IOException;
 public class TextCutTag extends TagSupport {
     private static final long serialVersionUID = 254400180801394636L;
 
+    /**
+     * Constant value of ellipsis when cutting long text
+     */
     private static final String ELLIPSIS = "...";
 
     /**
@@ -64,8 +67,8 @@ public class TextCutTag extends TagSupport {
     /**
      * Trims with ellipsis if the source text is longer than the maximum length
      *
-     * @return Integer value characterizing further action with the body of the custom tag
-     * @throws JspException - if an error occurred while processing this tag
+     * @return integer value characterizing further action with the body of the custom tag
+     * @throws JspException if an error occurred while processing this tag
      */
     @Override
     public int doStartTag() throws JspException {

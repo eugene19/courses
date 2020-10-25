@@ -5,6 +5,8 @@
 <head>
     <title>Courses</title>
     <%@include file="../component/link_style.jsp" %>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <%@include file="../component/header.jsp" %>
@@ -33,20 +35,25 @@
         </div>
     </c:if>
 
-    <c:if test="${user.role == 'LECTURER'}">
-        <div class="row ml-1 mb-3">
-            <a href="${pageContext.request.contextPath}/main?command=get_add_course_page">
-                <button class="btn btn-outline-primary">${create_button}</button>
-            </a>
-        </div>
-    </c:if>
-
     <%@include file="../component/alert_error.jsp" %>
 
     <%--@elvariable id="courseList" type="java.util.List"--%>
     <c:if test="${empty courseList}">
         <%@include file="../component/alert_empty_list.jsp" %>
     </c:if>
+
+    <div class="row">
+        <div class="col-11">
+            <%@include file="courses_filter.jsp" %>
+        </div>
+        <c:if test="${user.role == 'LECTURER'}">
+            <div class="col-1">
+                <a href="${pageContext.request.contextPath}/main?command=get_add_course_page">
+                    <button class="btn btn-success">${create_button}</button>
+                </a>
+            </div>
+        </c:if>
+    </div>
 
     <div class="row">
         <c:forEach var="course" items="${courseList}">

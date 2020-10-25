@@ -61,13 +61,13 @@ public interface CourseService {
     Map<Course, CourseResult> findCoursesWithResultForStudent(int studentId) throws ServiceException;
 
     /**
-     * Find list of courses of define status
+     * Find list of courses of define statuses
      *
-     * @param status value of status to find
-     * @return List of courses with define status
+     * @param statuses values of status to find
+     * @return List of courses with define statuses
      * @throws ServiceException if an service exception occurred while processing
      */
-    List<Course> findCoursesWithStatus(CourseStatus status) throws ServiceException;
+    List<Course> findCoursesWithStatus(String[] statuses) throws ServiceException;
 
     /**
      * Left student from course

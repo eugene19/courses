@@ -43,8 +43,17 @@ public class CoursesPageCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Opening courses page");
 
+        String[] statuses = req.getParameterValues(ParameterName.STATUS);
+
         try {
-            List<Course> courses = courseService.findAllCourses();
+            List<Course> courses;
+
+            if (statuses != null && statuses.length != 0) {
+                courses = courseService.findCoursesWithStatus(statuses);
+            } else {
+                courses = courseService.findAllCourses();
+            }
+
             req.setAttribute(ParameterName.COURSE_LIST, courses);
         } catch (ServiceException e) {
             LOGGER.error("Error when get all courses", e);
