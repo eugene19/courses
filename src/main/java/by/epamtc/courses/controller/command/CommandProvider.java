@@ -53,6 +53,7 @@ public final class CommandProvider {
         commands.put(ADD_COURSE, new CreateCourseCommand());
         commands.put(EDIT_COURSE, new EditCourseCommand());
         commands.put(APPLY_ON_COURSE, new ApplyOnCourseCommand());
+        commands.put(FILTER_COURSES, new FilterCoursesCommand());
         commands.put(FINISH_COURSE, new FinishCourseCommand());
         commands.put(GET_COURSE_MATERIALS, new GetCourseMaterialsCommand());
         commands.put(LEAVE_FROM_COURSE, new LeaveFromCourseCommand());

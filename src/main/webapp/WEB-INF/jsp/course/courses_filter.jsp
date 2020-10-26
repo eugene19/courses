@@ -13,8 +13,8 @@
 
 <div class="row">
     <form class="form-row pl-4" action="${pageContext.request.contextPath}/main"
-          method="get">
-        <input type="hidden" name="command" value="get_courses_page"/>
+          method="post">
+        <input type="hidden" name="command" value="filter_courses"/>
 
         <%--        FILERING--%>
 
@@ -26,29 +26,32 @@
             </div>
         </div>
 
+        <%--@elvariable id="status" type="java.lang.String[]"--%>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox"
                    id="not_started" name="status" value="NOT_STARTED"
                    onchange="submit()"
-                    <myTag:checkIfContainValue array="${paramValues['status']}"
+                    <myTag:checkIfContainValue array="${status}"
                                                findValue="NOT_STARTED"/>/>
             <label class="form-check-label"
                    for="not_started">${not_started}</label>
         </div>
+
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox"
                    id="in_progress" name="status" value="IN_PROGRESS"
                    onchange="submit()"
-                    <myTag:checkIfContainValue array="${paramValues['status']}"
+                    <myTag:checkIfContainValue array="${status}"
                                                findValue="IN_PROGRESS"/>/>
             <label class="form-check-label"
                    for="in_progress">${in_progress}</label>
         </div>
+
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox"
                    id="finished" name="status" value="FINISHED"
                    onchange="submit()"
-                    <myTag:checkIfContainValue array="${paramValues['status']}"
+                    <myTag:checkIfContainValue array="${status}"
                                                findValue="FINISHED"/>/>
             <label class="form-check-label" for="finished">${finished}</label>
         </div>
@@ -63,11 +66,12 @@
             </div>
         </div>
 
+
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="sort"
                    id="summary" value="summary" onchange="submit()" checked
-            <myTag:checkIfContainValue array="${paramValues['sort']}"
-                                       findValue="summary"/>>
+            <%--@elvariable id="sort" type="java.lang.String"--%>
+                   <c:if test="${sort eq 'summary'}">checked</c:if>>
             <label class="form-check-label"
                    for="summary">${summary_sort}</label>
         </div>
@@ -76,8 +80,7 @@
             <input class="form-check-input" type="radio"
                    name="sort" id="start_date" value="startDate"
                    onchange="submit()"
-            <myTag:checkIfContainValue array="${paramValues['sort']}"
-                                       findValue="startDate"/>>
+                   <c:if test="${sort eq 'startDate'}">checked</c:if>>
             <label class="form-check-label"
                    for="start_date">${start_date_sort}</label>
         </div>
@@ -85,8 +88,7 @@
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio"
                    name="sort" id="status" value="status" onchange="submit()"
-            <myTag:checkIfContainValue array="${paramValues['sort']}"
-                                       findValue="status"/>>
+                   <c:if test="${sort eq 'status'}">checked</c:if>>
             <label class="form-check-label"
                    for="status">${status_sort}</label>
         </div>

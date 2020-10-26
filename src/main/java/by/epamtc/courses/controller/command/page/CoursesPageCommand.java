@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
@@ -45,8 +46,9 @@ public class CoursesPageCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         LOGGER.debug("Opening courses page");
 
-        String[] statuses = req.getParameterValues(ParameterName.STATUS);
-        String sort = req.getParameter(ParameterName.SORT);
+        HttpSession session = req.getSession();
+        String[] statuses = (String[]) session.getAttribute(ParameterName.STATUS);
+        String sort = (String) session.getAttribute(ParameterName.SORT);
 
         try {
             List<Course> courses;
@@ -64,7 +66,7 @@ public class CoursesPageCommand implements Command {
         } catch (ServiceException e) {
             LOGGER.error("Error when get all courses", e);
 
-            Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
+            Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);
 
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));

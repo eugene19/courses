@@ -129,6 +129,11 @@ public enum CommandName {
     APPLY_ON_COURSE,
 
     /**
+     * Command to add filtration for courses
+     */
+    FILTER_COURSES,
+
+    /**
      * Command to finish course
      */
     FINISH_COURSE,
