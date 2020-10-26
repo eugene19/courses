@@ -47,8 +47,7 @@ public class SqlCourseDao implements CourseDao {
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
-            "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
-            "ORDER BY c.id DESC;";
+            "LEFT JOIN course_statuses cs ON cr.status_id = cs.id;";
 
     /**
      * SQL statement to get courses with status
@@ -58,8 +57,7 @@ public class SqlCourseDao implements CourseDao {
             "FROM courses c " +
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
-            "WHERE cr.status_id = ? " +
-            "ORDER BY c.id DESC;";
+            "WHERE cr.status_id = ?;";
 
     /**
      * SQL statement to get courses for which student has result
@@ -71,8 +69,7 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "LEFT JOIN user_courses uc ON c.id = uc.course_id " +
             "WHERE course_result_id IS NOT NULL " +
-            "AND user_id = ? " +
-            "ORDER BY c.id DESC;";
+            "AND user_id = ?;";
 
     /**
      * SQL statement to get course by id
