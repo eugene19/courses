@@ -50,18 +50,12 @@ public class CoursesPageCommand implements Command {
         String pageStr = req.getParameter(ParameterName.PAGE);
 
         try {
-            List<Course> courses;
             int page = (pageStr == null) ? 0 : Integer.parseInt(pageStr);
-
-            if (statuses != null && statuses.length != 0) {
-                courses = courseService.findCoursesWithStatusForPage(statuses, page, sort);
-            } else {
-                courses = courseService.findCoursesForPage(page, sort);
-            }
+            List<Course> courses = courseService.findCoursesWithStatusForPage(statuses, page, sort);
 
             req.setAttribute(ParameterName.COURSE_LIST, courses);
         } catch (ServiceException e) {
-            LOGGER.error("Error when get all courses", e);
+            LOGGER.error("Error when get courses for page " + pageStr, e);
 
             Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);

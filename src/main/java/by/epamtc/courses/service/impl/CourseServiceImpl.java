@@ -78,28 +78,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * Find courses for page
-     *
-     * @param pageNumber number of page to find courses
-     * @param sort       name of attribute to sort list if it's null then
-     *                   will be set default value
-     * @return <code>List</code> of courses
-     * @throws ServiceException if an service exception occurred while processing
-     */
-    @Override
-    public List<Course> findCoursesForPage(int pageNumber, String sort) throws ServiceException {
-        try {
-            int offset = PAGE_ITEMS_COUNT * pageNumber;
-            // if sort is null set default sort by value
-            sort = (sort == null) ? ParameterName.SUMMARY : sort;
-
-            return courseDao.findCoursesForPage(PAGE_ITEMS_COUNT, offset, sort);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    /**
      * Find course by identifier
      *
      * @param courseId id of course to find
@@ -154,12 +132,16 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> findCoursesWithStatusForPage(String[] statuses, int pageNumber,
                                                      String sort) throws ServiceException {
         int offset = PAGE_ITEMS_COUNT * pageNumber;
-        String formattedStatuses = formatValuesInLine(statuses);
         // if sort is null set default sort by value
         sort = (sort == null) ? ParameterName.SUMMARY : sort;
 
         try {
-            return courseDao.findCoursesWithStatusForPage(formattedStatuses, PAGE_ITEMS_COUNT, offset, sort);
+            if (statuses == null || statuses.length == 0) {
+                return courseDao.findCoursesForPage(PAGE_ITEMS_COUNT, offset, sort);
+            } else {
+                String formattedStatuses = formatValuesInLine(statuses);
+                return courseDao.findCoursesWithStatusForPage(formattedStatuses, PAGE_ITEMS_COUNT, offset, sort);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

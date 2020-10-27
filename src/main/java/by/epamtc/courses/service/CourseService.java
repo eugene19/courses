@@ -34,16 +34,6 @@ public interface CourseService {
     void enterStudentOnCourse(int studentId, int courseId) throws ServiceException;
 
     /**
-     * Find courses for page
-     *
-     * @param pageNumber number of page to find courses
-     * @param sort       name of attribute to sort list
-     * @return <code>List</code> of courses
-     * @throws ServiceException if an service exception occurred while processing
-     */
-    List<Course> findCoursesForPage(int pageNumber, String sort) throws ServiceException;
-
-    /**
      * Find course by identifier
      *
      * @param courseId id of course to find

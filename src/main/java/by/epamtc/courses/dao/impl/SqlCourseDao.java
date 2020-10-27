@@ -54,7 +54,7 @@ public class SqlCourseDao implements CourseDao {
     /**
      * SQL statement to get courses with status
      */
-    private static final String GET_COURSES_WITH_STATUS = "SELECT c.id, summary, description, " +
+    private static final String GET_COURSES_FOR_PAGE_WITH_STATUS = "SELECT c.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
@@ -327,7 +327,7 @@ public class SqlCourseDao implements CourseDao {
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(
-                    String.format(GET_COURSES_WITH_STATUS, statuses, sort));
+                    String.format(GET_COURSES_FOR_PAGE_WITH_STATUS, statuses, sort));
 
             preparedStatement.setInt(1, count);
             preparedStatement.setInt(2, offset);
