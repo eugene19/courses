@@ -127,7 +127,7 @@ INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
 VALUES (6, 6, '2020-11-20', '2020-12-20', 10, 3);
 INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
                          status_id)
-VALUES (7, 7, '2020-07-01', '2020-08-10', 10, 2);
+VALUES (7, 7, '2020-07-01', '2020-08-10', 10, 1);
 INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
                          status_id)
 VALUES (8, 8, '2020-05-01', '2020-06-10', 9, 2);
@@ -136,10 +136,10 @@ INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
 VALUES (9, 9, '2020-03-01', '2020-04-10', 9, 3);
 INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
                          status_id)
-VALUES (10, 10, '2020-02-01', '2020-03-10', 10, 3);
+VALUES (10, 10, '2020-02-01', '2020-03-10', 10, 1);
 INSERT INTO course_runs (id, course_id, start_date, end_date, lecturer_id,
                          status_id)
-VALUES (11, 11, '2020-01-01', '2020-02-10', 10, 3);
+VALUES (11, 11, '2020-01-01', '2020-02-10', 10, 2);
 
 INSERT INTO course_results (id, mark, comment)
 VALUES (1, 10, 'Отличная работа! Все задания выполнял на отлично.');
