@@ -189,6 +189,11 @@ public final class ParameterName {
     public static final String MATERIALS = "materials";
 
     /**
+     * Name of parameter 'Page'
+     */
+    public static final String PAGE = "page";
+
+    /**
      * Name of parameter 'Sort'
      */
     public static final String SORT = "sort";
@@ -217,6 +222,4 @@ public final class ParameterName {
      * Name of parameter 'Count entered users'
      */
     public static final String COUNT_ENTERED_USERS = "countEnteredUsers";
-
-
 }

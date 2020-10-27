@@ -66,7 +66,6 @@
             </div>
         </div>
 
-
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="sort"
                    id="summary" value="summary" onchange="submit()" checked
@@ -78,9 +77,9 @@
 
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio"
-                   name="sort" id="start_date" value="startDate"
+                   name="sort" id="start_date" value="start_date"
                    onchange="submit()"
-                   <c:if test="${sort eq 'startDate'}">checked</c:if>>
+                   <c:if test="${sort eq 'start_date'}">checked</c:if>>
             <label class="form-check-label"
                    for="start_date">${start_date_sort}</label>
         </div>

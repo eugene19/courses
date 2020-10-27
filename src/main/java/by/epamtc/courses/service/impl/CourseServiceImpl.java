@@ -4,14 +4,10 @@ import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.CourseResultDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
-import by.epamtc.courses.entity.Course;
-import by.epamtc.courses.entity.CourseResult;
-import by.epamtc.courses.entity.CourseStatus;
-import by.epamtc.courses.entity.UserCourseStatus;
+import by.epamtc.courses.entity.*;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.validation.CourseValidator;
-import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -21,7 +17,21 @@ import java.util.*;
  * @author DEA
  */
 public class CourseServiceImpl implements CourseService {
-    private static final Logger LOGGER = Logger.getLogger(CourseServiceImpl.class);
+
+    /**
+     * Count of courses on page
+     */
+    private static final int PAGE_ITEMS_COUNT = 5;
+
+    /**
+     * Delimiter of statuses
+     */
+    private static final String STATUS_DELIMITER = ", ";
+
+    /**
+     * Constant character 'Single quote'
+     */
+    private static final char SINGLE_QUOTE = '\'';
 
     /**
      * Instance of course dao
@@ -68,15 +78,22 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * Find all existing courses
+     * Find courses for page
      *
+     * @param pageNumber number of page to find courses
+     * @param sort       name of attribute to sort list if it's null then
+     *                   will be set default value
      * @return <code>List</code> of courses
      * @throws ServiceException if an service exception occurred while processing
      */
     @Override
-    public List<Course> findAllCourses() throws ServiceException {
+    public List<Course> findCoursesForPage(int pageNumber, String sort) throws ServiceException {
         try {
-            return courseDao.findAllCourses();
+            int offset = PAGE_ITEMS_COUNT * pageNumber;
+            // if sort is null set default sort by value
+            sort = (sort == null) ? ParameterName.SUMMARY : sort;
+
+            return courseDao.findCoursesForPage(PAGE_ITEMS_COUNT, offset, sort);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -127,26 +144,25 @@ public class CourseServiceImpl implements CourseService {
     /**
      * Find list of courses of define statuses
      *
-     * @param statuses values of status to find
+     * @param statuses   values of status to find
+     * @param pageNumber number of page to find
+     * @param sort       name of column to sort list
      * @return List of courses with define statuses
      * @throws ServiceException if an service exception occurred while processing
      */
     @Override
-    public List<Course> findCoursesWithStatus(String[] statuses) throws ServiceException {
-        List<Course> courses = new ArrayList<>();
+    public List<Course> findCoursesWithStatusForPage(String[] statuses, int pageNumber,
+                                                     String sort) throws ServiceException {
+        int offset = PAGE_ITEMS_COUNT * pageNumber;
+        String formattedStatuses = formatValuesInLine(statuses);
+        // if sort is null set default sort by value
+        sort = (sort == null) ? ParameterName.SUMMARY : sort;
 
-        for (String status : statuses) {
-            try {
-                CourseStatus courseStatus = CourseStatus.valueOf(status);
-                courses.addAll(courseDao.findCoursesWithStatus(courseStatus));
-            } catch (NullPointerException | IllegalArgumentException e) {
-                LOGGER.error("Wrong status: " + status, e);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
+        try {
+            return courseDao.findCoursesWithStatusForPage(formattedStatuses, PAGE_ITEMS_COUNT, offset, sort);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
-
-        return courses;
     }
 
     /**
@@ -247,5 +263,32 @@ public class CourseServiceImpl implements CourseService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    /**
+     * Format values from array to line like: 'value1', 'value2' ... 'valueN'
+     *
+     * @param statuses source array to format
+     * @return formatted line with all values of src array
+     */
+    private String formatValuesInLine(String[] statuses) {
+        String[] quotedValues = takeValuesInQuote(statuses);
+        return String.join(STATUS_DELIMITER, quotedValues);
+    }
+
+    /**
+     * Take all values from array in single quote
+     *
+     * @param values array with values to take in quotes
+     * @return array with old values taken in quotes
+     */
+    private String[] takeValuesInQuote(String[] values) {
+        String[] destArray = Arrays.copyOf(values, values.length);
+
+        for (int i = 0; i < destArray.length; i++) {
+            destArray[i] = SINGLE_QUOTE + destArray[i] + SINGLE_QUOTE;
+        }
+
+        return destArray;
     }
 }

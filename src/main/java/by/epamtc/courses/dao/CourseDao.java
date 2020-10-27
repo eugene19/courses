@@ -31,12 +31,14 @@ public interface CourseDao {
     void create(Course course) throws DaoException;
 
     /**
-     * Find all existing courses
+     * Find list of courses with their results as <code>Map</code>
+     * for student
      *
-     * @return <code>List</code> of courses
+     * @param studentId id of student to find
+     * @return <code>Map</code> of courses with results for student
      * @throws DaoException if an dao exception occurred while processing
      */
-    List<Course> findAllCourses() throws DaoException;
+    List<Course> findAllCoursesWithResultsForStudent(int studentId) throws DaoException;
 
     /**
      * Find course by identifier
@@ -48,23 +50,28 @@ public interface CourseDao {
     Course findCourseById(int courseId) throws DaoException;
 
     /**
-     * Find list of courses with their results as <code>Map</code>
-     * for student
+     * Find part of courses list
      *
-     * @param studentId id of student to find
-     * @return <code>Map</code> of courses with results for student
+     * @param count  limit of courses
+     * @param offset offset of courses
+     * @param sort   name of column to sort list
+     * @return <code>List</code> of courses
      * @throws DaoException if an dao exception occurred while processing
      */
-    List<Course> findAllCoursesWithResultsForStudent(int studentId) throws DaoException;
+    List<Course> findCoursesForPage(int count, int offset, String sort) throws DaoException;
 
     /**
      * Find list of courses of define status
      *
-     * @param status value of status to find
+     * @param statuses value of status to find
+     * @param count    limit of courses
+     * @param offset   offset of courses
+     * @param sort     name of column to sort list
      * @return List of courses with define status
      * @throws DaoException if an dao exception occurred while processing
      */
-    List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException;
+    List<Course> findCoursesWithStatusForPage(String statuses, int count,
+                                              int offset, String sort) throws DaoException;
 
     /**
      * Left student from course

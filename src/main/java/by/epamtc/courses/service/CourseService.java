@@ -34,12 +34,14 @@ public interface CourseService {
     void enterStudentOnCourse(int studentId, int courseId) throws ServiceException;
 
     /**
-     * Find all existing courses
+     * Find courses for page
      *
+     * @param pageNumber number of page to find courses
+     * @param sort       name of attribute to sort list
      * @return <code>List</code> of courses
      * @throws ServiceException if an service exception occurred while processing
      */
-    List<Course> findAllCourses() throws ServiceException;
+    List<Course> findCoursesForPage(int pageNumber, String sort) throws ServiceException;
 
     /**
      * Find course by identifier
@@ -63,11 +65,14 @@ public interface CourseService {
     /**
      * Find list of courses of define statuses
      *
-     * @param statuses values of status to find
+     * @param statuses   values of status to find
+     * @param pageNumber number of page to find
+     * @param sort       name of column to sort list
      * @return List of courses with define statuses
      * @throws ServiceException if an service exception occurred while processing
      */
-    List<Course> findCoursesWithStatus(String[] statuses) throws ServiceException;
+    List<Course> findCoursesWithStatusForPage(String[] statuses, int pageNumber,
+                                              String sort) throws ServiceException;
 
     /**
      * Left student from course

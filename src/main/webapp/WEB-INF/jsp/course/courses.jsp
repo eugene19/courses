@@ -17,6 +17,8 @@
              var="succsses_edit_message"/>
 <fmt:message bundle="${bundle}" key="courses.summary" var="courses_summary"/>
 <fmt:message bundle="${bundle}" key="button.create" var="create_button"/>
+<fmt:message bundle="${bundle}" key="button.previous" var="previous_button"/>
+<fmt:message bundle="${bundle}" key="button.next" var="next_button"/>
 
 <div class="container">
     <div class="row justify-content-center my-5">
@@ -37,11 +39,6 @@
 
     <%@include file="../component/alert_error.jsp" %>
 
-    <%--@elvariable id="courseList" type="java.util.List"--%>
-    <c:if test="${empty courseList}">
-        <%@include file="../component/alert_empty_list.jsp" %>
-    </c:if>
-
     <div class="row">
         <div class="col-11">
             <%@include file="courses_filter.jsp" %>
@@ -55,7 +52,12 @@
         </c:if>
     </div>
 
-    <div class="row">
+    <%--@elvariable id="courseList" type="java.util.List"--%>
+    <c:if test="${empty courseList}">
+        <%@include file="../component/alert_empty_list.jsp" %>
+    </c:if>
+
+    <div class="row mb-3">
         <c:forEach var="course" items="${courseList}">
             <div class="col col-md-12 my-2 p-3  border border-light shadow-sm">
                 <div class="media position-relative">
@@ -98,6 +100,22 @@
                 </div>
             </div>
         </c:forEach>
+    </div>
+
+    <c:set value="${param.get('page')}" var="pageNumber"/>
+
+    <div class="row align-middle justify-content-center">
+        <c:if test="${pageNumber > 0}">
+            <a href="${pageContext.request.contextPath}/main?command=get_courses_page&page=${pageNumber - 1}">${previous_button}</a>
+        </c:if>
+
+        <span class="mx-3">
+            ${pageNumber + 1}
+        </span>
+
+        <c:if test="${courseList.size() == 5}">
+            <a href="${pageContext.request.contextPath}/main?command=get_courses_page&page=${pageNumber + 1}">${next_button}</a>
+        </c:if>
     </div>
 </div>
 

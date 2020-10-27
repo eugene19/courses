@@ -41,13 +41,15 @@ public class SqlCourseDao implements CourseDao {
             "VALUES (?, ?, ?, ?, ?)";
 
     /**
-     * SQL statement to get all courses
+     * SQL statement to get part of courses with sorting
      */
-    private static final String GET_ALL_COURSES = "SELECT c.id, summary, description, " +
+    private static final String GET_COURSES_FOR_PAGE_SORTED = "SELECT c.id, summary, description, " +
             "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
             "FROM courses c " +
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
-            "LEFT JOIN course_statuses cs ON cr.status_id = cs.id;";
+            "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
+            "ORDER BY %s " +
+            "LIMIT ? OFFSET ?;";
 
     /**
      * SQL statement to get courses with status
@@ -57,7 +59,9 @@ public class SqlCourseDao implements CourseDao {
             "FROM courses c " +
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
-            "WHERE cr.status_id = ?;";
+            "WHERE cs.status IN (%s) " +
+            "ORDER BY %s " +
+            "LIMIT ? OFFSET ?;";
 
     /**
      * SQL statement to get courses for which student has result
@@ -195,29 +199,32 @@ public class SqlCourseDao implements CourseDao {
     }
 
     /**
-     * Find all existing courses
+     * Find list of courses with their results as <code>Map</code>
+     * for student
      *
-     * @return <code>List</code> of courses
+     * @param studentId id of student to find
+     * @return <code>Map</code> of courses with results for student
      * @throws DaoException if an dao exception occurred while processing
      */
     @Override
-    public List<Course> findAllCourses() throws DaoException {
+    public List<Course> findAllCoursesWithResultsForStudent(int studentId) throws DaoException {
         List<Course> courses = new ArrayList<>();
 
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
             connection = connectionPool.takeConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(GET_ALL_COURSES);
+            statement = connection.prepareStatement(GET_COURSES_WITH_RESULTS_FOR_STUDENT);
+            statement.setInt(1, studentId);
 
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 courses.add(createCourse(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get all courses", e);
+            throw new DaoException("Error while get courses with results for student", e);
         } finally {
             connectionPool.closeConnection(connection, statement, resultSet);
         }
@@ -260,48 +267,16 @@ public class SqlCourseDao implements CourseDao {
     }
 
     /**
-     * Find list of courses with their results as <code>Map</code>
-     * for student
+     * Find part of courses list
      *
-     * @param studentId id of student to find
-     * @return <code>Map</code> of courses with results for student
+     * @param count  limit of courses
+     * @param offset offset of courses
+     * @param sort   name of column to sort list
+     * @return <code>List</code> of courses
      * @throws DaoException if an dao exception occurred while processing
      */
     @Override
-    public List<Course> findAllCoursesWithResultsForStudent(int studentId) throws DaoException {
-        List<Course> courses = new ArrayList<>();
-
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            statement = connection.prepareStatement(GET_COURSES_WITH_RESULTS_FOR_STUDENT);
-            statement.setInt(1, studentId);
-
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                courses.add(createCourse(resultSet));
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get courses with results for student", e);
-        } finally {
-            connectionPool.closeConnection(connection, statement, resultSet);
-        }
-
-        return courses;
-    }
-
-    /**
-     * Find list of courses of define status
-     *
-     * @param status value of status to find
-     * @return List of courses with define status
-     * @throws DaoException if an dao exception occurred while processing
-     */
-    @Override
-    public List<Course> findCoursesWithStatus(CourseStatus status) throws DaoException {
+    public List<Course> findCoursesForPage(int count, int offset, String sort) throws DaoException {
         List<Course> courses = new ArrayList<>();
 
         Connection connection = null;
@@ -310,15 +285,59 @@ public class SqlCourseDao implements CourseDao {
 
         try {
             connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(GET_COURSES_WITH_STATUS);
-            preparedStatement.setInt(1, status.getId());
+            preparedStatement = connection.prepareStatement(
+                    String.format(GET_COURSES_FOR_PAGE_SORTED, sort));
+
+            preparedStatement.setInt(1, count);
+            preparedStatement.setInt(2, offset);
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                courses.add(createCourse(resultSet));
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get all courses for page", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return courses;
+    }
+
+    /**
+     * Find list of courses of define status
+     *
+     * @param statuses value of status to find
+     * @param count    limit of courses
+     * @param offset   offset of courses
+     * @param sort     name of column to sort list
+     * @return List of courses with define status
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    @Override
+    public List<Course> findCoursesWithStatusForPage(String statuses, int count,
+                                                     int offset, String sort) throws DaoException {
+        List<Course> courses = new ArrayList<>();
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(
+                    String.format(GET_COURSES_WITH_STATUS, statuses, sort));
+
+            preparedStatement.setInt(1, count);
+            preparedStatement.setInt(2, offset);
 
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 courses.add(createCourse(resultSet));
             }
         } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get courses with status " + status, e);
+            throw new DaoException("Error while get courses with statuses " + statuses, e);
         } finally {
             connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }

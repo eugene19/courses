@@ -3,7 +3,6 @@ package by.epamtc.courses.controller.command.page;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.ParameterName;
-import by.epamtc.courses.entity.comparator.CourseComparatorProvider;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.PageName;
 import by.epamtc.courses.service.ServiceException;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,18 +47,17 @@ public class CoursesPageCommand implements Command {
         HttpSession session = req.getSession();
         String[] statuses = (String[]) session.getAttribute(ParameterName.STATUS);
         String sort = (String) session.getAttribute(ParameterName.SORT);
+        String pageStr = req.getParameter(ParameterName.PAGE);
 
         try {
             List<Course> courses;
+            int page = (pageStr == null) ? 0 : Integer.parseInt(pageStr);
 
             if (statuses != null && statuses.length != 0) {
-                courses = courseService.findCoursesWithStatus(statuses);
+                courses = courseService.findCoursesWithStatusForPage(statuses, page, sort);
             } else {
-                courses = courseService.findAllCourses();
+                courses = courseService.findCoursesForPage(page, sort);
             }
-
-            Comparator<Course> comparator = CourseComparatorProvider.getComparator(sort);
-            courses.sort(comparator);
 
             req.setAttribute(ParameterName.COURSE_LIST, courses);
         } catch (ServiceException e) {
