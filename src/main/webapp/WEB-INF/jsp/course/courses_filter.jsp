@@ -86,8 +86,9 @@
 
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio"
-                   name="sort" id="status" value="status" onchange="submit()"
-                   <c:if test="${sort eq 'status'}">checked</c:if>>
+                   name="sort" id="status" value="status desc"
+                   onchange="submit()"
+                   <c:if test="${sort eq 'status desc'}">checked</c:if>>
             <label class="form-check-label"
                    for="status">${status_sort}</label>
         </div>
