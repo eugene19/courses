@@ -26,7 +26,7 @@ public class PasswordHasher {
      * @return hashed representation of password
      */
     public static String hashPassword(String password) {
-        byte[] digest = new byte[0];
+        byte[] digest;
 
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM_NAME);
