@@ -69,7 +69,6 @@ public class CourseDetailsPageCommand implements Command {
 
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);
         } catch (NumberFormatException | ServiceException e) {
-            // TODO: 10/23/20 возможно стоит сделать редирект на список курсов
             throw new ServletException("Error while getting course with id " + courseIdStr);
         }
     }
