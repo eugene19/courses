@@ -23,6 +23,15 @@ public interface CourseDao {
     void addStudentApplicationOnCourse(int studentId, int courseId) throws DaoException;
 
     /**
+     * Count number of courses in status
+     *
+     * @param statuses value of status to count
+     * @return number of courses with statuses
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    int countCoursesInStatus(String statuses) throws DaoException;
+
+    /**
      * Create (add) new course
      *
      * @param course entity of <code>Course</code> object

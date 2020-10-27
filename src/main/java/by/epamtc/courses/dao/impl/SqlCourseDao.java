@@ -84,15 +84,13 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "WHERE c.id = ?;";
-
     /**
-     * SQL statement to update course
+     * SQL statement to get courses for following counting
      */
-    private static final String UPDATE_COURSE = "UPDATE courses c " +
-            "JOIN course_runs cr on c.id = cr.course_id " +
-            "SET summary = ?, description = ?, students_limit = ?, start_date = ?, " +
-            "end_date = ?, status_id = ? " +
-            "WHERE c.id = ?;";
+    private static final String GET_COURSES_COUNT = "SELECT * FROM courses c " +
+            "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
+            "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
+            "WHERE cs.status IN (%s);";
 
     /**
      * SQL statement to get student's status at course
@@ -102,6 +100,15 @@ public class SqlCourseDao implements CourseDao {
             "JOIN user_courses uc ON ucs.id = uc.user_course_status_id " +
             "WHERE uc.user_id = ? " +
             "AND uc.course_id = ?;";
+
+    /**
+     * SQL statement to update course
+     */
+    private static final String UPDATE_COURSE = "UPDATE courses c " +
+            "JOIN course_runs cr on c.id = cr.course_id " +
+            "SET summary = ?, description = ?, students_limit = ?, start_date = ?, " +
+            "end_date = ?, status_id = ? " +
+            "WHERE c.id = ?;";
 
     /**
      * SQL statement to leave student from course
@@ -155,6 +162,38 @@ public class SqlCourseDao implements CourseDao {
         } finally {
             connectionPool.closeConnection(connection, preparedStatement);
         }
+    }
+
+    /**
+     * Count number of courses in status
+     *
+     * @param statuses value of status to count
+     * @return number of courses with statuses
+     * @throws DaoException if an dao exception occurred while processing
+     */
+    @Override
+    public int countCoursesInStatus(String statuses) throws DaoException {
+        int count = 0;
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(String.format(GET_COURSES_COUNT, statuses));
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                count++;
+            }
+        } catch (SQLException | ConnectionPoolException e) {
+            throw new DaoException("Error while get courses count", e);
+        } finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);
+        }
+
+        return count;
     }
 
     /**

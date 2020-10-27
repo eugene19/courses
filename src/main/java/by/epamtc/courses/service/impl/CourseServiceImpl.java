@@ -44,6 +44,33 @@ public class CourseServiceImpl implements CourseService {
     private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     /**
+     * Count number of courses in status
+     *
+     * @param statuses value of status to count
+     * @return number of courses with statuses
+     * @throws ServiceException if an service exception occurred while processing
+     */
+    @Override
+    public int countCoursesInStatus(String[] statuses) throws ServiceException {
+        try {
+            // TODO: 10/27/20 Заменить на нормальную реализацию
+            if (statuses == null || statuses.length == 0) {
+                return countCoursesInStatus(
+                        new String[]{
+                                CourseStatus.NOT_STARTED.toString(),
+                                CourseStatus.IN_PROGRESS.toString(),
+                                CourseStatus.FINISHED.toString()
+                        });
+            } else {
+                String formattedStatuses = formatValuesInLine(statuses);
+                return courseDao.countCoursesInStatus(formattedStatuses);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    /**
      * Create (add) new course
      *
      * @param course entity of <code>Course</code> object

@@ -17,6 +17,15 @@ import java.util.Map;
 public interface CourseService {
 
     /**
+     * Count number of courses in status
+     *
+     * @param statuses value of status to count
+     * @return number of courses with statuses
+     * @throws ServiceException if an service exception occurred while processing
+     */
+    int countCoursesInStatus(String[] statuses) throws ServiceException;
+
+    /**
      * Create (add) new course
      *
      * @param course entity of <code>Course</code> object

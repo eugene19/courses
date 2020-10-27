@@ -164,6 +164,16 @@ public final class ParameterName {
     public static final String IS_CREATION_OK = "isCreationOk";
 
     /**
+     * Name of parameter 'Count entered users'
+     */
+    public static final String COUNT_ENTERED_USERS = "countEnteredUsers";
+
+    /**
+     * Name of parameter 'Count of courses'
+     */
+    public static final String COURSES_COUNT = "coursesCount";
+
+    /**
      * Name of parameter 'Course id'
      */
     public static final String COURSE_ID = "courseId";
@@ -217,9 +227,4 @@ public final class ParameterName {
      * Name of parameter 'Summary'
      */
     public static final String SUMMARY = "summary";
-
-    /**
-     * Name of parameter 'Count entered users'
-     */
-    public static final String COUNT_ENTERED_USERS = "countEnteredUsers";
 }

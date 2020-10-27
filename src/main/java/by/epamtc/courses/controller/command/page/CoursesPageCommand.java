@@ -52,8 +52,10 @@ public class CoursesPageCommand implements Command {
         try {
             int page = (pageStr == null) ? 0 : Integer.parseInt(pageStr);
             List<Course> courses = courseService.findCoursesWithStatusForPage(statuses, page, sort);
-
             req.setAttribute(ParameterName.COURSE_LIST, courses);
+
+            int coursesCount = courseService.countCoursesInStatus(statuses);
+            req.setAttribute(ParameterName.COURSES_COUNT, coursesCount);
         } catch (ServiceException e) {
             LOGGER.error("Error when get courses for page " + pageStr, e);
 
