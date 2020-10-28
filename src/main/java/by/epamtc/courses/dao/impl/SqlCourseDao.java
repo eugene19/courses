@@ -41,17 +41,6 @@ public class SqlCourseDao implements CourseDao {
             "VALUES (?, ?, ?, ?, ?)";
 
     /**
-     * SQL statement to get part of courses with sorting
-     */
-    private static final String GET_COURSES_FOR_PAGE_SORTED = "SELECT c.id, summary, description, " +
-            "materials_path, start_date, end_date, students_limit, lecturer_id, status " +
-            "FROM courses c " +
-            "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
-            "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
-            "ORDER BY %s " +
-            "LIMIT ? OFFSET ?;";
-
-    /**
      * SQL statement to get courses with status
      */
     private static final String GET_COURSES_FOR_PAGE_WITH_STATUS = "SELECT c.id, summary, description, " +
@@ -84,6 +73,7 @@ public class SqlCourseDao implements CourseDao {
             "LEFT JOIN course_runs cr ON c.id = cr.course_id " +
             "LEFT JOIN course_statuses cs ON cr.status_id = cs.id " +
             "WHERE c.id = ?;";
+
     /**
      * SQL statement to get courses for following counting
      */
@@ -303,45 +293,6 @@ public class SqlCourseDao implements CourseDao {
         }
 
         return course;
-    }
-
-    /**
-     * Find part of courses list
-     *
-     * @param count  limit of courses
-     * @param offset offset of courses
-     * @param sort   name of column to sort list
-     * @return <code>List</code> of courses
-     * @throws DaoException if an dao exception occurred while processing
-     */
-    @Override
-    public List<Course> findCoursesForPage(int count, int offset, String sort) throws DaoException {
-        List<Course> courses = new ArrayList<>();
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(
-                    String.format(GET_COURSES_FOR_PAGE_SORTED, sort));
-
-            preparedStatement.setInt(1, count);
-            preparedStatement.setInt(2, offset);
-
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                courses.add(createCourse(resultSet));
-            }
-        } catch (SQLException | ConnectionPoolException e) {
-            throw new DaoException("Error while get all courses for page", e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
-        }
-
-        return courses;
     }
 
     /**

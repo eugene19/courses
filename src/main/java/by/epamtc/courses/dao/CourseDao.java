@@ -59,17 +59,6 @@ public interface CourseDao {
     Course findCourseById(int courseId) throws DaoException;
 
     /**
-     * Find part of courses list
-     *
-     * @param count  limit of courses
-     * @param offset offset of courses
-     * @param sort   name of column to sort list
-     * @return <code>List</code> of courses
-     * @throws DaoException if an dao exception occurred while processing
-     */
-    List<Course> findCoursesForPage(int count, int offset, String sort) throws DaoException;
-
-    /**
      * Find list of courses of define status
      *
      * @param statuses value of status to find

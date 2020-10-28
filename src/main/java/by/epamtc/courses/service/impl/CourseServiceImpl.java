@@ -53,18 +53,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public int countCoursesInStatus(String[] statuses) throws ServiceException {
         try {
-            // TODO: 10/27/20 Заменить на нормальную реализацию
-            if (statuses == null || statuses.length == 0) {
-                return countCoursesInStatus(
-                        new String[]{
-                                CourseStatus.NOT_STARTED.toString(),
-                                CourseStatus.IN_PROGRESS.toString(),
-                                CourseStatus.FINISHED.toString()
-                        });
-            } else {
-                String formattedStatuses = formatValuesInLine(statuses);
-                return courseDao.countCoursesInStatus(formattedStatuses);
+            if (statuses == null) {
+                statuses = CourseStatus.getStatusesNames(); // default value - all statuses
             }
+
+            String formattedStatuses = formatValuesInLine(statuses);
+            return courseDao.countCoursesInStatus(formattedStatuses);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -159,16 +153,16 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> findCoursesWithStatusForPage(String[] statuses, int pageNumber,
                                                      String sort) throws ServiceException {
         int offset = PAGE_ITEMS_COUNT * pageNumber;
-        // if sort is null set default sort by value
-        sort = (sort == null) ? ParameterName.SUMMARY : sort;
+        if (sort == null) {
+            sort = ParameterName.SUMMARY; // default value
+        }
+        if (statuses == null) {
+            statuses = CourseStatus.getStatusesNames(); // default value - all statuses
+        }
 
         try {
-            if (statuses == null || statuses.length == 0) {
-                return courseDao.findCoursesForPage(PAGE_ITEMS_COUNT, offset, sort);
-            } else {
-                String formattedStatuses = formatValuesInLine(statuses);
-                return courseDao.findCoursesWithStatusForPage(formattedStatuses, PAGE_ITEMS_COUNT, offset, sort);
-            }
+            String formattedStatuses = formatValuesInLine(statuses);
+            return courseDao.findCoursesWithStatusForPage(formattedStatuses, PAGE_ITEMS_COUNT, offset, sort);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

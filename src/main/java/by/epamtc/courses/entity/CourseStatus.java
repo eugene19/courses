@@ -35,6 +35,19 @@ public enum CourseStatus {
     }
 
     /**
+     * @return array with names of all statuses
+     */
+    public static String[] getStatusesNames() {
+        CourseStatus[] statuses = CourseStatus.values();
+        String[] statusNames = new String[statuses.length];
+
+        for (int i = 0; i < statuses.length; i++) {
+            statusNames[i] = statuses[i].toString();
+        }
+        return statusNames;
+    }
+
+    /**
      * @return unique identifier of status
      */
     public int getId() {
