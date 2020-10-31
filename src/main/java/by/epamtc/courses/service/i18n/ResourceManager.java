@@ -18,7 +18,7 @@ public class ResourceManager {
     /**
      * Object of <code>ResourceBundle</code> which will take messages
      */
-    private ResourceBundle resourceBundle;
+    private final ResourceBundle resourceBundle;
 
     /**
      * Construct <code>ResourceManager</code> and initialize resourceBundle

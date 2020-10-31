@@ -25,12 +25,12 @@ public class FinishCourseCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * CourseResult service instance
      */
-    private CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
+    private final CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
 
     /**
      * Implementation of 'Finish course' action

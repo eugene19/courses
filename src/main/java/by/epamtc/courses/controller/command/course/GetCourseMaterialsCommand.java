@@ -41,7 +41,7 @@ public class GetCourseMaterialsCommand implements Command {
     /**
      * Course service instance
      */
-    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
 
     /**
      * Implementation of 'Get course's materials' action

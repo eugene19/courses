@@ -36,12 +36,12 @@ public class CourseServiceImpl implements CourseService {
     /**
      * Instance of course dao
      */
-    private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
+    private final CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
 
     /**
      * Instance of course's result dao
      */
-    private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
+    private final CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     /**
      * Count number of courses in status

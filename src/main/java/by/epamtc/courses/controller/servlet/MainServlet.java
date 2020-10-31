@@ -28,7 +28,7 @@ public class MainServlet extends HttpServlet {
     /**
      * Command provider instance
      */
-    private CommandProvider provider = new CommandProvider();
+    private final CommandProvider provider = new CommandProvider();
 
     /**
      * Called by the server (via the <code>service</code> method)

@@ -28,7 +28,7 @@ public class CourseResultPageCommand implements Command {
     /**
      * CourseResult service instance
      */
-    private CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
+    private final CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
 
     /**
      * Implementation of action to open 'Course result' page

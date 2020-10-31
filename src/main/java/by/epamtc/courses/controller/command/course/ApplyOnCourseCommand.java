@@ -28,7 +28,7 @@ public class ApplyOnCourseCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * Implementation of 'Add student's application on course' action

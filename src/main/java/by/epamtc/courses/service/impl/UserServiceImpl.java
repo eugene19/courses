@@ -22,12 +22,12 @@ public class UserServiceImpl implements UserService {
     /**
      * Instance of course dao
      */
-    private CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
+    private final CourseDao courseDao = DaoProvider.getInstance().getCourseDao();
 
     /**
      * Instance of user dao
      */
-    private UserDao userDao = DaoProvider.getInstance().getUserDao();
+    private final UserDao userDao = DaoProvider.getInstance().getUserDao();
 
     /**
      * Authentication of user if such user exist.

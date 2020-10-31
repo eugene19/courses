@@ -33,12 +33,12 @@ public class RegistrationCommand implements Command {
     /**
      * User service instance
      */
-    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
 
     /**
      * User builder instance
      */
-    private UserBuilder userBuilder = BuilderProvider.getInstance().getUserBuilder();
+    private final UserBuilder userBuilder = BuilderProvider.getInstance().getUserBuilder();
 
     /**
      * Implementation of 'Registration' action

@@ -28,7 +28,7 @@ public class LeaveFromCourseCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * Implementation of 'Leave student course' action

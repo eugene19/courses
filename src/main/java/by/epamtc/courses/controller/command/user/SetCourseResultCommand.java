@@ -29,7 +29,7 @@ public class SetCourseResultCommand implements Command {
     /**
      * CourseResult service instance
      */
-    private CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
+    private final CourseResultService courseResultService = ServiceProvider.getInstance().getCourseResultService();
 
     /**
      * Implementation of 'Set course result to student' action

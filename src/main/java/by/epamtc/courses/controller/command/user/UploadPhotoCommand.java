@@ -47,7 +47,7 @@ public class UploadPhotoCommand implements Command {
     /**
      * User service instance
      */
-    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
 
     /**
      * Implementation of 'Upload user's photo' action

@@ -24,12 +24,12 @@ public class CourseResultServiceImpl implements CourseResultService {
     /**
      * Instance of course result dao
      */
-    private CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
+    private final CourseResultDao courseResultDao = DaoProvider.getInstance().getCourseResultDao();
 
     /**
      * Instance of user dao
      */
-    private UserDao userDao = DaoProvider.getInstance().getUserDao();
+    private final UserDao userDao = DaoProvider.getInstance().getUserDao();
 
     /**
      * Check if all student have results (marks) at define course

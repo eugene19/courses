@@ -22,7 +22,7 @@ public class DBResourceManager {
     /**
      * Object of <code>ResourceBundle</code> which will take properties
      */
-    private ResourceBundle bundle = ResourceBundle.getBundle(RES_FILE_NAME);
+    private final ResourceBundle bundle = ResourceBundle.getBundle(RES_FILE_NAME);
 
     /**
      * Construct a DBResourceManager

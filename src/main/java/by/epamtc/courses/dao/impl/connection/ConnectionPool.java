@@ -35,22 +35,22 @@ public final class ConnectionPool {
     /**
      * Name of DB
      */
-    private String driverName;
+    private final String driverName;
 
     /**
      * URL of DB
      */
-    private String url;
+    private final String url;
 
     /**
      * User name from DB
      */
-    private String user;
+    private final String user;
 
     /**
      * User passwords from DB
      */
-    private String password;
+    private final String password;
 
     /**
      * Count of connections in pool
@@ -241,7 +241,7 @@ public final class ConnectionPool {
         /**
          * Instance of Connection
          */
-        private Connection connection;
+        private final Connection connection;
 
         /**
          * Construct PooledConnection above Connection
@@ -533,13 +533,13 @@ public final class ConnectionPool {
         }
 
         @Override
-        public boolean isWrapperFor(Class<?> iface) throws SQLException {
-            return connection.isWrapperFor(iface);
+        public boolean isWrapperFor(Class<?> face) throws SQLException {
+            return connection.isWrapperFor(face);
         }
 
         @Override
-        public <T> T unwrap(Class<T> iface) throws SQLException {
-            return connection.unwrap(iface);
+        public <T> T unwrap(Class<T> face) throws SQLException {
+            return connection.unwrap(face);
         }
 
         @Override

@@ -20,7 +20,7 @@ public enum UserRole {
     /**
      * Unique identifier of role
      */
-    private int id;
+    private final int id;
 
     /**
      * Construct user's role with id

@@ -25,12 +25,12 @@ public class CourseDetailsPageCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * User service instance
      */
-    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
 
     /**
      * Implementation of action to open 'Course details' page
@@ -69,7 +69,7 @@ public class CourseDetailsPageCommand implements Command {
 
             req.getRequestDispatcher(PageName.COURSE_DETAILS_PAGE).forward(req, resp);
         } catch (NumberFormatException | ServiceException e) {
-            throw new ServletException("Error while getting course with id " + courseIdStr);
+            throw new ServletException("Error wh78599+6ile getting course with id " + courseIdStr);
         }
     }
 }

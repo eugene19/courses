@@ -28,7 +28,7 @@ public class StartCourseCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * Implementation of 'Start course' action

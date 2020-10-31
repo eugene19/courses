@@ -33,12 +33,12 @@ public class CreateCourseCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * Course builder instance
      */
-    private CourseBuilder courseBuilder = BuilderProvider.getInstance().getCourseBuilder();
+    private final CourseBuilder courseBuilder = BuilderProvider.getInstance().getCourseBuilder();
 
     /**
      * Implementation of 'Add course' action

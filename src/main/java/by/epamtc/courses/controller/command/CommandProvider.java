@@ -19,7 +19,7 @@ public final class CommandProvider {
     /**
      * Map that matches the name of a command with an object that implements this command
      */
-    private Map<CommandName, Command> commands = new HashMap<>();
+    private final Map<CommandName, Command> commands = new HashMap<>();
 
     /**
      * Construct a CommandProvider and put commands

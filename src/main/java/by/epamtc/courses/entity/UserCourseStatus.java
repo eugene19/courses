@@ -25,7 +25,7 @@ public enum UserCourseStatus {
     /**
      * Unique identifier of student's status
      */
-    private int id;
+    private final int id;
 
     /**
      * Construct UserCourseStatus with id

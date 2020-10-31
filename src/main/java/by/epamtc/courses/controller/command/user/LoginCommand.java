@@ -30,7 +30,7 @@ public class LoginCommand implements Command {
     /**
      * User service instance
      */
-    private UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
 
     /**
      * Implementation of 'Log in' action

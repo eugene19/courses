@@ -43,7 +43,7 @@ public class UploadCourseMaterialsCommand implements Command {
     /**
      * Course service instance
      */
-    private CourseService courseService = ServiceProvider.getInstance().getCourseService();
+    private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
 
     /**
      * Implementation of 'Upload course's materials' action
