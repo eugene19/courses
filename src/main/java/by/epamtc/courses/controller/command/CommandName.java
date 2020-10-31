@@ -15,6 +15,11 @@ public enum CommandName {
     GET_ABOUT_US_PAGE,
 
     /**
+     * Command to open 'About user' page
+     */
+    GET_ABOUT_USER_PAGE,
+
+    /**
      * Command to open 'Add course' page
      */
     GET_ADD_COURSE_PAGE,

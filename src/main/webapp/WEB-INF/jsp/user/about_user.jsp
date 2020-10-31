@@ -1,17 +1,16 @@
-<%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
+<%--@elvariable id="foundUser" type="by.epamtc.courses.entity.User"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Profile</title>
+    <title>User's info</title>
     <%@include file="../component/link_style.jsp" %>
 </head>
 <body>
 <%@include file="../component/header.jsp" %>
 
 <fmt:message bundle="${bundle}" key="profile.summary" var="profile_summary"/>
-<fmt:message bundle="${bundle}" key="message.edit.successes"
-             var="succsses_edit_message"/>
+<fmt:message bundle="${bundle}" key="user.login" var="login_lable"/>
 <fmt:message bundle="${bundle}" key="user.surname" var="surname_lable"/>
 <fmt:message bundle="${bundle}" key="user.name" var="name_lable"/>
 <fmt:message bundle="${bundle}" key="user.email" var="email_lable"/>
@@ -19,7 +18,6 @@
 <fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
 <fmt:message bundle="${bundle}" key="user.role.student" var="role_student"/>
 <fmt:message bundle="${bundle}" key="user.role.lecturer" var="role_lecturer"/>
-<fmt:message bundle="${bundle}" key="button.edit" var="edit_button"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -27,23 +25,12 @@
     </div>
 
     <div class="row justify-content-center py-2">
-        <form class="col-md-7" action="${pageContext.request.contextPath}/main"
-              method="post">
-            <input type="hidden" name="command" value="get_edit_profile_page"/>
-
-            <c:if test="${param.get('isUpdatingOk')}">
-                <div class="alert alert-success" role="alert">
-                        ${succsses_edit_message}
-                </div>
-            </c:if>
-
-            <input type="hidden" name="id" value="${user.id}"/>
-
+        <div class="col-md-7">
             <c:choose>
-                <c:when test="${not empty user.photoPath}">
+                <c:when test="${not empty foundUser.photoPath}">
                     <div class="form-group row">
                         <img class="rounded mx-auto d-block w-50"
-                             src="/uploadFiles/${user.id}/${user.photoPath}"
+                             src="/uploadFiles/${foundUser.id}/${foundUser.photoPath}"
                              alt="User photo">
                     </div>
                 </c:when>
@@ -61,7 +48,7 @@
                        class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="surname" value="${user.surname}"/>
+                           id="surname" value="${foundUser.surname}"/>
                 </div>
             </div>
 
@@ -70,7 +57,7 @@
                        class="col-lg-2 col-form-label text-muted">${name_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="name" value="${user.name}"/>
+                           id="name" value="${foundUser.name}"/>
                 </div>
             </div>
 
@@ -79,7 +66,7 @@
                        class="col-lg-2 col-form-label text-muted">${email_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="email" value="${user.email}"/>
+                           id="email" value="${foundUser.email}"/>
                 </div>
             </div>
 
@@ -88,7 +75,7 @@
                        class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="birthday" value="${user.birthday}"/>
+                           id="birthday" value="${foundUser.birthday}"/>
                 </div>
             </div>
 
@@ -98,15 +85,10 @@
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="role"
-                           value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>"/>
+                           value="<c:if test="${foundUser.role == 'STUDENT'}">${role_student}</c:if><c:if test="${foundUser.role == 'LECTURER'}">${role_lecturer}</c:if>"/>
                 </div>
             </div>
-
-            <div class="row justify-content-center py-2">
-                <button class="btn btn-outline-info"
-                        type="submit">${edit_button}</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

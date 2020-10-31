@@ -17,6 +17,11 @@ public final class PageName {
     public static final String ABOUT_US_PAGE = "WEB-INF/jsp/about.jsp";
 
     /**
+     * Path to 'About user' jsp page
+     */
+    public static final String ABOUT_USER_PAGE = "WEB-INF/jsp/user/about_user.jsp";
+
+    /**
      * Path to 'Add course' jsp page
      */
     public static final String ADD_COURSE_PAGE = "WEB-INF/jsp/course/add_course.jsp";

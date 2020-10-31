@@ -52,6 +52,11 @@ public final class ParameterName {
     public static final String EMAIL = "email";
 
     /**
+     * Name of parameter 'Found user'
+     */
+    public static final String FOUND_USER = "foundUser";
+
+    /**
      * Name of parameter 'Locale'
      */
     public static final String LOCALE = "locale";

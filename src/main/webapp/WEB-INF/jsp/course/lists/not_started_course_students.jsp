@@ -16,7 +16,11 @@
 
             <div class="form-group row col-6">
                 <label class="text-muted col-4"
-                       for="userCourseStatus">${user_course.key.surname} ${user_course.key.name}</label>
+                       for="userCourseStatus">
+                    <a class="text-info"
+                       href="${pageContext.request.contextPath}/main?command=get_about_user_page&userId=${user_course.key.id}">${user_course.key.surname} ${user_course.key.name}
+                    </a>
+                </label>
                 <select class="form-control form-control-sm col-4"
                         id="userCourseStatus"
                         name="userCourseStatus"

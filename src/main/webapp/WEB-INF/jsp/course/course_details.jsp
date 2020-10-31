@@ -144,8 +144,11 @@
                     <div class="card-body">
                         <fmt:message bundle="${bundle}" key="user.itsMe"
                                      var="its_me"/>
-                        <p class="card-text">${lecturer.surname} ${lecturer.name}
-                            <c:if test="${user.id == lecturer.id}">(${its_me})</c:if></p>
+                        <p class="card-text">
+                            <a class="text-info"
+                               href="${pageContext.request.contextPath}/main?command=get_about_user_page&userId=${lecturer.id}">${lecturer.surname} ${lecturer.name}</a>
+                            <c:if test="${user.id == lecturer.id}">(${its_me})</c:if>
+                        </p>
                     </div>
                 </div>
             </div>

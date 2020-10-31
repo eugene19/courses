@@ -27,6 +27,7 @@ public final class CommandProvider {
     public CommandProvider() {
         // go to page commands
         commands.put(GET_ABOUT_US_PAGE, new AboutPageCommand());
+        commands.put(GET_ABOUT_USER_PAGE, new AboutUserPageCommand());
         commands.put(GET_ADD_COURSE_PAGE, new AddCoursePageCommand());
         commands.put(GET_COURSE_DETAILS_PAGE, new CourseDetailsPageCommand());
         commands.put(GET_COURSES_PAGE, new CoursesPageCommand());
