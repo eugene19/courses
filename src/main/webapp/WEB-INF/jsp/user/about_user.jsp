@@ -18,6 +18,8 @@
 <fmt:message bundle="${bundle}" key="user.role" var="role_lable"/>
 <fmt:message bundle="${bundle}" key="user.role.student" var="role_student"/>
 <fmt:message bundle="${bundle}" key="user.role.lecturer" var="role_lecturer"/>
+<fmt:message bundle="${bundle}" key="menu.account.marks"
+             var="student_result_summary"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -88,6 +90,14 @@
                            value="<c:if test="${foundUser.role == 'STUDENT'}">${role_student}</c:if><c:if test="${foundUser.role == 'LECTURER'}">${role_lecturer}</c:if>"/>
                 </div>
             </div>
+
+            <c:if test="${foundUser.role == 'STUDENT'}">
+                <div class="row justify-content-center py-5">
+                    <h3 class="h3 mb-3 font-weight-normal">${student_result_summary}</h3>
+                </div>
+
+                <%@include file="student_results_table.jsp" %>
+            </c:if>
         </div>
     </div>
 </div>
