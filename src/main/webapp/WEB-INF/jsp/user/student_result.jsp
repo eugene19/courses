@@ -41,9 +41,10 @@
                     <c:forEach items="${coursesWithResult}" var="courseResult"
                                varStatus="loop">
                         <tr>
-                            <th scope="row">${loop.index + 1}</th>
+                            <td>${loop.index + 1}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/main?command=get_course_details_page&courseId=${courseResult.key.id}"><myTag:cutLongText
+                                <a class="text-info"
+                                   href="${pageContext.request.contextPath}/main?command=get_course_details_page&courseId=${courseResult.key.id}"><myTag:cutLongText
                                         text="${courseResult.key.summary}"
                                         maxLength="50"/></a>
                             </td>
