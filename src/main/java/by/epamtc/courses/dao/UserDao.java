@@ -38,7 +38,8 @@ public interface UserDao {
      * Find all students on course if course not started.
      * If course in progress find only entered students
      *
-     * @param courseId id of course to find
+     * @param courseId   id of course to find
+     * @param userStatus value of status to find
      * @return list of students with statuses as <code>Map</code>
      * @throws DaoException if an dao exception occurred while processing
      */
