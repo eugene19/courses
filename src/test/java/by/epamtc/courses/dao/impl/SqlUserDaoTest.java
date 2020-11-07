@@ -7,6 +7,7 @@ import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.entity.UserRole;
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -21,6 +22,36 @@ import static org.junit.Assert.*;
 public class SqlUserDaoTest {
 
     private final UserDao userDao = new SqlUserDao();
+
+    @AfterClass
+    public static void rollbackChanges() throws SQLException {
+        rollbackRegistration();
+    }
+
+    private static void rollbackRegistration() throws SQLException {
+        String sqlDeleteRegistration = "delete from users where login = ?;";
+
+        Connection connection = ConnectionPool.getInstance().takeConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteRegistration);
+        preparedStatement.setString(1, takeValidUserAuthData().getLogin());
+
+        preparedStatement.execute();
+    }
+
+    private static UserAuthData takeValidUserAuthData() {
+        UserAuthData userData = new UserAuthData();
+
+        userData.setLogin("testUserLogin");
+        userData.setPassword("testUserPassword");
+        userData.setSurname("testUserSurname");
+        userData.setName("testUserName");
+        userData.setEmail("testUserEmail");
+        userData.setBirthday(LocalDate.now());
+        userData.setRole(UserRole.STUDENT);
+        userData.setPhotoPath(null);
+
+        return userData;
+    }
 
     @Test(timeout = 100)
     public void authorizeValidUser() throws DaoException {
@@ -93,20 +124,5 @@ public class SqlUserDaoTest {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         return resultSet.next();
-    }
-
-    private UserAuthData takeValidUserAuthData() {
-        UserAuthData userData = new UserAuthData();
-
-        userData.setLogin("testUserLogin");
-        userData.setPassword("testUserPassword");
-        userData.setSurname("testUserSurname");
-        userData.setName("testUserName");
-        userData.setEmail("testUserEmail");
-        userData.setBirthday(LocalDate.now());
-        userData.setRole(UserRole.STUDENT);
-        userData.setPhotoPath(null);
-
-        return userData;
     }
 }

@@ -15,14 +15,14 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class SqlUserDaoTestStatus {
+public class SqlUserDaoStatusTest {
 
     private final UserDao userDao = new SqlUserDao();
 
     private final UserCourseStatus studentStatus;
     private final int expectedCountOfStudents;
 
-    public SqlUserDaoTestStatus(UserCourseStatus studentStatus, int expectedCountOfStudents) {
+    public SqlUserDaoStatusTest(UserCourseStatus studentStatus, int expectedCountOfStudents) {
         this.studentStatus = studentStatus;
         this.expectedCountOfStudents = expectedCountOfStudents;
     }
