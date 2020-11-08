@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.servlet;
 
+import by.epamtc.courses.constant.ErrorCode;
 import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandProvider;
@@ -38,9 +39,13 @@ public class MainServlet extends HttpServlet {
      *             request the client has made of the servlet
      * @param resp an {@link HttpServletResponse} object that contains the
      *             response the servlet sends to the client
+     * @throws IOException      if an input or output error is detected when
+     *                          the servlet handles the GET request
+     * @throws ServletException if the request for the GET
+     *                          could not be handled
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         process(req, resp);
     }
 
@@ -52,9 +57,13 @@ public class MainServlet extends HttpServlet {
      *             request the client has made of the servlet
      * @param resp an {@link HttpServletResponse} object that contains the
      *             response the servlet sends to the client
+     * @throws IOException      if an input or output error is detected
+     *                          when the servlet handles the request
+     * @throws ServletException if the request for the POST
+     *                          could not be handled
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         process(req, resp);
     }
 
@@ -65,18 +74,19 @@ public class MainServlet extends HttpServlet {
      *             request the client has made of the servlet
      * @param resp an {@link HttpServletResponse} object that contains the
      *             response the servlet sends to the client
+     * @throws IOException      if an input or output error is detected
+     *                          when the servlet handles the request
+     * @throws ServletException if the request could not be handled
      */
-    private void process(HttpServletRequest req, HttpServletResponse resp) {
-        Command command = provider.getCommand(req.getParameter(ParameterName.COMMAND));
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String commandName = req.getParameter(ParameterName.COMMAND);
+
         try {
+            Command command = provider.getCommand(commandName);
             command.execute(req, resp);
-        } catch (IOException | ServletException | NullPointerException e) {
-            LOGGER.error(e.getMessage(), e);
-            try {
-                resp.sendError(500);
-            } catch (IOException ex) {
-                LOGGER.error("Error while sending error.", e);
-            }
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("Such command is not found");
+            resp.sendError(ErrorCode.NOT_FOUND);
         }
     }
 }

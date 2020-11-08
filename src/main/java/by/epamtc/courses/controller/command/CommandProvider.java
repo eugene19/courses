@@ -73,7 +73,8 @@ public final class CommandProvider {
      */
     public Command getCommand(String command) {
         String commandNameUpper = command.toUpperCase();
-        CommandName commandName = valueOf(commandNameUpper);
+        CommandName commandName = CommandName.valueOf(commandNameUpper);
+
         return commands.get(commandName);
     }
 }
