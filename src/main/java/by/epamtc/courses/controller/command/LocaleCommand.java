@@ -1,8 +1,8 @@
 package by.epamtc.courses.controller.command;
 
-import by.epamtc.courses.URLConstant;
-import by.epamtc.courses.entity.ParameterName;
-import by.epamtc.courses.service.PageName;
+import by.epamtc.courses.constant.PageName;
+import by.epamtc.courses.constant.ParameterName;
+import by.epamtc.courses.constant.URLConstant;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

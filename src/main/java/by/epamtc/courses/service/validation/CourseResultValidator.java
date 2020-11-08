@@ -1,6 +1,6 @@
 package by.epamtc.courses.service.validation;
 
-import by.epamtc.courses.entity.ParameterName;
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.service.i18n.LocaleMessage;
 import org.apache.log4j.Logger;
 

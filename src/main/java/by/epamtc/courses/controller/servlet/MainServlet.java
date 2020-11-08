@@ -1,8 +1,8 @@
 package by.epamtc.courses.controller.servlet;
 
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.controller.command.CommandProvider;
-import by.epamtc.courses.entity.ParameterName;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

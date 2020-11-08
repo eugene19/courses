@@ -1,6 +1,6 @@
 package by.epamtc.courses.controller.filter;
 
-import by.epamtc.courses.entity.ParameterName;
+import by.epamtc.courses.constant.ParameterName;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

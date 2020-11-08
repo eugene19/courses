@@ -1,8 +1,6 @@
-package by.epamtc.courses.service;
+package by.epamtc.courses.constant;
 
-import by.epamtc.courses.URLConstant;
 import by.epamtc.courses.controller.command.CommandName;
-import by.epamtc.courses.entity.ParameterName;
 
 /**
  * Class containing path to jsp pages

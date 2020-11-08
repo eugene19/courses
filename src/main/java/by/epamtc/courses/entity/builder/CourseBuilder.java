@@ -1,8 +1,8 @@
 package by.epamtc.courses.entity.builder;
 
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.entity.Course;
 import by.epamtc.courses.entity.CourseStatus;
-import by.epamtc.courses.entity.ParameterName;
 
 import java.time.LocalDate;
 import java.util.Map;

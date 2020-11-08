@@ -1,7 +1,7 @@
 package by.epamtc.courses.controller.command.page;
 
+import by.epamtc.courses.constant.PageName;
 import by.epamtc.courses.controller.command.Command;
-import by.epamtc.courses.service.PageName;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

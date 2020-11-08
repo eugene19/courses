@@ -1,4 +1,4 @@
-package by.epamtc.courses.entity;
+package by.epamtc.courses.constant;
 
 /**
  * Class containing name of parameters to transfer values on jsp page

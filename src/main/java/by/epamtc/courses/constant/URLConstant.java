@@ -1,4 +1,4 @@
-package by.epamtc.courses;
+package by.epamtc.courses.constant;
 
 /**
  * Class containing constants from URL

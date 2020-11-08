@@ -1,10 +1,14 @@
 package by.epamtc.courses.service.impl;
 
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.dao.CourseDao;
 import by.epamtc.courses.dao.CourseResultDao;
 import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
-import by.epamtc.courses.entity.*;
+import by.epamtc.courses.entity.Course;
+import by.epamtc.courses.entity.CourseResult;
+import by.epamtc.courses.entity.CourseStatus;
+import by.epamtc.courses.entity.UserCourseStatus;
 import by.epamtc.courses.service.CourseService;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.validation.CourseValidator;

@@ -1,7 +1,7 @@
 package by.epamtc.courses.controller.filter;
 
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.CommandName;
-import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserRole;
 import org.apache.log4j.Logger;

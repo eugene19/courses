@@ -1,6 +1,6 @@
 package by.epamtc.courses.entity.builder;
 
-import by.epamtc.courses.entity.ParameterName;
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserAuthData;
 import by.epamtc.courses.entity.UserRole;

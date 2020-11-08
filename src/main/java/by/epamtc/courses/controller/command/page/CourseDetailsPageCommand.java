@@ -1,11 +1,15 @@
 package by.epamtc.courses.controller.command.page;
 
+import by.epamtc.courses.constant.PageName;
+import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.Command;
 import by.epamtc.courses.entity.Course;
-import by.epamtc.courses.entity.ParameterName;
 import by.epamtc.courses.entity.User;
 import by.epamtc.courses.entity.UserCourseStatus;
-import by.epamtc.courses.service.*;
+import by.epamtc.courses.service.CourseService;
+import by.epamtc.courses.service.ServiceException;
+import by.epamtc.courses.service.ServiceProvider;
+import by.epamtc.courses.service.UserService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
