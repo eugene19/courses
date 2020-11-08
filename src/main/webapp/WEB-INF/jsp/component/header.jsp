@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${cookie['locale'].value}"/>
 <fmt:setBundle basename="strings" var="bundle"/>
 
 <fmt:message bundle="${bundle}" key="header.ruButton" var="ru_button"/>
@@ -74,9 +74,9 @@
             <label>
                 <select class="form-control form-control-sm" onchange="submit()"
                         name="locale">
-                    <option value="en" ${sessionScope.locale == 'en' ? 'selected' : ''}>
+                    <option value="en" ${cookie['locale'].value == 'en' ? 'selected' : ''}>
                         ${en_button}</option>
-                    <option value="ru" ${sessionScope.locale == 'ru' ? 'selected' : ''}>
+                    <option value="ru" ${cookie['locale'].value == 'ru' ? 'selected' : ''}>
                         ${ru_button}</option>
                 </select>
             </label>
@@ -90,8 +90,8 @@
                     <input type="hidden" name="command" value="logout"/>
 
                     <span class="navbar-text col-lg-7">
-                    ${user.name} ${user.surname}
-                </span>
+                        ${user.name} ${user.surname}
+                    </span>
                     <button class="btn btn-sm btn-outline-secondary col-lg-5 ml-2"
                             type="submit">${logout_button}</button>
                 </form>

@@ -5,12 +5,12 @@ import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.constant.URLConstant;
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -36,11 +36,12 @@ public class LocaleCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String lang = req.getParameter(ParameterName.LOCALE);
-        HttpSession session = req.getSession();
-        session.setAttribute(ParameterName.LOCALE, new Locale(lang));
+        Cookie localeCookie = new Cookie(ParameterName.LOCALE, lang);
+        resp.addCookie(localeCookie);
 
         LOGGER.debug("Locale is changed to " + lang);
 
+        HttpSession session = req.getSession();
         doPreviousCommand(resp, session);
     }
 
