@@ -69,7 +69,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="inputGroupFile02"
-                       class="col-lg-2 col-form-label text-muted">${upload_label}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${upload_label}</label>
                 <div class="col-lg-6">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input"
@@ -104,7 +104,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="surname"
-                       class="col-lg-2 col-form-label text-muted">${surname_lable}
+                       class="col-lg-3 col-form-label text-muted text-right">${surname_lable}
                     <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
@@ -116,7 +116,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="name"
-                       class="col-lg-2 col-form-label text-muted">${name_lable}
+                       class="col-lg-3 col-form-label text-muted text-right">${name_lable}
                     <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
@@ -128,7 +128,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="email"
-                       class="col-lg-2 col-form-label text-muted">${email_lable}
+                       class="col-lg-3 col-form-label text-muted text-right">${email_lable}
                     <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
@@ -140,7 +140,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="birthday"
-                       class="col-lg-2 col-form-label text-muted">${birthday_lable}
+                       class="col-lg-3 col-form-label text-muted text-right">${birthday_lable}
                     <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="date" class="form-control"
@@ -152,7 +152,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="role"
-                       class="col-lg-2 col-form-label text-muted">${role_lable}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${role_lable}</label>
                 <input type="hidden" name="role"
                        value="<c:if test="${init.role[0] != null}">${init.role[0]}</c:if><c:if test="${init.role[0] == null}">${user.role}</c:if>"/>
                 <div class="col-lg-6">
