@@ -48,7 +48,7 @@ public abstract class AbstractValidator {
      * @return true if string is empty or null
      */
     protected boolean checkEmpty(String line) {
-        return line == null || line.isEmpty();
+        return line == null || line.isBlank();
     }
 
     /**
