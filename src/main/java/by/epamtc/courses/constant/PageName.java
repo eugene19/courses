@@ -118,4 +118,10 @@ public final class PageName {
      * %s - name of file
      */
     public static final String UPLOAD_FILES_FORMAT_URL = "/uploadFiles/%d/%s";
+
+    /**
+     * Private constructor to forbid creation of objects
+     */
+    private PageName() {
+    }
 }

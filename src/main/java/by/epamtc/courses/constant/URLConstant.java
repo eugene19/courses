@@ -21,4 +21,10 @@ public final class URLConstant {
      * Field containing symbol which separate request's parameters
      */
     public static final String PARAMETERS_SEPARATOR = "&";
+
+    /**
+     * Private constructor to forbid creation of objects
+     */
+    private URLConstant() {
+    }
 }
