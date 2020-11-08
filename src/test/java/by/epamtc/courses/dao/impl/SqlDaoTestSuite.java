@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
         SqlUserDaoTest.class,
         SqlUserDaoStatusTest.class,
         SqlCourseDaoTest.class,
-        SqlCourseDaoStatusTest.class
+        SqlCourseDaoStatusTest.class,
+        SqlCourseResultDaoTest.class
 })
 public class SqlDaoTestSuite {
 }
