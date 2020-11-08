@@ -1,7 +1,6 @@
 package by.epamtc.courses.controller.command.user;
 
 import by.epamtc.courses.constant.PageName;
-import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.Command;
 import org.apache.log4j.Logger;
 
@@ -27,7 +26,7 @@ public class LogoutCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         LOGGER.debug("User log out");
-        req.getSession().removeAttribute(ParameterName.USER);
+        req.getSession().invalidate();
         resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
     }
 }
