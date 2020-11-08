@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command.course;
 
+import by.epamtc.courses.constant.ErrorCode;
 import by.epamtc.courses.constant.PageName;
 import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.Command;
@@ -27,11 +28,6 @@ import java.util.Map;
  */
 public class GetCourseMaterialsCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(GetCourseMaterialsCommand.class);
-
-    /**
-     * Field containing code of status http 'permission denied' error response
-     */
-    private static final int ERROR_PERMISSION_DENIED = 403;
 
     /**
      * Field containing charset of parameters in url
@@ -77,7 +73,7 @@ public class GetCourseMaterialsCommand implements Command {
 
             Map<User, UserCourseStatus> usersOnCourse = userService.findAllStudentsOnCourse(courseId);
             if (!usersOnCourse.containsKey(user) && user.getId() != lecturerId) {
-                resp.sendError(ERROR_PERMISSION_DENIED);
+                resp.sendError(ErrorCode.PERMISSION_DENIED);
                 return;
             }
 

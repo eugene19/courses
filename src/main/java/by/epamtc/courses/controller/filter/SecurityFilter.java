@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.filter;
 
+import by.epamtc.courses.constant.ErrorCode;
 import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.CommandName;
 import by.epamtc.courses.entity.User;
@@ -22,11 +23,6 @@ import static by.epamtc.courses.controller.command.CommandName.*;
  */
 public class SecurityFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(SecurityFilter.class);
-
-    /**
-     * Field containing code of status http 'permission denied' error response
-     */
-    private static final int ERROR_PERMISSION_DENIED = 403;
 
     /**
      * Map that stores the correspondence between the command
@@ -91,7 +87,7 @@ public class SecurityFilter implements Filter {
 
         if (isCommandNeedAuthorization(command) && !hasUserAllowedRole(command, user)) {
             LOGGER.warn("Authorization fail: try opening private page by user without needed permission");
-            resp.sendError(ERROR_PERMISSION_DENIED);
+            resp.sendError(ErrorCode.PERMISSION_DENIED);
             return;
         }
 

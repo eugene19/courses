@@ -1,5 +1,6 @@
 package by.epamtc.courses.controller.command.page;
 
+import by.epamtc.courses.constant.ErrorCode;
 import by.epamtc.courses.constant.PageName;
 import by.epamtc.courses.constant.ParameterName;
 import by.epamtc.courses.controller.command.Command;
@@ -28,11 +29,6 @@ public class EditCoursePageCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(EditCoursePageCommand.class);
 
     /**
-     * Field containing code of status http 'permission denied' error response
-     */
-    private static final int ERROR_PERMISSION_DENIED = 403;
-
-    /**
      * Course service instance
      */
     private final CourseService courseService = ServiceProvider.getInstance().getCourseService();
@@ -59,7 +55,7 @@ public class EditCoursePageCommand implements Command {
             Course course = courseService.findCourseById(courseId);
 
             if (course.getLecturerId() != user.getId()) {
-                resp.sendError(ERROR_PERMISSION_DENIED);
+                resp.sendError(ErrorCode.PERMISSION_DENIED);
                 return;
             }
 
