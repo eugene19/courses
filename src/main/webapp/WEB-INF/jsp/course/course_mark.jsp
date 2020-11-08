@@ -62,7 +62,7 @@
                    href="${pageContext.request.contextPath}/main?command=get_course_details_page&courseId=${param.get("courseId")}">
                     ${back_button}
                 </a>
-                <input type="submit" class="btn btn-outline-primary"
+                <input type="submit" class="btn btn-outline-info"
                        value="${save_button}"/>
             </form>
         </div>
