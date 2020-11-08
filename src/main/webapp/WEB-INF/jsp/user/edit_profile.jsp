@@ -104,7 +104,8 @@
 
             <div class="form-group row justify-content-center">
                 <label for="surname"
-                       class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
+                       class="col-lg-2 col-form-label text-muted">${surname_lable}
+                    <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="surname" name="surname"
@@ -115,7 +116,8 @@
 
             <div class="form-group row justify-content-center">
                 <label for="name"
-                       class="col-lg-2 col-form-label text-muted">${name_lable}</label>
+                       class="col-lg-2 col-form-label text-muted">${name_lable}
+                    <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="name" name="name"
@@ -126,7 +128,8 @@
 
             <div class="form-group row justify-content-center">
                 <label for="email"
-                       class="col-lg-2 col-form-label text-muted">${email_lable}</label>
+                       class="col-lg-2 col-form-label text-muted">${email_lable}
+                    <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="email" name="email"
@@ -137,7 +140,8 @@
 
             <div class="form-group row justify-content-center">
                 <label for="birthday"
-                       class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
+                       class="col-lg-2 col-form-label text-muted">${birthday_lable}
+                    <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="date" class="form-control"
                            id="birthday" name="birthday"

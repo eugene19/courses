@@ -36,7 +36,7 @@
     </div>
 
     <div class="row justify-content-center py-2">
-        <form class="col-md-3" action="${pageContext.request.contextPath}/main"
+        <form class="col-md-4" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="add_course"/>
             <input type="hidden" name="lecturerId" value="${user.id}"/>
@@ -44,7 +44,8 @@
             <%@include file="../component/alert_error.jsp" %>
 
             <div class="form-group row">
-                <label class="text-muted" for="summary">${summary_lable}</label>
+                <label class="text-muted" for="summary">${summary_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
                        id="summary" name="summary" value="${init.summary[0]}"/>
                 <div class="text-danger small">${errors.summary}</div>
@@ -52,7 +53,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="description">${description_lable}</label>
+                       for="description">${description_lable} <span
+                        class="text-danger">*</span></label>
                 <textarea class="form-control form-control-sm" id="description"
                           rows="4" style="resize: none"
                           name="description">${init.description[0]}</textarea>
@@ -61,7 +63,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="startDate">${start_date_lable}</label>
+                       for="startDate">${start_date_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="startDate" name="startDate"
                        value="${init.startDate[0]}"/>
@@ -70,7 +73,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="endDate">${end_date_lable}</label>
+                       for="endDate">${end_date_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="endDate" name="endDate" value="${init.endDate[0]}"/>
                 <span class="text-danger small">${errors.endDate}</span>
@@ -78,7 +82,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="studentsLimit">${students_limit_lable}</label>
+                       for="studentsLimit">${students_limit_lable} <span
+                        class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="studentsLimit"
                        type="number"
                        name="studentsLimit" value="${init.studentsLimit[0]}"/>
@@ -87,7 +92,8 @@
 
             <div class="form-group row">
                 <input type="hidden" name="status" value="NOT_STARTED"/>
-                <label class="text-muted" for="status">${status_lable}</label>
+                <label class="text-muted" for="status">${status_lable} <span
+                        class="text-danger">*</span></label>
                 <select class="form-control form-control-sm disabled"
                         id="status" disabled>
                     <option selected>${status_not_started}</option>

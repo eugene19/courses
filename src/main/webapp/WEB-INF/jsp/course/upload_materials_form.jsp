@@ -20,7 +20,8 @@
 
             <div class="form-group row">
                 <label for="inputGroupFile02"
-                       class="col-form-label text-muted">${upload_label}</label>
+                       class="col-form-label text-muted">${upload_label} <span
+                        class="text-danger">*</span></label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input"
                            id="inputGroupFile02" name="materials"

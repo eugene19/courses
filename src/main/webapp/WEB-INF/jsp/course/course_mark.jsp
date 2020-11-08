@@ -38,7 +38,8 @@
                 <div class="form-group row">
                     <div class="container-fluid">
                         <label class="text-muted col-6"
-                               for="mark">${mark_label}</label>
+                               for="mark">${mark_label} <span
+                                class="text-danger">*</span></label>
                         <%--@elvariable id="courseResult" type="by.epamtc.courses.entity.CourseResult"--%>
                         <input class="form-control form-control-sm col-3"
                                id="mark" type="number" name="mark"
@@ -48,7 +49,8 @@
                         <div class="text-danger small">${errors.mark}</div>
 
                         <label class="text-muted col-6"
-                               for="comment">${comment_label}</label>
+                               for="comment">${comment_label} <span
+                                class="text-danger">*</span></label>
                         <textarea class="form-control form-control-sm"
                                   id="comment" rows="4" style="resize: none"
                                   name="comment"><c:if

@@ -40,7 +40,7 @@
     </div>
 
     <div class="row justify-content-center py-2">
-        <form class="col-md-3" action="${pageContext.request.contextPath}/main"
+        <form class="col-md-4" action="${pageContext.request.contextPath}/main"
               method="post">
             <input type="hidden" name="command" value="edit_course"/>
             <input type="hidden" name="id"
@@ -50,7 +50,8 @@
             <%@include file="../component/alert_error.jsp" %>
 
             <div class="form-group row">
-                <label class="text-muted" for="summary">${summary_lable}</label>
+                <label class="text-muted" for="summary">${summary_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
                        id="summary" name="summary"
                        value="<c:if test="${init.summary[0] != null}">${init.summary[0]}</c:if><c:if test="${init.summary[0] == null}">${course.summary}</c:if>"/>
@@ -59,7 +60,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="description">${description_lable}</label>
+                       for="description">${description_lable} <span
+                        class="text-danger">*</span></label>
                 <textarea class="form-control form-control-sm" id="description"
                           rows="4" style="resize: none"
                           name="description"><c:if
@@ -70,7 +72,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="startDate">${start_date_lable}</label>
+                       for="startDate">${start_date_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="startDate" name="startDate"
                        value="<c:if test="${init.startDate[0] != null}">${init.startDate[0]}</c:if><c:if test="${init.startDate[0] == null}">${course.startDate}</c:if>"/>
@@ -79,7 +82,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="endDate">${end_date_lable}</label>
+                       for="endDate">${end_date_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="endDate" name="endDate"
                        value="<c:if test="${init.endDate[0] != null}">${init.endDate[0]}</c:if><c:if test="${init.endDate[0] == null}">${course.endDate}</c:if>"/>
@@ -88,7 +92,8 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="studentsLimit">${students_limit_lable}</label>
+                       for="studentsLimit">${students_limit_lable} <span
+                        class="text-danger">*</span></label>
                 <input class="form-control" id="studentsLimit" type="number"
                        name="studentsLimit"
                        value="<c:if test="${init.studentsLimit[0] != null}">${init.studentsLimit[0]}</c:if><c:if test="${init.studentsLimit[0] == null}">${course.studentsLimit}</c:if>"/>

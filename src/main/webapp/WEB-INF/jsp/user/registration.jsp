@@ -38,7 +38,8 @@
             <%@include file="../component/alert_error.jsp" %>
 
             <div class="form-group row">
-                <label class="text-muted" for="login">${login_lable}</label>
+                <label class="text-muted" for="login">${login_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
                        id="login" name="login" value="${init.login[0]}"/>
                 <div class="text-danger small">${errors.login}</div>
@@ -46,28 +47,32 @@
 
             <div class="form-group row">
                 <label class="text-muted"
-                       for="password">${password_lable}</label>
+                       for="password">${password_lable} <span
+                        class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="password"
                        type="password" name="password"/>
                 <div class="text-danger small">${errors.password}</div>
             </div>
 
             <div class="form-group row">
-                <label class="text-muted" for="surname">${surname_lable}</label>
+                <label class="text-muted" for="surname">${surname_lable} <span
+                        class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="surname"
                        type="text" name="surname" value="${init.surname[0]}"/>
                 <div class="text-danger small">${errors.surname}</div>
             </div>
 
             <div class="form-group row">
-                <label class="text-muted" for="name">${name_lable}</label>
+                <label class="text-muted" for="name">${name_lable} <span
+                        class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="name"
                        type="text" name="name" value="${init.name[0]}"/>
                 <div class="text-danger small">${errors.name}</div>
             </div>
 
             <div class="form-group row">
-                <label class="text-muted" for="email">${email_lable}</label>
+                <label class="text-muted" for="email">${email_lable} <span
+                        class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" type="text"
                        id="email" name="email"
                        value="${init.email[0]}"/>
@@ -75,7 +80,8 @@
             </div>
             <div class="form-group row">
                 <label class="text-muted"
-                       for="birthday">${birthday_lable}</label>
+                       for="birthday">${birthday_lable} <span
+                        class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="birthday" name="birthday"
                        value="${init.birthday[0]}"/>
@@ -83,7 +89,8 @@
             </div>
 
             <div class="form-group row">
-                <label class="text-muted" for="role">${role_lable}</label>
+                <label class="text-muted" for="role">${role_lable} <span
+                        class="text-danger">*</span></label>
                 <select class="form-control form-control-sm" id="role"
                         name="role">
                     <option
