@@ -1,12 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" isErrorPage="true" %>
+
 <html>
 <head>
     <title>Error</title>
     <%@include file="component/link_style.jsp" %>
 </head>
 <body>
-<%-- Костыль --%>
+
 <c:if test="${empty user}">
     <c:set var="user" value="${null}"/>
 </c:if>
