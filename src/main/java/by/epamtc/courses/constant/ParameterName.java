@@ -232,4 +232,10 @@ public final class ParameterName {
      * Name of parameter 'Summary'
      */
     public static final String SUMMARY = "summary";
+
+    /**
+     * Private constructor to forbid creation of objects
+     */
+    private ParameterName() {
+    }
 }

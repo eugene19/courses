@@ -132,4 +132,10 @@ public final class LocaleMessage {
      * Key of error message 'Something goes wrong'
      */
     public static final String SOMETHING_GOES_WRONG = "errorPage.message";
+
+    /**
+     * Private constructor to forbid creation of objects
+     */
+    private LocaleMessage() {
+    }
 }

@@ -31,4 +31,10 @@ public final class DBParameter {
      * Key of property 'Size of pool'
      */
     public static final String DB_POLL_SIZE = "db.poolSize";
+
+    /**
+     * Private constructor to forbid creation of objects
+     */
+    private DBParameter() {
+    }
 }
