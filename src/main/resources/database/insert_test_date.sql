@@ -181,7 +181,6 @@ VALUES (7, 7, 4, null, 2);
 INSERT INTO user_courses (id, user_id, course_id, course_result_id,
                           user_course_status_id)
 VALUES (8, 8, 4, null, 3);
-
 INSERT INTO user_courses (id, user_id, course_id, course_result_id,
                           user_course_status_id)
 VALUES (9, 1, 5, null, 2);
@@ -191,7 +190,6 @@ VALUES (10, 2, 5, 1, 2);
 INSERT INTO user_courses (id, user_id, course_id, course_result_id,
                           user_course_status_id)
 VALUES (11, 3, 5, 2, 2);
-
 INSERT INTO user_courses (id, user_id, course_id, course_result_id,
                           user_course_status_id)
 VALUES (12, 1, 6, 3, 2);
