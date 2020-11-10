@@ -27,7 +27,7 @@ import java.util.Map;
  * @author DEA
  */
 public class EditCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(EditCourseCommand.class);
+    private static final Logger logger = Logger.getLogger(EditCourseCommand.class);
 
     /**
      * Course service instance
@@ -49,7 +49,7 @@ public class EditCourseCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to edit course");
+        logger.debug("Try to edit course");
 
         Map<String, String[]> parameters = req.getParameterMap();
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
@@ -57,7 +57,7 @@ public class EditCourseCommand implements Command {
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);
 
         if (!validationError.isEmpty()) {
-            LOGGER.warn("Updating course canceled because course's data is invalid");
+            logger.warn("Updating course canceled because course's data is invalid");
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
@@ -70,13 +70,13 @@ public class EditCourseCommand implements Command {
         try {
             courseService.update(course);
 
-            LOGGER.debug("Updating course successful");
+            logger.debug("Updating course successful");
 
             String courseDetailsURL = PageName.COURSE_DETAILS_URL + course.getId();
             resp.sendRedirect(courseDetailsURL + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException e) {
-            LOGGER.error("Updating course error" + e.getMessage(), e);
+            logger.error("Updating course error" + e.getMessage(), e);
 
             ResourceManager resourceManager = new ResourceManager(locale);
 

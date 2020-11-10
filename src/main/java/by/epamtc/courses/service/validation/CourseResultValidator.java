@@ -13,7 +13,7 @@ import java.util.Map;
  * @author DEA
  */
 public class CourseResultValidator extends AbstractValidator {
-    private static final Logger LOGGER = Logger.getLogger(CourseResultValidator.class);
+    private static final Logger logger = Logger.getLogger(CourseResultValidator.class);
 
     /**
      * Constant containing maximal allowed mark
@@ -59,7 +59,7 @@ public class CourseResultValidator extends AbstractValidator {
                 errors.put(ParameterName.MARK, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_MARK));
             }
         } catch (NumberFormatException e) {
-            LOGGER.error("Error while parsing mark: " + markValues[0], e);
+            logger.error("Error while parsing mark: " + markValues[0], e);
             errors.put(ParameterName.MARK, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_MARK));
         }
 

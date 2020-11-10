@@ -23,7 +23,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class StartCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(StartCourseCommand.class);
+    private static final Logger logger = Logger.getLogger(StartCourseCommand.class);
 
     /**
      * Course service instance
@@ -40,7 +40,7 @@ public class StartCourseCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to start course");
+        logger.debug("Try to start course");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
@@ -50,11 +50,11 @@ public class StartCourseCommand implements Command {
 
             courseService.updateStatus(courseId, CourseStatus.IN_PROGRESS);
 
-            LOGGER.debug("Starting course successful");
+            logger.debug("Starting course successful");
 
             resp.sendRedirect(courseDetailsURL);
         } catch (ServiceException | IllegalArgumentException | NullPointerException e) {
-            LOGGER.error("Starting course error", e);
+            logger.error("Starting course error", e);
 
             Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);

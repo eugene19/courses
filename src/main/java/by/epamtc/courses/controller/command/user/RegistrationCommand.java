@@ -28,7 +28,7 @@ import java.util.Map;
  * @author DEA
  */
 public class RegistrationCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(RegistrationCommand.class);
+    private static final Logger logger = Logger.getLogger(RegistrationCommand.class);
 
     /**
      * User service instance
@@ -50,7 +50,7 @@ public class RegistrationCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try register user");
+        logger.debug("Try register user");
 
         Map<String, String[]> parameters = req.getParameterMap();
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
@@ -58,7 +58,7 @@ public class RegistrationCommand implements Command {
 
         Map<String, String> validationError = userService.validateUserRegistrationData(parameters, locale);
         if (!validationError.isEmpty()) {
-            LOGGER.warn("Registration canceled because user's data is invalid");
+            logger.warn("Registration canceled because user's data is invalid");
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
             req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
@@ -71,7 +71,7 @@ public class RegistrationCommand implements Command {
         try {
             userService.register(user);
 
-            LOGGER.debug("Registration successful " + user.getLogin());
+            logger.debug("Registration successful " + user.getLogin());
             resp.sendRedirect(PageName.MAIN_SERVLET_URL
                     + URLConstant.START_PARAMETERS
                     + ParameterName.COMMAND + URLConstant.KEY_VALUE_SEPARATOR + CommandName.GET_LOGIN_PAGE
@@ -79,7 +79,7 @@ public class RegistrationCommand implements Command {
                     + ParameterName.IS_REGISTRATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
             return;
         } catch (ServiceException e) {
-            LOGGER.error("Registration error", e);
+            logger.error("Registration error", e);
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
         }

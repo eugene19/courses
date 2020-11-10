@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class FilterCoursesCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(FilterCoursesCommand.class);
+    private static final Logger logger = Logger.getLogger(FilterCoursesCommand.class);
 
     /**
      * Save in session values of filter for courses list
@@ -28,7 +28,7 @@ public class FilterCoursesCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to set course filter and sorting");
+        logger.debug("Try to set course filter and sorting");
 
         String[] statuses = req.getParameterValues(ParameterName.STATUS);
         String sort = req.getParameter(ParameterName.SORT);

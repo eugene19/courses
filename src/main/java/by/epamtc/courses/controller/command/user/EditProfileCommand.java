@@ -28,7 +28,7 @@ import java.util.Map;
  * @author DEA
  */
 public class EditProfileCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(EditProfileCommand.class);
+    private static final Logger logger = Logger.getLogger(EditProfileCommand.class);
 
     /**
      * User service instance
@@ -50,7 +50,7 @@ public class EditProfileCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to edit user's profile");
+        logger.debug("Try to edit user's profile");
 
         Map<String, String[]> parameters = req.getParameterMap();
         HttpSession session = req.getSession();
@@ -59,7 +59,7 @@ public class EditProfileCommand implements Command {
         Map<String, String> validationError = userService.validateUserProfileData(parameters, locale);
 
         if (!validationError.isEmpty()) {
-            LOGGER.warn("Updating user's profile canceled because user's data is invalid");
+            logger.warn("Updating user's profile canceled because user's data is invalid");
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
             req.getRequestDispatcher(PageName.EDIT_PROFILE_PAGE).forward(req, resp);
@@ -71,13 +71,13 @@ public class EditProfileCommand implements Command {
             userService.update(user);
             session.setAttribute(ParameterName.USER, user);
 
-            LOGGER.debug("Updating user successful");
+            logger.debug("Updating user successful");
 
             resp.sendRedirect(PageName.PROFILE_URL
                     + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException e) {
-            LOGGER.error("Updating user's profile error", e);
+            logger.error("Updating user's profile error", e);
 
             ResourceManager resourceManager = new ResourceManager(locale);
 

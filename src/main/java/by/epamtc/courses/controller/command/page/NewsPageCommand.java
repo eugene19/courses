@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class NewsPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(NewsPageCommand.class);
+    private static final Logger logger = Logger.getLogger(NewsPageCommand.class);
 
     /**
      * Implementation of action to open 'News' page
@@ -27,7 +27,7 @@ public class NewsPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening news page");
+        logger.debug("Opening news page");
         req.getRequestDispatcher(PageName.NEWS_PAGE).forward(req, resp);
     }
 }

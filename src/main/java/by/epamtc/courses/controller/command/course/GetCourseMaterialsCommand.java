@@ -27,7 +27,7 @@ import java.util.Map;
  * @author DEA
  */
 public class GetCourseMaterialsCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(GetCourseMaterialsCommand.class);
+    private static final Logger logger = Logger.getLogger(GetCourseMaterialsCommand.class);
 
     /**
      * Field containing charset of parameters in url
@@ -49,7 +49,7 @@ public class GetCourseMaterialsCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to get courses materials");
+        logger.debug("Try to get courses materials");
 
         User user = (User) req.getSession().getAttribute(ParameterName.USER);
 
@@ -77,12 +77,12 @@ public class GetCourseMaterialsCommand implements Command {
                 return;
             }
 
-            LOGGER.debug("Course materials are ");
+            logger.debug("Course materials are ");
 
             String urlToMaterials = String.format(PageName.UPLOAD_FILES_FORMAT_URL, lecturerId, URLEncoder.encode(materialPath, PARAM_VALUES_CHARSET));
             resp.sendRedirect(urlToMaterials);
         } catch (NumberFormatException | ServiceException e) {
-            LOGGER.error("Error while getting course materials", e);
+            logger.error("Error while getting course materials", e);
 
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             req.getRequestDispatcher(courseDetailsURL).forward(req, resp);

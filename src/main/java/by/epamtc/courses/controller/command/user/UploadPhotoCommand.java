@@ -27,7 +27,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class UploadPhotoCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(UploadPhotoCommand.class);
+    private static final Logger logger = Logger.getLogger(UploadPhotoCommand.class);
 
     /**
      * Name of directory to save photo
@@ -59,7 +59,7 @@ public class UploadPhotoCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try upload user photo");
+        logger.debug("Try upload user photo");
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(ParameterName.USER);
@@ -71,7 +71,7 @@ public class UploadPhotoCommand implements Command {
             String fileName = file.getSubmittedFileName();
 
             if (fileName == null || fileName.isEmpty()) {
-                LOGGER.warn("Uploading user photo canceled because file name is incorrect: " + fileName);
+                logger.warn("Uploading user photo canceled because file name is incorrect: " + fileName);
                 String errorMessage = resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_FILE_NAME);
                 sendErrorUploading(req, resp, errorMessage);
                 return;
@@ -88,7 +88,7 @@ public class UploadPhotoCommand implements Command {
                     + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException | IOException e) {
-            LOGGER.warn("Uploading user photo canceled");
+            logger.warn("Uploading user photo canceled");
             String errorMessage = resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG);
             sendErrorUploading(req, resp, errorMessage);
         }

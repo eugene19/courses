@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
  * @author DEA
  */
 public final class ConnectionPool {
-    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
+    private static final Logger logger = Logger.getLogger(ConnectionPool.class);
 
     /**
      * ConnectionPool instance
@@ -71,7 +71,7 @@ public final class ConnectionPool {
                     .getValue(DBParameter.DB_POLL_SIZE));
         } catch (NumberFormatException e) {
             poolSize = 5;
-            LOGGER.error("Error while reading pool size value from file. " +
+            logger.error("Error while reading pool size value from file. " +
                     "Set poll size = " + poolSize, e);
         }
 
@@ -138,7 +138,7 @@ public final class ConnectionPool {
             try {
                 rs.close();
             } catch (SQLException e) {
-                LOGGER.error("ResultSet isn't closed");
+                logger.error("ResultSet isn't closed");
             }
         }
 
@@ -146,7 +146,7 @@ public final class ConnectionPool {
             try {
                 st.close();
             } catch (SQLException e) {
-                LOGGER.error("Statement isn't closed");
+                logger.error("Statement isn't closed");
             }
         }
 
@@ -154,7 +154,7 @@ public final class ConnectionPool {
             try {
                 con.close();
             } catch (SQLException e) {
-                LOGGER.error("Connection isn't return to the pool");
+                logger.error("Connection isn't return to the pool");
             }
         }
     }
@@ -170,7 +170,7 @@ public final class ConnectionPool {
             try {
                 st.close();
             } catch (SQLException e) {
-                LOGGER.error("Statement isn't closed");
+                logger.error("Statement isn't closed");
             }
         }
 
@@ -178,7 +178,7 @@ public final class ConnectionPool {
             try {
                 con.close();
             } catch (SQLException e) {
-                LOGGER.error("Connection isn't return to the pool");
+                logger.error("Connection isn't return to the pool");
             }
         }
     }
@@ -193,7 +193,7 @@ public final class ConnectionPool {
             try {
                 connection.rollback();
             } catch (SQLException e) {
-                LOGGER.error("Error while rollback connection", e);
+                logger.error("Error while rollback connection", e);
             }
         }
     }
@@ -229,7 +229,7 @@ public final class ConnectionPool {
             closeConnectionsQueue(connectionQueue);
             closeConnectionsQueue(givenAwayConQueue);
         } catch (SQLException e) {
-            LOGGER.error("Error closing the connection", e);
+            logger.error("Error closing the connection", e);
         }
     }
 

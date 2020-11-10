@@ -26,7 +26,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class EditCoursePageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(EditCoursePageCommand.class);
+    private static final Logger logger = Logger.getLogger(EditCoursePageCommand.class);
 
     /**
      * Course service instance
@@ -43,7 +43,7 @@ public class EditCoursePageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening edit course page");
+        logger.debug("Opening edit course page");
 
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(ParameterName.USER);
@@ -62,7 +62,7 @@ public class EditCoursePageCommand implements Command {
             req.setAttribute(ParameterName.COURSE, course);
             req.getRequestDispatcher(PageName.EDIT_COURSE_PAGE).forward(req, resp);
         } catch (NumberFormatException | ServiceException e) {
-            LOGGER.error("Error while getting course with id " + courseIdStr, e);
+            logger.error("Error while getting course with id " + courseIdStr, e);
 
             String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
             Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);

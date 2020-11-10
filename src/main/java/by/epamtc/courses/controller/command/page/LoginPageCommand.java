@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class LoginPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(LoginPageCommand.class);
+    private static final Logger logger = Logger.getLogger(LoginPageCommand.class);
 
     /**
      * Implementation of action to open 'Login' page
@@ -34,10 +34,10 @@ public class LoginPageCommand implements Command {
         User user = (User) session.getAttribute(ParameterName.USER);
 
         if (user != null) {
-            LOGGER.warn("Try opening login page by authored user");
+            logger.warn("Try opening login page by authored user");
             resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
         } else {
-            LOGGER.debug("Try opening login page");
+            logger.debug("Try opening login page");
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
         }
     }

@@ -23,7 +23,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class ApplyOnCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(ApplyOnCourseCommand.class);
+    private static final Logger logger = Logger.getLogger(ApplyOnCourseCommand.class);
 
     /**
      * Course service instance
@@ -40,7 +40,7 @@ public class ApplyOnCourseCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("User try to apply on course");
+        logger.debug("User try to apply on course");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
@@ -50,11 +50,11 @@ public class ApplyOnCourseCommand implements Command {
             int courseId = Integer.parseInt(courseIdStr);
             courseService.enterStudentOnCourse(user.getId(), courseId);
 
-            LOGGER.debug("User applied on course successful");
+            logger.debug("User applied on course successful");
 
             resp.sendRedirect(courseDetailsURL);
         } catch (NumberFormatException | ServiceException e) {
-            LOGGER.error("Error while applied on course", e);
+            logger.error("Error while applied on course", e);
 
             Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);

@@ -28,7 +28,7 @@ import java.util.Map;
  * @author DEA
  */
 public class CreateCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(CreateCourseCommand.class);
+    private static final Logger logger = Logger.getLogger(CreateCourseCommand.class);
 
     /**
      * Course service instance
@@ -50,7 +50,7 @@ public class CreateCourseCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try create course");
+        logger.debug("Try create course");
 
         Map<String, String[]> parameters = req.getParameterMap();
         HttpSession session = req.getSession();
@@ -60,7 +60,7 @@ public class CreateCourseCommand implements Command {
         Map<String, String> validationError = courseService.validateCourse(parameters, locale);
 
         if (!validationError.isEmpty()) {
-            LOGGER.warn("Creation of course canceled because course's data is invalid");
+            logger.warn("Creation of course canceled because course's data is invalid");
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationError);
@@ -72,13 +72,13 @@ public class CreateCourseCommand implements Command {
         try {
             courseService.create(course);
 
-            LOGGER.debug("Creation of course is successful " + course.getSummary());
+            logger.debug("Creation of course is successful " + course.getSummary());
 
             resp.sendRedirect(PageName.COURSES_URL
                     + URLConstant.PARAMETERS_SEPARATOR
                     + ParameterName.IS_CREATION_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException e) {
-            LOGGER.error("Creation of course error" + e.getMessage(), e);
+            logger.error("Creation of course error" + e.getMessage(), e);
 
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERROR,

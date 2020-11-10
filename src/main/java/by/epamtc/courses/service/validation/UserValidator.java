@@ -16,7 +16,7 @@ import java.util.Map;
  * @author DEA
  */
 public class UserValidator extends AbstractValidator {
-    private static final Logger LOGGER = Logger.getLogger(UserValidator.class);
+    private static final Logger logger = Logger.getLogger(UserValidator.class);
 
     /**
      * Constant containing minimal date of user's birth
@@ -167,7 +167,7 @@ public class UserValidator extends AbstractValidator {
                     errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_DATE_AFTER_MAX));
                 }
             } catch (DateTimeParseException e) {
-                LOGGER.error("Error while parsing date " + birthdayString[0]);
+                logger.error("Error while parsing date " + birthdayString[0]);
                 errors.put(ParameterName.BIRTHDAY, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_DATE));
             }
         }
@@ -189,7 +189,7 @@ public class UserValidator extends AbstractValidator {
             try {
                 UserRole.valueOf(roleValues[0]);
             } catch (IllegalArgumentException e) {
-                LOGGER.error("Error while parsing user role: " + roleValues[0]);
+                logger.error("Error while parsing user role: " + roleValues[0]);
                 errors.put(ParameterName.ROLE, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_ROLE));
             }
         }

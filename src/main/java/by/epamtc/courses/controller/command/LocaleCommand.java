@@ -19,7 +19,7 @@ import java.util.Map;
  * @author DEA
  */
 public class LocaleCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(LocaleCommand.class);
+    private static final Logger logger = Logger.getLogger(LocaleCommand.class);
 
     /**
      * Field containing charset of parameters in url
@@ -39,7 +39,7 @@ public class LocaleCommand implements Command {
         HttpSession session = req.getSession();
         session.setAttribute(ParameterName.LOCALE, new Locale(lang));
 
-        LOGGER.debug("Locale is changed to " + lang);
+        logger.debug("Locale is changed to " + lang);
 
         doPreviousCommand(resp, session);
     }
@@ -52,7 +52,7 @@ public class LocaleCommand implements Command {
      * @throws IOException if an I/O related error has occurred during the processing
      */
     private void doPreviousCommand(HttpServletResponse resp, HttpSession session) throws IOException {
-        LOGGER.debug("Start do previous command");
+        logger.debug("Start do previous command");
 
         //noinspection unchecked
         Map<String, String[]> previousParams =

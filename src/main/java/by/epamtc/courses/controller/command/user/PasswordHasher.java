@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
  * @author DEA
  */
 public class PasswordHasher {
-    private static final Logger LOGGER = Logger.getLogger(PasswordHasher.class);
+    private static final Logger logger = Logger.getLogger(PasswordHasher.class);
 
     /**
      * Field containing name of hash algorithm
@@ -34,7 +34,7 @@ public class PasswordHasher {
             messageDigest.update(password.getBytes());
             digest = messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error("Wrong hash algorithm.");
+            logger.error("Wrong hash algorithm.");
             return null;
         }
 

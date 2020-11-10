@@ -24,7 +24,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class FinishCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(FinishCourseCommand.class);
+    private static final Logger logger = Logger.getLogger(FinishCourseCommand.class);
 
     /**
      * Course service instance
@@ -46,7 +46,7 @@ public class FinishCourseCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try to finish course");
+        logger.debug("Try to finish course");
 
         Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
         ResourceManager resourceManager = new ResourceManager(locale);
@@ -66,11 +66,11 @@ public class FinishCourseCommand implements Command {
 
             courseService.updateStatus(courseId, CourseStatus.FINISHED);
 
-            LOGGER.debug("Finishing course successful");
+            logger.debug("Finishing course successful");
 
             resp.sendRedirect(courseDetailsURL);
         } catch (ServiceException | IllegalArgumentException | NullPointerException e) {
-            LOGGER.error("Finishing course error", e);
+            logger.error("Finishing course error", e);
 
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             req.getRequestDispatcher(courseDetailsURL).forward(req, resp);

@@ -23,7 +23,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class UploadCourseMaterialsCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(UploadCourseMaterialsCommand.class);
+    private static final Logger logger = Logger.getLogger(UploadCourseMaterialsCommand.class);
 
     /**
      * Name of directory to save materials
@@ -55,7 +55,7 @@ public class UploadCourseMaterialsCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try upload course's materials");
+        logger.debug("Try upload course's materials");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         Part courseMaterials = req.getPart(ParameterName.MATERIALS);
@@ -65,7 +65,7 @@ public class UploadCourseMaterialsCommand implements Command {
             String fileName = courseMaterials.getSubmittedFileName();
 
             if (fileName == null || fileName.isEmpty()) {
-                LOGGER.warn("Uploading user photo canceled because file name is incorrect: " + fileName);
+                logger.warn("Uploading user photo canceled because file name is incorrect: " + fileName);
                 resp.sendRedirect(PageName.COURSE_DETAILS_URL + courseIdStr +
                         URLConstant.PARAMETERS_SEPARATOR +
                         ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + false);
@@ -83,7 +83,7 @@ public class UploadCourseMaterialsCommand implements Command {
                     URLConstant.PARAMETERS_SEPARATOR +
                     ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + true);
         } catch (ServiceException | IOException e) {
-            LOGGER.warn("Uploading course's materials error");
+            logger.warn("Uploading course's materials error");
             resp.sendRedirect(PageName.COURSE_DETAILS_URL + courseIdStr +
                     URLConstant.PARAMETERS_SEPARATOR +
                     ParameterName.IS_UPDATING_OK + URLConstant.KEY_VALUE_SEPARATOR + false);

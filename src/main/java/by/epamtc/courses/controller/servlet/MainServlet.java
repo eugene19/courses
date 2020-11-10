@@ -24,7 +24,7 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class MainServlet extends HttpServlet {
     private static final long serialVersionUID = 8717762438987053788L;
-    private static final Logger LOGGER = Logger.getLogger(MainServlet.class);
+    private static final Logger logger = Logger.getLogger(MainServlet.class);
 
     /**
      * Command provider instance
@@ -85,7 +85,7 @@ public class MainServlet extends HttpServlet {
             Command command = provider.getCommand(commandName);
             command.execute(req, resp);
         } catch (IllegalArgumentException e) {
-            LOGGER.error("Such command is not found");
+            logger.error("Such command is not found");
             resp.sendError(ErrorCode.NOT_FOUND);
         }
     }

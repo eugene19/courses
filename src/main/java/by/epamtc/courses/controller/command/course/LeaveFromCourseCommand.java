@@ -23,7 +23,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class LeaveFromCourseCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(LeaveFromCourseCommand.class);
+    private static final Logger logger = Logger.getLogger(LeaveFromCourseCommand.class);
 
     /**
      * Course service instance
@@ -40,7 +40,7 @@ public class LeaveFromCourseCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("User try to leave from course");
+        logger.debug("User try to leave from course");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
@@ -50,11 +50,11 @@ public class LeaveFromCourseCommand implements Command {
             int courseId = Integer.parseInt(courseIdStr);
             courseService.leaveStudentFromCourse(user.getId(), courseId);
 
-            LOGGER.debug("User leave from course successful");
+            logger.debug("User leave from course successful");
 
             resp.sendRedirect(courseDetailsURL);
         } catch (NumberFormatException | ServiceException e) {
-            LOGGER.error("Error while leave from course", e);
+            logger.error("Error while leave from course", e);
 
             Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);

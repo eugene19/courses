@@ -23,7 +23,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class UpdateUserCourseStatusCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(UpdateUserCourseStatusCommand.class);
+    private static final Logger logger = Logger.getLogger(UpdateUserCourseStatusCommand.class);
 
     /**
      * User service instance
@@ -40,7 +40,7 @@ public class UpdateUserCourseStatusCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Trying to change user status on course");
+        logger.debug("Trying to change user status on course");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
@@ -57,7 +57,7 @@ public class UpdateUserCourseStatusCommand implements Command {
             boolean isUpdateOk = userService.updateUserCourseStatus(userId, courseId, UserCourseStatus.valueOf(status));
 
             if (!isUpdateOk) {
-                LOGGER.warn("Updating user course status failed because limit of students");
+                logger.warn("Updating user course status failed because limit of students");
 
                 req.setAttribute(ParameterName.ERROR,
                         resourceManager.getValue(LocaleMessage.ERROR_UPDATE_STATUS_STUDENTS_LIMIT));
@@ -65,11 +65,11 @@ public class UpdateUserCourseStatusCommand implements Command {
                 return;
             }
 
-            LOGGER.debug("User status is changed");
+            logger.debug("User status is changed");
 
             resp.sendRedirect(courseDetailsURL);
         } catch (NumberFormatException | ServiceException e) {
-            LOGGER.error("Error while change user status on course", e);
+            logger.error("Error while change user status on course", e);
 
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             req.getRequestDispatcher(courseDetailsURL).forward(req, resp);

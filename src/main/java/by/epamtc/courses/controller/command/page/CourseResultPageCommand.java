@@ -23,7 +23,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class CourseResultPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(CourseResultPageCommand.class);
+    private static final Logger logger = Logger.getLogger(CourseResultPageCommand.class);
 
     /**
      * CourseResult service instance
@@ -40,7 +40,7 @@ public class CourseResultPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try open course result page");
+        logger.debug("Try open course result page");
 
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
         String studentIdStr = req.getParameter(ParameterName.USER_ID);
@@ -57,7 +57,7 @@ public class CourseResultPageCommand implements Command {
 
             req.getRequestDispatcher(PageName.COURSE_MARK_PAGE).forward(req, resp);
         } catch (ServiceException e) {
-            LOGGER.error("Error while get course result for user");
+            logger.error("Error while get course result for user");
 
             String courseDetailsURL = PageName.COURSE_DETAILS_URL + courseIdStr;
             Locale locale = (Locale) req.getSession().getAttribute(ParameterName.LOCALE);

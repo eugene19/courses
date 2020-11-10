@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class AddCoursePageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(AddCoursePageCommand.class);
+    private static final Logger logger = Logger.getLogger(AddCoursePageCommand.class);
 
     /**
      * Implementation of action to open 'Add course' page
@@ -27,7 +27,7 @@ public class AddCoursePageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening add new course page");
+        logger.debug("Opening add new course page");
         req.getRequestDispatcher(PageName.ADD_COURSE_PAGE).forward(req, resp);
     }
 }

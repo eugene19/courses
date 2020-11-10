@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class LogoutCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(LogoutCommand.class);
+    private static final Logger logger = Logger.getLogger(LogoutCommand.class);
 
     /**
      * Implementation of 'Log out' action
@@ -26,7 +26,7 @@ public class LogoutCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        LOGGER.debug("User log out");
+        logger.debug("User log out");
         req.getSession().removeAttribute(ParameterName.USER);
         resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
     }

@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class AboutPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(AboutPageCommand.class);
+    private static final Logger logger = Logger.getLogger(AboutPageCommand.class);
 
     /**
      * Implementation of action to open 'About us' page
@@ -27,7 +27,7 @@ public class AboutPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try opening about us page");
+        logger.debug("Try opening about us page");
         req.getRequestDispatcher(PageName.ABOUT_US_PAGE).forward(req, resp);
     }
 }

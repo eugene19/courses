@@ -15,7 +15,7 @@ import java.util.Map;
  * @author DEA
  */
 public class CourseValidator extends AbstractValidator {
-    private static final Logger LOGGER = Logger.getLogger(CourseValidator.class);
+    private static final Logger logger = Logger.getLogger(CourseValidator.class);
 
     /**
      * Constant containing maximal date of course's ending
@@ -110,7 +110,7 @@ public class CourseValidator extends AbstractValidator {
                     errors.put(ParameterName.START_DATE, resourceManager.getValue(LocaleMessage.ERROR_COURSE_DATE_AFTER_MAX));
                 }
             } catch (DateTimeParseException e) {
-                LOGGER.error("Error while parsing date " + startDateString[0]);
+                logger.error("Error while parsing date " + startDateString[0]);
                 errors.put(ParameterName.START_DATE, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_DATE));
             }
         }
@@ -149,7 +149,7 @@ public class CourseValidator extends AbstractValidator {
                     }
                 }
             } catch (DateTimeParseException e) {
-                LOGGER.error("Error while parsing date " + endDateString[0]);
+                logger.error("Error while parsing date " + endDateString[0]);
                 errors.put(ParameterName.END_DATE, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_DATE));
             }
         }
@@ -174,7 +174,7 @@ public class CourseValidator extends AbstractValidator {
                     errors.put(ParameterName.STUDENTS_LIMIT, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_STUDENTS_LIMIT));
                 }
             } catch (NumberFormatException e) {
-                LOGGER.error("Error while parsing students limit: " + limitValues[0], e);
+                logger.error("Error while parsing students limit: " + limitValues[0], e);
                 errors.put(ParameterName.STUDENTS_LIMIT, resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_STUDENTS_LIMIT));
             }
         }

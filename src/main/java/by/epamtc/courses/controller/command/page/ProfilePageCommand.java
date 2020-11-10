@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class ProfilePageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(ProfilePageCommand.class);
+    private static final Logger logger = Logger.getLogger(ProfilePageCommand.class);
 
     /**
      * Implementation of action to open 'Profile' page
@@ -27,7 +27,7 @@ public class ProfilePageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening profile page");
+        logger.debug("Opening profile page");
         req.getRequestDispatcher(PageName.PROFILE_PAGE).forward(req, resp);
     }
 }

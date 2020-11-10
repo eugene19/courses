@@ -23,7 +23,7 @@ import java.util.Map;
  * @author DEA
  */
 public class StudentResultsPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(StudentResultsPageCommand.class);
+    private static final Logger logger = Logger.getLogger(StudentResultsPageCommand.class);
 
     /**
      * Course service instance
@@ -40,7 +40,7 @@ public class StudentResultsPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Open student's results page");
+        logger.debug("Open student's results page");
 
         User user = (User) req.getSession().getAttribute(ParameterName.USER);
 

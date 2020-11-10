@@ -25,7 +25,7 @@ import java.util.Locale;
  * @author DEA
  */
 public class CoursesPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(CoursesPageCommand.class);
+    private static final Logger logger = Logger.getLogger(CoursesPageCommand.class);
 
     /**
      * Course service instance
@@ -42,7 +42,7 @@ public class CoursesPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening courses page");
+        logger.debug("Opening courses page");
 
         HttpSession session = req.getSession();
         String[] statuses = (String[]) session.getAttribute(ParameterName.STATUS);
@@ -57,7 +57,7 @@ public class CoursesPageCommand implements Command {
             int coursesCount = courseService.countCoursesInStatus(statuses);
             req.setAttribute(ParameterName.COURSES_COUNT, coursesCount);
         } catch (ServiceException e) {
-            LOGGER.error("Error when get courses for page " + pageStr, e);
+            logger.error("Error when get courses for page " + pageStr, e);
 
             Locale locale = (Locale) session.getAttribute(ParameterName.LOCALE);
             ResourceManager resourceManager = new ResourceManager(locale);

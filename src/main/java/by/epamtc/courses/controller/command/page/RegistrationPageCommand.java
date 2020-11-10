@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class RegistrationPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(RegistrationPageCommand.class);
+    private static final Logger logger = Logger.getLogger(RegistrationPageCommand.class);
 
     /**
      * Implementation of action to open 'Registration' page
@@ -27,7 +27,7 @@ public class RegistrationPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening registration page");
+        logger.debug("Opening registration page");
         req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
     }
 }

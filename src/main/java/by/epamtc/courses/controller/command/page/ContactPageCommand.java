@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author DEA
  */
 public class ContactPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(ContactPageCommand.class);
+    private static final Logger logger = Logger.getLogger(ContactPageCommand.class);
 
     /**
      * Implementation of action to open 'Contacts' page
@@ -27,7 +27,7 @@ public class ContactPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Try opening contact page");
+        logger.debug("Try opening contact page");
         req.getRequestDispatcher(PageName.CONTACT_PAGE).forward(req, resp);
     }
 }

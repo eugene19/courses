@@ -25,7 +25,7 @@ import java.util.Map;
  * @author DEA
  */
 public class LoginCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class);
+    private static final Logger logger = Logger.getLogger(LoginCommand.class);
 
     /**
      * User service instance
@@ -48,7 +48,7 @@ public class LoginCommand implements Command {
         // check if user already authored
         Object alreadyAuthoredUser = session.getAttribute(ParameterName.USER);
         if (alreadyAuthoredUser != null) {
-            LOGGER.warn("Try login again by already authored user");
+            logger.warn("Try login again by already authored user");
             resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
             return;
         }
@@ -59,7 +59,7 @@ public class LoginCommand implements Command {
         // check inputted auth data
         Map<String, String> validationErrors = userService.validateUserAuthData(parameters, locale);
         if (!validationErrors.isEmpty()) {
-            LOGGER.debug("Authentication is canceled because login or password are invalid");
+            logger.debug("Authentication is canceled because login or password are invalid");
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERRORS, validationErrors);
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
@@ -75,7 +75,7 @@ public class LoginCommand implements Command {
 
             // check if user not found
             if (user == null) {
-                LOGGER.debug("Authentication is canceled because wrong login or password");
+                logger.debug("Authentication is canceled because wrong login or password");
                 req.setAttribute(ParameterName.INIT, parameters);
                 req.setAttribute(ParameterName.ERROR,
                         resourceManager.getValue(LocaleMessage.WRONG_LOGIN_OR_PASSWORD));
@@ -83,11 +83,11 @@ public class LoginCommand implements Command {
                 return;
             }
 
-            LOGGER.debug("Authentication is successful");
+            logger.debug("Authentication is successful");
             session.setAttribute(ParameterName.USER, user);
             resp.sendRedirect(PageName.DEFAULT_PAGE_URL);
         } catch (ServiceException e) {
-            LOGGER.error("Error while authenticate user, try later", e);
+            logger.error("Error while authenticate user, try later", e);
             req.setAttribute(ParameterName.INIT, parameters);
             req.setAttribute(ParameterName.ERROR, resourceManager.getValue(LocaleMessage.SOMETHING_GOES_WRONG));
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);

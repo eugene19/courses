@@ -22,7 +22,7 @@ import static by.epamtc.courses.controller.command.CommandName.*;
  * @author DEA
  */
 public class SecurityFilter implements Filter {
-    private static final Logger LOGGER = Logger.getLogger(SecurityFilter.class);
+    private static final Logger logger = Logger.getLogger(SecurityFilter.class);
 
     /**
      * Map that stores the correspondence between the command
@@ -86,7 +86,7 @@ public class SecurityFilter implements Filter {
         CommandName command = parseCommand(commandName);
 
         if (isCommandNeedAuthorization(command) && !hasUserAllowedRole(command, user)) {
-            LOGGER.warn("Authorization fail: try opening private page by user without needed permission");
+            logger.warn("Authorization fail: try opening private page by user without needed permission");
             resp.sendError(ErrorCode.PERMISSION_DENIED);
             return;
         }
@@ -104,7 +104,7 @@ public class SecurityFilter implements Filter {
         try {
             return CommandName.valueOf(commandName.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
-            LOGGER.error("No such command in enum CommandName: " + commandName, e);
+            logger.error("No such command in enum CommandName: " + commandName, e);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class SecurityFilter implements Filter {
      */
     private boolean hasUserAllowedRole(CommandName command, User user) {
         if (user == null) {
-            LOGGER.warn("Authorization fail: try opening private page not authored user");
+            logger.warn("Authorization fail: try opening private page not authored user");
             return false;
         }
 

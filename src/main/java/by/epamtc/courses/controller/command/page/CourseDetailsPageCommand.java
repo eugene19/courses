@@ -24,7 +24,7 @@ import java.util.Map;
  * @author DEA
  */
 public class CourseDetailsPageCommand implements Command {
-    private static final Logger LOGGER = Logger.getLogger(CourseDetailsPageCommand.class);
+    private static final Logger logger = Logger.getLogger(CourseDetailsPageCommand.class);
 
     /**
      * Course service instance
@@ -46,7 +46,7 @@ public class CourseDetailsPageCommand implements Command {
      */
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        LOGGER.debug("Opening course detail page");
+        logger.debug("Opening course detail page");
 
         User user = (User) req.getSession().getAttribute(ParameterName.USER);
         String courseIdStr = req.getParameter(ParameterName.COURSE_ID);
