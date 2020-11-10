@@ -47,7 +47,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="surname"
-                       class="col-lg-2 col-form-label text-muted">${surname_lable}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${surname_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="surname" value="${foundUser.surname}"/>
@@ -56,7 +56,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="name"
-                       class="col-lg-2 col-form-label text-muted">${name_lable}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${name_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="name" value="${foundUser.name}"/>
@@ -65,7 +65,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="email"
-                       class="col-lg-2 col-form-label text-muted">${email_lable}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${email_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="email" value="${foundUser.email}"/>
@@ -74,7 +74,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="birthday"
-                       class="col-lg-2 col-form-label text-muted">${birthday_lable}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${birthday_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="birthday" value="${foundUser.birthday}"/>
@@ -83,7 +83,7 @@
 
             <div class="form-group row justify-content-center">
                 <label for="role"
-                       class="col-lg-2 col-form-label text-muted">${role_lable}</label>
+                       class="col-lg-3 col-form-label text-muted text-right">${role_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="role"
