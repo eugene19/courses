@@ -11,7 +11,7 @@
                     </a>
                 </p>
 
-                <a class="col-4"
+                <a class="col-4 text-info"
                    href="${pageContext.request.contextPath}/main?command=get_course_result_page&userId=${user_course.key.id}&courseId=${course.id}">
                         ${set_result_button}
                 </a>
