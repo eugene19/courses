@@ -30,7 +30,7 @@ public interface CourseResultService {
      * @param comment   value of comment
      * @throws ServiceException if an service exception occurred while processing
      */
-    void setCourseResult(int studentId, int courseId, int mark, String comment) throws ServiceException;
+    void addCourseResult(int studentId, int courseId, int mark, String comment) throws ServiceException;
 
     /**
      * Take course result for some student

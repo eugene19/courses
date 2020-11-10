@@ -18,7 +18,7 @@ public interface CourseResultDao {
      * @param comment   value of comment
      * @throws DaoException if an dao exception occurred while processing
      */
-    void setCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException;
+    void addCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException;
 
     /**
      * Take course result for some student

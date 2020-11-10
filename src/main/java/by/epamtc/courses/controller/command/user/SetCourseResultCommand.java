@@ -66,7 +66,7 @@ public class SetCourseResultCommand implements Command {
             int studentId = Integer.parseInt(studentIdStr);
             int mark = Integer.parseInt(markStr);
 
-            courseResultService.setCourseResult(studentId, courseId, mark, comment);
+            courseResultService.addCourseResult(studentId, courseId, mark, comment);
 
             logger.debug("Setting course result is success");
 

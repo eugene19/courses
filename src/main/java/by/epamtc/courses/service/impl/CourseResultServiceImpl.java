@@ -68,12 +68,12 @@ public class CourseResultServiceImpl implements CourseResultService {
      * @throws ServiceException if an service exception occurred while processing
      */
     @Override
-    public void setCourseResult(int studentId, int courseId, int mark, String comment) throws ServiceException {
+    public void addCourseResult(int studentId, int courseId, int mark, String comment) throws ServiceException {
         try {
             CourseResult courseResultForUserByCourse = courseResultDao.takeCourseResult(studentId, courseId);
 
             if (courseResultForUserByCourse == null) {
-                courseResultDao.setCourseResult(studentId, courseId, mark, comment);
+                courseResultDao.addCourseResult(studentId, courseId, mark, comment);
             } else {
                 courseResultDao.updateCourseResult(studentId, courseId, mark, comment);
             }

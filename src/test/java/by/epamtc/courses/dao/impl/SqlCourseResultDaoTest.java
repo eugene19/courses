@@ -24,7 +24,7 @@ public class SqlCourseResultDaoTest {
         int mark = 2;
         String comment = "test comment";
 
-        courseResultDao.setCourseResult(studentId, courseId, mark, comment);
+        courseResultDao.addCourseResult(studentId, courseId, mark, comment);
 
         boolean hasResultInDB = hasResultInDB(studentId, courseId);
         assertTrue("Result is not been added", hasResultInDB);

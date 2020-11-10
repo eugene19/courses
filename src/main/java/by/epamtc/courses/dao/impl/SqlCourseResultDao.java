@@ -63,7 +63,7 @@ public class SqlCourseResultDao implements CourseResultDao {
      * @throws DaoException if an dao exception occurred while processing
      */
     @Override
-    public void setCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
+    public void addCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
