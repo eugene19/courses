@@ -1,4 +1,4 @@
-package by.epamtc.courses.controller.servlet;
+package by.epamtc.courses.controller;
 
 import by.epamtc.courses.constant.ErrorCode;
 import by.epamtc.courses.constant.ParameterName;
@@ -22,9 +22,9 @@ import java.io.IOException;
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 5,
         maxRequestSize = 1024 * 1024 * 5 * 5)
-public class MainServlet extends HttpServlet {
+public class MainController extends HttpServlet {
     private static final long serialVersionUID = 8717762438987053788L;
-    private static final Logger logger = Logger.getLogger(MainServlet.class);
+    private static final Logger logger = Logger.getLogger(MainController.class);
 
     /**
      * Command provider instance

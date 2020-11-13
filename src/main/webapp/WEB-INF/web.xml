@@ -9,13 +9,13 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>requestDispatcher</servlet-name>
-        <servlet-class>by.epamtc.courses.controller.servlet.MainServlet
+        <servlet-name>mainController</servlet-name>
+        <servlet-class>by.epamtc.courses.controller.MainController
         </servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>requestDispatcher</servlet-name>
+        <servlet-name>mainController</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
 
