@@ -35,6 +35,11 @@ public class UploadPhotoCommand implements Command {
     private static final String SAVE_DIRECTORY = "uploadFiles";
 
     /**
+     * Regex to check user photo file extension
+     */
+    private static final String FILE_EXTENSION_REGEX = ".+\\.((png)|(jpg)|(jpeg))";
+
+    /**
      * Empty string constant
      */
     private static final String EMPTY_STRING = "";
@@ -70,9 +75,14 @@ public class UploadPhotoCommand implements Command {
             Part file = req.getPart(ParameterName.PHOTO_FILE);
             String fileName = file.getSubmittedFileName();
 
-            if (fileName == null || fileName.isEmpty()) {
-                logger.warn("Uploading user photo canceled because file name is incorrect: " + fileName);
+            if (fileName == null || fileName.isBlank()) {
+                logger.warn("Uploading user photo canceled because file name is empty");
                 String errorMessage = resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_FILE_NAME);
+                sendErrorUploading(req, resp, errorMessage);
+                return;
+            } else if (!fileName.matches(FILE_EXTENSION_REGEX)) {
+                logger.warn("Uploading user photo canceled because wrong photo extension");
+                String errorMessage = resourceManager.getValue(LocaleMessage.ERROR_INCORRECT_FILE_EXTENSION);
                 sendErrorUploading(req, resp, errorMessage);
                 return;
             }

@@ -69,6 +69,11 @@ public final class LocaleMessage {
      */
     public static final String ERROR_INCORRECT_FILE_NAME = "user.error.fileIsEmpty";
 
+    /**
+     * Key of error message 'File extension is wrong'
+     */
+    public static final String ERROR_INCORRECT_FILE_EXTENSION = "user.error.fileExtension";
+
     // course messages
 
     /**
