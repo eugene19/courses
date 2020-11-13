@@ -74,7 +74,7 @@
                     <div class="custom-file">
                         <input type="file" class="custom-file-input"
                                id="inputGroupFile02" name="photoFile"
-                               data-browse=""/>
+                               data-browse="" required/>
                         <label class="custom-file-label"
                                for="inputGroupFile02"></label>
                     </div>
@@ -109,7 +109,9 @@
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="surname" name="surname"
-                           value="<c:if test="${init.surname[0] != null}">${init.surname[0]}</c:if><c:if test="${init.surname[0] == null}">${user.surname}</c:if>"/>
+                           value="<c:if test="${init.surname[0] != null}">${init.surname[0]}</c:if><c:if test="${init.surname[0] == null}">${user.surname}</c:if>"
+                           required pattern="[A-Za-zА-Яа-яЁё]{2,15}"
+                           minlength="2" maxlength="15"/>
                     <div class="text-danger small col-lg-11">${errors.surname}</div>
                 </div>
             </div>
@@ -121,7 +123,9 @@
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
                            id="name" name="name"
-                           value="<c:if test="${init.name[0] != null}">${init.name[0]}</c:if><c:if test="${init.name[0] == null}">${user.name}</c:if>"/>
+                           value="<c:if test="${init.name[0] != null}">${init.name[0]}</c:if><c:if test="${init.name[0] == null}">${user.name}</c:if>"
+                           required pattern="[A-Za-zА-Яа-яЁё]{2,15}"
+                           minlength="2" maxlength="15"/>
                     <div class="text-danger small col-lg-11">${errors.name}</div>
                 </div>
             </div>
@@ -132,8 +136,10 @@
                     <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control"
-                           id="email" name="email"
-                           value="<c:if test="${init.email[0] != null}">${init.email[0]}</c:if><c:if test="${init.email[0] == null}">${user.email}</c:if>"/>
+                           id="email" name="email" required
+                           value="<c:if test="${init.email[0] != null}">${init.email[0]}</c:if><c:if test="${init.email[0] == null}">${user.email}</c:if>"
+                           pattern="\w{3,15}@[A-Za-z]{3,15}\.[A-Za-z]{1,4}"
+                           minlength="9" maxlength="45"/>
                     <div class="text-danger small col-lg-11">${errors.email}</div>
                 </div>
             </div>
@@ -145,7 +151,8 @@
                 <div class="col-lg-6">
                     <input type="date" class="form-control"
                            id="birthday" name="birthday"
-                           value="<c:if test="${init.birthday[0] != null}">${init.birthday[0]}</c:if><c:if test="${init.birthday[0] == null}">${user.birthday}</c:if>"/>
+                           value="<c:if test="${init.birthday[0] != null}">${init.birthday[0]}</c:if><c:if test="${init.birthday[0] == null}">${user.birthday}</c:if>"
+                           required min="1900-01-01"/>
                     <div class="text-danger small col-lg-11">${errors.birthday}</div>
                 </div>
             </div>
@@ -153,7 +160,7 @@
             <div class="form-group row justify-content-center">
                 <label for="role"
                        class="col-lg-3 col-form-label text-muted text-right">${role_lable}</label>
-                <input type="hidden" name="role"
+                <input type="hidden" name="role" required
                        value="<c:if test="${init.role[0] != null}">${init.role[0]}</c:if><c:if test="${init.role[0] == null}">${user.role}</c:if>"/>
                 <div class="col-lg-6">
                     <select disabled class="form-control disabled" id="role">
@@ -175,6 +182,7 @@
                         type="submit">${save_profile_button}</button>
             </div>
         </form>
+        <%@include file="../component/field_validation.jsp" %>
     </div>
 </div>
 

@@ -22,9 +22,8 @@
                     </a>
                 </label>
                 <select class="form-control form-control-sm col-4"
-                        id="userCourseStatus"
-                        name="userCourseStatus"
-                        onchange="submit()">
+                        id="userCourseStatus" name="userCourseStatus"
+                        onchange="submit()" required>
                     <option
                             <c:if test="${user_course.value == 'APPLIED'}">selected</c:if>
                             value="APPLIED">${applied_value}</option>
@@ -37,5 +36,6 @@
                 </select>
             </div>
         </form>
+        <%@include file="../../component/field_validation.jsp" %>
     </div>
 </c:forEach>

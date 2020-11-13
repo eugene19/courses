@@ -41,7 +41,8 @@
             <div class="form-group row">
                 <label class="text-muted" for="login">${login_lable}</label>
                 <input type="text" class="form-control form-control-sm"
-                       id="login" name="login" value="${init.login[0]}"/>
+                       id="login" name="login" value="${init.login[0]}"
+                       required/>
                 <div class="text-danger small">${errors.login}</div>
             </div>
 
@@ -49,7 +50,7 @@
                 <label class="text-muted"
                        for="password">${password_lable}</label>
                 <input class="form-control form-control-sm" id="password"
-                       type="password" name="password"/>
+                       type="password" name="password" required/>
                 <div class="text-danger small">${errors.password}</div>
             </div>
 
@@ -58,6 +59,7 @@
                         type="submit">${login_button}</button>
             </div>
         </form>
+        <%@include file="../component/field_validation.jsp" %>
     </div>
 </div>
 

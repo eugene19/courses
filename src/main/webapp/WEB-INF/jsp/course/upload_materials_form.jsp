@@ -25,7 +25,7 @@
                 <div class="custom-file">
                     <input type="file" class="custom-file-input"
                            id="inputGroupFile02" name="materials"
-                           data-browse=""/>
+                           data-browse="" required/>
                     <label class="custom-file-label"
                            for="inputGroupFile02"></label>
                 </div>
@@ -46,5 +46,6 @@
                        value="${upload_button}"/>
             </div>
         </form>
+        <%@include file="../component/field_validation.jsp" %>
     </div>
 </div>

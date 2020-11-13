@@ -45,7 +45,8 @@
                                id="mark" type="number" name="mark"
                                value="<c:if
                                test="${init.mark[0] != null}">${init.mark[0]}</c:if><c:if
-                               test="${init.mark[0] == null}">${courseResult.mark}</c:if>"/>
+                               test="${init.mark[0] == null}">${courseResult.mark}</c:if>"
+                               required min="0" max="10"/>
                         <div class="text-danger small">${errors.mark}</div>
 
                         <label class="text-muted col-6"
@@ -53,7 +54,8 @@
                                 class="text-danger">*</span></label>
                         <textarea class="form-control form-control-sm"
                                   id="comment" rows="4" style="resize: none"
-                                  name="comment"><c:if
+                                  name="comment" required minlength="3"
+                                  maxlength="50"><c:if
                                 test="${init.comment[0] != null}">${init.comment[0]}</c:if><c:if
                                 test="${init.comment[0] == null}">${courseResult.comment}</c:if></textarea>
                         <div class="text-danger small">${errors.comment}</div>

@@ -47,7 +47,8 @@
                 <label class="text-muted" for="summary">${summary_lable} <span
                         class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
-                       id="summary" name="summary" value="${init.summary[0]}"/>
+                       id="summary" name="summary" value="${init.summary[0]}"
+                       required minlength="3" maxlength="100"/>
                 <div class="text-danger small">${errors.summary}</div>
             </div>
 
@@ -57,7 +58,8 @@
                         class="text-danger">*</span></label>
                 <textarea class="form-control form-control-sm" id="description"
                           rows="4" style="resize: none"
-                          name="description">${init.description[0]}</textarea>
+                          name="description" required minlength="3"
+                          maxlength="1130">${init.description[0]}</textarea>
                 <div class="text-danger small">${errors.description}</div>
             </div>
 
@@ -66,7 +68,7 @@
                        for="startDate">${start_date_lable} <span
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
-                       id="startDate" name="startDate"
+                       id="startDate" name="startDate" required
                        value="${init.startDate[0]}"/>
                 <div class="text-danger small">${errors.startDate}</div>
             </div>
@@ -76,7 +78,8 @@
                        for="endDate">${end_date_lable} <span
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
-                       id="endDate" name="endDate" value="${init.endDate[0]}"/>
+                       id="endDate" name="endDate" value="${init.endDate[0]}"
+                       required max="2099-12-31"/>
                 <span class="text-danger small">${errors.endDate}</span>
             </div>
 
@@ -85,8 +88,9 @@
                        for="studentsLimit">${students_limit_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="studentsLimit"
-                       type="number"
-                       name="studentsLimit" value="${init.studentsLimit[0]}"/>
+                       type="number" name="studentsLimit"
+                       value="${init.studentsLimit[0]}"
+                       required min="1" max="100"/>
                 <div class="text-danger small">${errors.studentsLimit}</div>
             </div>
 
@@ -107,6 +111,7 @@
                         type="submit">${create_button}</button>
             </div>
         </form>
+        <%@include file="../component/field_validation.jsp" %>
     </div>
 </div>
 

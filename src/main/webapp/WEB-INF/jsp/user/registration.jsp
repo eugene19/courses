@@ -41,7 +41,8 @@
                 <label class="text-muted" for="login">${login_lable} <span
                         class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
-                       id="login" name="login" value="${init.login[0]}"/>
+                       id="login" name="login" value="${init.login[0]}" required
+                       pattern="\w{3,15}" minlength="3" maxlength="15"/>
                 <div class="text-danger small">${errors.login}</div>
             </div>
 
@@ -50,7 +51,8 @@
                        for="password">${password_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="password"
-                       type="password" name="password"/>
+                       type="password" name="password" required
+                       pattern="\w{3,15}" minlength="3" maxlength="15"/>
                 <div class="text-danger small">${errors.password}</div>
             </div>
 
@@ -58,7 +60,9 @@
                 <label class="text-muted" for="surname">${surname_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="surname"
-                       type="text" name="surname" value="${init.surname[0]}"/>
+                       type="text" name="surname" value="${init.surname[0]}"
+                       required pattern="[A-Za-zА-Яа-яЁё]{2,15}" minlength="2"
+                       maxlength="15"/>
                 <div class="text-danger small">${errors.surname}</div>
             </div>
 
@@ -66,7 +70,9 @@
                 <label class="text-muted" for="name">${name_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="name"
-                       type="text" name="name" value="${init.name[0]}"/>
+                       type="text" name="name" value="${init.name[0]}" required
+                       pattern="[A-Za-zА-Яа-яЁё]{2,15}" minlength="2"
+                       maxlength="15"/>
                 <div class="text-danger small">${errors.name}</div>
             </div>
 
@@ -74,8 +80,10 @@
                 <label class="text-muted" for="email">${email_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" type="text"
-                       id="email" name="email"
-                       value="${init.email[0]}"/>
+                       id="email" name="email" required
+                       value="${init.email[0]}"
+                       pattern="\w{3,15}@[A-Za-z]{3,15}\.[A-Za-z]{1,4}"
+                       minlength="9" maxlength="45"/>
                 <div class="text-danger small">${errors.email}</div>
             </div>
             <div class="form-group row">
@@ -84,7 +92,7 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="birthday" name="birthday"
-                       value="${init.birthday[0]}"/>
+                       value="${init.birthday[0]}" required min="1900-01-01"/>
                 <div class="text-danger small">${errors.birthday}</div>
             </div>
 
@@ -92,7 +100,7 @@
                 <label class="text-muted" for="role">${role_lable} <span
                         class="text-danger">*</span></label>
                 <select class="form-control form-control-sm" id="role"
-                        name="role">
+                        name="role" required>
                     <option
                             <c:if test="${init.role[0] == 'STUDENT'}">selected</c:if>
                             value="STUDENT">${role_student}</option>
@@ -108,6 +116,7 @@
                         type="submit">${register_btn}</button>
             </div>
         </form>
+        <%@include file="../component/field_validation.jsp" %>
     </div>
 </div>
 
