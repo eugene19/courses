@@ -74,20 +74,15 @@ public class SqlCourseResultDaoTest {
                 "JOIN user_courses uc ON cr.id = uc.course_result_id " +
                 "WHERE user_id = ? " +
                 "AND course_id = ?;";
-
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
         CourseResult result = null;
 
-        try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(sqlFindResult);
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlFindResult)
+        ) {
             preparedStatement.setInt(1, studentId);
             preparedStatement.setInt(2, courseId);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 result = new CourseResult();
@@ -96,8 +91,6 @@ public class SqlCourseResultDaoTest {
             }
 
             return result;
-        } finally {
-            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);
         }
     }
 
@@ -105,20 +98,14 @@ public class SqlCourseResultDaoTest {
         String sqlFindResult = "select course_result_id from user_courses where user_id = ? " +
                 "and course_id = ? and course_result_id is not null;";
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(sqlFindResult);
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlFindResult)
+        ) {
             preparedStatement.setInt(1, studentId);
             preparedStatement.setInt(2, courseId);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
-        } finally {
-            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);
         }
     }
 }

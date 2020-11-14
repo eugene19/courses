@@ -69,14 +69,16 @@ public class SqlCourseDaoTest {
         String sqlFindApplication = "select * from user_courses where user_id = ? " +
                 "and course_id = ? and user_course_status_id = ?;";
 
-        Connection connection = ConnectionPool.getInstance().takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlFindApplication);
-        preparedStatement.setInt(1, studentId);
-        preparedStatement.setInt(2, courseId);
-        preparedStatement.setInt(3, UserCourseStatus.APPLIED.getId());
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlFindApplication)
+        ) {
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.setInt(2, courseId);
+            preparedStatement.setInt(3, UserCourseStatus.APPLIED.getId());
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        return resultSet.next();
+            return resultSet.next();
+        }
     }
 }

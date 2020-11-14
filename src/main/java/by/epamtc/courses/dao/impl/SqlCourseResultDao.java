@@ -104,24 +104,18 @@ public class SqlCourseResultDao implements CourseResultDao {
     public CourseResult takeCourseResult(int studentId, int courseId) throws DaoException {
         CourseResult courseResult = null;
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            statement = connection.prepareStatement(GET_COURSE_RESULT);
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement statement = connection.prepareStatement(GET_COURSE_RESULT)
+        ) {
             statement.setInt(1, studentId);
             statement.setInt(2, courseId);
 
-            resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 courseResult = createCourseResult(resultSet);
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while get course result", e);
-        } finally {
-            connectionPool.closeConnection(connection, statement, resultSet);
         }
 
         return courseResult;
@@ -138,13 +132,9 @@ public class SqlCourseResultDao implements CourseResultDao {
      */
     @Override
     public void updateCourseResult(int studentId, int courseId, int mark, String comment) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT);
-
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT)
+        ) {
             preparedStatement.setInt(1, mark);
             preparedStatement.setString(2, comment);
             preparedStatement.setInt(3, studentId);
@@ -153,8 +143,6 @@ public class SqlCourseResultDao implements CourseResultDao {
             preparedStatement.executeUpdate();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while update course result", e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement);
         }
     }
 
@@ -169,17 +157,12 @@ public class SqlCourseResultDao implements CourseResultDao {
      */
     private void insertCourseResult(int courseResultId, int studentId,
                                     int courseId, Connection connection) throws SQLException {
-        PreparedStatement preparedStatement = null;
-
-        try {
-            preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT_ID);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_COURSE_RESULT_ID)) {
             preparedStatement.setInt(1, courseResultId);
             preparedStatement.setInt(2, studentId);
             preparedStatement.setInt(3, courseId);
 
             preparedStatement.execute();
-        } finally {
-            connectionPool.closeConnection(null, preparedStatement);
         }
     }
 

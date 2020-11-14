@@ -71,7 +71,7 @@ public final class ConnectionPool {
                     .getValue(DBParameter.DB_POLL_SIZE));
         } catch (NumberFormatException e) {
             poolSize = 5;
-            logger.error("Error while reading pool size value from file. " +
+            logger.warn("Error while reading pool size value from file. " +
                     "Set poll size = " + poolSize, e);
         }
 
@@ -124,39 +124,6 @@ public final class ConnectionPool {
             throw new ConnectionPoolException("Error connecting to the data source.", e);
         }
         return connection;
-    }
-
-    /**
-     * Close ResultSet, Statement and Connection if they is not null
-     *
-     * @param con object of <code>Connection</code>
-     * @param st  object of <code>Statement</code>
-     * @param rs  object of <code>ResultSet</code>
-     */
-    public void closeConnection(Connection con, Statement st, ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                logger.error("ResultSet isn't closed");
-            }
-        }
-
-        if (st != null) {
-            try {
-                st.close();
-            } catch (SQLException e) {
-                logger.error("Statement isn't closed");
-            }
-        }
-
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                logger.error("Connection isn't return to the pool");
-            }
-        }
     }
 
     /**

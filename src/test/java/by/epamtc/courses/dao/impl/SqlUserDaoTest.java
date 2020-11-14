@@ -86,24 +86,27 @@ public class SqlUserDaoTest {
     private void rollbackRegistration() throws SQLException {
         String sqlDeleteRegistration = "delete from users where login = ?;";
 
-        Connection connection = ConnectionPool.getInstance().takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteRegistration);
-        preparedStatement.setString(1, takeValidUserAuthData().getLogin());
-
-        preparedStatement.execute();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteRegistration)
+        ) {
+            preparedStatement.setString(1, takeValidUserAuthData().getLogin());
+            preparedStatement.execute();
+        }
     }
 
     private boolean findUserFromDB(String login, String password) throws SQLException {
         String sqlFindUserByLoginPassword = "select * from users where login = ? and password = ?;";
 
-        Connection connection = ConnectionPool.getInstance().takeConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlFindUserByLoginPassword);
-        preparedStatement.setString(1, login);
-        preparedStatement.setString(2, password);
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlFindUserByLoginPassword)
+        ) {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        return resultSet.next();
+            return resultSet.next();
+        }
     }
 
     private UserAuthData takeValidUserAuthData() {

@@ -102,24 +102,18 @@ public class SqlUserDao implements UserDao {
     public User authenticate(String login, String password) throws DaoException {
         User user = null;
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD);
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN_AND_PASSWORD)
+        ) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = createUser(resultSet);
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while authenticate user " + login, e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
 
         return user;
@@ -137,16 +131,12 @@ public class SqlUserDao implements UserDao {
     public Map<User, UserCourseStatus> findAllStudentsOnCourse(int courseId) throws DaoException {
         Map<User, UserCourseStatus> users = new LinkedHashMap<>();
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL_USERS_ON_COURSE);
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS_ON_COURSE)
+        ) {
             preparedStatement.setInt(1, courseId);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 users.put(
                         createUser(resultSet),
@@ -155,8 +145,6 @@ public class SqlUserDao implements UserDao {
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while find all users on course with id " + courseId, e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
 
         return users;
@@ -177,17 +165,13 @@ public class SqlUserDao implements UserDao {
     ) throws DaoException {
         Map<User, UserCourseStatus> users = new LinkedHashMap<>();
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(GET_USERS_WITH_STATUS_ON_COURSE);
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS_WITH_STATUS_ON_COURSE)
+        ) {
             preparedStatement.setInt(1, status.getId());
             preparedStatement.setInt(2, courseId);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 users.put(
                         createUser(resultSet),
@@ -197,8 +181,6 @@ public class SqlUserDao implements UserDao {
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while find users with status '" +
                     status + "' on course with id " + courseId, e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
 
         return users;
@@ -215,23 +197,17 @@ public class SqlUserDao implements UserDao {
     public User findUserById(int userId) throws DaoException {
         User user = null;
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(GET_USER_BY_ID);
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID)
+        ) {
             preparedStatement.setInt(1, userId);
 
-            resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = createUser(resultSet);
             }
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while find user by id " + userId, e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement, resultSet);
         }
 
         return user;
@@ -245,13 +221,9 @@ public class SqlUserDao implements UserDao {
      */
     @Override
     public void register(UserAuthData user) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(INSERT_USER);
-
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)
+        ) {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getSurname());
@@ -263,8 +235,6 @@ public class SqlUserDao implements UserDao {
             preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while register user " + user.getLogin(), e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement);
         }
     }
 
@@ -276,13 +246,9 @@ public class SqlUserDao implements UserDao {
      */
     @Override
     public void update(User user) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(UPDATE_USER);
-
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)
+        ) {
             preparedStatement.setString(1, user.getSurname());
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getEmail());
@@ -293,8 +259,6 @@ public class SqlUserDao implements UserDao {
             preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while update user", e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement);
         }
     }
 
@@ -309,13 +273,9 @@ public class SqlUserDao implements UserDao {
     @Override
     public void updateUserCourseStatus(int userId, int courseId,
                                        UserCourseStatus status) throws DaoException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connectionPool.takeConnection();
-            preparedStatement = connection.prepareStatement(UPDATE_USER_COURSE_STATUS);
-
+        try (Connection connection = connectionPool.takeConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_COURSE_STATUS)
+        ) {
             preparedStatement.setInt(1, status.getId());
             preparedStatement.setInt(2, userId);
             preparedStatement.setInt(3, courseId);
@@ -323,8 +283,6 @@ public class SqlUserDao implements UserDao {
             preparedStatement.execute();
         } catch (SQLException | ConnectionPoolException e) {
             throw new DaoException("Error while update user course status", e);
-        } finally {
-            connectionPool.closeConnection(connection, preparedStatement);
         }
     }
 
