@@ -74,7 +74,8 @@
                     <div class="custom-file">
                         <input type="file" class="custom-file-input"
                                id="inputGroupFile02" name="photoFile"
-                               data-browse="" required/>
+                               data-browse="" required
+                               accept=".png,.jpg,.jpeg"/>
                         <label class="custom-file-label"
                                for="inputGroupFile02"></label>
                     </div>
