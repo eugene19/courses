@@ -36,6 +36,8 @@
              var="upload_label"/>
 <fmt:message bundle="${bundle}" key="button.upload"
              var="upload_button"/>
+<fmt:message bundle="${bundle}" key="error.veryBigFile"
+             var="fileVeryBig"/>
 
 <div class="container">
     <div class="row justify-content-center py-5">
@@ -90,8 +92,15 @@
                     fieldVal = fieldVal.replace("C:\\fakepath\\", "");
 
                     if (fieldVal !== undefined || fieldVal !== "") {
-                        $(this).next(".custom-file-label").attr('data-content', fieldVal);
-                        $(this).next(".custom-file-label").text(fieldVal);
+                        var file = document.getElementById("inputGroupFile02").files[0];
+
+                        if (file.size > 500_000) {
+                            document.getElementById("inputGroupFile02").value = null;
+                            alert("${fileVeryBig}");
+                        } else {
+                            $(this).next(".custom-file-label").attr('data-content', fieldVal);
+                            $(this).next(".custom-file-label").text(fieldVal);
+                        }
                     }
                 });
             </script>
