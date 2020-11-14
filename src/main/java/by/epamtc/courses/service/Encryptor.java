@@ -1,4 +1,4 @@
-package by.epamtc.courses.controller.command.user;
+package by.epamtc.courses.service;
 
 import org.apache.log4j.Logger;
 
@@ -11,8 +11,8 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author DEA
  */
-public class PasswordHasher {
-    private static final Logger logger = Logger.getLogger(PasswordHasher.class);
+public class Encryptor {
+    private static final Logger logger = Logger.getLogger(Encryptor.class);
 
     /**
      * Field containing name of hash algorithm

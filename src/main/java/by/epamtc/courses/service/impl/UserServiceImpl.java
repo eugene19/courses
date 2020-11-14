@@ -5,6 +5,7 @@ import by.epamtc.courses.dao.DaoException;
 import by.epamtc.courses.dao.DaoProvider;
 import by.epamtc.courses.dao.UserDao;
 import by.epamtc.courses.entity.*;
+import by.epamtc.courses.service.Encryptor;
 import by.epamtc.courses.service.ServiceException;
 import by.epamtc.courses.service.UserService;
 import by.epamtc.courses.service.validation.UserValidator;
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User authenticate(String login, String password) throws ServiceException {
         try {
-            return userDao.authenticate(login, password);
+            return userDao.authenticate(login, Encryptor.hashPassword(password));
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -113,6 +114,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(UserAuthData user) throws ServiceException {
         try {
+            String hashPassword = Encryptor.hashPassword(user.getPassword());
+            user.setPassword(hashPassword);
             userDao.register(user);
         } catch (DaoException e) {
             throw new ServiceException(e);

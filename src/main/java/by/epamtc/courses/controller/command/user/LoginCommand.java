@@ -71,8 +71,7 @@ public class LoginCommand implements Command {
             String login = req.getParameter(ParameterName.LOGIN);
             String password = req.getParameter(ParameterName.PASSWORD);
 
-            User user = userService.authenticate(login,
-                    PasswordHasher.hashPassword(password));
+            User user = userService.authenticate(login, password);
 
             // check if user not found
             if (user == null) {

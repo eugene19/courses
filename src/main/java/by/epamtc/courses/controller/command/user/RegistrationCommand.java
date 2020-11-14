@@ -66,7 +66,6 @@ public class RegistrationCommand implements Command {
         }
 
         UserAuthData user = userBuilder.createUserDataFromParams(parameters);
-        hashPassword(user);
 
         try {
             userService.register(user);
@@ -85,15 +84,5 @@ public class RegistrationCommand implements Command {
         }
 
         req.getRequestDispatcher(PageName.REGISTRATION_PAGE).forward(req, resp);
-    }
-
-    /**
-     * Hash user's password
-     *
-     * @param user user's registration data
-     */
-    private void hashPassword(UserAuthData user) {
-        String passwordHash = PasswordHasher.hashPassword(user.getPassword());
-        user.setPassword(passwordHash);
     }
 }
