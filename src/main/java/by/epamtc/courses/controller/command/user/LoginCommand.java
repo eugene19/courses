@@ -61,7 +61,8 @@ public class LoginCommand implements Command {
         if (!validationErrors.isEmpty()) {
             logger.debug("Authentication is canceled because login or password are invalid");
             req.setAttribute(ParameterName.INIT, parameters);
-            req.setAttribute(ParameterName.ERRORS, validationErrors);
+            req.setAttribute(ParameterName.ERROR,
+                    resourceManager.getValue(LocaleMessage.WRONG_LOGIN_OR_PASSWORD));
             req.getRequestDispatcher(PageName.LOGIN_PAGE).forward(req, resp);
             return;
         }
