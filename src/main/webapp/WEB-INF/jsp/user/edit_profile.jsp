@@ -98,8 +98,13 @@
                             document.getElementById("inputGroupFile02").value = null;
                             alert("${fileVeryBig}");
                         } else {
-                            $(this).next(".custom-file-label").attr('data-content', fieldVal);
-                            $(this).next(".custom-file-label").text(fieldVal);
+                            if (file.name.length > 15) {
+                                $(this).next(".custom-file-label").attr('data-content', fieldVal.substring(0, 15) + '...');
+                                $(this).next(".custom-file-label").text(fieldVal.substring(0, 15) + '...');
+                            } else {
+                                $(this).next(".custom-file-label").attr('data-content', fieldVal);
+                                $(this).next(".custom-file-label").text(fieldVal);
+                            }
                         }
                     }
                 });
