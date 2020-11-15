@@ -5,6 +5,9 @@
                  var="upload_button"/>
     <fmt:message bundle="${bundle}" key="button.showUploading"
                  var="show_upload"/>
+    <fmt:message bundle="${bundle}" key="error.veryBigFile"
+                 var="fileVeryBig"/>
+
 
     <button class="spoiler-title btn btn-outline-primary"
             style="max-height: 40px">${show_upload}
@@ -37,13 +40,18 @@
 
                     var file = document.getElementById("inputGroupFile02").files[0];
 
-                    if (fieldVal !== undefined || fieldVal !== "") {
-                        if (file.name.length > 15) {
-                            $(this).next(".custom-file-label").attr('data-content', fieldVal.substring(0, 15) + '...');
-                            $(this).next(".custom-file-label").text(fieldVal.substring(0, 15) + '...');
-                        } else {
-                            $(this).next(".custom-file-label").attr('data-content', fieldVal);
-                            $(this).next(".custom-file-label").text(fieldVal);
+                    if (file.size > 500_000) {
+                        document.getElementById("inputGroupFile02").value = null;
+                        alert("${fileVeryBig}");
+                    } else {
+                        if (fieldVal !== undefined || fieldVal !== "") {
+                            if (file.name.length > 15) {
+                                $(this).next(".custom-file-label").attr('data-content', fieldVal.substring(0, 15) + '...');
+                                $(this).next(".custom-file-label").text(fieldVal.substring(0, 15) + '...');
+                            } else {
+                                $(this).next(".custom-file-label").attr('data-content', fieldVal);
+                                $(this).next(".custom-file-label").text(fieldVal);
+                            }
                         }
                     }
                 });
