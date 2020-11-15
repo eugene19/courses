@@ -68,6 +68,8 @@
                 </a>
                 <input type="submit" class="btn btn-outline-info"
                        value="${save_button}"/>
+
+                <%@include file="../component/field_validation.jsp" %>
             </form>
         </div>
     </div>
