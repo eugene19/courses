@@ -104,7 +104,7 @@ public class SecurityFilter implements Filter {
         try {
             return CommandName.valueOf(commandName.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
-            logger.error("No such command in enum CommandName: " + commandName, e);
+            logger.warn("No such command in enum CommandName: " + commandName);
             return null;
         }
     }
