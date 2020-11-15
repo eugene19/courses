@@ -9,12 +9,6 @@ public class DaoException extends Exception {
     private static final long serialVersionUID = -7628486779139736741L;
 
     /**
-     * Construct a DaoException
-     */
-    public DaoException() {
-    }
-
-    /**
      * Constructs a new DaoException with the specified message
      *
      * @param message a String specifying the text of the exception message
@@ -31,14 +25,5 @@ public class DaoException extends Exception {
      */
     public DaoException(String message, Throwable cause) {
         super(message, cause);
-    }
-
-    /**
-     * Constructs a new DaoException with the specified cause
-     *
-     * @param cause the cause which is saved for later retrieval by the Throwable.getCause() method
-     */
-    public DaoException(Throwable cause) {
-        super(cause);
     }
 }
