@@ -64,13 +64,17 @@
                 <div class="text-danger small">${errors.description}</div>
             </div>
 
+            <jsp:useBean id="currentDate" class="java.util.Date"/>
+
             <div class="form-group row">
                 <label class="text-muted"
                        for="startDate">${start_date_lable} <span
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="startDate" name="startDate" required
-                       value="${init.startDate[0]}"/>
+                       value="${init.startDate[0]}"
+                       min="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"
+                       max="2099-12-31"/>
                 <div class="text-danger small">${errors.startDate}</div>
             </div>
 
@@ -80,7 +84,8 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="endDate" name="endDate" value="${init.endDate[0]}"
-                       required max="2099-12-31"/>
+                       required max="2099-12-31"
+                       min="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>
                 <span class="text-danger small">${errors.endDate}</span>
             </div>
 

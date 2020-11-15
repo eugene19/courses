@@ -78,7 +78,8 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="startDate" name="startDate" required
-                       value="<c:if test="${init.startDate[0] != null}">${init.startDate[0]}</c:if><c:if test="${init.startDate[0] == null}">${course.startDate}</c:if>"/>
+                       value="<c:if test="${init.startDate[0] != null}">${init.startDate[0]}</c:if><c:if test="${init.startDate[0] == null}">${course.startDate}</c:if>"
+                       max="2099-12-31"/>
                 <div class="text-danger small">${errors.startDate}</div>
             </div>
 

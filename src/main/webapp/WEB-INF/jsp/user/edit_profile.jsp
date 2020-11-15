@@ -159,15 +159,18 @@
                 </div>
             </div>
 
+            <jsp:useBean id="currentDate" class="java.util.Date"/>
+
             <div class="form-group row justify-content-center">
                 <label for="birthday"
                        class="col-lg-3 col-form-label text-muted text-right">${birthday_lable}
                     <span class="text-danger">*</span></label>
                 <div class="col-lg-6">
                     <input type="date" class="form-control"
-                           id="birthday" name="birthday"
+                           id="birthday" name="birthday" required
+                           min="1900-01-01"
                            value="<c:if test="${init.birthday[0] != null}">${init.birthday[0]}</c:if><c:if test="${init.birthday[0] == null}">${user.birthday}</c:if>"
-                           required min="1900-01-01"/>
+                           max="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>
                     <div class="text-danger small col-lg-11">${errors.birthday}</div>
                 </div>
             </div>

@@ -86,13 +86,17 @@
                        minlength="9" maxlength="45"/>
                 <div class="text-danger small">${errors.email}</div>
             </div>
+
+            <jsp:useBean id="currentDate" class="java.util.Date"/>
+
             <div class="form-group row">
                 <label class="text-muted"
                        for="birthday">${birthday_lable} <span
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="birthday" name="birthday"
-                       value="${init.birthday[0]}" required min="1900-01-01"/>
+                       value="${init.birthday[0]}" required min="1900-01-01"
+                       max="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>
                 <div class="text-danger small">${errors.birthday}</div>
             </div>
 
