@@ -40,6 +40,7 @@
               method="post">
             <input type="hidden" name="command" value="add_course"/>
             <input type="hidden" name="lecturerId" value="${user.id}"/>
+            <input type="hidden" name="status" value="NOT_STARTED"/>
 
             <%@include file="../component/alert_error.jsp" %>
 
@@ -92,18 +93,6 @@
                        value="${init.studentsLimit[0]}"
                        required min="1" max="100"/>
                 <div class="text-danger small">${errors.studentsLimit}</div>
-            </div>
-
-            <div class="form-group row">
-                <input type="hidden" name="status" value="NOT_STARTED"/>
-                <label class="text-muted" for="status">${status_lable} <span
-                        class="text-danger">*</span></label>
-                <select class="form-control form-control-sm disabled"
-                        id="status" disabled>
-                    <option selected>${status_not_started}</option>
-                </select>
-                <div class="text-warning small">${immutable_field}</div>
-                <div class="text-danger small">${errors.status}</div>
             </div>
 
             <div class="row justify-content-center py-4">
