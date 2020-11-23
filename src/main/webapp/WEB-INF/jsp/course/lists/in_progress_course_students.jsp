@@ -7,7 +7,7 @@
             <div class="form-group row col-6">
                 <p class="text-muted col-4">
                     <a class="text-info"
-                       href="${pageContext.request.contextPath}/main?command=get_about_user_page&userId=${user_course.key.id}">${user_course.key.surname} ${user_course.key.name}
+                       href="${pageContext.request.contextPath}/main?command=get_about_user_page&userId=${user_course.key.id}">${fn:escapeXml(user_course.key.surname)} ${fn:escapeXml(user_course.key.name)}
                     </a>
                 </p>
 

@@ -1,6 +1,7 @@
 <%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Profile</title>
@@ -61,7 +62,7 @@
                        class="col-lg-3 col-form-label text-muted text-right">${surname_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="surname" value="${user.surname}"/>
+                           id="surname" value="${fn:escapeXml(user.surname)}"/>
                 </div>
             </div>
 
@@ -70,7 +71,7 @@
                        class="col-lg-3 col-form-label text-muted text-right">${name_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="name" value="${user.name}"/>
+                           id="name" value="${fn:escapeXml(user.name)}"/>
                 </div>
             </div>
 
@@ -79,7 +80,7 @@
                        class="col-lg-3 col-form-label text-muted text-right">${email_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="email" value="${user.email}"/>
+                           id="email" value="${fn:escapeXml(user.email)}"/>
                 </div>
             </div>
 
@@ -88,7 +89,8 @@
                        class="col-lg-3 col-form-label text-muted text-right">${birthday_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="birthday" value="${user.birthday}"/>
+                           id="birthday"
+                           value="${fn:escapeXml(user.birthday)}"/>
                 </div>
             </div>
 
@@ -98,7 +100,7 @@
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
                            id="role"
-                           value="<c:if test="${user.role == 'STUDENT'}">${role_student}</c:if><c:if test="${user.role == 'LECTURER'}">${role_lecturer}</c:if>"/>
+                           value="<c:if test="${user.role == 'STUDENT'}">${fn:escapeXml(role_student)}</c:if><c:if test="${user.role == 'LECTURER'}">${fn:escapeXml(role_lecturer)}</c:if>"/>
                 </div>
             </div>
 

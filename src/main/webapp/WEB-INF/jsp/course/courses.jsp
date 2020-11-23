@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="myTag" uri="/WEB-INF/tld/myTag" %>
 <html>
 <head>
@@ -63,8 +64,9 @@
                         <div class="row">
                             <div class="col-10 m-0">
                                 <h5 class="mt-0">
-                                    <myTag:cutLongText text="${course.summary}"
-                                                       maxLength="80"/>
+                                    <myTag:cutLongText
+                                            text="${fn:escapeXml(course.summary)}"
+                                            maxLength="80"/>
                                 </h5>
                             </div>
                             <div class="col-2 m-0 text-right">
@@ -86,8 +88,9 @@
                         </div>
 
                         <p>
-                            <myTag:cutLongText text="${course.description}"
-                                               maxLength="300"/>
+                            <myTag:cutLongText
+                                    text="${fn:escapeXml(course.description)}"
+                                    maxLength="300"/>
                         </p>
                         <p class="text-muted small">
                                 ${course.startDate} - ${course.endDate}

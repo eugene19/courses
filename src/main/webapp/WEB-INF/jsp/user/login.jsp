@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Login</title>
@@ -41,8 +42,10 @@
             <div class="form-group row">
                 <label class="text-muted" for="login">${login_lable}</label>
                 <input type="text" class="form-control form-control-sm"
-                       id="login" name="login" value="${init.login[0]}"
-                       required/>
+                       id="login" name="login"
+                       value="${fn:escapeXml(init.login[0])}"
+                       required pattern="\w{3,15}" minlength="3"
+                       maxlength="15"/>
                 <div class="text-danger small">${errors.login}</div>
             </div>
 
@@ -50,7 +53,8 @@
                 <label class="text-muted"
                        for="password">${password_lable}</label>
                 <input class="form-control form-control-sm" id="password"
-                       type="password" name="password" required/>
+                       type="password" name="password" required
+                       pattern="\w{3,15}" minlength="3" maxlength="15"/>
                 <div class="text-danger small">${errors.password}</div>
             </div>
 

@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -41,7 +42,8 @@
                 <label class="text-muted" for="login">${login_lable} <span
                         class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
-                       id="login" name="login" value="${init.login[0]}" required
+                       id="login" name="login"
+                       value="${fn:escapeXml(init.login[0])}" required
                        pattern="\w{3,15}" minlength="3" maxlength="15"/>
                 <div class="text-danger small">${errors.login}</div>
             </div>
@@ -60,7 +62,8 @@
                 <label class="text-muted" for="surname">${surname_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="surname"
-                       type="text" name="surname" value="${init.surname[0]}"
+                       type="text" name="surname"
+                       value="${fn:escapeXml(init.surname[0])}"
                        required pattern="[A-Za-zА-Яа-яЁё]{2,15}" minlength="2"
                        maxlength="15"/>
                 <div class="text-danger small">${errors.surname}</div>
@@ -70,7 +73,8 @@
                 <label class="text-muted" for="name">${name_lable} <span
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="name"
-                       type="text" name="name" value="${init.name[0]}" required
+                       type="text" name="name"
+                       value="${fn:escapeXml(init.name[0])}" required
                        pattern="[A-Za-zА-Яа-яЁё]{2,15}" minlength="2"
                        maxlength="15"/>
                 <div class="text-danger small">${errors.name}</div>
@@ -81,7 +85,7 @@
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" type="text"
                        id="email" name="email" required
-                       value="${init.email[0]}"
+                       value="${fn:escapeXml(init.email[0])}"
                        pattern="\w{3,15}@[A-Za-z]{3,15}\.[A-Za-z]{1,4}"
                        minlength="9" maxlength="45"/>
                 <div class="text-danger small">${errors.email}</div>
@@ -95,7 +99,8 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="birthday" name="birthday"
-                       value="${init.birthday[0]}" required min="1900-01-01"
+                       value="${fn:escapeXml(init.birthday[0])}" required
+                       min="1900-01-01"
                        max="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>
                 <div class="text-danger small">${errors.birthday}</div>
             </div>

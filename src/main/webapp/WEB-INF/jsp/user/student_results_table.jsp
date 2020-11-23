@@ -30,11 +30,11 @@
                     <td>
                         <a class="text-info"
                            href="${pageContext.request.contextPath}/main?command=get_course_details_page&courseId=${courseResult.key.id}"><myTag:cutLongText
-                                text="${courseResult.key.summary}"
+                                text="${fn:escapeXml(courseResult.key.summary)}"
                                 maxLength="50"/></a>
                     </td>
-                    <td>${courseResult.value.mark}</td>
-                    <td>${courseResult.value.comment}</td>
+                    <td>${fn:escapeXml(courseResult.value.mark)}</td>
+                    <td>${fn:escapeXml(courseResult.value.comment)}</td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -1,6 +1,7 @@
 <%--@elvariable id="user" type="by.epamtc.courses.entity.User"--%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="strings" var="bundle"/>
@@ -90,7 +91,7 @@
                     <input type="hidden" name="command" value="logout"/>
 
                     <span class="navbar-text col-lg-7">
-                    ${user.name} ${user.surname}
+                    ${fn:escapeXml(user.name)} ${fn:escapeXml(user.surname)}
                 </span>
                     <button class="btn btn-sm btn-outline-secondary col-lg-5 ml-2"
                             type="submit">${logout_button}</button>

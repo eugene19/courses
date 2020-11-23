@@ -6,6 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -54,7 +55,7 @@
                         class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
                        id="summary" name="summary" required
-                       value="<c:if test="${init.summary[0] != null}">${init.summary[0]}</c:if><c:if test="${init.summary[0] == null}">${course.summary}</c:if>"
+                       value="<c:if test="${init.summary[0] != null}">${fn:escapeXml(init.summary[0])}</c:if><c:if test="${init.summary[0] == null}">${fn:escapeXml(course.summary)}</c:if>"
                        minlength="3" maxlength="100"/>
                 <div class="text-danger small">${errors.summary}</div>
             </div>
@@ -67,8 +68,8 @@
                           rows="4" style="resize: none"
                           name="description" required minlength="3"
                           maxlength="1130"><c:if
-                        test="${init.description[0] != null}">${init.description[0]}</c:if><c:if
-                        test="${init.description[0] == null}">${course.description}</c:if></textarea>
+                        test="${init.description[0] != null}">${fn:escapeXml(init.description[0])}</c:if><c:if
+                        test="${init.description[0] == null}">${fn:escapeXml(course.description)}</c:if></textarea>
                 <div class="text-danger small">${errors.description}</div>
             </div>
 
@@ -78,7 +79,7 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="startDate" name="startDate" required
-                       value="<c:if test="${init.startDate[0] != null}">${init.startDate[0]}</c:if><c:if test="${init.startDate[0] == null}">${course.startDate}</c:if>"
+                       value="<c:if test="${init.startDate[0] != null}">${fn:escapeXml(init.startDate[0])}</c:if><c:if test="${init.startDate[0] == null}">${fn:escapeXml(course.startDate)}</c:if>"
                        max="2099-12-31"/>
                 <div class="text-danger small">${errors.startDate}</div>
             </div>
@@ -89,7 +90,7 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="endDate" name="endDate" required max="2099-12-31"
-                       value="<c:if test="${init.endDate[0] != null}">${init.endDate[0]}</c:if><c:if test="${init.endDate[0] == null}">${course.endDate}</c:if>"/>
+                       value="<c:if test="${init.endDate[0] != null}">${fn:escapeXml(init.endDate[0])}</c:if><c:if test="${init.endDate[0] == null}">${fn:escapeXml(course.endDate)}</c:if>"/>
                 <div class="text-danger small">${errors.endDate}</div>
             </div>
 
@@ -99,13 +100,13 @@
                         class="text-danger">*</span></label>
                 <input class="form-control" id="studentsLimit" type="number"
                        name="studentsLimit" required min="1" max="100"
-                       value="<c:if test="${init.studentsLimit[0] != null}">${init.studentsLimit[0]}</c:if><c:if test="${init.studentsLimit[0] == null}">${course.studentsLimit}</c:if>"/>
+                       value="<c:if test="${init.studentsLimit[0] != null}">${fn:escapeXml(init.studentsLimit[0])}</c:if><c:if test="${init.studentsLimit[0] == null}">${fn:escapeXml(course.studentsLimit)}</c:if>"/>
                 <div class="text-danger small">${errors.studentsLimit}</div>
             </div>
 
             <div class="form-group row">
                 <input type="hidden" name="status"
-                       value="<c:if test="${init.status[0] != null}">${init.status[0]}</c:if><c:if test="${init.status[0] == null}">${course.status}</c:if>"/>
+                       value="<c:if test="${init.status[0] != null}">${fn:escapeXml(init.status[0])}</c:if><c:if test="${init.status[0] == null}">${fn:escapeXml(course.status)}</c:if>"/>
             </div>
 
             <div class="row justify-content-center py-4">

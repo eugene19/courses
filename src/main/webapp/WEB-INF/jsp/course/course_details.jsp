@@ -5,6 +5,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -104,10 +105,10 @@
 
     <div class="row py-5">
         <div class="container-fluid">
-            <h5 class="h5 mb-5 font-weight-normal pl-5">${course.summary}</h5>
+            <h5 class="h5 mb-5 font-weight-normal pl-5">${fn:escapeXml(course.summary)}</h5>
         </div>
         <div class="container-fluid pl-4">
-            ${course.description}
+            ${fn:escapeXml(course.description)}
         </div>
 
         <c:if test="${course.status == 'NOT_STARTED'}">
@@ -146,7 +147,7 @@
                                      var="its_me"/>
                         <p class="card-text">
                             <a class="text-info"
-                               href="${pageContext.request.contextPath}/main?command=get_about_user_page&userId=${lecturer.id}">${lecturer.surname} ${lecturer.name}</a>
+                               href="${pageContext.request.contextPath}/main?command=get_about_user_page&userId=${lecturer.id}">${fn:escapeXml(lecturer.surname)} ${fn:escapeXml(lecturer.name)}</a>
                             <c:if test="${user.id == lecturer.id}">(${its_me})</c:if>
                         </p>
                     </div>

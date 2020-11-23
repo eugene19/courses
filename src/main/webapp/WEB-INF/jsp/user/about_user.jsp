@@ -1,6 +1,7 @@
 <%--@elvariable id="foundUser" type="by.epamtc.courses.entity.User"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>User's info</title>
@@ -50,7 +51,8 @@
                        class="col-lg-3 col-form-label text-muted text-right">${surname_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="surname" value="${foundUser.surname}"/>
+                           id="surname"
+                           value="${fn:escapeXml(foundUser.surname)}"/>
                 </div>
             </div>
 
@@ -59,7 +61,7 @@
                        class="col-lg-3 col-form-label text-muted text-right">${name_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="name" value="${foundUser.name}"/>
+                           id="name" value="${fn:escapeXml(foundUser.name)}"/>
                 </div>
             </div>
 
@@ -68,7 +70,7 @@
                        class="col-lg-3 col-form-label text-muted text-right">${email_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="email" value="${foundUser.email}"/>
+                           id="email" value="${fn:escapeXml(foundUser.email)}"/>
                 </div>
             </div>
 
@@ -77,7 +79,8 @@
                        class="col-lg-3 col-form-label text-muted text-right">${birthday_lable}</label>
                 <div class="col-lg-6">
                     <input type="text" readonly class="form-control-plaintext"
-                           id="birthday" value="${foundUser.birthday}"/>
+                           id="birthday"
+                           value="${fn:escapeXml(foundUser.birthday)}"/>
                 </div>
             </div>
 

@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -48,7 +49,8 @@
                 <label class="text-muted" for="summary">${summary_lable} <span
                         class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-sm"
-                       id="summary" name="summary" value="${init.summary[0]}"
+                       id="summary" name="summary"
+                       value="${fn:escapeXml(init.summary[0])}"
                        required minlength="3" maxlength="100"/>
                 <div class="text-danger small">${errors.summary}</div>
             </div>
@@ -60,7 +62,7 @@
                 <textarea class="form-control form-control-sm" id="description"
                           rows="4" style="resize: none"
                           name="description" required minlength="3"
-                          maxlength="1130">${init.description[0]}</textarea>
+                          maxlength="1130">${fn:escapeXml(init.description[0])}</textarea>
                 <div class="text-danger small">${errors.description}</div>
             </div>
 
@@ -72,7 +74,7 @@
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
                        id="startDate" name="startDate" required
-                       value="${init.startDate[0]}"
+                       value="${fn:escapeXml(init.startDate[0])}"
                        min="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"
                        max="2099-12-31"/>
                 <div class="text-danger small">${errors.startDate}</div>
@@ -83,7 +85,8 @@
                        for="endDate">${end_date_lable} <span
                         class="text-danger">*</span></label>
                 <input type="date" class="form-control form-control-sm"
-                       id="endDate" name="endDate" value="${init.endDate[0]}"
+                       id="endDate" name="endDate"
+                       value="${fn:escapeXml(init.endDate[0])}"
                        required max="2099-12-31"
                        min="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>
                 <span class="text-danger small">${errors.endDate}</span>
@@ -95,7 +98,7 @@
                         class="text-danger">*</span></label>
                 <input class="form-control form-control-sm" id="studentsLimit"
                        type="number" name="studentsLimit"
-                       value="${init.studentsLimit[0]}"
+                       value="${fn:escapeXml(init.studentsLimit[0])}"
                        required min="1" max="100"/>
                 <div class="text-danger small">${errors.studentsLimit}</div>
             </div>
