@@ -22,7 +22,6 @@ public class ServletContextListenerImpl implements ServletContextListener {
      *
      * @param sce the ServletContextEvent containing the ServletContext
      *            that is being destroyed
-     * @implSpec The default implementation takes no action.
      */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
