@@ -18,7 +18,7 @@ public class UserAuthData extends User {
     /**
      * Password of user
      */
-    private String password;
+    private transient String password;
 
     /**
      * Construct empty user
